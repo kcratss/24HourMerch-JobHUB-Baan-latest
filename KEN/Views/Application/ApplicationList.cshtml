@@ -1,0 +1,93 @@
+﻿@*<script src="~/Content/js/Application.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Application.js?v=4"></script>
+
+
+<script>
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        if (cityName != "Custom") {
+            evt.currentTarget.className += " active";
+        }
+        else {
+            $('#btnApplicationCustom').addClass('active');
+        }
+    }
+
+    $(function () {
+        ApplicationListGrid("All");
+    });
+</script>
+
+<style>         
+        button.tablinks {
+            border-width: 0px;
+            font-size: 14px !important;
+            color: #666666 !important;
+        }
+
+        .tab button.tablinks.active {
+            font-family: 'Arial';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 14px !important;
+            color: #FF0000 !important;
+        }
+</style>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/APPLICATION.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("ApplicationList", "ApplicationList", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrenttab" style="margin-top: 10px;">
+    <img src="~/Content/images/hrImg.png" class="hrimg2" style="margin: 13px -2px 0 0;width:100%;" />
+    <div class="tab">
+        <button class="tabheading">Applications</button>
+
+        <button class="tablinks active" onclick="HighlightTabs(event, 'All'); ApplicationListGrid('All');">All</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Screen Prints'); ApplicationListGrid('Screen Print');">Screen Prints</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Embroidery'); ApplicationListGrid('Embroidery');">Embroidery</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Digital'); ApplicationListGrid('Digital Print');">Digital</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Primo Colour'); ApplicationListGrid('Primo Colour');">Primo Colour</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Vinyl Transfer'); ApplicationListGrid('Vinyl Transfer');">Vinyl Transfer</button>
+        @*by sandeep InActive Condition (24Sept)*@
+        <button id="btnInActive" class="tablinks" onclick="HighlightTabs(event, 'InActive'); ApplicationListGrid('InActive');">InActive</button>
+        <button id="btnApplicationCustom" class="tablinks" onclick="HighlightTabs(event, 'Custom'); ApplicationListGrid('Custom');">Custom</button>
+    </div>
+
+    <img src="~/Content/images/hrImg.png" class="hrimg2" style="margin: -14px 5px 3px 1px;width: 100%;" />
+</div>
+
+<div class="row RowColumns tabBody" id="All" style="display:block;">
+    <div class="row" style="margin-top:0px">
+        <div class="col-sm-12">
+            <div id="ApplicationListGrid" class="SearchText" style="margin: 0px 0px 0px 10px;width:auto"></div>
+        </div>
+    </div>
+</div>
+
+@*After Render Body Section Starts Here*@
+
+            </section>
+
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+<aside class="right-sidebar">
+    <section class="sidebar">
+        <div class="user-panel applicationlist_img">
+            <div class="templateImage">
+                <img src="~/Content/uploads/Opportunity/NoImage.png" id="imgApplicationThumbnail" class="img-responsive" alt="User Image" />
+            </div>
+        </div>
+    </section>
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

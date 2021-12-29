@@ -1,0 +1,153 @@
+﻿@*<script src="~/Content/js/CommonMasters.js"></script>
+<script src="~/Content/js/opportunity.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/CommonMasters.js?v=2"></script>
+<script src="~/Content/js/opportunity.js?v=4"></script>
+
+<style>
+    #ddlMasterList {
+        width: 300px;
+        height: 35px;
+        border-bottom-left-radius: 2px;
+        margin-left: -12px;
+    }
+
+    #ddlStatusList {
+        width: 300px;
+        height: 35px;
+        /*border-bottom-left-radius: 2px;
+        margin-left: -12px;*/
+    }
+
+    .pq-toolbar > button {
+        background-color: white;
+        border: 2px solid whitesmoke;
+        float: right;
+        margin-right: 8px;
+    }
+</style>
+
+<div class="row" style="margin-top:18px">
+    @*06 Oct 2018 (N)*@
+    <div class="col-lg-12" style="margin-left:25px;margin-bottom:15px">
+        <div class="col-lg-1">
+            <label class="popHeader" style="margin-top : 5px">Select</label>
+        </div>
+        <div class="col-lg-3">
+            @Html.DropDownList("FooBarDropDown", new List<SelectListItem>
+                   {
+                          new SelectListItem { Text="----Select----", Value="BlankValue"},
+                          new SelectListItem{ Text="Department", Value="tbldepartment" },
+                          new SelectListItem{ Text="Brand" , Value="tblband" },
+                          new SelectListItem {Text="Items",Value="tblitem" },
+                   }, new { @id = "ddlMasterList" })
+        </div>
+
+
+
+        <div class="col-lg-1">
+            <label class="popHeader" style="margin-top : 5px">Status</label>
+        </div>
+        <div class="col-lg-3">
+            @Html.DropDownList("FooBarDropDown", new List<SelectListItem>
+                   {
+                          new SelectListItem{ Text="All", Value="All" },
+                          new SelectListItem{ Text="Active" , Value="Active" },
+                          new SelectListItem {Text="InActive",Value="InActive" },
+                   }, new { @id = "ddlStatusList" })
+        </div>
+        <div class="col-lg-4">
+            @*baans change 10th October*@
+            @*<input type="file" name="postedFile" id="UploadButton" formmethod="post" onchange="FileSelected(this)" style="width: 0;">*@
+            @*@using (Html.BeginForm("CommonMastersDetails", "CommonMasters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="postedFile" />
+        <input type="submit" value="Import" />
+}*@
+            @*baans end 10th October*@
+        </div>
+    </div>
+</div>
+
+
+@*Grid #####################################################################*@
+
+<div class="row RowColumns tabBody" id="All" style="display:block;">
+    <div class="row" style="margin-top:10px;">
+        <div class="col-sm-12">
+            <div class="panelheader">
+            </div>
+
+            <div id="MastersGrids" style="margin:0px 0px 0px 8px;width:auto"></div>
+        </div>
+    </div>
+</div>
+
+@*Popup #####################################################################*@
+
+<div id="editModal" class="w3-modal " style="border: 1px solid #ced4da;display:none">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto; width:28%; margin-top:86px;padding-bottom:9px;">
+        <div class="row" style="background-color:#efefef;color:black;width:100%;margin-left:0px;">
+            <div class="col-sm-12" style="margin-top:12px;margin-left:4px;margin-bottom:8px;">
+                <label id="lbladd" style="display:none;font-size:15px">Add New</label>
+                <label id="lbledit" style="display:none;font-size:15px;">Edit Existing</label>
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                <label style="font-family:Arial;font-weight:400;">Name<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10" style="width: 267px;margin-left: -8px;">
+                <input type="hidden" id="commonhiddenid" />
+                <input type="text" class="form-control" placeholder="" id="txtname" style="width:115%" />
+                @*<input type="text" class="form-control" placeholder="" id="txtbrandname" style="display:none"/>*@
+                <input type="hidden" id="tablename" />
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm" style="margin-left:25px;">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 innerDiv">
+                <label class="lblOpprtDetail" style="font-family:Arial;font-weight:400;">Status<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 innerDiv">
+                <select class="txtstatusDetails" id="ddlstatus" style="width:25%">
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:5px">
+            <div class="col-sm-8">
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" style="float: none; margin-top:5px; margin-left:25px; width:61px;" ID="btnSave" class="btndesign" onclick="InsertChanges();">Save</button>
+            </div>
+            <div class="col-sm-2">
+
+                <button type="button" style="float: none; margin-top:5px; " ID="btncancel" class="btndesign" onclick="hidepopupADD();">Cancel</button>
+            </div>
+
+        </div>
+
+        @*<div class="modal-footer" style="height:33px">
+                <a id="btnsavechanges" style="margin-top:-1px" onclick="InsertChanges();" class="btn btn-light btndesign">Save</a>
+                <a class="btn btn-light btndesign" style="margin-top:-1px" data-dismiss="modal" onclick="hidepopupADD();"> Cancel</a>
+            </div>*@
+    </div>
+</div>
+
+
+
+
+@*After Render Body Section Starts Here*@
+    </section>
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    @* @Html.Partial("_OptionRightSideBar")*@
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

@@ -1,0 +1,1073 @@
+﻿body {
+}
+
+@-webkit-keyframes myfirst {
+    0% {
+        top: 0px;
+    }
+
+    25% {
+        top: 2px;
+    }
+
+    50% {
+        top: 0px;
+    }
+
+    75% {
+        top: 2px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
+
+@keyframes myfirst {
+    0% {
+        top: 0px;
+    }
+
+    25% {
+        top: 2px;
+    }
+
+    50% {
+        top: 0px;
+    }
+
+    75% {
+        top: 2px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
+
+label {
+    color: gray !important;
+    font-size: 12px;
+}
+
+.nav-tabs > li > a:hover {
+    color: black;
+    background-color: #efefef;
+}
+
+.form-control {
+    height: 23px !important;
+    padding: 6px 6px !important;
+    font-size: 12px !important;
+    border-radius: 1px 1px 1px 1px;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+@-moz-document url-prefix() {
+    .form-control {
+        height: 23px !important;
+        padding: 2px !important;
+        font-size: 12px !important;
+        border-radius: 1px 1px 1px 1px;
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+    }
+}
+
+
+.riSingle .riTextBox[type="text"] {
+    border-radius: 1px 1px 1px 1px;
+}
+
+.row-space {
+    height: 2px;
+}
+
+
+/*.RadComboBox_Metro {
+    border: 1px solid #ffffff !important;
+    border-radius: 4px 4px 4px 4px;
+    overflow: hidden;
+}*/
+
+.col3 {
+    margin: 0;
+    padding: 0 5px 0 0;
+    margin-right: 10px;
+    line-height: 14px;
+    float: left;
+    text-align: left;
+}
+
+.not-active {
+    background-color: rgba(187, 183, 183, 0.40) !important;
+    pointer-events: none;
+}
+
+.w3-btn {
+    border-radius: 3px 3px 3px 3px;
+}
+
+.j-alertBox-Success {
+    background-color: rgb(76, 175, 80);
+    color: white;
+    position: fixed;
+    top: -14px;
+    width: 54%;
+    z-index: 10000;
+    left: 20%;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.j-alertBox-Failed {
+    background-color: #c33d3d;
+    color: white;
+    position: fixed;
+    top: -14px;
+    width: 54%;
+    z-index: 10000;
+    left: 20%;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px 4px 4px 4px;
+}
+
+/*.rgFilterBox {
+    width: 98% !important;
+}*/
+
+.rgFilterRow td {
+    border-left: 1px solid #cccccc !important;
+}
+
+    .rgFilterRow td:first-child {
+        border-left: initial !important;
+    }
+
+.top-header-title {
+    background-color: #fcfcfc;
+    color: #5587b1;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 4px;
+}
+
+.rdf-inupt-glow {
+    -webkit-box-shadow: 0px 0px 5px #f83b3b;
+    -moz-box-shadow: 0px 0px 5px #f83b3b;
+    box-shadow: 0px 0px 5px #f83b3b;
+}
+
+    .rdf-inupt-glow .rcbInputCell {
+        background-color: #ffdddd !important;
+    }
+
+.rdf-text {
+    right: 11px;
+    padding: 3px;
+    float: right;
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    -webkit-animation: myfirst 1s linear 1s infinite alternate; /* Chrome, Safari, Opera */
+    animation: myfirst 1s linear 1s infinite alternate;
+}
+
+.plz-wait {
+    -webkit-animation: myfirst 1s linear 1s infinite alternate; /* Chrome, Safari, Opera */
+    animation: myfirst 1s linear 1s infinite alternate;
+}
+
+control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #f7f7f7 !important;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.rdf-initial {
+    right: 11px;
+    position: absolute;
+    top: 6px;
+}
+
+/*.RadGrid_Metro .rgAdd {
+    background-image: url(../../images/gridPlusog.png) !important;
+    background-repeat: no-repeat;
+    background-position: 0 0px !important;
+    background-color: lightgray !important;
+}*/
+
+.rgCommandTable caption {
+    display: none;
+}
+
+.RadGrid_Metro .rgCommandTable td {
+    border: 0 !important;
+    padding: 7px 7px !important;
+}
+
+.RadGrid_Metro .rgRow td {
+    border-color: #cccccc !important;
+    color: black;
+}
+
+.RadGrid_Metro .rgRow > td:first-child, .RadGrid_Metro .rgAltRow > td:first-child {
+    border-left-width: 0;
+    padding: 7px;
+}
+
+.RadGrid_Metro .rgSelectedRow, .rgSelectedRow td {
+    background: rgb(191, 191, 191) !important;
+    color: white;
+    border-color: #66676e !important;
+}
+
+.RadGrid_Metro .rgRow:hover, .RadGrid_Metro .rgAltRow:hover {
+    background-color: #f1f1f1;
+    color: #a09a9a;
+}
+
+.RadGrid_Metro .rgHeader {
+    font-weight: bolder !important;
+    font-size: 12px !important;
+}
+
+.RadGrid_Metro .rgCommandRow a {
+    font-weight: 800;
+}
+
+.nav-tabs > li.active {
+    color: #c2292c !important;
+    font-weight: 700;
+}
+
+.nln-Color {
+    color: rgba(194, 41, 44, 1) !important;
+}
+
+.nln-bg {
+    background-color: rgba(194, 41, 44, 1) !important;
+    font-weight: 700;
+}
+
+    .nln-bg:hover {
+        background-color: #5f5f5f;
+    }
+
+.nln-gray-bg-padding {
+    background-color: #686e78 !important;
+    color: #e3e3e3 !important;
+    padding: 4px 12px !important;
+}
+
+.nln-gray-bg {
+    background-color: #686e78 !important;
+    color: #e3e3e3 !important;
+}
+
+.heading {
+    margin-top: 0px !important;
+    margin-bottom: 17px !important;
+    padding-left: 11px;
+}
+
+.RadListBox .rlbGroup {
+    border: none !important;
+}
+
+textarea:focus {
+    outline: none !important;
+    border: 1px solid #66afe9;
+}
+
+.form-control:focus {
+    outline: none !important;
+    border: 1px solid #66afe9;
+}
+
+.RadCalendar_Default .rcRow .rcToday {
+    border-color: #337ab7;
+}
+
+@media only screen (min-width:320px) and (max-width:850px) {
+   #custDetails { 
+       height: 1850px !important;
+
+   }
+  
+}
+
+@media only screen and (max-width: 3000px) {
+    #ctl00_ContentPlaceHolder1_gridClients {
+        height: 1200px !important;
+    }
+
+    #petDetailstab {
+        height: 1200px !important;
+    }
+
+    #custDetails {
+        height: 1200px !important;
+    }
+
+    #petDetailsinci {
+        height: 1200px !important;
+    }
+
+    #petDetailstran {
+        height: 1200px !important;
+    }
+
+    #petDetailsedittr {
+        height: 1200px !important;
+    }
+
+    #petDetailsday {
+        height: 1200px !important;
+    }
+
+    #petDetailsBoard {
+        height: 1200px !important;
+    }
+
+    #petDetailseditboard {
+        height: 1200px !important;
+    }
+
+    #petDetailsgroom {
+        height: 1200px !important;
+    }
+
+    #invoice {
+        height: 1250px !important;
+    }
+
+    #editinvoice {
+        height: 1230px !important;
+    }
+
+    #clientdoc {
+        height: 1200px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridPet {
+        height: 1240px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_daycampbalgrid {
+        height: 1200px !important;
+    }
+
+    #boardavail {
+        height: 1200px !important;
+    }
+
+    #boardnoshow {
+        height: 1230px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadDayTrainerPerformanceLog {
+        height: 1230px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadPaymentPlan {
+        height: 1230px !important;
+    }
+
+    #submitemail {
+        height: 1230px !important;
+    }
+
+    #rt {
+        height: 1200px !important;
+    }
+
+    #rm {
+        height: 1200px !important;
+    }
+
+    #ad {
+        height: 1200px !important;
+    }
+
+    #RMsearch {
+        height: 1200px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridHRemployee {
+        height: 1200px !important;
+    }
+
+    #hremp {
+        height: 1200px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridAgreementLiability {
+        height: 1200px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridpricing {
+        height: 1200px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridbreed {
+        height: 1200px !important;
+    }
+    /*#ctl00_ContentPlaceHolder1_ctl00_ContentPlaceHolder1_gridDayCampBookedPanel
+         {
+            height:1200px !important
+         }*/
+}
+
+@media only screen and (max-width:2050px) {
+    #ctl00_ContentPlaceHolder1_gridClients {
+        height: 900px !important;
+    }
+
+    #petDetailstab {
+        height: 900px !important;
+    }
+
+    #custDetails {
+        height: 900px !important;
+    }
+
+    #petDetailsinci {
+        height: 900px !important;
+    }
+
+    #petDetailstran {
+        height: 850px !important;
+    }
+
+    #petDetailsedittr {
+        height: 850px !important;
+    }
+
+    #petDetailsday {
+        height: 900px !important;
+    }
+
+    #petDetailsBoard {
+        height: 850px !important;
+    }
+
+    #petDetailseditboard {
+        height: 850px !important;
+    }
+
+    #petDetailsgroom {
+        height: 850px !important;
+    }
+
+    #invoice {
+        height: 1200px !important;
+    }
+
+    #editinvoice {
+        height: 900px !important;
+    }
+
+    #clientdoc {
+        height: 830px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridPet {
+        height: 885px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_daycampbalgrid {
+        height: 880px !important;
+    }
+
+    #boardavail {
+        height: 880px !important;
+    }
+
+    #boardnoshow {
+        height: 900px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadDayTrainerPerformanceLog {
+        height: 900px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadPaymentPlan {
+        height: 900px !important;
+    }
+
+    #submitemail {
+        height: 900px !important;
+    }
+
+    #rt {
+        height: 900px !important;
+    }
+
+    #rm {
+        height: 900px !important;
+    }
+
+    #ad {
+        height: 900px !important;
+    }
+
+    #RMsearch {
+        height: 900px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridHRemployee {
+        height: 900px !important;
+    }
+
+    #hremp {
+        height: 900px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridAgreementLiability {
+        height: 900px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridpricing {
+        height: 900px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridbreed {
+        height: 900px !important;
+    }
+}
+
+@media only screen and (max-width:1822px) {
+    #ctl00_ContentPlaceHolder1_gridClients {
+        height: 780px !important;
+    }
+
+    #petDetailstab {
+        height: 750px !important;
+    }
+
+    #custDetails {
+        height: 930px !important;
+    }
+
+    #petDetailsinci {
+        height: 950px !important;
+    }
+
+    #petDetailstran {
+        height: 820px !important;
+    }
+
+    #petDetailsedittr {
+        height: 750px !important;
+    }
+
+    #petDetailsday {
+        height: 950px !important;
+    }
+
+    #petDetailsBoard {
+        height: 750px !important;
+    }
+
+    #petDetailseditboard {
+        height: 750px !important;
+    }
+
+    #petDetailsgroom {
+        height: 750px !important;
+    }
+
+    #invoice {
+        height: 1230px !important;
+    }
+
+    #editinvoice {
+        height: 800px !important;
+    }
+
+    #clientdoc {
+        height: 730px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridPet {
+        height: 780px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_daycampbalgrid {
+        height: 780px !important;
+    }
+
+    #boardavail {
+        height: 780px !important;
+    }
+
+    #boardnoshow {
+        height: 790px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadDayTrainerPerformanceLog {
+        height: 790px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadPaymentPlan {
+        height: 790px !important;
+    }
+
+    #submitemail {
+        height: 790px !important;
+    }
+
+    #rt {
+        height: 750px !important;
+    }
+
+    #rm {
+        height: 750px !important;
+    }
+
+    #ad {
+        height: 750px !important;
+    }
+
+    #RMsearch {
+        height: 750px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridHRemployee {
+        height: 780px !important;
+    }
+
+    #hremp {
+        height: 780px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridAgreementLiability {
+        height: 780px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridpricing {
+        height: 780px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridbreed {
+        height: 780px !important;
+    }
+}
+
+
+@media only screen and (max-width:1709px) {
+    #ctl00_ContentPlaceHolder1_gridClients {
+        height: 740px !important;
+    }
+
+    #petDetailstab {
+        height: 691px !important;
+    }
+
+    #custDetails {
+        height: 920px !important;
+    }
+
+    #petDetailsinci {
+        height: 900px !important;
+    }
+
+    #petDetailstran {
+        height: 800px !important;
+    }
+
+    #petDetailsedittr {
+        height: 700px !important;
+    }
+
+    #petDetailsday {
+        height: 900px !important;
+    }
+
+    #petDetailsBoard {
+        height: 700px !important;
+    }
+
+    #petDetailseditboard {
+        height: 700px !important;
+    }
+
+    #petDetailsgroom {
+        height: 800px !important;
+    }
+
+    #invoice {
+        height: 1200px !important;
+    }
+
+    #editinvoice {
+        height: 770px !important;
+    }
+
+    #clientdoc {
+        height: 680px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridPet {
+        height: 730px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_daycampbalgrid {
+        height: 730px !important;
+    }
+
+    #boardavail {
+        height: 730px !important;
+    }
+
+    #boardnoshow {
+        height: 730px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadDayTrainerPerformanceLog {
+        height: 730px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadPaymentPlan {
+        height: 730px !important;
+    }
+
+    #submitemail {
+        height: 730px !important;
+    }
+
+    #rt {
+        height: 700px !important;
+    }
+
+    #rm {
+        height: 700px !important;
+    }
+
+    #ad {
+        height: 700px !important;
+    }
+
+    #RMsearch {
+        height: 700px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridHRemployee {
+        height: 740px !important;
+    }
+
+    #hremp {
+        height: 740px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridAgreementLiability {
+        height: 740px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridpricing {
+        height: 740px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridbreed {
+        height: 740px !important;
+    }
+}
+
+@media only screen and (max-width:1519px) {
+    #ctl00_ContentPlaceHolder1_gridClients {
+        height: 650px !important;
+    }
+
+    #custDetails {
+        height: 900px !important;
+    }
+
+    #petDetailsinci {
+        height: 900px !important;
+    }
+
+    #petDetailstran {
+        height: 820px !important;
+    }
+
+    #petDetailsedittr {
+        height: 600px !important;
+    }
+
+    #petDetailsday {
+        height: 900px !important;
+    }
+
+    #petDetailsBoard {
+        height: 650px !important;
+    }
+
+    #petDetailseditboard {
+        height: 600px !important;
+    }
+
+    #petDetailsgroom {
+        height: 750px !important;
+    }
+
+    #invoice {
+        height: 1200px !important;
+    }
+
+    #editinvoice {
+        height: 770px !important;
+    }
+
+    #clientdoc {
+        height: 600px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridPet {
+        height: 650px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_daycampbalgrid {
+        height: 650px !important;
+    }
+
+    #boardavail {
+        height: 650px !important;
+    }
+
+    #boardnoshow {
+        height: 650px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadDayTrainerPerformanceLog {
+        height: 650px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadPaymentPlan {
+        height: 650px !important;
+    }
+
+    #submitemail {
+        height: 650px !important;
+    }
+
+    #rt {
+        height: 600px !important;
+    }
+
+    #rm {
+        height: 600px !important;
+    }
+
+    #ad {
+        height: 600px !important;
+    }
+
+    #RMsearch {
+        height: 600px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridHRemployee {
+        height: 700px !important;
+    }
+
+    #hremp {
+        height: 700px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridAgreementLiability {
+        height: 700px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridpricing {
+        height: 700px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridbreed {
+        height: 700px !important;
+    }
+}
+
+@media only screen  and (max-width:990px) {
+    #ctl00_ContentPlaceHolder1_gridClients {
+        height: 570px !important;
+    }
+
+    #custDetails {
+        height:1921px !important;
+    }
+
+    #petDetailsinci {
+        height: 925px !important;
+    }
+
+    #petDetailstran {
+        height: 850px !important;
+    }
+
+    #petDetailsedittr {
+        height: 550px !important;
+    }
+
+    #petDetailsday {
+        height: 925px !important;
+    }
+
+    #petDetailsBoard {
+        height: 650px !important;
+    }
+
+    #petDetailseditboard {
+        height: 600px !important;
+    }
+
+    #petDetailsgroom {
+        height: 750px !important;
+    }
+
+    #invoice {
+        height: 1250px !important;
+    }
+
+    #editinvoice {
+        height: 766px !important;
+    }
+
+    #clientdoc {
+        height: 530px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridPet {
+        height: 560px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_daycampbalgrid {
+        height: 650px !important;
+    }
+
+    #boardavail {
+        height: 650px !important;
+    }
+
+    #boardnoshow {
+        height: 650px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadDayTrainerPerformanceLog {
+        height: 650px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_RadPaymentPlan {
+        height: 650px !important;
+    }
+
+    #submitemail {
+        height: 600px !important;
+    }
+
+    #rt {
+        height: 600px !important;
+    }
+
+    #rm {
+        height: 600px !important;
+    }
+
+    #ad {
+        height: 600px !important;
+    }
+
+    #RMsearch {
+        height: 600px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridHRemployee {
+        height: 750px !important;
+    }
+
+    #hremp {
+        height: 750px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_gridAgreementLiability {
+        height: 750px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridpricing {
+        height: 750px !important;
+    }
+
+    #ctl00_ContentPlaceHolder1_rdgridbreed {
+        height: 750px !important;
+    }
+    /*#ctl00_ContentPlaceHolder1_gridClientss{
+        height: 300px !important;
+
+    }*/
+}
+
+
+.rgCommandTable td:nth-child(1) {
+    display: none !important;
+}
+
+#ctl00_ContentPlaceHolder1_ProjectProgressBar .rpbStateSelected {
+    background-color: #aeda25 !important;
+}
+.rpbLabelWrapper {
+    text-align: left !important;
+}
+.j-alertBox-Success {
+    background-color: rgb(133, 222, 136);
+    color: white;
+    position: fixed;
+    top: 4px;
+    /*width: 54%;*/
+    width: 34%;
+    z-index: 10000;
+    /*left: 20%;*/
+    left: 61%;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.j-alertBox-Warning {
+    /*color: #9F6000;*/
+    color: #fcfcfc;
+    /*background-color: #FEEFB3;*/
+    background-color: #00adef;
+    position: fixed;
+    top: 4px;
+    /*width: 54%;*/
+    width: 34%;
+    z-index: 10000;
+    /*left: 20%;*/
+    left: 61%;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.j-alertBox-Failed {
+    background-color: #c33d3d;
+    color: white;
+    position: fixed;
+    top: 4px;
+    /*width: 54%;*/
+    width: 34%;
+    z-index: 10000;
+    /*left: 20%;*/
+    left: 61%;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px 4px 4px 4px;
+}

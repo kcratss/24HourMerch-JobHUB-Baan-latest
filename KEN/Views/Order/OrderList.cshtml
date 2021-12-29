@@ -1,0 +1,146 @@
+﻿@*<script src="~/Content/js/Order.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Order.js?v=1"></script>
+<script type="text/javascript">
+
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        OrderGridList("Order","All",'');
+    });
+</script>
+
+<style>
+    element.style {
+        border-right: none;
+        /* width: 79px; */
+    }
+
+    .pq-slider-icon.pq-no-capture {
+        display: none;
+    }
+
+    .row.RowColumns {
+        margin: 0px 30px 0 0px;
+        width: 100%;
+    }
+
+
+    table.pq-grid-header-table {
+        table-layout: fixed;
+        width: 0;
+        border-spacing: 0;
+        border-collapse: separate;
+        margin-bottom: 0px;
+    }
+
+    button.tablinks {
+        border-width: 0px;
+        font-size: 14px !important;
+        color: #666666 !important;
+    }
+
+    .tab button.tablinks.active {
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px !important;
+        color: #FF0000 !important;
+    }
+
+    button.tabheading {
+        float: left;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 20px;
+        transition: 0.3s;
+        left: 0px;
+        top: 0px;
+        background: inherit;
+        border: none;
+        border-radius: 0px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 16px;
+    }
+    /*baans change 16th july form Scroll*/
+    div.pq-grid * {
+        font-size: 10px;
+    }
+    /*baans end 16th July*/
+</style>
+
+<div style="display: none" class="w3-section w3-card-12  j-close fadeOut j-alertBox-Success" id="art1">
+    <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">×</span>
+    <label><strong>Success ! </strong></label>
+    <span></span>
+</div>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/ORDER.png" id="ImageChange" class="img-responsive currentTabimg" />
+</div>
+
+<div class="row showCurrenttab" style="margin-top: 30px;">
+    @*<img src="~/Content/images/hrImg.png" class="hrimg" />*@
+    <div class="tab">
+        <button class="tabheading">WIP</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'All'); OrderGridList('All','All','');">All</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Opportunities'); OrderGridList('Opportunity', 'All', '');">Opportunities</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Declined'); OrderGridList('Declined', 'All', '');">Declined</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Quotes'); OrderGridList('Quotes','All','');">Quotes</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Lost'); OrderGridList('Lost', 'All', '');">Lost</button>
+        <button class="tablinks active" onclick="HighlightTabs(event, 'Order'); OrderGridList('Order', 'All', '');">Orders</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Cancelled'); OrderGridList('Cancelled', 'All', '');">Cancelled</button>
+        <button class="tablinks" id="Job" onclick="HighlightTabs(event, 'Job'); JobsGridList('Job', 'All', '');">Jobs</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Packing'); OrderGridList('Packing', 'All', '');">Packing</button>
+        @*<button class="tablinks" id="btnInvoicing" onclick="HighlightTabs(event, 'Invoicing'); OrderGridList('Invoicing','All');">Invoicing</button>*@
+        <button class="tablinks" id="btnInvoiced" onclick="HighlightTabs(event, 'Invoiced'); OrderGridList('Invoiced', 'All', '');">Invoiced</button>
+        <button class="tablinks" id="btnShipping" onclick="HighlightTabs(event, 'Shipping'); OrderGridList('Shipping', 'All', '');">Shipping</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Complete'); OrderGridList('Complete', 'All', '');">Complete</button>
+    </div>
+    @*<img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -7px 0 0 0;" />*@
+</div>
+
+
+<div class="row RowColumns tabBody" id="All" style="display:block;">
+
+    <div class="row" style="margin-top:10px">
+
+        <div class="col-sm-12">
+
+            <div class="panelheader">
+            </div>
+
+            <div id="OrderGrid" style="margin:auto;width:auto"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row RowColumns tabBody" id="Team">
+
+</div>
+
+
+            </section>
+
+        </aside><!-- /.right-side -->
+
+
+<aside class="right-sidebar"></aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

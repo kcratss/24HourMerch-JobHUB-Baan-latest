@@ -1,0 +1,174 @@
+﻿<section id="SectionRightSidebar" class="sidebar">
+    <div class="user-panel">
+        <div class="templateImage">
+            <img src="~/Content/uploads/Opportunity/NoImage.png" id="imageOppThumbnail" onclick="SaveOppThumbnail();" style="cursor:pointer" class="img-responsive" alt="User Image" />
+            <input type="file" accept="image/*" id="OppThumbnail" onChange="PhotoreadURL(this);">
+        </div>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="rightheading" style="padding-bottom: 20px;">
+            <a>
+                <span class="leftsideTextheading">Planned Date</span><span id="lblPlanDate1" class="rowUpperHeaddate"></span><span id="lblPlanDate2" class="rowUpperHeaddateplan"></span> <span class="rightsideTextheading">Production Line</span><span class="rowUpperHeaddate" id="lblProdLine" style="width: 92px;left: 118px;margin-top: 15px;"></span><span class="rowUpperHeaddateplan" id="lblProdLine1" style="width: 92px;left: 118px;margin-top: 30px;"></span>
+            </a>
+
+            @*<a>
+                <span class="rowUpperHeaddateplan" id="lblPlanDate1"></span>
+
+            </a>*@
+            @*<a>
+                <span class="rowUpperHeaddateplan" id="lblPlanDate2"></span>
+            </a>*@
+        </li>
+
+        @*baans change 26th September for Plan Date*@
+        @*<li>
+
+        </li>*@
+        @*baans end 26th Sept*@
+        @*baans change 7th December*@
+        <li class="AboveStages" style="display:block">
+            <a>
+                <span class="rightsideText" id="spanOppDate">Received</span><span class="rowUpperHeaddate" id="lblOppDate"></span> <button type="button" id="btnOppoStage" onclick="ChangeStageByOppoID('Opportunity', 'OpportunityDetails', 1)" class="rightSideBtn">OPPORTUNITY</button>
+            </a>
+        </li>
+        <li class="AboveStages" style="display:block">
+            <a>
+                <span class="rightsideText" id="spanQuoteDate">Qualified</span><span class="rowUpperHeaddate" id="lblQuoteDate"></span> <button type="button" id="btnQuoteStage" onclick="ChangeStageByOppoID('Quote','QuoteDetails',2)" class="rightSideBtn">QUOTE</button>
+            </a>
+        </li>
+
+        <li class="AboveStages" style="display:block">
+            <a>
+                <span class="rightsideText" id="spanOrderDate">Quote Accepted</span><span class="rowUpperHeaddate" id="lblOrderDate"></span> <button type="button" id="btnOrderStage" onclick="ChangeStageByOppoID('Order', 'OrderDetails', 3)" class="rightSideBtn">ORDER</button>
+            </a>
+        </li>
+
+        <li class="AboveStages" style="display:block">
+            <a>
+                <span class="rightsideText" id="spanJobDate">Deposit Made</span><span class="rowUpperHeaddate" id="lblJobDate"></span> <button type="button" id="btnJobStage" onclick="ChangeStageByOppoID('Job', 'JobDetails', 4)" class="rightSideBtn">JOB</button>
+            </a>
+        </li>
+
+        <li class="AboveStages" style="display:block">
+            <a>
+                @*<span class="rightsideText" id="spanConfirmDate">Order Confirmed</span><span class="rowUpperHeaddate" id="lblOrderConfirmDate"></span>*@ 
+                @*commented and changed by Baans 31Aug2020 changed Order Confirmed to Job Confirmed*@
+                <span class="rightsideText" id="spanConfirmDate">Job Confirmed</span><span class="rowUpperHeaddate" id="lblOrderConfirmDate"></span><button type="button" id="btnOrderConfirmedStage" onclick="ChangeStageByOppoID('Order Confirmed', '', 5)" class="rightSideBtn">CONFIRMED</button>
+            </a>
+        </li>       
+
+        <li class="RightSideStage" style="display:none">
+            <a>
+                <span class="leftsideStageheading">Stage : </span><span class="rightsideStageheading" id="lblListJobStageData"></span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <span class="rightsideText" id="spanJobAcceptedDate">Job Accepted</span><span class="rowUpperHeaddate" id="lblJobAcceptedDate"></span><button type="button" id="btnJobAccepted" onclick="ChangeStageByOppoID('Job Accepted', '', 18)" class="rightSideBtn">ACCEPTED</button>
+            </a>
+        </li>
+        <li>
+            <a>
+                @*<span class="rightsideText">Art Ordered</span><span class="rowUpperHeaddate" id="lblArtOrderdDate"></span>*@ 
+                <span class="rightsideText">Proof Ordered</span><span class="rowUpperHeaddate" id="lblArtOrderdDate"></span>
+                <button id="btnArtOrderedStage" onclick="ChangeStageByOppoID('Art Ordered', '', 6)" type="button" class="rightSideBtn">ORDERED</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                <span class="rightsideText" id="spanProofCreatedDate">Proof Created</span><span class="rowUpperHeaddate" id="lblProofCreatedDate"></span><button type="button" id="btnProofCreated" onclick="ChangeStageByOppoID('Proof Created', '', 19)" class="rightSideBtn">CREATED</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                <span class="rightsideText" id="spanProofSentDate">Proof Sent</span><span class="rowUpperHeaddate" id="lblProofSentDate"></span><button type="button" id="btnProofSent" onclick="ChangeStageByOppoID('Proof Sent', '', 20)" class="rightSideBtn">SENT</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                @*<span class="rightsideText">Proof Approved</span><span class="rowUpperHeaddate" id="lblProofApprovedDate"></span> <button type="button" id="btnProofApprovedStage" onclick="ChangeStageByOppoID('Proof Approved', '',7)" class="rightSideBtn">APPROVED</button>*@                
+                    @*commented and changed by Baans 31Aug2020 changed Proof Approved to Proof Confirmed and APPROVED to CONFIRMED*@
+                <span class="rightsideText">Proof Confirmed</span><span class="rowUpperHeaddate" id="lblProofApprovedDate"></span> <button type="button" id="btnProofApprovedStage" onclick="ChangeStageByOppoID('Proof Approved', '',7)" class="rightSideBtn">CONFIRMED</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                @*<span class="rightsideText">Film/Digi Ready</span> <span class="rowUpperHeaddate" id="lblDigiReadyDate"></span>*@ 
+                @*commented and changed by Baans 31Aug2020 changed Film/Digi Ready to Prod Art Ready*@ 
+                <span class="rightsideText">Prod Art Ready</span> <span class="rowUpperHeaddate" id="lblDigiReadyDate"></span>
+                <button id="btnDigiReadyStage" onclick="ChangeStageByOppoID('Film/Digi Ready', '', 8)" type="button" class="rightSideBtn">ART READY</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                <span class="rightsideText">Stock Ordered</span><span class="rowUpperHeaddate" id="lblStockOrderedDate"></span>  <button id="btnStockOrderStage" onclick="ChangeStageByOppoID('Stock Ordered', '', 9)" type="button" class="rightSideBtn">ORDERED</button>
+            </a>
+        </li>
+        <li>
+            <a>
+                <span class="rightsideText">Stock In</span><span class="rowUpperHeaddate" id="lblStockInDate"></span>  <button id="btnStockInStage" onclick="ChangeStageByOppoID('Stock In', '', 10)" type="button" class="rightSideBtn">RECEIVED</button>
+            </a>
+        </li>
+        <li>
+            <a>
+                <span class="rightsideText">Stock Checked</span><span class="rowUpperHeaddate" id="lblStockCheckedDate"></span>  <button id="btnStockCheckedStage" onclick="ChangeStageByOppoID('Stock Checked', '', 11)" type="button" class="rightSideBtn">CHECKED</button>
+            </a>
+        </li>
+        <li>
+            <a>
+                @*<span class="rightsideText" id="spanStockDecoratedDate">Stock Decorated</span> <span class="rowUpperHeaddate" id="lblStockDecoratedDate"></span> <button id="btnStockDecoratedStage" onclick="ChangeStageByOppoID('Stock Decorated', 'PackingDetails', 12)" type="button" class="rightSideBtn">DECORATED</button>*@ 
+                @*commented and changed by Baans 31Aug2020 changed Stock Decorated to Job Processed & DECORATED to PROCESSED*@
+                <span class="rightsideText" id="spanStockDecoratedDate">Job Processed</span> <span class="rowUpperHeaddate" id="lblStockDecoratedDate"></span> <button id="btnStockDecoratedStage" onclick="ChangeStageByOppoID('Stock Decorated', 'PackingDetails', 12)" type="button" class="rightSideBtn">PROCESSED</button>
+            </a>
+        </li>
+        <li>
+            <a>
+                @*<span class="rightsideText">Order Packed</span><span class="rowUpperHeaddate" id="lblOrderPackedDate"></span>  <button id="btnOrderPackedStage" onclick="ChangeStageByOppoID('Order Packed', 'PackingDetails', 13)" type="button" class="rightSideBtn">PACKED</button>*@
+                @*<span class="rightsideText" id="spanOrderPackedDate">Order Packed</span><span class="rowUpperHeaddate" id="lblOrderPackedDate"></span>*@ 
+                @*commented and changed by Baans 31Aug2020 changed Order Packed to Job Packed*@
+                <span class="rightsideText" id="spanOrderPackedDate">Job Packed</span><span class="rowUpperHeaddate" id="lblOrderPackedDate"></span>
+                 <button id="btnOrderPackedStage" onclick="ChangeStageByOppoID('Order Packed', 'InvoicingDetails', 13)" type="button" class="rightSideBtn">PACKED</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                @*<span class="rightsideText" id="spanOrderInvoicedDate">Order Invoiced</span><span class="rowUpperHeaddate" id="lblInvoiceDate"></span>*@ 
+                @*commented and changed by Baans 31Aug2020 changed Order Invoiced to Job Invoiced*@ 
+                <span class="rightsideText" id="spanOrderInvoicedDate">Job Invoiced</span><span class="rowUpperHeaddate" id="lblInvoiceDate"></span>
+                <button id="btnOrderInvoicedStage" onclick="ChangeStageByOppoID('Order Invoiced', 'InvoicingDetails', 14)" type="button" class="rightSideBtn">INVOICED</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                <span class="rightsideText" id="spanPaidDate">Balance Paid</span><span class="rowUpperHeaddate" id="lblPaidDate"></span>  <button id="btnPaidStage" onclick="ChangeStageByOppoID('Paid', 'ShippingDetails', 15)" type="button" class="rightSideBtn">PAID</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                @*<span class="rightsideText" id="spanOrderShippedDate">Order Shipped</span><span class="rowUpperHeaddate" id="lblShippedDate"></span>*@
+                @*commented and changed by Baans 31Aug2020 changed Order Shipped to Job Shipped*@
+                <span class="rightsideText" id="spanOrderShippedDate">Job Shipped</span><span class="rowUpperHeaddate" id="lblShippedDate"></span>
+                  <button id="btnOrderShippedStage" onclick="ChangeStageByOppoID('Order Shipped', 'ShippingDetails', 16)" type="button" class="rightSideBtn">SHIPPED</button>
+            </a>
+        </li>
+
+        <li>
+            <a>
+                @*<span class="rightsideText" id="spanCompletteDate">Complete</span><span class="rowUpperHeaddate" id="lblCompleteDate"></span>*@
+                @*Commented and changed by Baans 31Aug2020 changed Complete to Job Complete*@ 
+                <span class="rightsideText" id="spanCompletteDate">Job Complete</span><span class="rowUpperHeaddate" id="lblCompleteDate"></span>
+                <button type="button" id="btnCompleteStage" onclick="ChangeStageByOppoID('Complete', 'CompleteDetails', 17)" class="rightSideBtn">COMPLETE</button>
+            </a>
+        </li>
+
+    </ul>
+</section>

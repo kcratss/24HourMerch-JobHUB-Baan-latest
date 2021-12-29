@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D3B53CD-F1C1-44FC-81F0-D766822B39C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KEN_DataAccess</RootNamespace>
+    <AssemblyName>KEN_DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="KENNEWEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KENNEWEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KENNEWEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KENNEWEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KENNEWEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pro_AppplicationJobsDetail_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_DecorationExport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_HistoryOfPayments_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_InvoicedReport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_ManagerStageWiseReport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_OppValueConversionReport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_PayHistory_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_PaymentReportNew_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_PaymentReport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_ProofHeaderInfo_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_PurchaseData_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_PurchaseOptionData_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_QuoteCustomerData_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_QuoteOptionsDetail_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_SalesReport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pro_ValueConversionReport_Result.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAddress.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TblApplication.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationArt.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationArtSuppplier.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TblApplicationColour.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TblApplicationColoursMapping.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TblApplicationCustomInfo.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationCustomInfoMapping.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationDesigner.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationStatu.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationType.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblband.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCampaign.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommonData.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblcontact.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbldecoration.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDecorationColour.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDecorationCost.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDecorationDesc.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbldepartment.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEmailContent.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEvent.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblHoliday_dates.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInquiry.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblitem.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbljob.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblkanban.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOppContactMapping.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOpportunity.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbloption.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOptionCode.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOptionSize.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrganisation.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPantoneMaster.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPayment.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPurchase.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPurchaseDetail.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbluser.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_GetHolidays.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_tblContact.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_tblKanban.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_tblopp1.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_tblOpportunity.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_tblOrganisation.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_tblPurchase.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="KENNEWEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KENNEWEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KENNEWEntities.edmx.diagram">
+      <DependentUpon>KENNEWEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KENNEWEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KENNEWEntities.edmx</DependentUpon>
+      <LastGenOutput>KENNEWEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="KENNEWEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KENNEWEntities.edmx</DependentUpon>
+      <LastGenOutput>KENNEWEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

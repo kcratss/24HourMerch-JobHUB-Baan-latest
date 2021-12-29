@@ -1,0 +1,744 @@
+﻿@using KEN.Models
+@model opportunityViewModel
+@*<script src="~/Content/js/opportunity.js"></script>
+<script src="~/Content/js/Contact.js"></script>
+<script src="~/Content/js/Event.js"></script>
+<script src="~/Content/js/Organization.js"></script>*@ @*commented and added by baans 07Aug2020*@
+
+<script src="~/Content/js/opportunity.js?v=4"></script>
+<script src="~/Content/js/Contact.js?v=3"></script>
+<script src="~/Content/js/Event.js?v=2"></script>
+<script src="~/Content/js/Organization.js?v=2"></script>
+<style>
+    .mainContainer .row.OpprtDetailsForm:not(:first-child) {
+        margin: 0 0 0 0;
+    }
+
+    span.crossbtn {
+        float: right;
+        margin: -14px -18px 0 0px !important;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    .ms-ctn .ms-sel-ctn {
+        margin-left: -3px;
+        margin-top: -5px;
+    }
+
+    div#ms1 {
+        margin: 0px 0 4px 9px;
+        border: 1px solid grey;
+        left: 0px;
+        top: 0px;
+        width: 97%;
+        height: auto !important;
+        background: inherit;
+        background-color: rgba(255, 255, 255, 1);
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(204, 204, 204, 1);
+        border-radius: 0px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color: #666666;
+        text-align: left;
+    }
+
+    .ms-ctn .ms-trigger .ms-trigger-ico {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        vertical-align: top;
+        border-top: 10px solid #666666;
+        border-right: 4px solid transparent;
+        border-left: 5px solid transparent;
+        content: "";
+        margin-left: 8px;
+        margin-top: 10px;
+    }
+
+    .row.sizeRow {
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .ui-autocomplete {
+        max-height: 600px;
+        overflow-y: auto; /* prevent horizontal scrollbar */
+        overflow-x: hidden; /* add padding to account for vertical scrollbar */
+        z-index: 1000 !important;
+    }
+
+    div#OptionsGrid {
+        width: 1504.62px;
+        height: 270px;
+        margin: 12px 0px 0 10px;
+    }
+
+    .tooltipnew {
+        position: absolute;
+        display: inline-block;
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px;
+        text-decoration: underline;
+        color: #666666;
+    }
+
+        .tooltipnew .tooltiptextnew {
+            visibility: hidden;
+            width: 120px;
+            background-color: lightgrey;
+            color: #666666;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+        }
+
+        .tooltipnew:hover .tooltiptextnew {
+            visibility: visible;
+        }
+
+    table.pq-grid-header-table {
+        margin-bottom: 0px !important;
+    }
+
+    #datepicker {
+        margin-right: 5px;
+    }
+
+    .row.RowColumns {
+        margin-top: 27px;
+    }
+
+    .row.RowCol {
+        margin-top: -55px;
+    }
+
+    .row.Rowcol3 {
+        margin-left: 80px;
+        margin-top: -525px;
+    }
+
+    #borderimage {
+        width: 470px;
+        height: 484px;
+        border: 1px solid black;
+    }
+
+    .uploadmin {
+        margin-left: 507px;
+        margin-top: -79px;
+    }
+</style>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/DECORATION.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("Decoration", "Decoration", new { @id = "PageName" })
+</div>
+
+
+<div class="row RowColumns">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        <div class="row OpprtDetails">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-3">
+                <span class="rowUpperHead" id="lblDecorationId"><b>000001</b></span>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-2">
+                <span id="lblManagerName" class="rowUpperHead"><b>DECORATION</b></span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mainContainer">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol" style="margin-left:10px;">
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p id="lblOppoName" class="lblOpprtDetail">Date<span class="reqField" style="color:red;">*</span></p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-5 col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" onchange="SetDate('datepicker');" id="datepicker" class="txtOpprtDetails datepicker" style="width: 117px;margin-right: -5px;" />
+                    </div>
+                    <div class="col-lg-7 col-md-3 col-sm-3 col-xs-3">
+                        <label for="oppQuantity" class="lblForm Innerlbl" style="margin: 5px 0 0 -24px;margin-left: 17px;">
+                            Type<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span>
+                        </label>
+                        @Html.DropDownList("OppShipping", new SelectList(ViewBag.ShippingList, "Name", "Name", ""), "--Select--", new { @id = "OppShipping", @class = "txtOpprtDetails", @style = "margin-right: -6px;width: 133px;" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Name<span class="reqField" style="color:red;">*</span></p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                @*<div id="ms1"></div>*@
+                <input type="text" id="oppDepart" style="width:98%;margin-left:11px;">
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Garment<span class="reqField" style="color:red;">*</span></p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="margin-right: -6px;" />
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <label for="datepicker" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Position<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                        @Html.DropDownList("OppShipping", new SelectList(ViewBag.ShippingList, "Name", "Name", ""), "--Select--", new { @id = "OppShipping", @class = "txtOpprtDetails", @style = "margin-right: -6px;width:109px;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Measurement<span class="reqField" style="color:red;">*</span></p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="margin-right: -6px;" />
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Size cm</label>
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 37px;">  w</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 40px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:10px;">l</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 48px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Designer</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="margin-right: -6px;" />
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <label for="oppSource" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Acct Mgr<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                        @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails", @style = "width: 111px;margin-right:-6px;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Status</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="margin-right: -6px;" />
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <label for="oppSource" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Invoiced<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                        @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails", @style = "width: 111px;margin-right:-6px;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail viewchange Opportunity" style="display:none;">Campaign</p>
+                <p class="lblOpprtDetail viewchange QuoteDetails CompleteDetails" style="display:none;">Repeat From</p>
+                @*<p class="lblOpprtDetail viewchange CompleteDetails" style="display:none;">Repeat From</p>*@
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row viewchange Opportunity" style="display:none;">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        @Html.DropDownList("oppCampaign", new SelectList(ViewBag.CampaignList, "id", "Campaign", ""), "--Select--", new { @id = "oppCampaign", @class = "txtOpprtDetails", @style = "margin-right: -5px;" })
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <label for="txtrepeatfrom" class="lblForm Innerlbl" style="margin: 5px 0 0 -6px;">Declined</label>
+                        <select id="ddlDecline" class="txtOpprtDetails" style="width: 105px;">
+                            <option>Yes</option>
+                            <option selected="selected">No</option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Decoration Notes</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                @*@Html.DropDownList("oppStage", new SelectList(ViewBag.StageList, "Name", "Name", ""), new { @id = "oppStage", @class = "txtOpprtDetails", @style = "margin: -3px 0 13px 0" })*@
+                <input type="hidden" id="HiddenForOppStage" style="width:101%;" />
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 innerDiv">
+                @Html.TextArea("oppNotes", "", new { @id = "oppNotes", @style = "width: 101%;resize: none;", @class = "txtOpprtDetails" })
+                @Html.Hidden("HiddenOppNotes", "", new { @id = "HiddenOppNotes" })
+                @Html.Hidden("HiddenQuoteNotes", "", new { @id = "HiddenQuoteNotes" })
+                @Html.Hidden("HiddenOrderNotes", "", new { @id = "HiddenOrderNotes" })
+                @Html.Hidden("HiddenJobNotes", "", new { @id = "HiddenJobNotes" })
+                @Html.Hidden("HiddenPackingNotes", "", new { @id = "HiddenPackingNotes" })
+                @Html.Hidden("HiddenInvoiceingNotes", "", new { @id = "HiddenInvoiceingNotes" })
+                @Html.Hidden("HiddenShippingNotes", "", new { @id = "HiddenShippingNotes" })
+                @Html.Hidden("HiddenCompleteNotes", "", new { @id = "HiddenCompleteNotes" })
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="row RowCol">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        <div class="row OpprtDetails">
+            <div class="col-lg-7 col-md-7 col-sm-8 col-xs-8">
+                <span class="rowUpperHead" id="lblDecorationId"><b>CUSTOM</b></span>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">OPEN</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3" style="margin-left:12px;">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" style="float:right" class="btnFormbtn btn btn-primary">SAVE</button>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 1</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 2</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 3</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 4</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 5</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 6</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 7</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Custom Name 8</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <input type="number" id="txtshippingprice" class="txtOpprtDetails" style="width:100px;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px 0 0 -22px;">Title</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 60px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px;margin-left: 2px;">No</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-left:5px;" />
+                        <label for="txtshippingprice" class="lblForm Innerlbl" style="margin: 5px; margin-left:3px;">Size</label>
+                        <input type="text" id="txtshippingday" class="" style="width: 30px;margin-right:-6px;" />
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@*<div class="row Rowcol3">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+            <div class="row OpprtDetails">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div id="borderimage">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="row Rowcol3">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        <div class="row OpprtDetails">
+            <div id="borderimage">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row showCurrenttab" id="DetailTab">
+    @*<hr class="middleHrfrst" />*@
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="width:65%;margin-top: 26px;margin-left:-501px;" />
+    <div class="tab">
+        <button class="tablinks active" onclick="openCity(event, 'options')">Options</button>
+        <button class="tablinks" onclick="openCity(event, 'mail')">Job</button>
+    </div>
+    @*<hr class="middleHrscnd" />*@
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="width:65%;margin-left:-11px;" />
+</div>
+
+
+
+
+
+
+
+
+<div class="mainContainer">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol" style="margin-left:10px;">
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p id="lblOppoName" class="lblOpprtDetail">Colour</p>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input type="text" id="oppDepart" style="width:98%;margin-left:11px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Pantone</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                @*<div id="ms1"></div>*@
+                <input type="text" id="oppDepart" style="width:98%;margin-left:11px;">
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Bucked/Thread No</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                @*<div id="ms1"></div>*@
+                <input type="text" id="oppDepart" style="width:98%;margin-left:11px;">
+            </div>
+        </div>
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Mesh</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                @*<div id="ms1"></div>*@
+                <input type="text" id="oppDepart" style="width:98%;margin-left:11px;">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @*<div class="row RowCol">*@
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <p class="lblOpprtDetail">Print Order</p>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <input type="text" id="oppDepart" style="width:98%;margin-left:-21px;">
+            </div>
+        </div>
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <p class="lblOpprtDetail">Flash</p>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" id="oppDepart" style="width:98%;margin-left:10px;">
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
+                <p class="lblOpprtDetail">No</p>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input type="checkbox" id="oppDepart" style="width:98%;margin-left:10px;">
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
+                <p class="lblOpprtDetail">No</p>
+            </div>
+        </div>
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <p class="lblOpprtDetail">Colour Notes</p>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                @*<input type="hidden" id="HiddenForOppStage" style="width:101%;" />*@
+                <textarea rows="3" cols="40" style="resize:none; width:98%;margin-left:-21px;"></textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 uploadmin">
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">UPLOAD</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">SAVE</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">Attach</button>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <p style="margin-top:4px;">AttachFile.jpg...</p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">Attach</button>
+            </div>
+        </div>
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">NEW</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">SAVE</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">CLOSE</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">Print</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary"><span class="glyphicon glyphicon-repeat"></span></button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">Attach</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,104 @@
+﻿<div class="row OpprtDetails">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <span class="rowUpperHead" id="lblOrg">Organisation</span>   @*tarun*@
+        
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        <a title="Search" href="/Organisation/OrganisationList"><span style="font-size:x-large;" class="fa fa-search CustomIcon"></span></a>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        <a id="btnRefreshOrganisation" title="Reset"  style="cursor:pointer;" onclick="ResetOrgForm();"><span style="font-size:x-large;" class="fa fa-refresh CustomIcon"></span></a>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        @*<img src="~/Content/images/fontimg/search.png" class="formsearchfont" />*@
+    </div>
+
+
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <button type="button" id="btnsaveOrganisation"  onclick="Saveorganisation();" class="btnFormbtn btn btn-primary">SAVE</button>
+        <button type="button" id="btnOpenOrganisation" style="margin-right:8px" onclick="OpenOrganisation();" class="btnFormbtn btn btn-primary">OPEN</button>
+        
+    </div>
+   
+</div>
+
+<div class="row OpprtDetailsForm OrganisationForm OrganisationContainer">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+        <p class="lblOpprtDetail">Type</p>
+        <p class="lblOpprtDetail">Organisation Name<span class="reqField" style="color:red;">*</span></p>
+        <p class="lblOpprtDetail">Trading Name<span class="reqField PurchaseDetails" style="color:red;display:none">*</span></p>
+        @*<p class="lblOpprtDetail">ABN</p>*@
+        <p class="lblOpprtDetail">Brand</p>
+        <p class="lblOpprtDetail">Main Phone<span class="reqField PurchaseDetails" style="color:red;display:none">*</span></p>
+        @*<p class="lblOpprtDetail">Web Address</p>*@
+        <p class="lblOpprtDetail" style="padding-top: 0;" id="lblOrgAcctmanager">Acct Manager<span class="reqField" style="color:red;">*</span></p> @*21 June 2019 (N)*@
+        <p class="lblOpprtDetail PurchaseDetails" style="padding-top: 0;display:none">Email</p> @*21 June 2019 (N)*@
+
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+        <input type="hidden" id="hdnOrgId" />
+        @Html.DropDownList("OrgType", new SelectList(ViewBag.ContactTypes, "Name", "Name"), new { @id = "txtOrgType", @class = "txtOpprtDetails" })
+        <input type="text" id="txtorgName" class="txtOpprtDetails" />
+        <input type="text" id="txtTradeName" class="txtOpprtDetails" />
+        @*<input type="text" id="txtABNName" class="txtOpprtDetails" />*@
+
+
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <input type="text" id="txtbrand" class="txtOpprtDetails oppInnerleftCol" />
+            </div>
+
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <label for="datepicker" class="lblForm Innerlbl">ABN</label>
+                <input type="text" id="txtABNName" class="txtOpprtDetails oppInnerRightCol" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <input type="text" id="txtMainPhone" class="txtOpprtDetails oppInnerleftCol" />
+            </div>
+
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <label for="datepicker" class="lblForm Innerlbl">Web Address</label>
+                <input type="text" id="txtWebAddress" class="txtOpprtDetails oppInnerRightCol" />
+            </div>
+        </div>
+
+        @*tarun 22/08/2018*@
+
+        @*21 June 2019 (N)*@
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @Html.DropDownList("ddlOrgAcctMgr", new SelectList(ViewBag.ManagerList, "id", "AccountManagerFullName"), "--Select--", new { @id = "ddlOrgAcctMgr", @class = "txtOpprtDetails" })
+                
+                <input type="text" id="txtorgEmail" class="txtOpprtDetails PurchaseDetails" style="display:none;" />
+            </div>
+        </div>
+        @*21 June 2019 (N)*@
+
+            @*<div class="row">
+                <div class="col-lg-5">
+                    @Html.DropDownList("ddlOrgAcctMgr", new SelectList(ViewBag.ManagerList, "id", "AccountManagerFullName"), "--Select--", new { @id = "ddlOrgAcctMgr", @class = "txtOpprtDetails" })
+                </div>
+
+
+                <div class="col-lg-7 PurchaseDetails" style="display:none;">
+                    <label class="lblForm Innerlbl">Email</label>
+                    <input type="text" id="txtContactEmail" class="txtOpprtDetails oppInnerRightCol "  Readonly/>
+                </div>
+
+
+            </div>*@
+            @*end*@
+
+            @*<input type="text" id="txtbrand" class="txtOpprtDetails" />*@
+        </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 innerDiv">
+        <p class="lblOpprtDetail">Organisation Notes</p>
+        <textarea id="txtOrgNotes" class="txtOpprtDetails" style="width: 100%;resize: none;"></textarea>
+    </div>
+</div>

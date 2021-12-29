@@ -1,0 +1,762 @@
+﻿
+
+<!DOCTYPE html>
+
+@*<%@ Master Language="C#" MasterPageFile="~/MasterPage/Site.Master"
+    AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>*@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>24 Hour Merch JobHUB</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    <link href="~/Content/css/libraries/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    @*<link href="~/Content/css/bootstrap4.min.css" rel="stylesheet" type="text/css" />*@
+    <!-- font Awesome -->
+    @*<link href="~/AdminLTE/css/font-awesome.min.css" rel="stylesheet" type="text/css" />*@
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    @*<link href="~/Content/css/libraries/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/breadcrumb.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/SecStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/w3.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/magicsuggest.css" rel="stylesheet" type="text/css" />*@ @*commented and added by baans 07Aug2020*@
+    <link href="~/Content/css/libraries/AdminLTE.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/custom.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/breadcrumb.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/SecStyle.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/w3.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/magicsuggest.css?v=1" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
+
+
+    <link rel="stylesheet" href="~/Content/jquery-ui.css" />
+    <script src="~/Content/js/libraries/jquery.min.js"></script>
+    <script src="~/Content/js/libraries/jquery-ui.min.js"></script>
+
+
+    <script src="~/Content/js/libraries/jquery.mark.js"></script>
+    <script src="~/Content/js/libraries/jquery.mark.min.js"></script>
+    <script src="~/Content/js/libraries/jquery.mark.es6.js"></script>
+    <script src="~/Content/js/libraries/jquery.mark.es6.min.js"></script>
+
+
+    <link href="~/Content/pqGrid/bootstrap-pqgrid.css" rel="stylesheet" />
+    <link href="~/Content/pqGrid/pqgrid.min.css" rel="stylesheet" />
+    <link href="~/Content/pqGrid/pqgrid.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/pqGrid/pqgrid.ui.min.css" rel="stylesheet" />
+    <script src="~/Content/pqGrid/pqgrid.min.js"></script>
+
+
+    <script src="~/Content/js/libraries/magicsuggest.js"></script>
+
+    <script src="~/Content/js/libraries/bootstrap.min.js"></script>
+
+    <script src="~/Content/js/libraries/bootbox.min.js"></script>
+
+    @*<script src="~/Content/js/app.js"></script>*@ @*commented and added by baans 07Aug2020*@
+    <script src="~/Content/js/app.js?v=6"></script>
+    <script src="~/Content/js/libraries/inputmask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+    @*baans change 28th June for Logout*@
+    @*<script src="~/Content/js/User.js"></script>*@ @*commented and added by baans 07Aug2020*@
+    <script src="~/Content/js/User.js?v=1"></script>
+    @*baans end 28th June*@
+    <style>
+        div.pq-grid * {
+            font-size: 12px;
+            color: #888;
+        }
+
+        button.delete_btn {
+            margin: -2px 0px;
+        }
+
+        button.edit_btn {
+            margin: -3px 0px;
+        }
+
+        tr.pq-grid-row td {
+            color: #888;
+        }
+
+        tr.pq-row-edit > td {
+            color: #000;
+        }
+
+        tr.pq-row-delete {
+            text-decoration: line-through;
+        }
+
+            tr.pq-row-delete td {
+                background-color: pink;
+            }
+
+        .modal {
+            overflow: hidden !important;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+        }
+
+
+        /*tarun 17/09/2018*/
+        .dropdown-container a {
+            color: #666666 !important;
+            padding: 10px 0px 10px 1px;
+        }
+
+        /* Fixed sidenav, full height */
+        .sidenav {
+            height: 100%;
+            width: 200px;
+            /*position: fixed;*/
+            z-index: 1;
+            top: 0;
+            left: 0;
+            /*background-color: #111;*/
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            /* Style the sidenav links and the dropdown button */
+            .sidenav a, .dropdown-btn {
+                padding: -2px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 20px;
+                /*color: #818181;*/
+                display: block;
+                border: none;
+                background: none;
+                width: 100%;
+                text-align: left;
+                cursor: pointer;
+                outline: none;
+                margin-top: -12px !important;
+                margin-left: -3px !important;
+            }
+
+                /* On mouse-over */
+                .sidenav a:hover, .dropdown-btn:hover {
+                    color: #f1f1f1;
+                }
+
+        /* Main content */
+        .main {
+            margin-left: 200px; /* Same as the width of the sidenav */
+            font-size: 20px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        /* Add an active class to the active dropdown button */
+        .active {
+            /*background-color: green;*/
+            color: white;
+        }
+
+        /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+        .dropdown-container {
+            display: none;
+            /*background-color: #262626;*/
+            padding-left: 87px;
+            margin-top: 21px;
+            /*margin-left: 49px;*/
+        }
+
+        /* Optional: Style the caret down icon */
+        .fa-caret-down {
+            float: right;
+            padding-right: -2px;
+            margin-top: 10px !important;
+        }
+
+        /*end*/
+    </style>
+    <script>
+        var UserRole = "@ViewBag.ActiveUserRole";
+        $(function () {
+
+            $('input').attr('Autocomplete', 'Off');
+
+            var a = '@ViewContext.Controller.ValueProvider.GetValue("controller").RawValue';
+            var b = '@ViewContext.Controller.ValueProvider.GetValue("Action").RawValue';
+            var ActiveLink = "/" + a + "/" + b;
+            var NewActiveLink = window.location.pathname;
+
+
+            $(".left-side").find('ul li a').each(function () {
+                if (ActiveLink == $(this).attr('href')) {
+                    $(this).parent().addClass("active");
+                }
+                else {
+                    $(this).parent().removeClass("active");
+                }
+            });
+
+            $(".newOpportunitybtn").find("a").each(function () {
+                if (NewActiveLink == $(this).attr('href')) {
+                    $(this).children().addClass('active');
+                }
+                else {
+                    $(this).children().removeClass('active');
+                }
+            });
+        });
+
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabBody");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function getHeight() {
+            //alert();
+            var centerDiv = $(".right-side").css('height');
+            var resCenter = centerDiv.split("px");
+            var LeftSide = $(".left-side").css('height');
+            var resLeft = LeftSide.split("px");
+            var RightSide = $(".right-sidebar").css('height');
+            var resRight = RightSide.split("px");
+            // alert(resLeft[0]);
+            if (parseInt(resLeft[0]) < parseInt(resCenter[0])) {
+                $(".left-side").css('height', centerDiv);
+            }
+
+            if (parseInt(resRight[0]) < parseInt(resCenter[0])) {
+                $(".right-sidebar").css('height', centerDiv);
+            }
+        }
+        function Highlight(cityName) {
+            if (cityName != "Current") {
+                $('#hiddenisCustom').val("Yes");
+                $('#SectionRightSidebar').css("display", "none");
+                $('#searchtextbox').css("display", "block");
+                $('#imgsearchicon').css("display", "block");
+            }
+            else {
+                @*29 April Stage Change List*@
+                if ($('#PageName').val() != "OpportunityList") {
+                    var DataForStage = "NotOpportunityList";
+                    $('#HiddenCallingSource').val(DataForStage);
+                }
+                @*29 April Stage Change List*@
+
+                if ($('#PageName').val().indexOf('List') == -1) {
+                    $('#hiddenisCustom').val("");
+                    $('#SectionRightSidebar').css("display", "block");
+                    $('#searchtextbox').css("display", "none");
+                    $('#imgsearchicon').css("display", "none");
+                }
+            }
+            if (cityName == "Current") {
+                if ($('#PageName').val() == "OpportunityList") {
+                    $(".CurrentList").css("display", "block");
+                }
+                else {
+                    $(".CurrentList").css("display", "none");
+                    $(".CurrentPage").css("display", "block");
+                }
+
+            } else {
+                $(".CurrentPage").css("display", "none");
+                $(".CurrentList").css("display", "block");
+            }
+
+            $(".headerBtn").each(function () {
+                $(this).removeClass("active");
+            });
+
+            $("#" + cityName).addClass("active");
+        }
+        function HighlightUpperTabs(evt) {
+            var i, tablinks;
+            tablinks = document.getElementsByClassName("UpperTabs");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            if (evt.currentTarget != undefined) {
+                evt.currentTarget.className += " active";
+            }
+            else {
+                evt.target.className += " active";
+            }
+
+        }
+        $(document).ready(function () {
+            startTime();
+            getHeight();
+
+            $(".datepicker").datepicker(
+           { dateFormat: 'dd/mm/yy' }
+                );
+
+
+
+            var d = new Date();
+
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+
+            var output = (('' + day).length < 2 ? '0' : '') + day + '/' +
+                (('' + month).length < 2 ? '0' : '') + month + '/' +
+                d.getFullYear();
+
+            $(".showDate").text(output);
+            // alert(output);
+        });
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            $(".showTime").text(h + ":" + m + ":" + s);
+            //document.getElementById('showTime').innerHTML =
+            // h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+        // baans change 28th September for UserName
+        $(function () {
+            $.ajax({
+                url: '/Opportunity/GetActiveUser',
+                data: {},
+                async: false,
+                success: function (response) {
+                    $('#lblActiveUser').text(response);
+                    $('#lblActiveUserFirst').text(response);
+                    //if (response.userpic != null || response.userpic != "no-pic.png" || response.userpic != undefined) {
+                    //    $('#imageuserexist').attr('src', '/content/uploads/opportunity/' + response.oppthumbnail)
+                    //}
+                    //else {
+                    //    $('#imageuserexist').attr('src', '/content/uploads/opportunity/noimage.png')
+                    //}
+
+                },
+                error: function (response) {
+                    //location.href = "/User/Login";
+                },
+                type: 'post'
+            });
+        })
+        // baans end 28th September
+
+
+
+        //tarun 17/09/2018
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        $(function () {
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+        });
+
+        //end
+    </script>
+
+</head>
+<body class="skin-black">
+
+    <div id="ajaxLoader" style="display:none;position: fixed; z-index: 1100; height: 100%; width: 100%; top: 0; left: 0; background-color: transparent; filter: alpha(opacity=60); opacity: 0.3; -moz-opacity: 0.8;">
+        <div style="z-index: 99999; margin: 16% 48%; padding: 10px; width: 150px; border-radius: 10px; filter: alpha(opacity=100); opacity: 1; -moz-opacity: 1;">
+            <img src="~/Content/images/Loading.gif" style="height: 128px; width: 128px;" />
+            <p class="w3-margin-left" style="color: #fff;"><b>Please Wait.......</b></p>
+        </div>
+    </div>
+
+    <div style="display:none" id="CustomAlert">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">×</span>
+        <span ID="alertMsg"></span>
+    </div>
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+
+        @*<a href="index.html" class="logo">*@
+        <a href="@Url.Action("OpportunityList", "Opportunity")" class="logo">
+            <img src="~/Content/images/JobHUB_Logo.jpg" class="img-responsive imgMainLogo" />
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="newOpportunitybtn">
+                <a href="/Opportunity/OpportunityDetails/0"><button type="button" class="btnFormbtn btn btn-primary" style="padding: 0px 0px 2px 0;float: left;width: 138px;height: 35px;margin: 5px 0 0 40px;">NEW OPPORTUNITY</button></a>
+                <a href="/Event/EventDetails/0"><button type="button" class="btnFormbtn btn btn-primary" style="padding: 0px 0px 2px 0;float: left;width: 138px;height: 35px;margin: 5px 0 0 5px;">NEW EVENT</button></a>
+                <a href="/Contact/ContactDetails/0"><button type="button" class="btnFormbtn btn btn-primary" style="padding: 0px 0px 2px 0;float: left;width: 138px;height: 35px;margin: 5px 0 0 5px;">NEW CONTACT</button></a>
+                <a href="/Organisation/OrganisationDetails/0"><button type="button" class="btnFormbtn btn btn-primary" style="padding: 0px 0px 2px 0;float: left;width: 138px;height: 35px;margin: 5px 0 0 5px;">NEW ORGANISATION</button></a>
+                <a href="/Application/ApplicationDetails?Id=0&PageType=Default"><button type="button" class="btnFormbtn btn btn-primary" style="padding: 0px 0px 2px 0;float: left;width: 138px;height: 35px;margin: 5px 0 0 5px;">NEW APPLICATION</button></a>
+                @*<button type="button" class="btnFormbtn btn btn-primary" style="padding: 0px 0px 2px 0;float: left;width: 138px;height: 35px;margin: 5px 0 0 5px;">NEW PURCHASE</button>*@
+            </div>
+
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown messages-menu lblsearch">
+                        <label id="lblSystemsearch" style="display:none;" class="lblsearchtext">System Search</label>
+                    </li>
+
+                    <li class="dropdown messages-menu searchIcon" style="display:none" id="imgsearchicon">
+                        <img src="~/Content/images/fontimg/search.png" style="cursor:pointer;" onclick="MasterSearch();" class="headersearchfont" />
+                    </li>
+
+                    <li class="dropdown messages-menu txtsearch">
+                        <input type="text" id="searchtextbox" name="q" onkeyup="PageSearch();FilterOnEnter();" style="display:none;" class="form-control" placeholder="Search..." />
+                    </li>
+
+                    @*<li class="dropdown messages-menu lblsearch">
+                            <label id="lblSystemsearch" style="cursor:pointer;display:none;" onclick="MasterSearch();" class="lblsearchtext">System Search</label>
+                        </li>
+
+                        <li class="dropdown messages-menu txtsearch">
+                            <input type="text" id="searchtextbox" name="q" onkeyup="PageSearch();" style="display:none;" class="form-control" placeholder="Search..." />
+
+                            <img src="~/Content/images/fontimg/search.png" class="headersearchfont" />
+                        </li>*@
+
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>
+                            <span><span id="lblActiveUser"></span> <i class="caret"></i></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue">
+                                <img src="" class="img-circle" alt="User Image" />
+                                <p>
+                                    24 Hour - User
+                                    <small>2018</small>
+                                </p>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    @*baans change 28th June for Logout*@
+                                    @*<a href="#" class="btn btn-default btn-flat" onclick="moveToLogin()">Sign out</a>*@
+                                    <a href="@Url.Action("Logout","User")" class="btn btn-default btn-flat">Sign out</a>
+                                    @*baans end 28th June*@
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        @*<input type="text" name="q" class="form-control" placeholder="Search..." />
+                            <span class="input-group-btn">
+                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                            </span>*@
+                        @*<select style="width: 75%;" id="userSelect">
+                                <option value="Mark">Mark</option>
+                                <option value="Mark">Mark</option>
+                                <option value="Mark">Mark</option>
+                                <option value="Mark">Mark</option>
+                            </select>*@
+                        @Html.DropDownList("profileOfUser", new SelectList(ViewBag.ProfileList, "id", "AccountManagerFullName"), "--Select--", new { @id = "profileOfUser", @onchange = "ShowFilterDataByProfile();", @style = "width: 75%;" })
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="~/Content/images/Admin.png" id="imageUserExist" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p>Welcome</p>
+                        @*<a href="#">George</a>*@
+                        <label id="lblActiveUserFirst" style="font-size: 18px;font-family: 'Arial Bold', 'Arial';font-weight: 700;color: #666666 !important;left: 104px;top: 135px;width: 57px;height: 24px;"></label>
+                    </div>
+                </div>
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="#">
+                            @*<i class="fa fa-envelope"></i>*@<img src="~/Content/images/fontimg/mail.png" style="width: 24px;height: 19px;" class="fontimg" /> <span>My Mail</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            @*<i class="fa fa-envelope"></i>*@<img src="~/Content/images/fontimg/mail.png" style="width: 24px;height: 19px;" class="fontimg" /> <span>Sales Mail</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            @*<i class="fa fa-bars" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/task.png" style="width: 24px;height: 19px;margin-left: 2px;" class="fontimg" /> <span>Tasks</span>
+                        </a>
+                    </li>
+                    <hr class="liseperator" />
+                    <li>
+                        <a href="@Url.Action("KanBan","KanBan")">
+                            @*<i class="fa fa-bars" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/task.png" style="width: 24px;height: 19px;margin-left: 2px;" class="fontimg" /> <span>KanBan</span>
+                        </a>
+                    </li>
+                    <hr class="liseperator" />
+                    <li>
+                        <a href="@Url.Action("OpportunityList","Opportunity")">
+                            @*<i class="fa fa-copy"></i>*@<img src="~/Content/images/fontimg/WIP.png" style="width: 28px;height: 28px;" class="fontimg" /><span>WIP</span>
+                        </a>
+                    </li>
+
+                    @*baans change 20th Sept for hide event*@
+
+                    <li>
+                        <a href="@Url.Action("EventList","Event")">
+                            @*<i class="fa fa-ticket" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/events.png" style="width: 32px;height: 32px;margin-left: -3px;" class="fontimg" /><span>Events</span>
+                        </a>
+                    </li>
+
+                    @*baans end 20th Sept*@
+
+                    <li>
+                        <a href="@Url.Action("ContactList","Contact")">
+                            @*<i class="fa fa-handshake-o" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/contacts.png" class="fontimg" style="width: 32px;height: 22px;margin: 0 -4px 0 -2px;" /> <span>Contacts</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("OrganisationList", "Organisation")">
+                            @*<i class="fa fa-building-o" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/organization.png" class="fontimg" style="width: 22px;height: 28px;margin: 0 -2px 0 4px;" /> <span>Organisations</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("ApplicationList","Application")">
+                            @*<i class="fa fa-star-o" aria-hidden="true"></i>*@ <img src="~/Content/images/fontimg/decoration.png" class="fontimg" style="width: 29px;height: 28px;margin: 0 -4px 0 0;" /> <span>Applications</span>
+                        </a>
+                    </li>
+
+                    @*baans change 20th Sept hide Purchase*@
+                    <li>
+                        <a href="@Url.Action("PurchaseList","Purchase")">
+                            @*<i class="fa fa-shopping-cart" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/purchases.png" class="fontimg" style="width: 28px;height: 24px;margin: 0 -2px 0 0;" /> <span>Purchases</span>
+                        </a>
+                    </li>
+                    @*baans end 20th Sept*@
+
+                    <li>
+                        <a href="#">
+                            @*<i class="fa fa-credit-card" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/payment.png" class="fontimg" style="width: 28px;height: 23px;margin: 0 -3px 0 1px;" /> <span>Payments</span>
+                        </a>
+                    </li>
+
+                    <hr class="liseperator" />
+
+
+                    <li>
+                        <a href="#">
+                            @*<i class="fa fa-dashboard"></i>*@<img src="~/Content/images/fontimg/dashboard.png" class="fontimg" style="width: 24px;height: 19px;margin: 0 -1px 0 4px;" /> <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <div class="sidenav">
+                        <button class="dropdown-btn">
+                            <li class="lisetup" style="margin-top:15px;">
+                                <a>
+                                    @*<a href="~/Reports/DailyPaymentReport.aspx" target="_blank">*@
+                                    @*<i class="fa fa-line-chart" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/reports.png" class="fontimg" style="width: 24px;height: 19px;margin: 0 -2px 0 5px;" /> <span>Reports<i class="fa fa-caret-down"></i></span>
+                                </a>
+                            </li>
+                        </button>
+                        <div class="dropdown-container">
+                            @*<a href="@Url.Action("PaymentReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Payment</a>
+                            <a href="@Url.Action("SalesReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Sales Order</a>*@ @*commented and changes by baans 11Aug2020*@
+                            <a href="@Url.Action("InvoicedReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Invoiced</a>
+                            <a href="@Url.Action("PaymentReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Payments</a>
+                            <a href="@Url.Action("SalesReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Sales</a>
+                            <a href="@Url.Action("ManagerStageWiseReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Sales Conversion</a>
+                            <a href="@Url.Action("ValueConversionReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Value Conversion</a>
+                            <a href="@Url.Action("OpportunityValueConversionReport","PaymentReport")" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Opportunity Value Conversion</a>
+                        </div>
+
+                    </div>
+
+
+                    @*tarun 17/09/2018*@
+                    @*baans change 20th Sept for hide setup master*@
+                        <div class="sidenav">
+                        <button class="dropdown-btn">
+                            <li class="lisetup" style="margin-top:15px;">
+                                <a>
+                                    @*<i class="fa fa-cogs" aria-hidden="true"></i>*@<img src="~/Content/images/fontimg/setup.png" style="width: 24px;height: 23px;margin: 0 -3px 0 4px;" class="fontimg" /> <span>Set Up<i class="fa fa-caret-down"></i></span>
+                                </a>
+                            </li>
+                        </button>
+                        <div class="dropdown-container">
+                            @*<a href="/DecorationCostMaster/DecorationCostMaster" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Decoration Cost</a>
+                            <a href="/DecorationCostMaster/CommonDataMaster" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Common Data</a>
+                            <a href="/CommonMasters/CommonMastersDetails" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Common Master</a>*@
+                        <a href="/CommonMasters/OptionCodeMaster" style="font-size:12px;font-family: 'Arial Bold', 'Arial';font-weight: 700;"> <i class="fa fa-circle-o" style="margin-left: -11px;margin-right: 11px;"></i>Option Code Master</a>
+
+                        </div>
+                    </div>
+                    @*baans end 20th Sept*@
+                    @*end*@
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="right-side">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="row headerTabs" id="commonTabs">
+                    <button class="headerBtn " id="Current" onclick="Highlight('Current'), JobsGridList('Opportunity', 'All', 'UpperTab')" type="button">Current</button>
+                    <button class="headerBtn active" id="List" onclick="Highlight('List'), JobsGridList('Job1', 'All', 'UpperTab');" type="button">Job List</button>
+                    <button class="headerBtn" id="Digital" onclick="Highlight('Digital'), JobsGridList('Job1', 'Digital', 'UpperTab');" type="button">Digital</button>
+                    <button class="headerBtn" id="Embroidery" onclick="Highlight('Embroidery'), JobsGridList('Job1', 'Embroidery', 'UpperTab');" type="button">Embroidery</button>
+                    <button class="headerBtn" id="ScreenPrint" onclick="Highlight('ScreenPrint'), JobsGridList('Job1', 'Screen Print', 'UpperTab');" type="button">Screen Print</button>
+                    <button class="headerBtn" id="Transfer" onclick="Highlight('Transfer'), JobsGridList('Job1', 'Transfer', 'UpperTab');" type="button">Transfer</button>
+                    <button class="headerBtn" id="Outsource" onclick="Highlight('Outsource'), JobsGridList('Job1', 'Outsource', 'UpperTab');" type="button">Outsource</button>
+                </div>
+
+
+                <div class="row kanbanTabs" id="kanbanTabs" style="visibility:hidden;">
+                    @*<button class="kanbantab active" id="All" type="button">All</button>*@ @*prakhar*@
+                    @if (ViewBag.GetDepartmentList != null)
+                    {
+                        foreach (var item in @ViewBag.GetDepartmentList)
+                        {
+                            if (item.text == "Digital")
+                            {
+                                <button class="kanbantab active" id="@item.id" type="button" disabled>@item.text</button>
+                            }
+                            else
+                            {
+                                <button class="kanbantab" id="@item.id" type="button" disabled>@item.text</button>
+                            }
+                        }
+                    }
+                </div>
+
+
+                <div class="CurrentList OpportunityList" style="display:none;">
+                    <div class="row cuurentTabs">
+                        <img src="~/Content/images/ORDER.png" id="ImageChangeNew" class="img-responsive currentTabimg" />
+                    </div>
+
+                    <div class="row showCurrenttab" style="margin-top: 4px;">
+                        <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 12px 0px 0 0;" />
+                        <div class="tab">
+                            <button class="tabheading">WIP</button>
+                            @*<button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('All', 'All','UpperTab');">All</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Opportunity', 'All');">Opportunities</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Declined', 'All', 'UpperTab');">Declined</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Quote', 'All', 'UpperTab');">Quotes</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Lost', 'All', 'UpperTab');">Lost</button>
+                                <button class="UpperTabs active" onclick="HighlightUpperTabs(event); OrderGridList('Order', 'All', 'UpperTab');">Orders</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Cancelled', 'All', 'UpperTab');">Cancelled</button>
+                                <button class="UpperTabs" id="Job1" onclick="HighlightUpperTabs(event); JobsGridList('Job1', 'All', 'UpperTab');">Jobs</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Packing', 'All', 'UpperTab');">Packing</button>
+                                <button class="UpperTabs" id="btnInvoiced1" onclick="HighlightUpperTabs(event); OrderGridList('Invoiced', 'All', 'UpperTab');">Invoiced</button>
+                                <button class="UpperTabs" id="btnShipping1" onclick="HighlightUpperTabs(event); OrderGridList('Shipping', 'All');">Shipping</button>
+                                <button class="UpperTabs" onclick="HighlightUpperTabs(event); OrderGridList('Complete', 'All', 'UpperTab');">Complete</button>*@
+                            @*Nikhil change 17th November*@
+                            <button class="UpperTabs" id="All" onclick="HighlightUpperTabs(event); JobsGridList('All', 'All','UpperTab');">All</button>
+                            <button class="UpperTabs active" id="Opportunity" onclick="HighlightUpperTabs(event); JobsGridList('Opportunity', 'All', 'UpperTab');">Opportunities</button>
+                            <button class="UpperTabs" id="Declined" onclick="HighlightUpperTabs(event); JobsGridList('Declined', 'All', 'UpperTab');">Declined</button>
+                            <button class="UpperTabs" id="Quote" onclick="HighlightUpperTabs(event); JobsGridList('Quote', 'All', 'UpperTab');">Quotes</button>
+                            <button class="UpperTabs" id="Lost" onclick="HighlightUpperTabs(event); JobsGridList('Lost', 'All', 'UpperTab');">Lost</button>
+                            <button class="UpperTabs" id="Order" onclick="HighlightUpperTabs(event); JobsGridList('Order', 'All', 'UpperTab');">Orders</button>
+                            <button class="UpperTabs" id="Cancelled" onclick="HighlightUpperTabs(event); JobsGridList('Cancelled', 'All', 'UpperTab');">Cancelled</button>
+                            <button class="UpperTabs" id="Job1" onclick="HighlightUpperTabs(event); JobsGridList('Job1', 'All', 'UpperTab');">Jobs</button>
+                            <button class="UpperTabs" id="Packing" onclick="HighlightUpperTabs(event); JobsGridList('Packing', 'All', 'UpperTab');">Packing</button>
+                            <button class="UpperTabs" id="Invoicing" onclick="HighlightUpperTabs(event); JobsGridList('Invoiced', 'All', 'UpperTab');">Invoiced</button>
+                            <button class="UpperTabs" id="Shipping" onclick="HighlightUpperTabs(event); JobsGridList('Shipping', 'All', 'UpperTab');">Shipping</button>
+                            <button class="UpperTabs" id="Complete" onclick="HighlightUpperTabs(event); JobsGridList('Complete', 'All', 'UpperTab');">Complete</button>
+                            @*Nikhil end*@
+                            <button id="Custom" class="UpperTabs" onclick="HighlightUpperTabs(event);JobsGridList('Custom', 'All', 'UpperTab');">Custom</button>
+
+                            <div class="dateFilters">
+                                <div class="col-lg-4">
+                                    <input type="text" style="text-align: center!important" id="fromdate" placeholder="From Date" class="griddateFilter" />
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <input type="text" style="text-align: center!important" id="todate" placeholder="To Date" class="griddateFilter" />
+                                </div>
+                                <div class="col-lg-4" style="text-align: right;">
+                                    @* Allready commented <button type="button"  class="btnFormbtn btn btn-primary" style="height: 29px;border: none;border-radius: 0;"></button>*@
+                                    <span id="btnFindOpp" style="font-size:x-large;cursor: pointer;" class="fa fa-search CustomIcon"></span>
+                                </div>
+                            </div>
+
+                            @*29 April Stage Change List*@
+                            <input type="hidden" id="HiddenCallingSource" />
+                            <input type="hidden" id="HiddenOppIdInList" />
+                            <input type="hidden" id="HiddenStageDateExist" />
+                            @*29 April Stage Change List*@
+
+                            <input id="hiddenisCustom" type="hidden" />
+                            <input id="hiddenUserProfile" type="hidden" />
+                        </div>
+                        <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -19px 0 0 0;" />
+                    </div>
+
+                    <div class="row RowColumns tabBody" id="All" style="display:block;">
+
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-sm-12">
+                                <div class="panelheader">
+                                </div>
+                                <div id="OrderGridNew" class="SearchText" style="margin:auto;width:auto"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="CurrentPage SearchText">
+                    @RenderBody()
+                </div>
+
+    </div><!-- ./wrapper -->
+    <!-- add new calendar event modal -->
+</body>
+</html>

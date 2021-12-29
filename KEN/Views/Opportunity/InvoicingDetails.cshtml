@@ -1,0 +1,281 @@
+﻿
+@using KEN.Models
+@model opportunityViewModel
+
+@*<script src="~/Content/js/opportunity.js"></script>
+<script src="~/Content/js/Contact.js"></script>
+<script src="~/Content/js/Event.js"></script>
+<script src="~/Content/js/Organization.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/opportunity.js?v=4"></script>
+<script src="~/Content/js/Contact.js?v=3"></script>
+<script src="~/Content/js/Event.js?v=2"></script>
+<script src="~/Content/js/Organization.js?v=2"></script>
+<style>
+    table.pq-grid-header-table {
+        table-layout: fixed;
+        width: 0;
+        border-spacing: 0;
+        border-collapse: separate;
+        margin-bottom: -2px;
+    }
+
+        table.pq-grid-header-table div.pq-td-div {
+            position: relative;
+            color: #666666;
+        }
+
+    .mainContainer .row.OpprtDetailsForm:not(:first-child) {
+        margin: 0 0 0 0;
+    }
+
+    span.crossbtn {
+        float: right;
+        margin: -14px -18px 0 0px !important;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    .ms-ctn .ms-sel-ctn {
+        margin-left: -3px;
+        margin-top: -5px;
+    }
+
+    div#ms1 {
+        margin: 0px 0 4px 9px;
+        border: 1px solid grey;
+        left: 0px;
+        top: 0px;
+        width: 97%;
+        height: 27px !important;
+        background: inherit;
+        background-color: rgba(255, 255, 255, 1);
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(204, 204, 204, 1);
+        border-radius: 0px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color: #666666;
+        text-align: left;
+    }
+
+    .ms-ctn .ms-trigger .ms-trigger-ico {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        vertical-align: top;
+        border-top: 10px solid #666666;
+        border-right: 4px solid transparent;
+        border-left: 5px solid transparent;
+        content: "";
+        margin-left: 8px;
+        margin-top: 10px;
+    }
+
+    .row.sizeRow {
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .ui-autocomplete {
+        max-height: 600px;
+        overflow-y: auto; /* prevent horizontal scrollbar */
+        overflow-x: hidden; /* add padding to account for vertical scrollbar */
+        z-index: 1000 !important;
+    }
+
+    div#OptionsGrid {
+        width: 1504.62px;
+        height: 270px;
+        margin: 12px 0px 0 10px;
+    }
+
+    .tooltipnew {
+        position: absolute;
+        display: inline-block;
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px;
+        text-decoration: underline;
+        color: #666666;
+    }
+
+        .tooltipnew .tooltiptextnew {
+            visibility: hidden;
+            width: 120px;
+            background-color: lightgrey;
+            color: #666666;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+        }
+
+        .tooltipnew:hover .tooltiptextnew {
+            visibility: visible;
+        }
+
+    table.pq-grid-header-table {
+        margin-bottom: 0px !important;
+    }
+
+    /*#btnOptionCopy {
+        display: initial !important;
+    }*/
+
+    #btnOptionSave {
+        display: initial !important;
+        margin-left: 2px;
+    }
+
+    /*#btnrow {
+        margin-left: 50px;
+    }*/
+
+    #btnOpenShipping {
+        margin-left: 30px;
+    }
+
+
+    #btnOptionList {
+        display: initial !important;
+        margin-left: 2px;
+    }
+
+    /*#btnOptionPurch {
+        display: initial !important;
+        margin-left: 2px;
+    }*/
+
+    #btnOptionINV {
+        display: initial !important;
+        margin-left: 2px;
+    }
+
+    /*#btnOptionConfirm {
+        display: initial !important;
+        margin-left: 2px;
+    }*/
+
+    #btnOptionPrint {
+        display: initial !important;
+        margin-left: 2px;
+    }
+
+    /*#btnOptionLabel {
+        display: initial !important;
+        margin-left: 2px;
+    }*/
+    #btnOptionLabelBlank{
+        display: initial !important;
+        margin-left: 2px;
+    }
+    #btnSendProofBlank{
+        display: initial !important;
+        margin-left: 2px;
+    }
+</style>
+<script>
+    function GetSize(_stateId, IsEdit) {
+        // baans change 31st October 
+        var CurrentOppId = $('#lblOpportunityId').text();
+        if(IsEdit=='')
+        {
+            $("#txtSizes").val("");
+        }//Need To be done with condition
+        var url = "/Opportunity/GetCityByStaeId/";
+
+        $.ajax({
+            url: url,
+            data: { SizeType: _stateId, OppId: CurrentOppId },
+            // baans end  31st October
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<div class='row'>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<div class='row sizeRow'><div class='col-lg-6'>" + data[x].Text + "</div><div class='col-lg-6'><input id='" + data[x].Text + "' onkeyup='calculatequantity();' class='sizeQuantity' type='number'/></div></div>";
+                }
+                markup += "</div>";
+                $("#ddlsize").html(markup).show();
+            },
+            error: function (reponse) {
+
+            }
+        });
+
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        var id=@ViewBag.ID;
+        $('#lblOpportunityId').text(('000000' + id).substr(-6))
+        if(@ViewBag.ID!=undefined && @ViewBag.ID!=0)
+        {
+            $("#DetailTab").css("display", "block");
+            $("#options").css("display", "block");
+            GetOppById(@ViewBag.ID);
+            GetContactByOppId(@ViewBag.ID);
+            GetOptionGrid(@ViewBag.ID);
+        }
+    });
+</script>
+<div class="row cuurentTabs">
+    <img src="~/Content/images/INVOICING.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("InvoicingDetails", "InvoicingDetails", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrent">
+    @*    <span class="rowUpperHead" id="lblOppDate"></span>*@
+    <img src="~/Content/images/hrImg.png" class="hrimg" />
+</div>
+<div class="row RowColumns">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Opportunity")
+        @Html.Hidden("HiddenEventId", "", new { @id = "HiddenEventId" })
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Contact")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_OrgAddress")
+    </div>
+</div>
+@Html.Partial("_Option")
+@*After Render Body Section Starts Here*@
+            </section>
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    @Html.Partial("_OptionRightSideBar")
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@
+
+
+
+
+
+
+

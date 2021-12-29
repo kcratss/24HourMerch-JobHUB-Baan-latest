@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/KEN/obj
+/KEN/bin
+/KEN_DataAccess/bin
+/KEN_DataAccess/obj
+/packages

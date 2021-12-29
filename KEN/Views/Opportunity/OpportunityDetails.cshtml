@@ -1,0 +1,379 @@
+﻿@using KEN.Models
+@model opportunityViewModel
+
+@*<script src="~/Content/js/opportunity.js"></script>
+<script src="~/Content/js/Contact.js"></script>
+<script src="~/Content/js/Event.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/opportunity.js?v=4"></script>
+<script src="~/Content/js/Contact.js?v=3"></script>
+<script src="~/Content/js/Event.js?v=2"></script>
+<style>
+    .mainContainer .row.OpprtDetailsForm:not(:first-child) {
+        margin: 0 0 0 0;
+    }
+
+    span.crossbtn {
+        float: right;
+        margin: -14px -18px 0 0px !important;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    .ms-ctn .ms-sel-ctn {
+        margin-left: -3px;
+        margin-top: -5px;
+    }
+
+    .ms-ctn .ms-trigger .ms-trigger-ico {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        vertical-align: top;
+        border-top: 10px solid #666666;
+        border-right: 4px solid transparent;
+        border-left: 5px solid transparent;
+        content: "";
+        margin-left: 8px;
+        margin-top: 10px;
+    }
+
+    .row.sizeRow {
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .ui-autocomplete {
+        max-height: 600px;
+        overflow-y: auto; /* prevent horizontal scrollbar */
+        overflow-x: hidden; /* add padding to account for vertical scrollbar */
+        z-index: 1000 !important;
+    }
+
+    div#OptionsGrid {
+        width: 1504.62px;
+        height: 270px;
+        margin: 12px 0px 0 10px;
+    }
+
+    .tooltipnew {
+        position: absolute;
+        display: inline-block;
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px;
+        text-decoration: underline;
+        color: #666666;
+    }
+
+        .tooltipnew .tooltiptextnew {
+            visibility: hidden;
+            width: 120px;
+            background-color: lightgrey;
+            color: #666666;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+        }
+
+        .tooltipnew:hover .tooltiptextnew {
+            visibility: visible;
+        }
+
+    table.pq-grid-header-table {
+        margin-bottom: 0px !important;
+        margin-left: 2px;
+    }
+
+    .tab button {
+        padding: 0px 15px;
+    }
+    #btnOptionEmailBlank{
+        display:initial !important;
+        margin-left: 2px;
+    }
+    #btnOptionPrintBlank{
+        display:initial !important;
+        margin-left: 2px;
+    }
+    #btnOptionPayBlank{
+        display:initial !important;
+        margin-left: 2px;
+    }
+    #btnOptionHistBlank{
+        display:initial !important;
+        margin-left: 2px;
+    }
+    #extaraDiv {
+        display: none !important;
+    }
+</style>
+<script>
+    function GetSize(_stateId, IsEdit) {
+        // baans change 31st October 
+        var CurrentOppId = $('#lblOpportunityId').text();
+        if(IsEdit=='')
+        {
+            $("#txtSizes").val("");
+        }//Need To be done with condition
+        var url = "/Opportunity/GetCityByStaeId/";
+
+        $.ajax({
+            url: url,
+            data: { SizeType: _stateId, OppId: CurrentOppId },
+            // baans end 31st October
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<div class='row'>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<div class='row sizeRow'><div class='col-lg-6'>" + data[x].Text + "</div><div class='col-lg-6'><input id='" + data[x].Text + "'  onkeyup='calculatequantity()' class='sizeQuantity' type='number'/></div></div>";
+                }
+                markup += "</div>";
+                $("#ddlsize").html(markup).show();
+            },
+            error: function (reponse) {
+
+            }
+        });
+
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        var id=@ViewBag.ID;
+        $('#lblOpportunityId').text(('000000' + id).substr(-6))
+        if(@ViewBag.ID!=undefined && @ViewBag.ID!=0)
+        {
+            $("#DetailTab").css("display", "block");
+            $("#options").css("display", "block");
+
+            GetOppById(@ViewBag.ID);
+            GetContactByOppId(@ViewBag.ID);
+
+            GetOptionGrid(@ViewBag.ID);
+            GetInquiryData(@ViewBag.ID);
+        }
+        @*if(@ViewBag.ID==0)
+        {
+            GetOptionGrid(0);
+        }*@
+    });
+</script>
+<div class="row cuurentTabs">
+    <img src="~/Content/images/OPPORTUNITY.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("Opportunity", "Opportunity", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrent">
+    <img src="~/Content/images/hrImg.png" class="hrimg" />
+</div>
+<div class="row RowColumns">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Opportunity")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Contact")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @*16 Aug 2018 (N)*@
+        @Html.Partial("_Event")
+        @*16 Aug 2018 (N)*@
+    </div>   
+</div>
+<div class="row showCurrent">
+    <img src="/Content/images/hrImg.png" class="hrimg">
+</div>
+
+<div class="row RowColumns OppNewCols OpportunityContainer">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail">Item Colours</p>
+                <p class="lblOpprtDetail">Pref Brands & Styles</p>
+                <p class="lblOpprtDetail">General Notes</p>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <input type="text" class="txtOpprtDetails" id="txtitemcolor" />
+                <input type="text" class="txtOpprtDetails" id="txtbrandstyle" />
+                <textarea id="txtgeneraloppnotes" class="txtOpprtDetails" style="width: 97%;float: right;resize: none;margin: 5px 0 0 0;height: 85px;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        <div class="row OpprtDetailsForm">
+            <div class="frontprintcols">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv" style="margin: 8px 0 0 0;">
+                    <p class="lblOpprtDetail">Front Print Art</p>
+                    <p class="lblOpprtDetail">Front Print Notes</p>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="front~printselect" class="lblForm Innerlbl custom-file-upload" style="cursor: pointer;text-decoration: underline;">Artwork file link</label><input type="file" accept="image/*" id="front~printselect" onChange="readURL(this);">
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="frontdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="front~search" title="Open Image" class="fa fa-search getImage CustomIcon"></span>
+                                <label class="imgfilename" id="frontlblimg"></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="frontdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" title="Delete" id="front~Delete" class="fa fa-trash deleteImage CustomIcon"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="fronthdnimg" value="" />
+                    </div>
+
+                    <textarea id="txtfrontprintnotes" class="txtOpprtDetails" style="width: 97%;float: right;resize: none;margin: 0px 0 0 0;    height: 48px;"></textarea>
+                </div>
+            </div>
+            <div class="backprintcols">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv" style="margin: 10px 0 0 0;">
+                    <p class="lblOpprtDetail">Back Print Art</p>
+                    <p class="lblOpprtDetail">Back Print Notes</p>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv" style="margin: 4px 0 0 0;">
+                    @*<a href="#"><label for="txtshippingprice" class="lblForm Innerlbl" style="cursor: pointer;text-decoration: underline;margin: 0 0 0 10px;">Artwork file link</label></a>*@
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="back~printselect" class="lblForm Innerlbl custom-file-upload" style="cursor: pointer;text-decoration: underline;">Artwork file link</label><input type="file" accept="image/*" id="back~printselect" onChange="readURL(this);">
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="backdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="back~search" title="Open Image" class="fa fa-search getImage CustomIcon"></span>
+                                <label class="imgfilename" id="backlblimg"></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="backdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="back~Delete" title="Delete" class="fa fa-trash deleteImage CustomIcon"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="backhdnimg" value="" />
+                    </div>
+                    <textarea id="txtbackprintnotes" class="txtOpprtDetails" style="width: 97%;float: right;resize: none;margin: -2px 0 0 0;   height: 48px;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        <div class="row OpprtDetailsForm">
+            <div class="leftprintcols">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv" style="margin: 6px 0 0 0;">
+                    <p class="lblOpprtDetail">Left Sleeve Print Art</p>
+                    <p class="lblOpprtDetail">Left Slv Print Notes</p>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    @*<a href="#"><label for="txtshippingprice" class="lblForm Innerlbl" style="cursor: pointer;text-decoration: underline;margin: 0 0 0 10px;">Artwork file link</label></a>*@
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="left~printselect" class="lblForm Innerlbl custom-file-upload" style="cursor: pointer;text-decoration: underline;margin-left: 9px;">Artwork file link</label><input type="file" accept="image/*" id="left~printselect" onChange="readURL(this);">
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="leftdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="left~search" title="Open Image" class="fa fa-search getImage CustomIcon"></span>
+                                <label class="imgfilename" id="leftlblimg"></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="leftdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="left~Delete" title="Delete" class="fa fa-trash deleteImage CustomIcon"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="lefthdnimg" value="" />
+                    </div>
+                    <textarea id="txtleftprintnotes" class="txtOpprtDetails" style="width: 97%;float: right;resize: none;margin: -2px 0 0 0;    height: 48px;"></textarea>
+                </div>
+            </div>
+
+            <div class="rightprintcols">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv" style="margin: 12px 0 0 0;">
+                    <p class="lblOpprtDetail">Rht Sleeve Print Art</p>
+                    <p class="lblOpprtDetail">Rht Slv Print Notes</p>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv" style="margin: 5px 0 0 0;">
+                    @*<a href="#"><label for="txtshippingprice" class="lblForm Innerlbl" style="cursor: pointer;text-decoration: underline;margin: 0 0 0 10px;">Artwork file link</label></a>*@
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label for="right~printselect" class="lblForm Innerlbl custom-file-upload" style="cursor: pointer;text-decoration: underline;margin-left: 9px;">Artwork file link</label><input type="file" accept="image/*" id="right~printselect" onChange="readURL(this);">
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="rightdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="right~search" title="Open Image" class="fa fa-search getImage CustomIcon"></span>
+                                <label class="imgfilename" id="rightlblimg"></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="rightdetails" style="display:none;">
+                                <span style="font-size:x-large;cursor:pointer;" id="right~Delete" title="Delete" class="fa fa-trash deleteImage CustomIcon"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="righthdnimg" value="" />
+                    </div>
+                    <textarea id="txtrightprintnotes" class="txtOpprtDetails" style="width: 97%;float: right;resize: none;margin: -2px 0 0 0;   height: 48px;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_Option")
+@*After Render Body Section Starts Here*@
+            </section>
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    @Html.Partial("_OptionRightSideBar")
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@
+
+
+
+<div id="PrintImageModal" class="w3-modal" style="display: none;">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height: auto;width: fit-content;margin-top: 86px;padding: 20px 35px 30px 15px;">
+        <span class="crossbtn" style="cursor:pointer;" onclick="document.getElementById('PrintImageModal').style.display='none'">x</span>
+        <div class="row" style="margin: 0px 0 0 10px;padding: 30px 0 10px 10px;">
+            <img src="" id="printimage" style="height: auto;width: 100%;max-width: 1000px;max-height: 450px;" />
+            @*<div class="col-lg-7">
+                    <div class="row" style="margin: 0px 0 0 10px;padding: 30px 0 10px 10px;">
+                        <div class="col-lg-6">
+                            <label class="popHeader">DECORATION SEARCH</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label><img src="~/Content/images/fontimg/search.png" id="DecGridSearch" style="cursor: pointer;" class="searchfont" /></label><input type="text" id="txtSearchImg" onkeyup="GetDecorationImageGrid(this.value);" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5"></div>*@
+        </div>
+
+    </div>
+</div>

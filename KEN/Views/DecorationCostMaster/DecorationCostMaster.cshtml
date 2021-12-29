@@ -1,0 +1,234 @@
+﻿
+
+<style>
+    .pq-td-div {
+        font-weight: 700;
+    }
+
+    .pq-toolbar > button {
+        background-color: white;
+        border-style: ridge;
+        float: right;
+        margin-right: 12px;
+    }
+    /*.reqField1 {
+        margin-top: -16px;
+        margin-left: 124px;
+        font-size: 16px;
+    }*/
+    /*.button {
+        background-color: limegreen;
+        border: none;
+        color: white;
+        padding: 3px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 3px 17px;
+        cursor: pointer;
+    }*/
+
+    .lblstatusbutton {
+        background-color: limegreen;
+        border: none;
+        color: white;
+        padding: 3px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 3px 17px;
+        cursor: pointer;
+        color: white !important
+    }
+
+    #TypeDropDownId {
+        width: 300px;
+        height: 35px;
+        border-bottom-left-radius: 2px;
+        margin-left: -12px;
+    }
+
+    #StatusDropDownId {
+        width: 300px;
+        height: 35px;
+        /*border-bottom-left-radius: 2px;
+        margin-left: -12px;*/
+    }
+</style>
+
+@*<script src="~/Content/js/DecorationCostMaster.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/DecorationCostMaster.js?v=1"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        GetDecorationCostList('All', 'AllType');
+    });
+</script>
+
+@*3 Oct 2018(N)*@
+<div class="row" style="margin-top:18px;">
+    @*06 Oct 2018 (N)*@
+    <div class="col-sm-12">
+        @*<label style="margin-left:20px; margin-top:10px;" class="popHeader"><strong>Decoration Type</strong></label>
+            <select name="DecType" id="TypeDropDownId" style="width:15%;margin-left:18px;color: #666666;height:24px;">
+                <option value="AllType">--Select--</option>
+                <option value="Digital">Digital</option>
+                <option value="Screen Print">Screen Print</option>
+                <option value="Embroidery">Embroidery</option>
+            </select>
+            <label style="margin-left:16px; margin-top:10px;" class="popHeader"><strong>Status</strong></label>
+            <select name="IsActive" id="StatusDropDownId" style="width:15%;margin-left:18px;color: #666666;height:24px;">
+                <option value="All">ALL</option>
+                <option value="Active">Active</option>
+                <option value="InActive">InActive</option>
+            </select>*@
+
+        <div class="col-lg-2">
+            <label class="popHeader" style="margin-top : 5px">Decoration Type</label>
+        </div>
+        <div class="col-lg-3">
+            @Html.DropDownList("FooBarDropDown", new List<SelectListItem>
+                   {
+                          new SelectListItem { Text="----Select----", Value="AllType"},
+                          new SelectListItem{ Text="Digital", Value="Digital" },
+                          new SelectListItem{ Text="Screen Print" , Value="Screen Print" },
+                          new SelectListItem {Text="Embroidery",Value="Embroidery" },
+                   }, new { @id = "TypeDropDownId", style = "margin-left: -40px;" })
+        </div>
+        <div class="col-lg-1">
+            <label class="popHeader" style="margin-top : 5px">Status</label>
+        </div>
+        <div class="col-lg-3">
+            @Html.DropDownList("FooBarDropDown", new List<SelectListItem>
+                   {
+                          new SelectListItem{ Text="All", Value="All" },
+                          new SelectListItem{ Text="Active" , Value="Active" },
+                          new SelectListItem {Text="InActive",Value="InActive" },
+                   }, new { @id = "StatusDropDownId" })
+
+        </div>
+        <div class="col-lg-2">
+            <input type="button" value="ExprortToExcel" onclick="ExportToExcel()" style="height: 35px;width: 120px;">
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+@*3 Oct 2018(N)*@
+
+
+<div class="row">
+    <div class="col-lg-12" style="padding-bottom:10px"></div>
+
+    <div class="col-lg-3">
+        @*<button type='button' id="btnaddvetrecord" onclick="ShowDecorationPopup('rowIndex',0)" style="background-color:forestgreen;
+            color:white;margin-bottom: 10px; display:none;">
+                <i class="fa fa-plus-circle"></i>&nbsp;Add Decoration
+            </button>*@
+    </div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-7"></div>
+</div>
+
+<div class="row">
+    <div id="DecorationCostMasterGrid" style="margin-left: 32px;"></div>
+</div>
+
+@*popup*@
+
+
+<div id="editdecorationpopup" class="w3-modal" style="border: 1px solid #ced4da;display:none;z-index:4 !important">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto; width:28%; margin-top:86px;padding-bottom:9px;">
+        @*<div class="row" style="background:#cccccc;color:white;width:920px;margin-left:0px;">
+                <div class="col-sm-12" style="margin-top:12px;margin-left:4px; font-size:14px">
+                    <label style="font-size:14px" id="heading">Payment Details For Job ID </label><label id="jobid" style="font-size:14px;margin-left:4px;"></label><label style="font-size:14px;margin-left:4px;">and Job Name</label><label id="jobname" style="font-size:14px;margin-left:4px;"></label>
+                </div>
+            </div>*@
+        <div class="row" style="background:#cccccc;color:white;width:100%;margin-left:0px;">
+            <div class="col-sm-12" style="margin-top:12px;margin-left:4px; font-size:14px">
+                <label style="font-size:15px !important;font-weight:700 !important;color:#000 !important;margin-left: -8px !important; display:none;" id="lblAddNew">Add New</label>
+                <label style="font-size:15px !important;font-weight:700 !important;color:#000 !important;margin-left: -8px !important; display:none;" id="lblEdit">Edit Existing</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                @*<label id="requireslabel" style="color:red;display:none">Required*</label>*@
+                <input type="hidden" id="HiddenDecorationId" />
+                <label style="width: 50%; margin-left:10px; margin-top:10px;font-family: 'Arial';font-weight: 400;">
+                    Decoration Description<span id="DecVal" style="color:red; display:block; margin-top: -16px;margin-left: 124px;font-size: 16px;">*</span>
+                </label>
+            </div>
+            <div class="col-lg-6">
+                <input class="form-control" id="txtDecDesc" style="width: 115%; margin-left:-137px; margin-top:10px;" />
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                @*<label id="requireslabel" style="color:red;display:none">Required*</label>*@
+                <label style="width: 50%; margin-left:10px; margin-top:10px;font-family: 'Arial';font-weight: 400;">
+                    Quantity<span class="reqField1" id="qtyVal" style="color:red; display:block;  margin-top: -16px;margin-left: 51px;font-size: 16px;">*</span>
+
+                </label>
+            </div>
+            <div class="col-lg-6">
+                <input class="form-control QtyFormat" id="txtQuantity" style="width: 35%; margin-left:-137px; margin-top:10px;" />
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                @*<label id="requireslabel" style="color:red;display:none">Required*</label>*@
+                <label style="width: 50%; margin-left:10px; margin-top:10px;font-family: 'Arial';font-weight: 400;">
+                    Cost<span class="reqField1" id="costVal" style="color:red; display:block;  margin-top: -16px;margin-left: 29px;font-size: 16px;">*</span>
+                </label>
+            </div>
+            <div class="col-lg-6">
+                <input class="form-control CurrencyFormat" id="txtCost" style="width: 35%; margin-left:-137px; margin-top:10px;" />
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label style=" margin-left:10px;margin-top:10px;font-family: 'Arial';font-weight: 400;">Status</label>
+            </div>
+            <div class="col-sm-6">
+                <select name="IsActive" id="statusid" style="width: 35%; margin-left:-137px;margin-top:10px;border-color: rgb(204, 204, 204)">
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-sm-8">
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" style="float: none; margin-top:5px; margin-left:14px; width:61px;" ID="btnSave" class="btndesign" onclick="SaveDecoration();">Save</button>
+            </div>
+            <div class="col-sm-2">
+
+                <button type="button" style="float: none; margin-top:5px; margin-left:-8px" ID="btncancel" class="btndesign" onclick="CancelPopup()">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*After Render Body Section Starts Here*@
+    </section>
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    @* @Html.Partial("_OptionRightSideBar")*@
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

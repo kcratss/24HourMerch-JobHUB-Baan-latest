@@ -1,0 +1,24 @@
+﻿@*<script src="~/Content/js/Purchase.js"></script>
+<script src="~/Content/js/opportunity.js"></script>*@     @*29 April Stage Change List*@
+@*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Purchase.js?v=2"></script>
+<script src="~/Content/js/opportunity.js?v=4"></script> 
+<div>@Html.Hidden("PaymentReport", "SalesReport", new { @id = "PageName" })</div>
+<div style="margin-left: 18px;">
+<iframe src="~/Reports/SalesReport.aspx" width="1475" height="900" style="border-color: white; border-width: 0;"></iframe>
+
+</div>
+
+@*After Render Body Section Starts Here*@
+    </section>
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    <div id="OppListSidebar" style="display:none;">
+        @Html.Partial("_OptionRightSideBar")
+    </div>
+    @* @Html.Partial("_OptionRightSideBar")*@
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

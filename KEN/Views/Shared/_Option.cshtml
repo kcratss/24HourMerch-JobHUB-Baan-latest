@@ -1,0 +1,1049 @@
+﻿@*<link href="~/Content/css/ApplicationProof.css" rel="stylesheet" type="text/css" />*@
+<style>
+    #OptionsGrid.pq-grid * {
+        font-size: 10px !important;
+    }
+</style>
+@Html.Hidden("HiddenOptionCodeID", "", new { @id = "HiddenOptionCodeID" })  @*P 10 Jan OptionCode*@
+<div class="row showCurrenttab" id="DetailTab" style="display:none;">
+    @*<hr class="middleHrfrst" />*@
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 0 0 0;" />
+    <div class="tab">
+        @*<button class="tablinks active" onclick="openCity(event, 'options')" style="padding: 5px 15px;">Options</button>*@
+
+        <button class="tablinks active" onclick="openCity(event, 'options')">Options</button>@*by hitesh 24 aug*@
+        <button class="tablinks" onclick="openCity(event, 'mail')">Mail</button>
+        <button class="tablinks" onclick="openCity(event, 'chat')">Chat</button>
+
+        @*<div class="balanaceSection JobDetails OrderDetails QuoteDetails Opportunity" style="display:none;">*@
+        <div class="balanaceSection">
+            @*baans change 18th August for GST Value*@
+            @*<div class="col-lg-3" style="text-align:left;">
+                    <label class="lblbalancetitle" style="margin-left: 9px;">GST</label>
+                    <label id="lblGSTbalance" class="lblbalancevalue">00000.00</label>
+                </div>*@ @*by hitesh 24 aug*@
+                <div class="col-lg-2" style="text-align:left;width: 84px;">
+                    <label class="lblbalancetitle" style="margin-left: 9px;">GST</label>
+                    <label id="lblGSTbalance" class="lblbalancevalue">00000.00</label>
+                </div>
+
+                <div class="col-lg-3" style="text-align:left;">
+                    <label class="lblbalancetitle" style="text-align:center;">Total</label>
+                    <label id="lbltotalbalance" class="lblbalancevalue">$00000.00</label>
+                </div>
+
+                <div class="col-lg-3" style="text-align:center;">
+                    <label class="lblbalancetitle">Paid</label>
+                    <label id="lblpaidbalance" class="lblbalancevalue">$00000.00</label>
+                </div>
+
+                @*<div class="col-lg-3" style="text-align:right;">
+                        <label class="lblbalancetitle">Balance</label>
+                        <label id="lblbalance" class="lblbalancevalue" style="text-align:right;">$00000.00</label>
+                    </div>*@
+                <div class="col-lg-4" style="text-align:right;width: 138px;padding-right: 3px;">
+                    @*prakhar*@
+                    <label class="lblbalancetitle">Balance</label>
+                    <label id="lblbalance" class="lblbalancevalue" style="text-align:right;">$00000.00</label>
+                </div>@*by hitesh 24 aug*@
+            </div>
+        </div>
+        @*<hr class="middleHrscnd" />*@
+        <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -14px 0 0px 0;" />
+    </div>
+
+
+    <div class="row RowColumns tabBody OptionContainer" id="options" style="display:none;">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+
+            <div class="row OpprtDetailsForm">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    <p class="lblOpprtDetail tablbl">Quantity<span class="reqField" style="color:red;">*</span></p>
+                    <p class="lblOpprtDetail tablbl">Brand<span class="reqField" style="color:red;">*</span></p>
+                    <p class="lblOpprtDetail tablbl">Colour</p>
+                    <p class="lblOpprtDetail tablbl JobDetails OrderDetails QuoteDetails Opportunity" style="display:none;">Cost</p>
+                    <p class="lblOpprtDetail tablbl PackingDetails InvoicingDetails ShippingDetails CompleteDetails" style="display:none;">Sizes Ordered<span class="reqField" style="color:red;">*</span></p>
+                    <p class="lblOpprtDetail tablbl  JobDetails OrderDetails QuoteDetails Opportunity" style="display:none;">Sizes<span class="reqField" style="color:red;">*</span></p>
+                    <p class="lblOpprtDetail tablbl PackingDetails InvoicingDetails ShippingDetails CompleteDetails " style="display:none;">Sizes Packed</p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row optionRow">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            @*baans change 17th September*@
+                            <input type="hidden" id="HiddenforDecoration" />
+                            <input type="hidden" id="HiddenforDecorationPacking" />
+                            @*baans end 17th September*@
+                            <input type="hidden" id="HiddenforConfirm" />
+                            <input type="hidden" id="HiddenOptionID" />
+                            <input type="text" id="txtOptionQty" class="txtOpprtDetails QtyFormat" tabindex="1"/>
+                        </div>
+
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <label for="ddlItem" class="lblForm Innerlbl">Item<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                            @*<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>*@
+                            @Html.DropDownList("ddlItem", new SelectList(ViewBag.ItemList, "id", "name"), "--Select--", new { @id = "ddlItem", @class = "txtOpprtDetails chosen", @style = "width:162px;" })
+
+                        </div>
+                    </div>
+
+                    <div class="row optionRow">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            @Html.DropDownList("ddlBrand", new SelectList(ViewBag.BrandList, "id", "name"), "--Select--", new { @id = "ddlBrand", @class = "txtOpprtDetails chosen", @onchange = "ShowBrandModal();" })
+
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            @*baans change 13th September for Insetion in OptionBrand*@
+                            @*<button type="button" id="btnOptionBrand" onclick="ShowBrandModal();" class="colBtns btn btn-primary" style="width: 10px;height: 20px;margin-left: -25px;margin-top: 2px;">+</button>*@
+                            @*baans end 13th September*@
+                            <label for="txtCode" class="lblForm Innerlbl">Code<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                            <input id="txtCode" type="text" class="txtOpprtDetails" style="width:120px;" tabindex="2"/>
+                        </div>
+                    </div>
+
+                    <div class="row optionRow">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <input id="txtColor" type="text" class="txtOpprtDetails" tabindex="3"/>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <label class="lblForm">Link</label>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <input id="txtLink" type="text" class="txtOpprtDetails" style="width:120px;" />
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row optionRow JobDetails OrderDetails QuoteDetails Opportunity " style="display:none;">
+                        @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <input type="text" class="txtOpprtDetails" />
+                            </div>*@
+                        @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <label class="lblForm" style="width: 54px;">Margin %</label>
+                            </div>*@
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <input id="txtCost" onblur="CalculateUnitPrice($(this));" type="text" class="txtOpprtDetails CurrencyFormat" style="width: 50px;float: none;margin: 0 3px 0 4px;" />
+                            <label class="lblForm" for="txtMargin">Margin</label>
+                            <input type="text" id="txtMargin" onblur="CalculateUnitPrice($(this));" style="width:40px;" class="txtOpprtDetails CurrencyFormat" tabindex="4"/> @*prakhar*@
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+
+                            <label for="ddlSizeType" class="lblForm" style="margin: 0px 0px 0 -15px;width:50%;">Size Grid<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label> @*prakhar*@
+                            @Html.DropDownList("ddlSizeType", new SelectList(ViewBag.SizeType, "value", "typeName"), new { @id = "ddlSizeType", @style = "width: 78px;float: none;", @class = "txtOpprtDetails", @onchange = "javascript:GetSize(this.value,'');" })
+                        </div>
+                    </div>
+
+                    <div class="row optionRow">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            @*<select class="txtOpprtDetails" onclick="ShowModal();" style="width:98.5%;">
+                                    <option value="T-shirt">T-shirt</option>
+                                    <option value="T-shirt">T-shirt</option>
+                                    <option value="T-shirt">T-shirt</option>
+                                </select>*@
+                            <input type="text" id="txtSizes" onfocus="ShowModal('SizeOrdered','txtSizes');" style="width:99.5%;" class="txtOpprtDetails SizesOrdered" />
+
+                            <input type="hidden" id="hiddenforsizes" />
+                        </div>
+                    </div>
+
+                    <div class="row optionRow PackingDetails ShippingDetails CompleteDetails InvoicingDetails" style="display:none;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            @*<input type="text" id="txtSizePacked" onfocus="ShowModal2();" style="width:99.5%;" class="txtOpprtDetails" />*@
+                            @*<input type="text" id="txtSizes" onfocus="ShowModal('SizeOrdered','txtSizes');" style="width:99.5%;" class="txtOpprtDetails SizesOrdered" />*@
+                            <input type="text" id="txtSizesPacked" onfocus="ShowModal('SizePacked','txtSizesPacked');" style="width:99.5%;" class="txtOpprtDetails SizesPacked" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @*Baans Comment*@
+        @*Seperating Middle block of code for [JobDetails,OrderDetails,QuoteDetails,Opportunity]*@
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol JobDetails OrderDetails QuoteDetails Opportunity" style="display:none;">
+            <div class="row OpprtDetailsForm">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 innerDiv">
+                    @*<p class="lblOpprtDetail tablbl">Front Dec</p>
+                    <p class="lblOpprtDetail tablbl">Back Dec</p>
+                    <p class="lblOpprtDetail tablbl">Left Sleeve</p>
+                    <p class="lblOpprtDetail tablbl">Right Sleeve</p>
+                    <p class="lblOpprtDetail tablbl">Other Dec</p>*@ @*Commented and changed Dec to App on 21Sep2020*@
+                    <p class="lblOpprtDetail tablbl">Front App</p>
+                    <p class="lblOpprtDetail tablbl">Back App</p>
+                    <p class="lblOpprtDetail tablbl">Left Sleeve</p>
+                    <p class="lblOpprtDetail tablbl">Right Sleeve</p>
+                    <p class="lblOpprtDetail tablbl">Other App</p>
+                </div>
+
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <a onclick="openDecorationModal('Front');"><span style="font-size:x-large;cursor:pointer;" class="fa fa-search searchfont CustomIcon"></span></a>
+                            <a onclick="ClickOnCrossBtn('Front');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon">X</span></a>
+                            @*<a onclick="ClickOnCrossBtn('Front');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon"><img src="~/Content/images/X.png" style="width: 15px;"/></span></a>*@
+                            <div class="tooltipnew">
+                                <label id=FrontShortlbl class="lblMiddleForm" onclick="MoveToApplication('Front')">......</label>
+                                <input type="hidden" id="FrontDecorationID" />
+                                <span id="FrontLonglbl" class="tooltiptextnew">Click on Search</span>
+                            </div>
+
+                            @*<button type="button" class="btnoptionFormbtn btn btn-primary">NEW</button>*@
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+
+                            @*@Html.DropDownList("Decoration1", new SelectList(ViewBag.DecorationList, "Dec_Desc", "Dec_Desc"), "--Select--", new { @id = "ddlDecoration1", @class = "txtOpprtDetails decorationDesc" })*@
+                            <input type="text" id="txtDecorationFront" class="decorationSize txtOpprtDetails" tabindex="5"/>
+
+                            @*<input type="text" id="txtRangeFront" style="width:70px !important" class="decorationSize txtOpprtDetails" />
+                                <input type="hidden" id="hiddenRangeFrontCost">*@
+
+                            <div class="dropdown">
+                                <input type="text" id="txtRangeFront" onblur="txtrangeonBlur();" class="dropbtn" placeholder="--Select--">
+                                <ul id="ListRangeFront" class="dropdown-content"></ul>
+                            </div>
+                            <input type="hidden" id="hiddenRangeFrontCost">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <a onclick="openDecorationModal('Back');"><span style="font-size:x-large;cursor:pointer;" class="fa fa-search searchfont CustomIcon"></span></a>
+                            <a onclick="ClickOnCrossBtn('Back');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon">X</span></a>
+                            @*<a onclick="ClickOnCrossBtn('Back');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon"><img src="~/Content/images/X.png" style="width: 15px;" /></span></a>*@
+                            <div class="tooltipnew">
+                                <label id="BackShortlbl" class="lblMiddleForm" onclick="MoveToApplication('Back')">......</label>
+                                <input type="hidden" id="BackDecorationID" />
+                                <span id="BackLonglbl" class="tooltiptextnew">Click on Search</span>
+                            </div>
+
+                            @*<button type="button" class="btnoptionFormbtn btn btn-primary">NEW</button>*@
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            @*@Html.DropDownList("Decoration2", new SelectList(ViewBag.DecorationList, "Dec_Desc", "Dec_Desc"), "--Select--", new { @id = "ddlDecoration2", @class = "txtOpprtDetails decorationDesc" })*@
+                            <input type="text" id="txtDecorationBack" class="decorationSize txtOpprtDetails" />
+
+                            @*<input type="text" id="txtRangeBack" style="width:70px !important" class="decorationSize txtOpprtDetails" />
+                                <input type="hidden" id="hiddenRangeBackCost">*@
+
+                            <div class="dropdown">
+                                <input type="text" id="txtRangeBack" onblur="txtrangeonBlur();" class="dropbtn" placeholder="--Select--">
+                                <ul id="ListRangeBack" class="dropdown-content"></ul>
+                            </div>
+                            <input type="hidden" id="hiddenRangeBackCost">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <a onclick="openDecorationModal('Left');"><span style="font-size:x-large;cursor:pointer;" class="fa fa-search searchfont CustomIcon"></span></a>
+                            <a onclick="ClickOnCrossBtn('Left');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon">X</span></a>
+                            @*<a onclick="ClickOnCrossBtn('Left');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon"><img src="~/Content/images/X.png" style="width: 15px;" /></span></a>*@
+                            <div class="tooltipnew">
+                                <label id="LeftShortlbl" class="lblMiddleForm" onclick="MoveToApplication('Left')">......</label>
+                                <input type="hidden" id="LeftDecorationID" />
+                                <span id="LeftLonglbl" class="tooltiptextnew">Click on Search</span>
+                            </div>
+
+                            @*<button type="button" class="btnoptionFormbtn btn btn-primary">NEW</button>*@
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            @*@Html.DropDownList("Decoration3", new SelectList(ViewBag.DecorationList, "Dec_Desc", "Dec_Desc"), "--Select--", new { @id = "ddlDecoration3", @class = "decorationDesc txtOpprtDetails" })*@
+                            <input type="text" id="txtDecorationLeft" class="decorationSize txtOpprtDetails" />
+
+                            @*<input type="text" id="txtRangeLeft" style="width:70px !important" class="decorationSize txtOpprtDetails" />
+                                <input type="hidden" id="hiddenRangeLeftCost">*@
+
+                            <div class="dropdown">
+                                <input type="text" id="txtRangeLeft" onblur="txtrangeonBlur();" class="dropbtn" placeholder="--Select--">
+                                <ul id="ListRangeLeft" class="dropdown-content"></ul>
+                            </div>
+                            <input type="hidden" id="hiddenRangeLeftCost">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <a onclick="openDecorationModal('Right');"><span style="font-size:x-large;cursor:pointer;" class="fa fa-search searchfont CustomIcon"></span></a>
+                            <a onclick="ClickOnCrossBtn('Right');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon">X</span></a>
+                            @*<a onclick="ClickOnCrossBtn('Right');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon"><img src="~/Content/images/X.png" style="width: 15px;" /></span></a>*@
+                            <div class="tooltipnew">
+                                <label id="RightShortlbl" class="lblMiddleForm" onclick="MoveToApplication('Right')">......</label>
+                                <input type="hidden" id="RightDecorationID" />
+                                <span id="RightLonglbl" class="tooltiptextnew">Click on Search</span>
+                            </div>
+
+                            @*<button type="button" class="btnoptionFormbtn btn btn-primary">NEW</button>*@
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            @*@Html.DropDownList("Decoration4", new SelectList(ViewBag.DecorationList, "Dec_Desc", "Dec_Desc"), "--Select--", new { @id = "ddlDecoration4", @class = "decorationDesc txtOpprtDetails" })*@
+                            <input type="text" id="txtDecorationRight" class="decorationSize txtOpprtDetails" />
+
+                            @*<input type="text" id="txtRangeRight" style="width:70px !important" class="decorationSize txtOpprtDetails" />
+                                <input type="hidden" id="hiddenRangeRightCost">*@
+
+                            <div class="dropdown">
+                                <input type="text" id="txtRangeRight" onblur="txtrangeonBlur();" class="dropbtn" placeholder="--Select--">
+                                <ul id="ListRangeRight" class="dropdown-content"></ul>
+                            </div>
+                            <input type="hidden" id="hiddenRangeRightCost">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <a onclick="openDecorationModal('Other');"><span style="font-size:x-large;cursor:pointer;" class="fa fa-search searchfont CustomIcon"></span></a>
+                            <a onclick="ClickOnCrossBtn('Other');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon ">X</span></a>
+                            @*<a onclick="ClickOnCrossBtn('Other');"><span style="font-size:x-large;cursor:pointer;" class="CustomIcon "><img src="~/Content/images/X.png" style="width: 15px;" /></span></a>*@
+                             <div class="tooltipnew">
+                                <label id="OtherShortlbl" class="lblMiddleForm" onclick="MoveToApplication('Other')">......</label>
+                                <input type="hidden" id="OtherDecorationID" />
+                                <span id="OtherLonglbl" class="tooltiptextnew">Click on Search</span>
+                            </div>
+
+                            @*<button type="button" class="btnoptionFormbtn btn btn-primary">NEW</button>*@
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            @*@Html.DropDownList("Decoration5", new SelectList(ViewBag.DecorationList, "Dec_Desc", "Dec_Desc"), "--Select--", new { @id = "ddlDecoration5", @class = "decorationDesc txtOpprtDetails" })*@
+                            <input type="text" id="txtDecorationOther" class="decorationSize txtOpprtDetails" />
+
+                            @*<input type="text" id="txtRangeOther" style="width:70px !important" class="decorationSize txtOpprtDetails" />
+                                <input type="hidden" id="hiddenRangeOtherCost">*@
+
+                            <div class="dropdown">
+                                <input type="text" id="txtRangeOther" onblur="txtrangeonBlur();" class="dropbtn" placeholder="--Select--">
+                                <ul id="ListRangeOther" class="dropdown-content"></ul>
+                            </div>
+                            <input type="hidden" id="hiddenRangeOtherCost">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        @*Baans Comment*@
+        @*Seperating Middle block of code for [PackingDetails,ShippingDetails,CompleteDetails,InvoicingDetails]*@
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol PackingDetails ShippingDetails CompleteDetails InvoicingDetails" style="display:none;">
+            <div class="row OpprtDetailsForm">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    <p class="lblOpprtDetail tablbl" id="lblpackedIn1">Packed In</p>
+                    <p class="lblOpprtDetail tablbl">Packed In</p>
+                    <p class="lblOpprtDetail tablbl" id="lblConNoteNo">Con Note No</p>
+                    <p class="lblOpprtDetail tablbl">Packing Notes</p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="ddlPackedInSet1" style="width:99.5%;" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="ddlPackedInSet2" style="width:99.5%;" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="txtConsigNoteNo" style="width:99.5%;" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="txtPackingNotes" style="width:99.5%;height:60px;" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+
+            <div class="row OpprtOptionDetailsForm">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    <p class="lblOpprtDetail tablbl">Other</p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <input type="text" id="txtotherdesc" class="txtOpprtDetails" />
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <label class="lblForm">Cost</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="text" id="txtothercost" onblur="CalculateUnitPrice($(this));" class="txtOpprtDetails CurrencyFormat" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row OpprtOptionDetailsForm">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    <p class="lblOpprtDetail tablbl">Comment</p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="txtComment" style="width: 98.5%;" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row OpprtOptionDetailsForm Opportunity QuoteDetails OrderDetails JobDetails PackingDetails InvoicingDetails" style="display:none;">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    <p class="lblOpprtDetail tablbl">Service</p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <select id="ddlservice" style="width: 98.5%;margin-right: -5px;" class="txtOpprtDetails">
+                                <option value="">--Select--</option>
+                                <option value="Standard - 2 weeks*">Standard - 2 weeks*</option>
+                                <option value="Express - 3-5 Days*">Express - 3-5 Days*</option>
+                                <option value="Lightening - Guaranteed 24 Hour*">Lightening - Guaranteed 24 Hour*</option>
+                                <option value="Miracle - Same Day*">Miracle - Same Day*</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-5">
+                            <label for="txtunitprcExgst" class="lblForm" style="margin-left: -15px;">Price Ex GST</label>
+                            <input onblur="MarginBackCalculate($(this));" type="text" id="txtunitprcExgst" style="width: 52px;" class="txtOpprtDetails CurrencyFormat" />
+                        </div>
+                        <div class="col-lg-3 Opportunity QuoteDetails OrderDetails JobDetails" style="display:none;">
+                            <label for="ddlinclude" class="lblForm">Include</label>
+                            <input type="checkbox" id="ddlinclude" checked="checked" style="vertical-align: -2px;" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="row OpprtOptionDetailsForm Opportunity ShippingDetails CompleteDetails" style="display:none;margin: 0 0 33px 0;" id="extaraDiv">
+            </div>*@
+
+
+            <div class="row OpprtOptionDetailsForm QuoteDetails OrderDetails JobDetails PackingDetails ShippingDetails InvoicingDetails CompleteDetails" style="display:none;">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    @*<p class="lblOpprtDetail tablbl" style="display:none;">Payment</p>*@
+                    <p class="lblOpprtDetail tablbl">
+                        <span style="margin: 2px 0px 0px 2px; position: absolute;">Proof</span>
+                        <input type="checkbox" id="chkProofSelect" style="width:16px;height:16px;margin-left:54px;"/>&nbsp;
+                        <i class="fa fa-envelope" id="mailIcon" style="font-size:22px;visibility:hidden;"></i>
+                        @*<i class="fa fa-envelope-open" id="mailIconOpen" style="font-size:22px;color:#11de11;visibility:hidden;"></i>*@
+                    </p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            @*<input type="text" id="txtpayment" style="width: 98.5%;margin-right: -5px; display:none" class="txtOpprtDetails CurrencyFormat" />
+                        </div>
+                        <div class="col-lg-2">*@
+                            <button type="button" id="btnViewProof" onclick="OpenProofPdf()" class="colBtns btn btn-primary" style="margin-left:6px;">VIEW</button>
+                            <button type="button" id="btnViewProofBlank" class="colBtns btn btn-primary" style="margin-left:6px; display:none;background-color: lightgray;" disabled></button>
+                            <button type="button" id="btnSendProof" onclick="openEmailModal('Proof');" class="colBtns btn btn-primary">SEND</button>
+                            <button type="button" id="btnSendProofBlank" class="colBtns btn btn-primary" style="display:none;background-color: lightgray;" disabled></button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" id="btnOptionPay" onclick="OpenPayModal()" class="colBtns btn btn-primary" style="margin-left: 8px;">PAY</button>
+                            <button type="button" id="btnOptionPayBlank" class="colBtns btn btn-primary" style="margin-left: 8px;background-color: lightgray;" disabled></button>
+                            <button type="button" id="btnOptionHist" class="colBtns btn btn-primary" onclick="ShowHistory(@ViewBag.ID)" style="margin-left: 0px;">HIST</button>
+                            <button type="button" id="btnOptionHistBlank" class="colBtns btn btn-primary" style="margin-left: 0px;background-color: lightgray;" disabled></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row OpprtOptionDetailsForm" id="BlankInnerDiv" style="display:none">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left:4px;">
+                            <button type="button" id="btnViewProofBlank" class="colBtns btn btn-primary" style="margin-left:6px; background-color: lightgray;"disabled></button>
+                            <button type="button" id="btnSendProofBlank" class="colBtns btn btn-primary" style="background-color: lightgray;"disabled></button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-right: 8px; padding-left: 12px;">
+                            <button type="button" id="btnOptionPayBlank" class="colBtns btn btn-primary" style="margin-left: 8px;background-color: lightgray;"disabled></button>
+                            <button type="button" id="btnOptionHistBlank" class="colBtns btn btn-primary" style="margin-left: 0px;background-color: lightgray;"disabled></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            @*<div class="row OpprtOptionDetailsForm" style="display:none;">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                    <p class="lblOpprtDetail tablbl"></p>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-4">*@
+                            @*<input type="text" id="txtpayment" style="width: 98.5%;margin-right: -5px;" class="txtOpprtDetails CurrencyFormat" />*@
+                        @*</div>
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-6 Opportunity QuoteDetails OrderDetails">*@
+                            @*<button type="button" id="btnOptionPay" class="colBtns btn btn-primary" style="margin-left: 8px;">PAY</button>*@
+                            @*<button type="button" id="btnOptionHist" class="colBtns btn btn-primary" style="margin-left: 87px;">HIST</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+
+            <div class="row OpprtOptionDetailsForm">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!--<div class="row" id="btnrow">
+                        @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+
+                        <button type="button" id="btnOptionCopy" onclick="OptionCopy();" class="colBtns btn btn-primary">COPY</button>
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        <button type="button" id="btnOptionSave" onclick="OptionSave();" class="colBtns btn btn-primary">SAVE</button>
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        <button type="button" id="btnOptionQuote" style="display:none" onclick="ChangeStageByOppoID('Quote', 'QuoteDetails', 2)" class="colBtns btn btn-primary">QUOTE</button>
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        <a href="/Purchase/PurchaseDetails/?Id=0&OppId=@ViewBag.Id"><button type="button" id="btnOptionPurch" style="display:none" class="colBtns btn btn-primary">PURCH</button> </a>   @*31 Aug 2018 (N)*@
+
+                        <button type="button" id="btnOptionList" style="display:none" class="colBtns btn btn-primary" onclick="openEmailModal('Invoice');">LIST</button>
+
+                        <button type="button" id="btnOptionShipping" style="display:none" class="colBtns btn btn-primary">SHIP</button>   @*tarun 24/09/2018*@
+                        @*baans change 10th January for makeRepeatOrder*@
+                        <button type="button" id="btnOptionRepeat" onclick="MakeRepeatOrder();" style="display:none" class="colBtns btn btn-primary">REPEAT</button>
+                        @*baans end 10th january*@
+                        <button type="button" id="btnOptionPro" style="display:none" onclick="openEmailModal('Invoice');" class="colBtns btn btn-primary">PRO</button>
+
+                        <button type="button" id="btnOptionINV" style="display:none" class="colBtns btn btn-primary">INV</button>
+
+                        @*<button type="button" id="btnOptionConfirm" style="display:none" class="colBtns btn btn-primary">CONFIRM</button>*@
+
+                        <button type="button" id="btnOptionLabel" style="display:none" class="colBtns btn btn-primary" Onclick="PrintAddressPdf()">LABEL</button>
+
+                        <button type="button" id="btnOptionPrint" style="display:none" onclick="Print();" class="colBtns btn btn-primary">PRINT</button>
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        <button type="button" id="btnOptionEmail" onclick="openEmailModal('Quoteorder');" style="display:none" class="colBtns btn btn-primary">EMAIL</button>
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        <button type="button" id="btnOptionOrder" style="display:none" class="colBtns btn btn-primary">ORDER</button>
+                        @*</div>*@
+
+                    </div>-->
+                    @*Commented and changed by baans 02Sep2020*@
+                    <div class="row" id="btnrow">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-left:4px;">
+                                    <button type="button" id="btnOptionCopy" onclick="OptionCopy();" class="colBtns btn btn-primary">COPY</button>
+                                    <button type="button" id="btnOptionCopyBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>
+                                    <button type="button" id="btnOptionLabel" style="display:none" class="colBtns btn btn-primary" Onclick="PrintAddressPdf()">LABEL</button>
+                                    <button type="button" id="btnOptionLabelBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>
+                                    <button type="button" id="btnOptionRepeat" onclick="MakeRepeatOrder();" style="display:none" class="colBtns btn btn-primary">REPEAT</button>
+                                    <button type="button" id="btnOptionRepeatBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button> 
+                                    <button type="button" id="btnOptionSave" onclick="OptionSave();" class="colBtns btn btn-primary">SAVE</button>
+                                    <button type="button" id="btnOptionSaveBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>                                  
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-right: 8px; padding-left: 21px;">
+                                    <button type="button" id="btnOptionEmail" onclick="openEmailModal('Quoteorder');" style="display:none;" class="colBtns btn btn-primary">EMAIL</button>
+                                    <button type="button" id="btnOptionEmailBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>
+                                    <a href="/Purchase/PurchaseDetails/?Id=0&OppId=@ViewBag.Id"><button type="button" id="btnOptionPurch" style="display:none" class="colBtns btn btn-primary">PURCH</button> </a>
+                                    <button type="button" id="btnOptionPurchBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>
+                                    <button type="button" id="btnOptionList" style="display:none" class="colBtns btn btn-primary" onclick="openEmailModal('Invoice');">LIST</button>
+                                    <button type="button" id="btnOptionListBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>
+                                    <button type="button" id="btnOptionPrint" style="display:none" onclick="Print();" class="colBtns btn btn-primary">PRINT</button>
+                                    <button type="button" id="btnOptionPrintBlank" onclick="" style="display:none;background-color: lightgray;" class="colBtns btn btn-primary" disabled></button>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+
+                        
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        @*<button type="button" id="btnOptionQuote" style="display:none" onclick="ChangeStageByOppoID('Quote', 'QuoteDetails', 2)" class="colBtns btn btn-primary">QUOTE</button>*@
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@   @*31 Aug 2018 (N)*@
+
+                        
+
+                        @*<button type="button" id="btnOptionShipping" style="display:none" class="colBtns btn btn-primary">SHIP</button>*@   @*tarun 24/09/2018*@
+                        @*baans change 10th January for makeRepeatOrder*@
+                        
+                        @*baans end 10th january*@
+                        @*<button type="button" id="btnOptionPro" style="display:none" onclick="openEmailModal('Invoice');" class="colBtns btn btn-primary">PRO</button>
+
+                        <button type="button" id="btnOptionINV" style="display:none" class="colBtns btn btn-primary">INV</button>*@
+
+                        @*<button type="button" id="btnOptionConfirm" style="display:none" class="colBtns btn btn-primary">CONFIRM</button>*@
+
+                        
+
+                        
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        @*</div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">*@
+                        @*<button type="button" id="btnOptionOrder" style="display:none" class="colBtns btn btn-primary">ORDER</button>*@
+                        @*</div>*@
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div id="OptionsGrid" style="width:97%;margin: 0px 0px 0px 20px;"></div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row RowColumns tabBody" id="mail">
+        @*<div id="paramQueryGrid" style="margin:auto;font-size:13px"></div>*@
+
+    </div>
+
+    <div class="row RowColumns tabBody" id="chat">
+
+    </div>
+
+    <div id="SizeModel" class="w3-modal" style="display: none">
+        <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height: auto; width: 540px; margin-top: 86px;padding-bottom: 20px;">
+            <header class="w3-container w3-dark-grey">
+                <h4 class="w3-text-white" id="h1">Choose Size</h4>
+            </header>
+            @*<div class="w3-container">
+                    <p class="w3-padding-top w3-text-grey">
+                        <label id="c1">Please Choose the Inspection status...</label>
+                    </p>
+                </div>*@
+            <div class="row" id="validrow" style="display:none;padding-bottom: 10px;">
+                <span id="validcheck" style="font-size: 13px;color: red;float: right;margin: 0 30px 0 0;">frejgfbvjherkrebhj</span>
+            </div>
+            @*baans change 6th July for Total Option Quantity in SizeModel*@
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p class="lblOpprtDetail1 tablbl">Total Quantity</p>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <label id="txttotalQuan" style="width:55%;margin: 0px 0px 0px 272px;"></label>
+                    @*<input id="txttotalQuan" type="text" style="width:55%;" />*@
+                </div>
+
+            </div>
+            @*baans end 6th July*@
+            <div class="row" style="padding-bottom: 20px;margin: 25px 0 0 36px;">
+                @*@using (Html.BeginForm())
+                    {
+                        <label for="ddlSizeType">Choose Size Type</label>
+                        @Html.DropDownList("ddlSizeType", new SelectList(ViewBag.SizeType, "typeName", "typeName"), new { @id = "ddlSizeType", @style = "width:200px;float: none;", @class = "txtOpprtDetails", @onchange = "javascript:GetSize(this.value);" })
+                        <br />
+                        <br />
+                        <label for="ddlsize">Select Size</label>
+                        <select id="ddlsize" class="txtOpprtDetails" name="ddlsize" style="width: 200px;float: none;"></select>
+
+                        <br /><br />
+                    }*@
+
+                <label for="ddlsize">Select Size</label>
+                @*<select id="ddlsize" class="txtOpprtDetails" name="ddlsize" style="width: 200px;float: none;"></select>*@
+                <div id="ddlsize"></div>
+            </div>
+            @*baans change 6th July for Total of Size Quantity*@
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <p class="lblOpprtDetail" style="margin: 0 0 0 9px;">Total</p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <input id="txtTotalSize" disabled="disabled" style="margin: 0px 0px 0px 24px;" />
+                </div>
+            </div>
+            @*baaans end 6th July*@
+            <div class="row" style="margin-top:21px;padding-bottom:20px;">
+                <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4"></div>
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                    @*<button type="button" ID="SizeOrdered" style="display:none" onclick="submitSize('SizesOrdered');" class="btnFormbtn btn btn-primary">Submit</button>*@
+                    <button type="button" ID="SizesPacked" onclick="submitSize();" class="btnFormbtn btn btn-primary">Submit</button>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                    <button type="button" onclick="HideModal();" style="float: none;margin: 0 0px 0 -24px;" ID="cancel" class="btnFormbtn btn btn-primary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="DecorationModel" class="w3-modal" style="display: none;">
+        <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto;width: 60%; margin-top: 86px;padding-bottom: 20px;">
+            <span class="crossbtn" style="cursor:pointer;margin: 8px 20px 0 0 !important;" onclick="document.getElementById('DecorationModel').style.display = 'none'">x</span>
+
+            <input type="hidden" id="hdnLocationName">
+            <input type="hidden" id="hdnOptionid" />
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="row" style="margin: 0px 0 0 10px;padding: 30px 0 10px 10px;">
+                        <div class="col-lg-6">
+                            <label class="popHeader">APPLICATION SEARCH</label>
+                            <a title="Refresh" id="btnApplicationRefresh" style="cursor:pointer;float:right" onclick="GetDecorationImageGrid('All');"><span style="font-size:x-large" class="fa fa-refresh  CustomIcon"></span></a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a id="DecGridSearch"><span style="font-size:x-large;cursor:pointer;" class="fa fa-search searchfont CustomIcon"></span></a><input type="text" id="txtSearchImg" onkeyup="GetDecorationImageGrid(this.value);" style="width:90%" class="txtOpprtDetails" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <label class="popHeader">Job Name :-</label>
+                    <label id="AppJobName" class="popHeader" style="margin-left:2px"></label>
+                    <label class="popHeader">,</label>
+                    <label id="AppLocation" class="popHeader" style="margin-left:10px"></label>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 0 16px 0 34px;">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div id="DecImageGrid" style="width:auto"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <img src="" class="img-responsive decImage" id="decImage" />
+                    <button type="button" id="btnStandardApp" class="btnFormbtn btn" onclick="MoveToNewApplication('Standard');">NEW STANDARD</button>
+                    <button type="button" id="btnCustomApp" class="btnFormbtn btn" onclick="MoveToNewApplication('Custom');">NEW CUSTOM</button>
+                    <button type="button" id="btnSelectApp" class="btnFormbtn btn">SELECT</button>
+                </div>
+            </div>
+
+            @*<div class="row" style="margin: 34px 0 0 0;">
+                    <button type="button" class="btnFormbtn btn btn-primary">SELECT</button>
+                </div>*@
+        </div>
+    </div>
+
+    <div id="EmailModel" class="w3-modal" style="display: none; ">
+        <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto;width: 35%; margin-top: 86px;padding-bottom: 0px;">
+            <header class="w3-container w3-dark-grey">
+                <h4 class="w3-text-white" id="h1">Send Mail</h4>
+            </header>
+            <div style="border:1px solid rgba(204, 204, 204, 1) !important">
+                <div class="row" style="padding: 30px 30px 10px 30px;">
+                    <div class="col-lg-12">
+                        <label>To</label>
+                        <input type="text" id="txtToMail" style="width:100%" />
+                    </div>
+                </div>
+                <div class="row" style="padding: 0px 30px 10px 30px;">
+                    <div class="col-lg-12">
+                        <label>Subject</label>
+                        <input type="text" id="txtMailSubject" style="width:100%" />
+                    </div>
+                </div>
+                @*<div class="row" style="padding: 0px 30px 10px 30px;">
+                    <div class="col-lg-12">
+                        <label>Message 1</label>*@
+                @*Baans change 02nd November*@
+                @*<textarea id="txtMailMessage1" readonly="readonly" class="MakeReadonly" style="width:100%;height:120px; resize:none"></textarea>*@
+                @*<textarea id="txtMailMessage1" class="MakeReadonly" style="width:100%;height:120px; resize:none"></textarea>*@
+                @*</div>
+                    </div>*@
+                <div class="row" style="padding: 0px 30px 10px 30px;">
+                    <div class="col-lg-12">
+                        <label>Your Message</label>
+                        <textarea id="txtMailMessage2" style="width:100%;height:360px;resize:none"></textarea>
+                    </div>
+                </div>
+                @*<div class="row" style="padding: 0px 30px 10px 30px;">
+                    <div class="col-lg-12">
+                        <label>Message 2</label>
+                        <textarea id="txtMailMessage3" class="MakeReadonly" readonly="readonly" style="width:100%;height:120px;resize:none"></textarea>*@
+                @*<textarea id="txtMailMessage3" class="MakeReadonly" style="width:100%;height:120px;resize:none"></textarea>*@
+                @*baans end 2nd November*@
+                @*</div>
+                    </div>*@
+                <div class="row" style="padding: 0px 30px 10px 30px;">
+                    <div class="col-lg-8">
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" onclick="SendEmail();" class="colBtns btn btn-primary">SEND</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" onclick="document.getElementById('EmailModel').style.display = 'none'" class="colBtns btn btn-primary">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*baans change 13th September for Popup of brand*@
+    <div id="BrandModel" class="w3-modal" style="display: none; ">
+        <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto;width: 35%; margin-top: 86px;padding-bottom: 0px;">
+            <header class="w3-container w3-dark-grey">
+                <h4 class="w3-text-white" id="h1">Add Brand</h4>
+            </header>
+            <div style="border:1px solid rgba(204, 204, 204, 1) !important">
+                <div class="row" style="padding: 0px 30px 10px 30px;">
+
+                    <div class="col-lg-4">
+                        <label>Enter Brand Name</label>
+                    </div>
+                    <div class="col-lg-8">
+                        <textarea id="txtNewBrand" style="width:66%;height:36px; resize:none"></textarea>
+                    </div>
+                </div>
+                <div class="row" style="padding: 0px 30px 10px 30px;">
+                    <div class="col-lg-8">
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" onclick="SaveBrand();document.getElementById('BrandModel').style.display = 'none'" class="colBtns btn btn-primary">SAVE</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" onclick="document.getElementById('BrandModel').style.display = 'none'" class="colBtns btn btn-primary">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*baans end 13th September*@
+
+    <div id="PaymentModal" class="w3-modal" style="display:none">
+        <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height: 615px; width: 940px; margin-top: 60px;padding-bottom: 20px;">
+            <header class="w3-container w3-grey">
+                <h4 class="w3-text-white" id="h1">Payment </h4>
+            </header>
+            @*<div class="row" id="validrow" style="display:none;padding-bottom: 10px;">
+                    <span id="validcheck" style="font-size: 13px;color: red;float: right;margin: 0 30px 0 0;">frejgfbvjherkrebhj</span>
+                </div>*@
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    @*<input type="radio" id="radioDepositToAccount" checked="checked" />*@
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <p class="lblOpprtDetail1 tablbl" id="lblDeposite"></p>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <input id="txtFieldValue" type="text" style="width:133px;" />
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <label id="lblFieldDescription"></label>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <label id="lblHourMerch">Balance  :</label>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <label id="lblPayBalance" style="margin-left:-80px;"></label>
+                </div>
+            </div>
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 40px 0 0 20px;">
+                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                    <label id="lblCustomer" style="margin-left:135px">Customer :</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-xs-5 col-xs-5">
+                    <input type="text" id="txtCustomerName" style="width:305px;" disabled />
+                    <input type="hidden" id="hdnforoppOrgID" />
+                    <input type="hidden" id="hdnMessage" />
+                    @*baans change 15th September*@
+                    <input type="hidden" id="hdnBrandStatus" />
+                    <input type="hidden" id="hdnBrandvalue" />
+                    <input type="hidden" id="hdnBrandId" />
+                    @*baans end 15th Sept*@
+                    @*baans change 20th Sept for Inactive type*@
+                    <input type="hidden" id="hdnTypeStatus" />
+                    <input type="hidden" id="hdnTypevalue" />
+                    <input type="hidden" id="hdnTypeId" />
+                    @*baans end 20th Sept*@
+                    @*baans change 26th November*@
+                    <input type="hidden" id="hdnIsCopyPressId" />
+                    @*baans end 26th November*@
+                </div>
+                @*<div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+
+                    </div>*@
+                <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+                    <label id="lblCustomer">ID #:</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2">
+                    <input type="text" id="txtID" disabled />
+                </div>
+                <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+
+                </div>
+            </div>
+
+
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 10px 0 0 20px;">
+                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                    <label id="lblCustomer" style="margin-left:100px">Amount Received:</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-xs-5 col-xs-5">
+                    <input type="text" id="txtAmountReceived" class="CurrencyFormat" style="width:150px;" />
+                    <input type="hidden" id="hdnAmountCheckValidation" />
+                </div>
+                @*<div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+
+                    </div>*@
+                <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+                    <label id="lblCustomer">Date:</label>
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2">
+                    <input type="text" class="datepicker" id="CurrentDate" style="width:154px;" />
+                </div>
+                <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 10px 0 0 20px;">
+                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                    <label id="lblCustomer" style="margin-left:100px">Payment Method:</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-xs-5 col-xs-5">
+                    @*<input type="text" id="txtPaymentMethod" style="width:200px;" />*@
+                    @Html.DropDownList("txtPaymentMethod", new SelectList(ViewBag.PaymentMethodList, " name ", "name"), "--Select--", new { @id = "txtPaymentMethod", @class = "txtOpprtDetails", @style = "width:200px; margin: 0px 154px 0px 0px;" })
+                </div>
+                @*<div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+
+                    </div>*@
+                <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+                    @*<label id="lblCustomer">ID #:</label>*@
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-2 col-xs-2">
+                    @*<input type="text" id="txtID" />*@
+                </div>
+                <div class="col-lg-1 col-md-1 col-xs-1 col-xs-1">
+
+                </div>
+            </div>
+
+
+
+            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 10px 0 0 20px;">
+                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                    <label id="lblCustomer" style="margin-left:154px">Memo:</label>
+                </div>
+                <div class="col-lg-5 col-md-5 col-xs-5 col-xs-5">
+                    <input type="text" id="txtMemo" style="width:305px;" />
+                    <input type="hidden" id="hdnOppName" />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <button type="button" ID="SizesPacked" onclick="submitPayment();" class="btnFormbtn btn btn-primary" style="margin-right:126px;">Submit</button>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                    <button type="button" onclick="HidePaymentModal();" style="float: none;margin: -43px 0px 9px 772px;" ID="cancel" class="btnFormbtn btn btn-primary">Cancel</button>
+                </div>
+            </div>
+            <div class="Grid_Container">
+                <div class="row RowColumns tabBody" style="display:block;" id="all">
+                    <div id="PaymentGrid" class="SearchText" style="margin:8px 12px 0px -5px;margin-top:-8px;font-size:13px"></div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:21px;padding-bottom:20px;">
+                <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4"></div>
+                @*<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                        <button type="button" ID="SizesPacked" onclick="submitSize();" class="btnFormbtn btn btn-primary">Submit</button>
+                    </div>*@
+
+                @*<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                        <button type="button" onclick="HidePaymentModal();" style="float: none;margin: 0 0px 0 -24px;" ID="cancel" class="btnFormbtn btn btn-primary">Cancel</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+
+    @*8-Aug-2018 (N)*@
+    <div id="historypopup" class="w3-modal" style="border: 1px solid #ced4da;display:none;z-index:4 !important">
+        <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto; width:920px; margin-top:86px;padding-bottom:9px;">
+            @*<div class="row" style="background:#cccccc;color:white;width:920px;margin-left:0px;">
+                    <div class="col-sm-12" style="margin-top:12px;margin-left:4px; font-size:14px">
+                        <label style="font-size:14px" id="heading">Payment Details For Job ID </label><label id="jobid" style="font-size:14px;margin-left:4px;"></label><label style="font-size:14px;margin-left:4px;">and Job Name</label><label id="jobname" style="font-size:14px;margin-left:4px;"></label>
+                    </div>
+                </div>*@
+            <div class="row" style="background:#cccccc;color:white;width:920px;margin-left:0px;">
+                <div class="col-sm-12" style="margin-top:12px;margin-left:4px; font-size:14px">
+                    <label style="font-size:15px !important;font-weight:700 !important;color:#000 !important;margin-left: 395px !important;" id="heading">Payment Detail</label>
+                </div>
+            </div>
+            <div class="row" style="background:#cccccc;color:white;width:920px;margin-left:0px;">
+                <div class="col-sm-12" style="margin-top:12px;margin-left:4px; font-size:14px">
+                    <label style="font-size:15px !important;font-weight:700 !important;color:#000 !important;margin-left: 221px !important;">Job ID - </label>
+                    <label id="jobid" style="font-size:15px !important;font-weight:700 !important;color:#000 !important"></label>
+                    <label style="font-size:15px !important;font-weight:700 !important;color:#000 !important;margin-left: 248px !important;">Job Name - </label>
+                    <label id="jobname" style="font-size:15px !important;font-weight:700 !important;color:#000 !important"></label>
+                </div>
+            </div> @*by hitesh 24 aug*@
+
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12 col-xl-6">
+                    <div id="paymenthistorygrid" style="margin:auto; font-size:10px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+
+                <div class="col-sm-4">
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" style="float: none; margin-top:5px; margin-left:40px" ID="btncancel" class="btndesign" onclick="hidepopup()">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @*8-Aug-2018 (N)*@

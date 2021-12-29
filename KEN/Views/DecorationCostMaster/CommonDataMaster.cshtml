@@ -1,0 +1,31 @@
+﻿@*<script src="~/Content/js/DecorationCostMaster.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/DecorationCostMaster.js"></script> 
+
+<script type="text/javascript">
+    $(function () {
+        GetCommonDataList();
+    });
+</script>
+
+<div class="row">
+    <label style="float: right;
+    margin-right: 60px;
+    font-size: 27px;
+    margin-top: -6px;
+    margin-bottom: 10px;">Only View - Common Data</label>
+</div>
+
+<div class="row">
+    <div id="CommonDataMasterGrid" style="margin-left: 32px;"></div>
+</div>
+
+@*After Render Body Section Starts Here*@
+    </section>
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    @* @Html.Partial("_OptionRightSideBar")*@
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

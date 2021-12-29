@@ -1,0 +1,546 @@
+﻿@*<script src="~/Content/js/Application.js"></script>
+<script src="~/Content/js/opportunity.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Application.js?v=4"></script>
+<script src="~/Content/js/opportunity.js?v=4"></script>
+
+<script>
+
+    var PageType = '@ViewBag.PageType';
+    var OptionId = '@ViewBag.OptionId';
+    $(function () {
+        $('#hdnOptionId').val(OptionId);
+        GetApplicationById(@ViewBag.ApplicationId);
+        GetOptionInfo(@ViewBag.OptionId);
+        if (OptionId != null && OptionId != "" && OptionId != undefined) {
+            history.pushState('', '', '/Application/ApplicationDetails?Id=' + @ViewBag.ApplicationId + '&PageType=' + PageType + '&OptionId=' + OptionId);
+        }
+        else {
+            history.pushState('', '', '/Application/ApplicationDetails?Id=' + @ViewBag.ApplicationId + '&PageType=' + PageType);
+        }
+    });
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        //if (cityName != "Custom") {
+            evt.currentTarget.className += " active";
+        //}
+        //else {
+        //    $('#btnCustomSearch').addClass('active');
+        //}
+    }
+    function validateForm() {
+        var id = $('hdnApplicationId').val();
+        if (id != "" && id != null) {          
+            return true;
+        }
+        else {
+            CustomWarning("Please save application first!");
+            return false;
+        }
+    }
+</script>
+<style>
+    .imgEnlarge{
+        transform:scale(1.5);
+        cursor:zoom-out !important;
+    }
+
+    #div_img{
+        padding:0px 0px 0px 0px;
+        border:1px solid;
+        border-color: rgb(169, 169, 169);
+        width:97%;
+        height: 418.67px;
+        overflow:hidden;
+        z-index:1;
+        background-color:white;
+        cursor: zoom-in;
+        transition: transform 0.50s cubic-bezier(1, -0.01, 0.06, 0.99);
+    }
+
+    /*label.SaveImagebtn{
+        top: 0px;
+        padding: 3px 0 0 0;
+        width: 65px;
+        height: 26px;
+        background: inherit;
+        background-color: rgba(255, 255, 255, 1) !important;
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(204, 204, 204, 1);
+        border-radius: 5px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color: #666666 !important;
+    }
+ 
+    label.SaveImagebtn:hover {
+        background: #9e978f !important;
+        color: #fff !important;
+    }*/
+</style>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/APPLICATION.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("ApplicationDetails", "ApplicationDetails", new { @id = "PageName" })
+</div>
+
+<div class="row RowColumns" style="margin-top:25px;">
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol CatchAppChange">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <span class="rowUpperHead" id="lblapplicationId">000000</span>
+            </div>
+            <div class="col-lg-3">
+                <span class="rowUpperHead" id="lblApplicationManager"></span>
+            </div>
+            <div class="col-lg-3">
+                <span class="rowUpperHead" id="lblApplicationDate"></span>
+            </div>
+            <div class="col-lg-3">
+                <button type="button" class="btnFormbtn btn btn-primary" id="btnAppSave" onclick="SaveApplication();">SAVE</button>
+            </div>
+        </div>        
+
+        <div class="row" style="margin-top:8px;">
+            <div class="col-lg-3">
+                <p class="lblAppPopup">Name<span class="reqField">*</span></p>
+                <p class="lblAppPopup">Type<span class="reqField">*</span></p>
+                <p class="lblAppPopup">Art<span class="reqField">*</span></p>
+                <p class="lblAppPopup">Production<span class="reqField">*</span></p>
+                <p class="lblAppPopup">Designer<span class="reqField">*</span></p>
+                <p class="lblAppPopup">Designer Notes</p>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" class="txtOpprtDetails" id="txtApplicationName" style="width:100%;" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        @Html.DropDownList("drdApplicationType", new SelectList(ViewBag.ApplicationType, "ApplicationType", "ApplicationType"), "--Select--", new { @id = "drdApplicationType", @class = "txtOpprtDetails", @Onchange = "ChangeColourTab()"})
+                    </div>
+
+                    <div class="col-lg-7">
+                        <label class="lblAppPopup innerP">Width<span class="reqField AppInnerfrm">*</span></label>
+                        <input type="text" class="txtOpprtDetails innerSelect" id="txtApplicationWidth" />
+                    </div>
+
+                    <div class="col-lg-5">
+                        @Html.DropDownList("drdApplicationArt", new SelectList(ViewBag.ApplicationArt, "Art", "Art"), "--Select--", new { @id = "drdApplicationArt", @class = "txtOpprtDetails" })
+                    </div>
+
+                    <div class="col-lg-7">
+                        <label class="lblAppPopup innerP">Bill@*<span class="reqField AppInnerfrm">*</span>*@</label>
+                        <input type="text" class="txtOpprtDetails innerSelect" id="txtBill" />
+                    </div>
+
+                    <div class="col-lg-5">
+                        @Html.DropDownList("drdApplicationProduction", new SelectList(ViewBag.ApplicationProduction, "Name", "Name"), "--Select--", new { @id = "drdApplicationProduction", @class = "txtOpprtDetails" })
+                    </div>
+
+                    <div class="col-lg-7">
+                        <label class="lblAppPopup innerP">Supplier<span class="reqField AppInnerfrm">*</span></label>
+                        @Html.DropDownList("drdApplicationArtSupplier", new SelectList(ViewBag.ArtSupplier, "SupplierName", "SupplierName"), "--Select--", new { @id = "drdApplicationArtSupplier", @class = "txtOpprtDetails innerSelect", @onchange = "ShowSupplierModal();" })
+                    </div>
+
+                    <div class="col-lg-5">
+                        @Html.DropDownList("drdApplicationDesigner", new SelectList(ViewBag.ApplicationDesigner, "DesignerName", "DesignerName"), "--Select--", new { @id = "drdApplicationDesigner", @class = "txtOpprtDetails" })
+                    </div>
+
+                    <div class="col-lg-7">
+                        <label class="lblAppPopup innerP">Status<span class="reqField AppInnerfrm">*</span></label>
+                        @Html.DropDownList("drdApplicationStatus",new SelectList(ViewBag.ApplicationStatus, "ApplicationStatus", "ApplicationStatus"),"--Select--",new { @id= "drdApplicationStatus", @class= "txtOpprtDetails innerSelect" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.TextArea("txtDesignerNotes", "", new { placeholder = "", @id = "txtDesignerNotes", @class = "designernotes txtOpprtDetails", @style="height:62px !important" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-lg-3">
+                <button type="button" class="SaveImagebtn btn" onclick="MovetoLINK()">LINK</button>
+            </div>
+
+            <div class="col-lg-9">
+                <input type="text" class="txtOpprtDetails" id="txtApplicationlink" style="width:100%;"/>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 CatchAppChange">
+        <div class="row">
+            <div class="col-lg-3">
+                <p class="lblAppPopup">Art Notes</p>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.TextArea("txtArtNotes", "", new { placeholder = "", @id = "txtArtNotes", @class = "designernotes txtOpprtDetails" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="margin-top:17px;">
+                <p class="lblAppPopup">Proof Notes</p>
+            </div>
+            <div class="col-lg-9" style="margin-top:17px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.TextArea("txtProofNotes", "", new { placeholder = "", @id = "txtProofNotes", @class = "designernotes txtOpprtDetails" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="margin-top:17px;">
+                <p class="lblAppPopup">Production Notes</p>
+            </div>
+            <div class="col-lg-9" style="margin-top:17px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.TextArea("txtProductionNotes", "", new { placeholder = "", @id = "txtProductionNotes", @class = "designernotes txtOpprtDetails" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 CatchAppChange" style="width:32.555555%">
+        <div class="col-lg-12" style="" id="div_img">
+            <img src="#" id="Appimg" width="100%" onmouseover="onHover();" onmouseout="offHover();">
+        </div>
+
+        <div class="col-lg-12" style="margin-top:15px;">
+            @using (Html.BeginForm("ApplicationFiles", "Application", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateForm(event)" }))
+            {
+                <input type="hidden" name="ApplicationId" id="hdnApplicationId" />
+                <input type="hidden" name="OptionId" id="hdnOptionId" />
+                @*<input type="hidden" id="hdnsrcImgFile" />*@
+                <input type="hidden" id="hdnartImgFile" />
+                 
+                <div class="col-lg-2 application_uploadbutton">
+                    <label for="srcimgApplication" class="SaveImagebtn btn">SOURCE</label>
+                    @Html.TextBox("srcimgFile", "", new { @id = "srcimgApplication", @type = "file", @accept = "image/*", @style = "display:none;" })
+                    <input type="hidden" id="SrcImageName">
+                    <br>
+                    <a onclick="DownloadFiles('Source');" style="visibility:hidden" id="sourceDownload"><i class="fa fa-download CustomIcon appDownload" style="margin-left:21px;"></i></a>
+                </div>
+
+                <div class="col-lg-3 application_uploadbutton">
+                    @*<label for="imgApplication" class="SaveImagebtn btn" style="margin-left:15px;">ARTTILE</label>*@
+                    <label for="imgApplication" class="SaveImagebtn btn" style="margin-left:15px;">CLOSE-UP</label> @*change by Baans 08Aug2020*@
+                    @Html.TextBox("imgFile", "", new { @id = "imgApplication", @type = "file", @accept = "image/*", @onchange = "readImage(this);", @style = "display:none;" })
+                    <input type="hidden" id="ArtImageName">
+                    <br>
+                    <label id="AppImageName" style="width:100%;font-size: 15px;"></label>
+                </div>
+
+                <div class="col-lg-2 application_uploadbutton">
+                    <label for="mockimgApplication" class="SaveImagebtn btn">MOCK-UP</label>
+                    @Html.TextBox("mockimgFile", "", new { @id = "mockimgApplication", @type = "file", @accept = "image/*", @style = "display:none;" })
+                    <input type="hidden" id="MockImageName">
+                    <br>
+                    <a onclick="DownloadFiles('Mock');" style="visibility:hidden" id="mockDownload"><i class="fa fa-download CustomIcon appDownload" style="margin-left:20px;"></i></a>
+                </div>
+
+                <div class="col-lg-3 application_uploadbutton">
+                    <label for="VectorApplication" class="SaveImagebtn btn" id="btnvectordigitize"style="margin-left:15px;">VECTOR</label>
+                    @Html.TextBox("vectorFile", "", new { @id = "VectorApplication", @type = "file", @accept = "*.*", @style = "display:none;" })
+                    <input type="hidden" id="VectorFileName">
+                    <br>
+                    <a onclick="DownloadFiles('Vector');" style="visibility:hidden" id="vectorDownload"><i class="fa fa-download CustomIcon appDownload" style="margin-left:36px;"></i></a>
+                </div>
+
+                <div class="col-lg-2 application_uploadbutton">
+                    <button type="submit" class="SaveImagebtn btn" style="width:65px;float:right;">SAVE</button>
+                </div>
+            }
+            
+        </div>
+    </div>
+
+    @* Tabs *@
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12" style="margin-top:-171px;height:190px">
+        
+        <input type="hidden" id="hdnApplicationColourId" />
+
+        @* Tab Filters *@
+        <div class="row">
+            <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 0 0 0;" />
+
+            <div class="tab">
+                <button class="tablinks active" onclick="HighlightTabs(event, 'Colours'), ChangeTabView('Colours')">Colours</button>
+                <button class="tablinks" onclick="HighlightTabs(event, 'Jobs'), ChangeTabView('Jobs')">Jobs</button>
+                <button class="tablinks" onclick="HighlightTabs(event, 'Custom'), ChangeTabView('Custom')" id="tabCustom" style="visibility:hidden;">Custom</button>
+
+                <label for="chkCustom" style="float:right;margin: 5px 20px 1px 0px;font-size: 15px;">Show Custom</label>
+                <input type="checkbox" id="chkCustom" style="float:right;margin: 8px 8px 0px 0px;">
+            </div>
+
+            <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -15px 0 0 0;" />
+        </div>
+
+        @* Colours Tab *@
+        <div class="row colortab_change" id="tab_Colours">
+            <div class="col-lg-6">
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p class="lblAppPopup">Cway No<span class="reqField" style="margin-right: 30px;">*</span></p>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="txtColourWayNo" class="colourinput" style="margin-left:5px" value="1"/>
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup" style="margin-left:-10px">Garment Colour(s)</p>
+                        @* <span class="reqField" style="margin-right: 0px;">*</span> *@
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" id="txtGarmentColour" class="colourinput" style="margin-left:-10px;width: 85%;"/>
+                    </div>
+                </div>
+
+                @* NextRow *@
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p class="lblAppPopup" id="lblInkColor">Ink Colour<span class="reqField" style="margin-right: 30px;">*</span></p>
+                        <p class="lblAppPopup" id="lblThreadColor" style="display:none;">Thread Colour<span class="reqField" style="margin-right: 30px;">*</span></p>
+                        <p class="lblAppPopup" id="lblTransferColor" style="display:none;">Transfer Colour<span class="reqField" style="margin-right: 30px;">*</span></p>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" class="colourinput" id="txtInkColor" style="margin-left:5px;" />
+                        <input type="text" class="colourinput" id="txtThreadColor" style="margin-left:5px;display:none;" />
+                        <input type="text" class="colourinput" id="txtTransferColor" style="margin-left:5px;display:none;" />
+                    </div>
+                    <div class="col-lg-2">
+                        <p class="lblAppPopup" style="margin-left:-10px;">Pantone<span class="reqField" style="margin-right: 43px;">*</span></p>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="text" id="txtPantone" class="colourinput" style="margin-left:-10px;width: 27%;" />
+                        <input type="text" id="txtHexValue" class="colourinput" style="width: 27%;" placeholder="Hex"/>
+                        <input type="hidden" id="hdnPantoneId" />
+                        <input type="text" id="txtColourChip" class="colourinput" style="background-color:white;border: 1px solid white;width: 28%;" readonly />
+                    </div>
+                </div>
+
+                @* NextRow For Type = Embroidery *@
+                <div class="row" id="div_Embroidery" style="display:none;">
+                    <div class="col-lg-2">
+                        <p class="lblAppPopup">Thread Id</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" id="txtThreadId" class="colourinput" style="margin-left:5px;" />
+                    </div>
+                    <div class="col-lg-7"></div>
+                </div>
+
+                @* NextRow For Type = ScreenPrint *@
+                <div class="row" id="div_ScreenPrint" style="display:none;">
+                    <div class="col-lg-2">
+                        <p class="lblAppPopup">Ink Id</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="txtInkId" class="colourinput" style="margin-left:5px;" />
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup" style="width:65px; margin-left:-22px">Print Order</p>
+                    </div>
+                    <div class="col-lg-1">
+                        <input type="text" id="txtPrintOrder" class="colourinput" style="margin-left: -80px; width: 45px;" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label class="lblAppPopup" style="width:32px;margin-left:-50px;">Mesh</label>
+                        <input type="text" id="txtMesh" class="colourinput" style="margin-left:2px;width: 45px;" />
+                    </div>
+                    <div class="col-lg-2">
+                        <label class="lblAppPopup" style="width:32px; margin-left: -30px;">Flash</label>
+                        <input id="chkFlash" type="checkbox">
+                    </div>
+                </div>
+
+                @* NextRow For Type = Digital Transfer *@
+                <div class="row" id="div_Transfer" style="display:none;">
+                    <div class="col-lg-2">
+                        <p class="lblAppPopup">Substrate<span class="reqField" style="margin-right: 30px;">*</span></p>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" id="txtSubstrate" class="colourinput" style="margin-left:5px;" />
+                    </div>
+                    <div class="col-lg-7"></div>
+                </div>
+
+                @*<div class="row">
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup">BucketId</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" id="txtBucketId" class="colourinput" style="margin-left:-10px"/>
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup">Hex</p>
+                    </div>
+                    <div class="col-lg-3">
+                        
+                    </div>
+                </div>*@
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup">Colour Notes</p>
+                    </div>
+
+                    <div class="col-lg-9">
+                        @Html.TextArea("txtColourNotes", "", new { placeholder = "", @id = "txtColourNotes", @class = "designernotes txtOpprtDetails", @style = "height:67px !important" })
+                    </div>
+                </div>
+                
+                <div class="col-lg-12" style="margin-top:10px;">
+                    <div class="row" style="float:right">
+                        <button type="button" class="SaveImagebtn btn" onclick="CopyApplicationColours()">COPY</button>
+                        <button type="button" class="SaveImagebtn btn" onclick="SaveAppColor()" id="btnColoursave">SAVE</button>
+                    </div>
+                </div>                
+            </div>
+            
+        </div>
+
+        @* Custom Tab *@
+        <div class="row" id="tab_Custom" style="display:none;">
+            
+            <input type="hidden" id="hdnApplicationCustom"/>
+
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup">First Name<span class="reqField" style="margin-right: 35px">*</span></p>
+                        <p class="lblAppPopup">Last Name<span class="reqField" style="margin-right: 35px">*</span></p>
+                        <p class="lblAppPopup">Nic Name</p>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <input type="text" class="txtOpprtDetails" id="txtCustomFirstName" />
+                        <input type="text" class="txtOpprtDetails" id="txtCustomLastName" />
+                        <input type="text" class="txtOpprtDetails" id="txtCustomNicName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup" style="margin-left:-5px;">Garment</p>
+                        <p class="lblAppPopup" style="margin-left:-5px;">Garment Colour</p>
+                        <p class="lblAppPopup" style="margin-left:-5px;">Garment Size</p>
+                        @* <span class="reqField" style="margin-right:26px">*</span> *@
+                    </div>
+
+                    <div class="col-lg-9">
+                        <input type="text" class="txtOpprtDetails" id="txtCustomGarment" />
+                        <input type="text" class="txtOpprtDetails" id="txtCustomGarmentColour" />
+                        <input type="text" class="txtOpprtDetails" id="txtCustomGarmentSize" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <p class="lblAppPopup">Number</p>
+                        <p class="lblAppPopup">Custom Note</p>
+                    </div>
+                    
+                    <div class="col-lg-9">
+                        <input type="text" class="txtOpprtDetails" id="txtCustomNumber" />
+                        <input type="text" class="txtOpprtDetails" id="txtCustomNotes" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row" style="float:right;margin:0px;">
+                            <button type="button" class="SaveImagebtn btn" onclick="CopyApplicationCustom()">COPY</button>
+                            <button type="button" class="SaveImagebtn btn" onclick="SaveApplicationCustom()">SAVE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@* Grids *@
+<div class="row RowColumns" style="margin-left:0px;">
+    <div class="col-lg-12">
+        <div id="ApplicationColourGrid"></div>
+
+        <div id="ApplicationJobGrid" style="display:none;"></div>
+
+        <div id="ApplicationCustomGrid" style="display:none;"></div>
+    </div>
+</div>
+
+@* Supplier Modal *@
+<div id="SupplierModal" class="w3-modal" style="display: none; ">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto;width: 30%; margin-top: 86px;padding-bottom: 0px;">
+        <header class="w3-container w3-dark-grey">
+            <h4 class="w3-text-white" id="h1">Add New Supplier</h4>
+        </header>
+        <div style="border:1px solid rgba(204, 204, 204, 1) !important">
+            <div class="row" style="padding: 10px 30px 10px 30px;">
+
+                <div class="col-lg-4">
+                    <label style="margin-top: 5px;font-size: 15px;">Enter Supplier Name</label>
+                </div>
+                <div class="col-lg-8">
+                    <textarea id="txtNewSupplier" style="width:100%;height:36px; resize:none"></textarea>
+                </div>
+            </div>
+            <div class="row" style="padding: 0px 30px 10px 30px;">
+                <div class="col-lg-8">
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" onclick="SaveArtSupplier(); document.getElementById('SupplierModal').style.display = 'none'" class="colBtns btn btn-primary">SAVE</button>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" onclick="document.getElementById('SupplierModal').style.display = 'none'" class="colBtns btn btn-primary">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*After Render Body Section Starts Here*@
+
+            </section>
+
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+<aside class="right-sidebar"></aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

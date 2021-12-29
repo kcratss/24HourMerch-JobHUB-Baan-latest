@@ -1,0 +1,59 @@
+﻿@using KEN.Models
+@model OrganisationViewModel
+@*<script src="~/Content/js/Contact.js"></script>
+<script src="~/Content/js/Organization.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Contact.js?v=2"></script>
+<script src="~/Content/js/Organization.js?v=2"></script>
+
+<script>
+    $(function () {
+        if(@ViewBag.Id > 0)
+        {
+            GetOrganisationById(@ViewBag.Id);
+            GetOppoListByContactOrOrganisation("All",@ViewBag.Id);
+
+        }
+     });
+</script>
+<div class="row cuurentTabs">
+    <img src="~/Content/images/ORGANISATION.png" class="img-responsive currentTabimg" />
+</div>
+
+<div class="row showCurrenttab" style="margin-top: 30px;">
+    <img src="~/Content/images/hrImg.png" class="hrimg" />
+</div>
+
+@Html.Hidden("OrganisationDetail", "OrganisationDetail", new { @id = "PageName" })
+
+<div class="row RowColumns">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Organisation")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Contact")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_OrgAddress")
+    </div>
+</div>
+
+@Html.Partial("_OpportunityListbyContactOrOrganisation")
+
+
+
+
+
+
+@*After Render Body Section Starts Here*@
+
+            </section>
+
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+<aside class="right-sidebar"></aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

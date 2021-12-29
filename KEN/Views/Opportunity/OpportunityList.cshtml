@@ -1,0 +1,142 @@
+﻿@*<script src="~/Content/js/opportunity.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/opportunity.js?v=4"></script>
+<style type="text/css">
+    /*Nikhil 22nd November*/
+    /*.griddateFilter {
+        text-align: center !important;
+        cursor: pointer;
+    }*/
+
+    #paramQueryGrid .pq-grid-top {
+        display: none;
+    }
+
+    .row.RowColumns {
+        margin: 0px 30px 0 0px;
+        width: 100%;
+    }
+
+    table.pq-grid-header-table {
+        table-layout: fixed;
+        width: 0;
+        border-spacing: 0;
+        border-collapse: separate;
+        margin-bottom: -2px;
+    }
+
+    /*div.pq-grid * {
+        font-size: 12px;
+        color: #888;
+    }*/
+
+    table.pq-no-wrap > tbody > tr > .pq-grid-cell, table.pq-no-wrap > tbody > tr > .pq-grid-col > .pq-td-div {
+        word-wrap: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #888;
+    }
+</style>
+<script>
+
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+    }
+
+</script>
+
+<script>
+
+    $(function () {
+        //GetAllOpportunityList('Opportunity');
+        //JobsGridList('Opportunity', 'All', 'UpperTab');
+        JobsGridList('Job1', 'All', 'UpperTab');
+    });
+
+</script>
+@Html.Hidden("OpportunityList", "OpportunityList", new { @id = "PageName" })
+@*<div class="row cuurentTabs">
+    <img src="~/Content/images/OPPORTUNITY.png" id="WipListImage" class="img-responsive currentTabimg" />
+
+</div>*@
+@*<div class="row RowColumns">
+
+</div>*@
+
+@*<div class="row showCurrent">
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 12px 0px 0 0;" />*@
+    @*<div class="tab">
+        <button class="tabheading">WIP</button>
+        <button class="tablinks" id="All" onclick="HighlightTabs(event, 'all');">All</button>
+        <button class="tablinks active" id="Opportunity" onclick="HighlightTabs(event, 'opportunity');">Opportunities</button>
+        <button class="tablinks" id="Declined" onclick="HighlightTabs(event, 'declined');">Declined</button>
+        <button class="tablinks" id="Quote" onclick="HighlightTabs(event, 'all');">Quotes</button>
+        <button class="tablinks" id="Lost" onclick="HighlightTabs(event, 'all');">Lost</button>
+        <button class="tablinks" id="Order" onclick="HighlightTabs(event, 'all');">Orders</button>
+        <button class="tablinks" id="Cancelled" onclick="HighlightTabs(event, 'all');">Cancelled</button>
+        <button class="tablinks" id="Job" onclick="HighlightTabs(event, 'all');">Jobs</button>
+        <button class="tablinks" id="Packing" onclick="HighlightTabs(event, 'all');">Packing</button>
+        <button class="tablinks" id="Invoicing" onclick="HighlightTabs(event, 'all');">Invoicing</button>
+        <button class="tablinks" id="Shipping" onclick="HighlightTabs(event, 'all');">Shipping</button>
+        <button class="tablinks" id="Complete" onclick="HighlightTabs(event, 'all');">Complete</button>
+        <button id="Custom" class="tablinks" onclick="HighlightTabs(event, 'Custom');">Custom</button>
+
+        <div class="dateFilters">
+            <div class="col-lg-4">
+                <input type="text" id="fromdate" placeholder="From Date" class="griddateFilter" />
+            </div>
+
+            <div class="col-lg-4">
+                <input type="text" id="todate" placeholder="To Date" class="griddateFilter" />
+            </div>
+            <div class="col-lg-4" style="text-align: right;">*@
+    @*<button type="button"  class="btnFormbtn btn btn-primary" style="height: 29px;border: none;border-radius: 0;"></button>*@
+    @*<span id="btnFindOpp" style="font-size:x-large;cursor: pointer;" class="fa fa-search CustomIcon"></span>
+                </div>
+            </div>
+
+        </div>*@
+    @*<hr class="middleHrscnd" />*@
+    @*<img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -19px 0 0 0;" />
+</div>*@
+
+
+@*<div class="Grid_Container">
+    <div class="row RowColumns tabBody" style="display:block;" id="all">
+        <div id="OpportunitylistGrid" class="SearchText" style="margin:0px 0px 0px 20px;font-size:13px"></div>
+    </div>
+
+    <div class="row RowColumns tabBody" id="opportunity">
+        <h1>Hello,This is Mail body</h1>
+    </div>
+
+    <div class="row RowColumns tabBody" id="declined">
+        <h1>Hello,This is Chat body</h1>
+    </div>
+</div>*@
+@*After Render Body Section Starts Here*@
+
+            </section>
+
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+@*29 April Stage Change List*@
+<aside class="right-sidebar">
+    <div id="OppListSidebar" style="display:none;">
+        @Html.Partial("_OptionRightSideBar")
+    </div>
+
+</aside>
+@*29 April Stage Change List*@
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@
+
+

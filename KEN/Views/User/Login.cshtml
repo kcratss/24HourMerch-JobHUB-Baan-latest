@@ -1,0 +1,410 @@
+﻿
+@model KEN.Models.KENLoginViewModel
+
+
+@{
+    TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("AUS Eastern Standard Time");
+    string currentYear = TimeZoneInfo.ConvertTimeFromUtc(DateTime.Now.ToUniversalTime(), tzi).Year.ToString();
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>24 Hour Merch JobHUB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/css/libraries/w3.css" rel="stylesheet" />
+    @*<link href="~/Content/css/custom.css" rel="stylesheet" type="text/css" />*@ @*commented and added by baans 07Aug2020*@
+    <link href="~/Content/css/custom.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/libraries/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/js/libraries/jquery.min.js"></script>
+    <script src="~/Content/js/libraries/bootstrap.min.js"></script>
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Content/js/libraries/jquery.min.js"></script>
+    <script src="~/Content/js/libraries/jquery-ui.min.js"></script>
+    @*<script src="~/Content/js/User.js"></script>
+    <script src="~/Content/js/app.js"></script>*@ @*commented and added by baans 07Aug2020*@
+    <script src="~/Content/js/User.js?v=1"></script>
+    <script src="~/Content/js/app.js?v=6"></script>
+    @*<script src="~/Content/js/inputmask.js"></script>*@
+    @*<link href="~/Content/css/Site.css" rel="stylesheet" />*@ @*commented and added by baans 07Aug2020*@
+    <link href="~/Content/css/Site.css?v=1" rel="stylesheet" />
+    <script type="text/javascript">
+        function visiblepswrd() {
+            $('#txtpswrd').attr('type', 'text');
+        }
+        function hidepswrd() {
+            $('#txtpswrd').attr('type', 'Password');
+        }
+    </script>
+    @*<link href="~/Content/css/Login.css" rel="stylesheet" />*@
+    <style>
+        /*#loginblock {
+            margin-top: 3px !important;
+            width: 31.333333%;
+        }
+
+        #ForgotPasswordForm {
+            margin-top: 3px !important;
+            width: 644px;
+        }*/
+
+        /*#image {
+            width: 644px !important;
+            margin-left: 191px !important;
+            margin-top: 125px !important;
+        }*/
+        #Loginimage {
+            width: -webkit-fill-available;
+            margin: -25px 0 0 0;
+        }
+
+        #Forgetimage {
+            width: -webkit-fill-available;
+            margin: -25px 0 0 0;
+        }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+            color: #666666;
+            box-shadow: none;
+        }
+
+        #logoId {
+            width: 82%;
+            margin-left: -69px !important;
+        }
+        /*#img{
+            width: 100%
+        }*/
+
+        #btnnewuser {
+            text-decoration: underline;
+            color: white !important;
+        }
+
+        .box-allign {
+            width: 93%;
+            margin-left: 16px;
+        }
+
+        #btnforgotpassback:hover {
+            background: lightgrey;
+        }
+        #btnLogin:active {
+            color: #666666;
+            box-shadow: none;
+        }
+        #btnfpsubmit {
+            width: -59px;
+            float: right;
+            margin: 0 14px 0px 0px;
+            font-size: 18px;
+        }
+        #btnforgotpassback {
+            font-size: 18px;
+        }
+        #btnfpsubmit:hover {
+            background: lightgrey;
+
+        }
+
+        #btnforgotpass:hover {
+            color: gray !important;
+        }
+
+        #lblsignup:hover {
+            color: gray !important;
+        }
+        #pforgot {
+            margin: 0 0 0 13px;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 21px;
+            line-height: 20px;
+            color: #333333;
+            background-color: #fff;
+        }
+
+        .gradient4 {
+            background-color: #FF7373;
+            /* For WebKit (Safari, Chrome, etc) */
+            background: #FF7373 -webkit-gradient(linear, left top, left bottom, from(#D90000), to(#FF7373)) no-repeat;
+            /* Mozilla,Firefox/Gecko */
+            background: #FF7373 -moz-linear-gradient(top, #D90000, #FF7373) no-repeat;
+            /* IE 5.5 - 7 */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D90000, endColorstr=#FF7373) no-repeat;
+            /* IE 8 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D90000, endColorstr=#D90000)" no-repeat;
+        }
+
+        @@media(max-width:375px) {
+            #btnforgotpass {
+                font-size: 11px;
+            }
+
+            #lblrememberme {
+                font-size: 11px;
+            }
+
+            #useridrow {
+                margin-left: -27px;
+            }
+
+            #userpasswordrow {
+                margin-left: -27px !important;
+            }
+           
+            }
+        }
+    </style>
+    @*<div id="bottomLeft">
+            <header class="w3-container login-bg" style="height: 45px; background-color: #5a5a5a!important; border-radius: 0px; padding-top: 10px;margin-top: 10px;text-align:center;color:white;">
+                KEN 24Hrs® is a registered trademark Copyright<span>&nbsp;<label id="lblYear">@Html.Encode(currentYear)</label></span>
+            </header>
+        </div>*@
+</head>
+<body>
+    <div style="display:none" id="CustomAlert">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">×</span>
+        <span ID="alertMsg"></span>
+    </div>
+    @*baans change 27th June for header*@
+    <div class="row">
+        @Html.Hidden("Login", "Login", new { @id = "PageName" })
+        <div id="header-wrapper" class="col-lg-12">
+            <div class="w3-dark-grey r-top-bar"></div>
+            <div class="container-fluid breadcrumb  r-bread-pad" style="height: 60px; font-size: 20px; background-color: #676565!important; margin-top: 15px; color:white; border-radius: 0px;">
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <span><span class="web-power">Powered by</span> <span class="web-title"><i class="fa fa-windows"></i>Microsoft Azure</span></span>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*baans end 27th June*@
+    <div class="container-fluid" style="margin-top:125px;">
+        @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @*<div class="row" id="logoId">
+            <div class="col-lg-4 col-md-3 col-sm-3"></div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-11">
+                <img id="image" src="~/Images/JobHUB_Logo.jpg" />
+            </div>
+        </div>*@
+        <div class="col-lg-4 col-md-3 col-sm-3"></div>
+        <div id="loginblock" class="w3-card-8 w3-margin w3-round col-lg-4 col-md-6 col-sm-6 col-xs-11">
+            <div class="row">
+                <img id="Loginimage" src="~/Images/JobHUB_Logo_Sign_In.jpg" />
+            </div>
+            <header class="w3-container login-bg" style="padding-bottom: 0px">
+                <br /><br />
+                <div class="row" style="text-align:center;font-size:17px !important">
+
+                </div>
+            </header>
+
+            <div class="row" id="divsuccessmessage" style="display:none;">
+                <div id="custom_notifications" class="custom-notifications dsp_none">
+                    @*<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+                        <li><a id="noti1" class="alert-warning"></a></li>
+                    </ul>*@
+                    <div class="clearfix"></div>
+                    <div id="notif-group" class="tabbed_notifications">
+                        <div class="text alert-warning w3-border w3-border-white">
+                            @*<h2 class="w3-medium w3-text-white">Success  </h2>*@
+                            <div class="close">
+                                <a href="javascript:;" onclick="document.getElementById('custom_notifications').style.display='none'" class="notification_close"><i class="fa fa-close"></i></a>
+                            </div>
+                            <p class="w3-text-light-grey" id="lblallmessageFixed" style="font-size:15px;">Success! The password has been sent to your registered mail.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br /><br />
+            <div id="LoginForm" style="margin-top:-21px;">
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-10 col-xs-6">
+                        <div style="display: none; width: 100%;" id="art1">
+                            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">×</span>
+                            <label id="alertlabel"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        @Html.ValidationSummary()
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                <div id="useridrow" class="row">
+
+                    @*<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12" align="right">*@
+                    <div class="input-group box-allign">
+                        <span class="input-group-addon input-sm"><i class="fa fa-user"></i></span>
+
+                        @Html.TextBoxFor(model => model.Email, new { id = "UserEmail", @class = "form-control", placeholder = "Enter Your Email Address", @onchange = "CheckCookies()" })
+
+
+                    </div>
+                    @*<div class="col-lg-4 col-md-3 col-sm-2"></div>*@
+                </div>
+                <br />
+                <div class="row" style="margin-top:1%;">
+                    <div class="col-lg-4 col-md-4 col-sm-10 col-xs-6"></div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-10 col-xs-6"></div>
+                </div>
+                <div id="userpasswordrow" class="row">
+                    <div class="input-group box-allign">
+                        <span class="input-group-addon  input-sm"><i class="fa fa-lock"></i></span>
+                        @*@Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", @type = "password" })*@
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", @type = "password", @id = "txtpswrd", @onclick = "hidepswrd()" })
+                        <span id="passowordgetname" onclick="visiblepswrd()" class="input-group-addon eyes" style="background: #fff; border-left: initial;cursor:pointer"><i  class="fa fa-eye" aria-hidden="true"></i></span>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        @Html.CheckBoxFor(model => model.RememberMe, new { @id = "chkRem" })
+
+                        <label id="lblrememberme" class="w3-text-grey" style="font-weight:100">Remember me</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
+                        @*<input type="button" id="btnforgotpass" class="btn btn-light btn-sm forgotpassbtn" value="Forgot Password ?" style="border-color:gray;" />*@
+                        <a id="btnforgotpass" style="color:blue;cursor:pointer">Forgot Password ?</a>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <button type="submit" id="btnLogin" style="width:94%;margin-left:12px;float: none;" class="btnFormbtn btn btn-primary" onclick="return validateLoginForm()">Log In</button>
+                </div>
+                <br />
+
+
+            </div>
+        </div>
+        //---------------------------------------------------------------------------------------------
+        <div id="ForgotPasswordForm" class="w3-card-8 w3-margin w3-round col-lg-4 col-md-6 col-sm-6 col-xs-11" style="display:none;margin-bottom:10px;">
+            <div class="row">
+                <img id="Forgetimage" src="~/Images/JobHUB_Logo_Sign_In.jpg" />
+            </div>
+            <header class="w3-container login-bg" style="padding-bottom: 0px">
+                <br /><br />
+                <div class="row" style="text-align:center;font-size:17px !important">
+
+                </div>
+            </header>
+
+            <div class="row" id="divsuccessmessage" style="display:none;">
+                <div id="custom_notifications" class="custom-notifications dsp_none">
+                    @*<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+                        <li><a id="noti1" class="alert-warning"></a></li>
+                    </ul>*@
+                    <div class="clearfix"></div>
+                    <div id="notif-group" class="tabbed_notifications">
+                        <div class="text alert-warning w3-border w3-border-white">
+                            @*<h2 class="w3-medium w3-text-white">Success  </h2>*@
+                            <div class="close">
+                                <a href="javascript:;" onclick="document.getElementById('custom_notifications').style.display='none'" class="notification_close"><i class="fa fa-close"></i></a>
+                            </div>
+                            <p class="w3-text-light-grey" id="lblallmessageFixed" style="font-size:15px;">Success! The password has been sent to your registered mail.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br /><br />
+            <div id="LoginForm" style="margin-top:-21px;">
+
+                @*baans change*@
+                <div class="row">
+                    
+                    <p id="pforgot">To reset your password. Please first identify your account.</p>
+
+
+                    <div class="col-sm-1"></div>
+                </div>
+                <br />
+
+                <div class="row">
+                    
+                    <div class="col-sm-10" align="left">
+                        <label id="fpheading" class="LabelMainHedding">Email</label>
+                    </div>
+                    
+                </div>
+                
+                @*baans end*@
+
+                <div id="useridrow" class="row">
+
+                    @*<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12" align="right">*@
+                    <div class="input-group box-allign">
+                        <span class="input-group-addon input-sm"><i class="fa fa-user"></i></span>
+
+                        @Html.TextBoxFor(model => model.Email, new { id = "txtregemail", @class = "form-control", placeholder = "Enter Your Email Address" })
+
+
+                    </div>
+                    @*<div class="col-lg-4 col-md-3 col-sm-2"></div>*@
+                </div>
+                <br />
+                <div class="row" style="margin-top:1%;">
+                    <div class="col-lg-4 col-md-4 col-sm-10 col-xs-6"></div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-10 col-xs-6"></div>
+                </div>
+                <div id="userpasswordrow" class="row">
+
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <input type="button" id="btnforgotpassback" value="Back" class="btn btn-light designbtn" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
+                        <input type="button" id="btnfpsubmit" value="Submit" class="btn btn-light designbtn" />
+                    </div>
+                </div>
+                <br />
+
+                <br />
+
+
+            </div>
+        </div>
+        <div class="row"></div>
+        <br />
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-2"></div>
+
+}
+        @*--------------------------------------------------------------------------------------------------------------------------------------------*@
+
+
+      
+
+
+
+
+    </div>
+
+    <br />
+    <div id="bottomLeft">
+        <footer class="w3-container login-bg" style="height: 60px; background-color: #5a5a5a!important; font-size: 20px; border-radius: 0px; padding-top: 10px;margin-top: 225px;text-align:center;color:white;">
+            24Hour Merchandise® is a registered trademark &copy;<span>&nbsp;<label id="lblYear">@Html.Encode(currentYear)</label></span>
+        </footer>
+    </div>
+</body>
+</html>

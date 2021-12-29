@@ -1,0 +1,169 @@
+﻿@*<script src="~/Content/js/Contact.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Contact.js?v=3"></script>
+
+<script type="text/javascript">
+
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        //for (i = 0; i < tabcontent.length; i++) {
+        //    tabcontent[i].style.display = "none";
+        //}
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        //document.getElementById(cityName).style.display = "block";
+        if (cityName != "Custom") {
+            evt.currentTarget.className += " active";
+        }
+        else {
+            $('#btnCustomSearch').addClass('active');
+        }
+    }
+
+
+    $(function () {
+
+        // baans change 22nd Sept
+        //ContactListGrid('All');
+        ContactListGrid('Customer');
+        // baans end 22nd Sept
+    });
+</script>
+
+<style>
+        div.pq-grid * {
+            line-height: normal;
+            font-family: inherit;
+            color: #888;
+        }
+
+        grid-cell, table.pq-no-wrap > tbody > tr > .pq-grid-col > .pq-td-div {
+            word-wrap: normal;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #888;
+        }
+
+
+        table.pq-grid-header-table {
+            table-layout: fixed;
+            width: 0;
+            border-spacing: 0;
+            border-collapse: separate;
+            margin-bottom: -3px;
+        }
+        /*table.pq-no-wrap>tbody>tr>.pq-grid-cell, table.pq-no-wrap>tbody>tr>.pq-grid-col>.pq-td-div {
+        word-wrap: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #666666;
+    }*/
+
+        button.tablinks {
+            border-width: 0px;
+            font-size: 14px !important;
+            color: #666666 !important;
+        }
+
+        .tab button.tablinks.active {
+            font-family: 'Arial';
+            font-weight: 400;
+            font-style: normal;
+            font-size: 14px !important;
+            color: #FF0000 !important;
+        }
+</style>
+
+<div class="row cuurentTabs">
+    @*<img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 12px 0px 0 0;" />*@
+    <img src="~/Content/images/CONTACT.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("ContactList", "ContactList", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrenttab" style="margin-top: 10px;">
+    <img src="~/Content/images/hrImg.png" class="hrimg2" style="margin: 13px -2px 0 0;width:100%;" />
+    <div class="tab">
+        <button class="tabheading">Contacts</button>
+      
+        <button class="tablinks" onclick="HighlightTabs(event, 'All'); ContactListGrid('All');">All</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Leads'); ContactListGrid('Lead');">Leads</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Prospects'); ContactListGrid('Prospect');">Prospects</button>
+        <button class="tablinks active" onclick="HighlightTabs(event, 'Customers'); ContactListGrid('Customer');">Customers</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Customers'); ContactListGrid('Supplier');">Suppliers</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Customers'); ContactListGrid('Influencer');">Influencers</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Customers'); ContactListGrid('Friend');">Friends</button>
+        <button id="btnCustomSearch" class="tablinks" onclick="HighlightTabs(event, 'Custom'); ContactListGrid('Custom');">Custom</button>
+    </div>
+    @*<img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -16px 0 0 0;" />*@
+    @*<img src="~/Content/images/hrImg.png" class="hrimg2" style="margin: -10px 0px 0 0;" />*@
+    <img src="~/Content/images/hrImg.png" class="hrimg2" style="margin: -14px 5px 3px 1px;width: 100%;" />
+</div>
+
+
+<div class="row RowColumns tabBody" id="All" style="display:block;">
+    @*<div id="paramQueryGrid" style="margin:auto;font-size:13px"></div>*@
+    <div class="row" style="margin-top:0px">
+
+        <div class="col-sm-12">
+
+            <div class="panelheader">
+                @*<div id="grid_filter" style="margin:5px auto;"></div>*@
+                @*<input type="checkbox" id="range_chkbox">*@
+            </div>
+
+            <div id="ContactGrid" class="SearchText" style="margin: 0px 0px 0px 10px;width:auto"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row RowColumns tabBody" id="Leads">
+ 
+</div>
+
+<div class="row RowColumns tabBody" id="Prospects">
+  
+</div>
+
+<div class="row RowColumns tabBody" id="Customers">
+  
+</div>
+
+<div class="row RowColumns tabBody" id="Suppliers">
+   
+</div>
+
+<div class="row RowColumns tabBody" id="Influencers">
+  
+</div>
+
+<div class="row RowColumns tabBody" id="Friends">
+  
+</div>
+
+<div class="row RowColumns tabBody" id="Team">
+    @*<div class="row" style="margin-top:10px">
+
+        <div class="col-sm-12">
+
+            <div class="panelheader">
+            </div>
+
+            <div id="TeamContactTypeGrid" style="margin:auto;width:auto"></div>
+        </div>
+    </div>*@
+</div>
+@*After Render Body Section Starts Here*@
+
+            </section>
+
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+<aside class="right-sidebar"></aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

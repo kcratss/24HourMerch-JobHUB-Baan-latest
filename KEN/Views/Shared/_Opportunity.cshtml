@@ -1,0 +1,200 @@
+﻿
+<div class="row OpprtDetails">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 Opportunity QuoteDetails OrderDetails JobDetails PackingDetails InvoicingDetails CompleteDetails ShippingDetails" style="display:none">
+        <span class="rowUpperHead" id="lblOpportunityId"></span>
+        @*<label id="Oppheading" style="font-size:15px">Opportunity</label>*@
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 Event" style="display:none">
+        <label id="Oppheading" style="font-size:15px">Opportunity</label>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 Opportunity QuoteDetails OrderDetails JobDetails PackingDetails InvoicingDetails CompleteDetails ShippingDetails" style="display:none">
+        <span id="lblManagerName" class="rowUpperHead"></span>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 Event" style="display:none">
+        <a title="Search" href="/Opportunity/OpportunityList"><span id="Searchopportunity" style="font-size:x-large;" class="fa fa-search CustomIcon"></span></a>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 Event" style="display:none">
+        <a title="Reset" id="btnContactreset" style="cursor:pointer;" onclick="OppFormReset();"><span style="font-size:x-large" class="fa fa-refresh  CustomIcon"></span></a>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 Opportunity QuoteDetails OrderDetails JobDetails PackingDetails InvoicingDetails CompleteDetails ShippingDetails" style="display:none">
+        <span id="lbltotlaPrice" class="rowUpperHead" style="margin-left:0px">$0.00</span>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 Event" style="display:none">
+        @Html.Hidden("HiddenOppEventId", "", new { @id = "HiddenOppEventId" })
+        @Html.Hidden("HiddenPaymentTotal", "0", new { @id = "HiddenPaymentTotal" })
+    </div>
+
+    @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 Opportunity QuoteDetails OrderDetails JobDetails Event" style="display:none">
+            <span id="lbltotlaMargin" class="rowUpperHead">0.00%</span>
+            <button type="button" id="btnOpenOpportunity" onclick="OpenOpportunity();" class="btnFormbtn btn btn-primary" style="margin-left:8px">OPEN</button>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 Opportunity QuoteDetails OrderDetails JobDetails Event" style="display:none">
+            @Html.Hidden("HiddenOppEventId", "", new { @id = "HiddenOppEventId" })
+            <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">SAVE</button>
+        </div>*@
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 Opportunity QuoteDetails OrderDetails JobDetails PackingDetails InvoicingDetails CompleteDetails ShippingDetails Event" style="display:none">
+        <span id="lbltotlaMargin" class="rowUpperHead" style="margin-right:10px; margin-left: 15%;">0.00%</span>
+        <button type="button" id="btnOppSubmit" onclick="SaveOpportunity();" class="btnFormbtn btn btn-primary">SAVE</button>
+        <button type="button" id="btnOpenOpportunity" onclick="OpenOpportunity();" class="btnFormbtn btn btn-primary" style="margin-right:8px;display:none">OPEN</button>
+
+    </div>
+</div>
+
+
+
+<div class="mainContainer OppContainer OpportunityContainer">
+    <div class="row OpprtDetailsForm">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+            <p id="lblOppoName" class="lblOpprtDetail">Quote Name<span class="reqField" style="color:red;">*</span></p>
+            <p class="lblOpprtDetail">Department<span class="reqField" style="color:red;">*</span></p>
+            <p class="lblOpprtDetail">Required by Date<span class="reqField" style="color:red;">*</span></p>
+            <p class="lblOpprtDetail">Shipping<span class="reqField" id="spanShiping" style="color:red;display:none;">*</span></p>
+            <p class="lblOpprtDetail">Shipping Price $<span class="reqField" id="spanShipingPrice" style="color:red;display:none;">*</span></p>
+            @*<p class="lblOpprtDetail viewchange Opportunity Event" id="lblCampaign" style="display:none;">Campaign</p>*@      @*id*@
+            @*<p class="lblOpprtDetail viewchange" id="lblRepeat" style="display:none;">Repeat From</p>*@
+            <p class="lblOpprtDetail">Source<span class="reqField" style="color:red;">*</span></p>
+            <p class="lblOpprtDetail">Notes</p>
+        </div>
+
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <input type="text" id="oppName" class="txtOpprtDetails" style="margin-right: -2px;" />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <label for="oppQuantity" class="Innerlbl" style="margin: 5px 0 0 -24px;width: 28px;height: 25px;font-family: 'Arial';font-weight: 400;font-style: normal;font-size: 12px;">
+                        Qty<span class="reqField Innerfrm" style="color:red;">*</span>
+                    </label>
+                    <input type="text" id="oppQuantity" class="txtOpprtDetails QtyFormat" style="width: 51px;" />
+                </div>
+            </div>
+
+            
+                    <div id="ms1"></div>
+                    <input type="hidden" id="oppDepart">
+                    <input type="hidden" id="oppDepartId">
+            
+
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <input type="text" id="datepicker" class="txtOpprtDetails oppInnerleftCol" />
+                </div>
+
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <label for="datepicker" class="lblForm Innerlbl">Dep Req Date<span id="SpanReqDate" class="reqField Innerfrm" style="color:red;display:none; ">*</span></label>
+                    <input type="text" id="depositreqdate" class="txtOpprtDetails oppInnerRightCol" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+
+                    @Html.DropDownList("OppShipping", new SelectList(ViewBag.ShippingList, "Name", "Name", ""), "--Select--", new { @id = "OppShipping", @class = "txtOpprtDetails oppInnerleftCol" })
+                </div>
+
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <label for="txtshippingday" class="lblForm Innerlbl">Shipping to<span id="spanShippingTo" class="reqField Innerfrm" style="color:red;display:none;">*</span></label>
+                    <input type="text" id="txtshippingday" class="txtOpprtDetails oppInnerRightCol" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <input type="text" id="txtshippingprice" class="txtOpprtDetails CurrencyFormat oppInnerleftCol" />
+                </div>
+
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    @*<label for="oppSource" class="lblForm Innerlbl">Source<span class="reqField Innerfrm" style="color:red;">*</span></label>
+                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails oppInnerRightCol" })*@
+                    <label for="oppSource" class="lblForm Innerlbl">Del Date</label>
+                    <select id="ddlDeliveryDate" class="txtOpprtDetails oppInnerRightCol" tabindex="-1">
+                        <option value="Standard" selected="selected">Standard</option>
+                        <option value="Firm">Firm</option>
+                        <option value="Event">Event</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row viewchange Opportunity Event" id="StatCampaign" style="display:none;">
+                @*id*@
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @*@Html.DropDownList("oppCampaign", new SelectList(ViewBag.CampaignList, "id", "Campaign", ""), "--Select--", new { @id = "oppCampaign", @class = "txtOpprtDetails oppInnerleftCol" })*@
+                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails oppInnerleftCol" })
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <label for="ddlDecline" class="lblForm Innerlbl" id="lblrepeatform">Status</label>        @*id change*@
+                    <select id="ddlDecline" class="txtOpprtDetails oppInnerRightCol" tabindex="-1">
+                        <option value="No" selected="selected">Open</option>
+                        <option value="Yes">Declined</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="row viewchange Event" id="DivQuote" style="display:none;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @*<input type="text" class="txtOpprtDetails oppInnerleftCol" readonly="readonly" id="txtrepeatfrom" />*@
+                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails oppInnerleftCol" })
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 viewchange QuoteDetails" id="quotestatus" style="display:none;">
+                    @*id*@
+                    <label for="txtlost" class="lblForm Innerlbl">Status</label>
+                    <select id="txtlost" class="txtOpprtDetails oppInnerRightCol">
+                        <option value="No" selected="selected">Open</option>
+                        <option value="Yes">Lost</option>
+
+                    </select>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 viewchange OrderDetails" id="orderstatus" style="display:none;">
+                    @*id*@
+                    <label for="txtCancelled" class="lblForm Innerlbl">Status</label>
+                    <select id="txtCancelled" class="txtOpprtDetails oppInnerRightCol">
+                        <option value="No" selected="selected">Open</option>
+                        <option value="Yes">Cancelled</option>
+
+                    </select>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 viewchange JobDetails ShippingDetails InvoicingDetails CompleteDetails PackingDetails" style="display:none;">
+                    <label for="txtConfirmed" class="lblForm Innerlbl">Cnfrm Date
+                        <span class="reqField Innerfrm" style="color:red;">*</span></label>
+                    <input type="text" id="txtConfirmedDate" class="txtOpprtDetails oppInnerRightCol" />
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.DropDownList("oppStage", new SelectList(ViewBag.StageList, "Name", "Name", ""), new { @id = "oppStage", @class = "txtOpprtDetails oppInnerleftCol" })
+                    <input type="hidden" id="HiddenForOppStage" />
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <label for="ddlOppAcctMgr" class="lblForm Innerlbl">Job Manager<span class="reqField Innerfrm" style="color:red;">*</span></label>
+                    @Html.DropDownList("ddlOppAcctMgr", new SelectList(ViewBag.ManagerList, "id", "firstname"), "--Select--", new { @id = "ddlOppAcctMgr", @class = "txtOpprtDetails", @style = "width: 105px;" })
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 innerDiv">
+            @Html.TextArea("oppNotes", "", new { @id = "oppNotes", @style = "width: 100%;resize: none;", @class = "txtOpprtDetails" })
+            @Html.Hidden("HiddenOppNotes", "", new { @id = "HiddenOppNotes" })
+            @Html.Hidden("HiddenQuoteNotes", "", new { @id = "HiddenQuoteNotes" })
+            @Html.Hidden("HiddenOrderNotes", "", new { @id = "HiddenOrderNotes" })
+            @Html.Hidden("HiddenJobNotes", "", new { @id = "HiddenJobNotes" })
+            @Html.Hidden("HiddenPackingNotes", "", new { @id = "HiddenPackingNotes" })
+            @Html.Hidden("HiddenInvoiceingNotes", "", new { @id = "HiddenInvoiceingNotes" })
+            @Html.Hidden("HiddenShippingNotes", "", new { @id = "HiddenShippingNotes" })
+            @Html.Hidden("HiddenCompleteNotes", "", new { @id = "HiddenCompleteNotes" })
+        </div>
+
+    </div>
+
+</div>

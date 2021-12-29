@@ -1,0 +1,216 @@
+﻿@using KEN.Models
+@model opportunityViewModel
+
+@*<script src="~/Content/js/opportunity.js"></script>
+<script src="~/Content/js/Contact.js"></script>
+<script src="~/Content/js/Event.js"></script>
+<script src="~/Content/js/Organization.js"></script>
+<script src="~/Content/js/Purchase.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/opportunity.js?v=4"></script>
+<script src="~/Content/js/Contact.js?v=3"></script>
+<script src="~/Content/js/Event.js?v=2"></script>
+<script src="~/Content/js/Organization.js?v=2"></script>
+<script src="~/Content/js/Purchase.js?v=2"></script>
+
+<style>
+    button.BackFormbtn{
+        border-color: #ddd;
+        top: 0px;
+        float: right;
+        padding: 0 0 0 0;
+        width: 100px;
+        height: 26px;
+        background: inherit;
+        background-color: #9e978f;
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(204, 204, 204, 1);
+        border-radius: 5px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color: #fff;
+    }
+
+    button.BackFormbtn:hover {
+        background: #9e978f !important;
+        color: #fff;
+    }
+</style>
+<script>
+    function GetSize(_stateId, IsEdit) {
+        // baans change 31st October 
+        var CurrentOppId = $('#HiddenOppid').val();
+        if (IsEdit == '') {
+            $("#txtSizes").val("");
+        }//Need To be done with condition
+        var url = "/Opportunity/GetCityByStaeId/";
+
+        $.ajax({
+            url: url,
+            data: { SizeType: _stateId, OppId: CurrentOppId },
+            // baans end 31st October
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<div class='row'>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<div class='row sizeRow'><div class='col-lg-6'>" + data[x].Text + "</div><div class='col-lg-6'><input id='" + data[x].Text + "'  onkeyup='calculatequantity()' class='sizeQuantity' type='number'/></div></div>";
+                }
+                markup += "</div>";
+                $("#ddlsize").html(markup).show();
+            },
+            error: function (reponse) {
+
+            }
+        });
+
+    }
+
+    $(function () {
+        GetPurchById(@ViewBag.Id,@ViewBag.OppId);
+        @*GetPurchaseDetailOptionGrid(@ViewBag.id);*@
+        @*GetOptionGrid(@ViewBag.id)*@ 
+    });
+</script>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/PURCHASES.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("PurchaseDetails", "PurchaseDetails", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrent">
+    <img src="~/Content/images/hrImg.png" class="hrimg" />
+</div>
+
+<div class="row RowColumns">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol CatchPurchaseChange">
+        @* @Html.Partial("_Opportunity")*@
+        @*tarun*@
+
+        <div class="row">
+            <div class="col-lg-4">
+                <span class="rowUpperHead" id="lblpurch" style="font-size: 21px;margin-top: -1px !important;">000000</span>
+                @Html.Hidden("HiddenPurchaseOrg", "", new { @id = "HiddenPurchaseOrg" })
+                @Html.Hidden("HiddenOppid", "", new { @id = "HiddenOppid" })
+               @* @Html.Hidden("HiddenPurchaseid", "", new { @id = "HiddenPurchaseid" })*@       @*tarun*@
+                @*<p style="font-size:20px; color:#666666;">000001</p>*@
+            </div>
+            <div class="col-lg-4">
+                <p style="font-size:20px; color:#666666; margin-left:-50px; font-weight: 600; ">PURCHASE</p>
+            </div>
+            <div class="col-lg-4">
+                <button type="button" id="btnsavePurchase" onclick="SavePurchaseDetails();" class="btnFormbtn btn btn-primary">SAVE</button>
+            </div>
+        </div>
+        <div class="mainContainer puchaseContainer">
+            <div class="row PurchDetailsForm">
+                <div class="col-lg-3 innerDiv">
+                    <p class="lblPurchaseDetail">Job Name</p>
+                    <p class="lblPurchaseDetail">Quantity Required</p>
+                    <p class="lblPurchaseDetail">Required By Date<span class="reqField" style="position:absolute;float:initial;">*</span></p>     @*tarun 11/09/2018*@
+                    <p class="lblPurchaseDetail">Shipping In</p>
+                    <p class="lblPurchaseDetail">Purchase Status</p>
+                    <p class="lblPurchaseDetail">Bill No<span class="reqField" id="billVal" style="color:red; display:none;">*</span></p>      @*tarun 11/09/2018*@
+                    <p class="lblPurchaseDetail">Purchase Notes</p>
+                </div>
+                <div class="col-lg-9 innerDiv">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <input type="text" id="purchjobname" class="txtPurchaseDetails" readonly="readonly" />
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="button" id="btnBacktojob" class="BackFormbtn btn" onclick="BackToJob()">Back To Job</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" id="qtyreq" class="txtPurchaseDetails deptleftcol" style="text-align: right!important;" />
+                        </div>
+                        <div class="col-lg-9">
+                            <label class="labeldec" style="margin-left:7px;">Depts</label>
+                            @*<input type="text" id="Decoration" class="txtPurchaseDetails decrightcol" />*@
+                            <input type="text" id="txtDept" class="txtPurchaseDetails deptrightcol" />
+                            @*@Html.DropDownList("ContactType", new SelectList(ViewBag.ContactTypes, "Name", "Name"), new { @id = "txtDecoration", @class = "txtPurchaseDetails decrightcol" })*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <input type="text" id="requiredbydate" class="txtPurchaseDetails" />@*decleftcol*@
+                        </div>
+                        <div class="col-lg-7">
+                            <label class="labeldec">Purchase Date<span id="Repeat" class="reqField" style="display:block;">*</span></label>                                                                            @*tarun 11/09/2018*@
+                            @*<input type="text" id="Decoration" class="txtPurchaseDetails decrightcol" />*@
+                            <input type="text" id="txtPurchaseDate" class="txtPurchaseDetails decrightcol" />
+                            @*@Html.DropDownList("ContactType", new SelectList(ViewBag.ContactTypes, "Name", "Name"), new { @id = "txtPurchaseDate", @class = "txtPurchaseDetails decrightcol" })*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            @*<input type="text" id="ShippingIn" class="txtPurchaseDetails decleftcol" />*@
+                            @Html.DropDownList("OppShipping", new SelectList(ViewBag.ShippingList, "Name", "Name"), new { @id = "txtShippingIn", @class = "txtPurchaseDetails decleftcol" })
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <label class="labeldec">Shipping Charge<span class="reqField" id="shipchargeVal" style="color:red; display:none;margin-right: -11px;">*</span></label>                                                                                               @*tarun 11/09/2018*@
+                            <input type="text" id="ShippingCharge" class="txtPurchaseDetails CurrencyFormat decrightcol" style="text-align: right!important;" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            @Html.DropDownList("PurchaseStatus", new SelectList(ViewBag.PurchaseStatus, "Name", "Name"), new { @id = "txtPurchaseStatus", @class = "txtPurchaseDetails decleftcol" })
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <label class="labeldec">Web Order No
+                            @*<span id="txtweborder" class="validatespan Innerfrm" style="color:red;display:none;">*</span>*@
+                            </label>
+                            
+                            <input type="text" id="txtweborder"class="txtPurchaseDetails decrightcol" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <input type="text" id="BillNo" class="txtPurchaseDetails decleftcol" style="text-align: right!important;" />
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <label class="labeldec" style="color:#cc0000 !important">Bill Date<span class="reqField" id="billdateVal" style="color:red;display:none;margin-right:-55px;">*</span></label>
+                            <input type="text" id="BillDate" class="txtPurchaseDetails decrightcol" style="color:#cc0000 !important" />                       @*tarun 11/09/2018*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 innerDiv">
+
+                    @Html.TextArea("PurchaseNotes", "", new { @id = "PurchaseNotes", @style = "width: 100%;resize: none;", @class = "txtPurchaseDetails" })
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Organisation")
+
+
+
+
+
+
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+
+        @Html.Partial("_OrgAddress")
+
+    </div>
+</div>
+@Html.Partial("_PurchaseDetailsOption")
+@*After Render Body Section Starts Here*@
+    </section>
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+   @* @Html.Partial("_OptionRightSideBar")*@
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

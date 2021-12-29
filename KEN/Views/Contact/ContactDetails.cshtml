@@ -1,0 +1,190 @@
+﻿@using KEN.Models
+@model ContactViewModel
+@*<script src="~/Content/js/Organization.js"></script>
+<script src="~/Content/js/Contact.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Organization.js?v=2"></script>
+<script src="~/Content/js/Contact.js?v=3"></script>
+<script>
+    $(function () {
+        if(@ViewBag.Id > 0)
+        {
+            GetContactById(@ViewBag.Id);
+            GetOppoListByContactOrOrganisation("All",@ViewBag.Id);
+        }
+
+    });
+
+
+</script>
+<script type="text/javascript">
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+    }
+
+</script>
+<style>
+    div.pq-grid * {
+    color: #888;
+}
+
+    table.pq-no-wrap>tbody>tr>.pq-grid-cell, table.pq-no-wrap>tbody>tr>.pq-grid-col>.pq-td-div {
+    word-wrap: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #888;
+}
+
+
+    label.lblForm {
+    padding-top: 4px;
+}
+    
+    table.pq-grid-header-table {
+    table-layout: fixed;
+    width: 0;
+    border-spacing: 0;
+    border-collapse: separate;
+    margin-bottom: -5px;
+}
+
+    textarea.txtOpprtDetails {
+        margin-top: -5px;
+        height: 70px;
+    }
+
+    button.tablinks {
+        border-width: 0px;
+        font-size: 14px !important;
+        color: #666666 !important;
+    }
+
+    .tab button.tablinks.active {
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px !important;
+        color: #FF0000 !important;
+    }
+
+    button.tabheading {
+        float: left;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 20px;
+        transition: 0.3s;
+        left: 0px;
+        top: 0px;
+        background: inherit;
+        border: none;
+        border-radius: 0px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 16px;
+    }
+    
+    /*baans end 16th July*/
+</style>
+
+<div style="display: none" class="w3-section w3-card-12  j-close fadeOut j-alertBox-Success" id="art1">
+    <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">×</span>
+    <label><strong>Success ! </strong>Data Saved Successfully</label>
+    <span></span>
+</div>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/CONTACT.png" class="img-responsive currentTabimg" />
+    @Html.Hidden("ContactDetails", "ContactDetails", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrenttab" style="margin-top: 30px;">
+    <img src="~/Content/images/hrImg.png" class="hrimg" />
+</div>
+
+
+<div class="row RowColumns">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Contact")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_Organisation")
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+        @Html.Partial("_OrgAddress")
+    </div>
+</div>
+
+@Html.Partial("_OpportunityListbyContactOrOrganisation")
+
+
+
+@*<div class="row RowColumns tabBody" id="All" style="display:block;">
+    <h1>Hello,This is All body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Opportunities">
+    <h1>Hello,This is Opportunities body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Declined">
+    <h1>Hello,This is Declined body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Quotes">
+    <h1>Hello,This is Quotes body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Lost">
+    <h1>Hello,This is Lost body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Orders">
+    <h1>Hello,This is Orders body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Cancelled">
+    <h1>Hello,This is Cancelled body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Jobs">
+    <h1>Hello,This is Jobs body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Packing">
+    <h1>Hello,This is Packing body</h1>
+</div>
+
+<div class="row RowColumns tabBody" id="Invoiced">
+    <h1>Hello,This is Invoiced body</h1>
+</div>*@
+
+@*<div class="row RowColumns tabBody" id="Complete">
+    <h1>Hello,This is Complete body</h1>
+</div>*@
+
+
+
+
+@*After Render Body Section Starts Here*@
+
+            </section>
+
+        </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+<aside class="right-sidebar"></aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

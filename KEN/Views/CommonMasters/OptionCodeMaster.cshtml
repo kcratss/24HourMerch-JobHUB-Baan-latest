@@ -1,0 +1,134 @@
+﻿
+<script src="~/Content/js/CommonMasters.js?v=2"></script>
+<script src="~/Content/js/opportunity.js?v=4"></script>
+
+<style>
+   .pq-toolbar > button {
+        background-color: white;
+        border: 2px solid whitesmoke;
+        float: right;
+        margin-right: 8px;
+    }
+</style>
+
+<script>
+    $(function () {
+        GetOptionCodeList();
+    })
+</script>
+
+<div class="row" style="margin-top:18px">
+    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left:25px;margin-bottom:15px">
+        <div class="row RowColumns tabBody" id="All" style="display:block;">
+            <div class="row" style="margin-top:10px;">
+                <div class="col-sm-12">
+                    <div class="panelheader">
+                    </div>
+
+                    <div id="OptionCodeGrids" style="margin:0px 0px 0px 8px;width:auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="AddEditModal" class="w3-modal " style="border: 1px solid #ced4da;display:none">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto; width:28%; margin-top:86px;padding-bottom:9px;">
+        <div class="row" style="background-color:#efefef;color:black;width:100%;margin-left:0px;">
+            <div class="col-sm-12" style="margin-top:12px;margin-left:4px;margin-bottom:8px;">
+                <label id="lbladd" style="display:none;font-size:15px">Add New</label>
+                <label id="lbledit" style="display:none;font-size:15px;">Edit Existing</label>
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <label style="font-family:Arial;font-weight:400;">Code<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9" style="width: 267px;margin-left: -8px;">
+                <input type="hidden" id="id" />
+                <input type="text" class="form-control" placeholder="" id="txtCode" style="width:115%" />
+                <input type="hidden" id="tablename" />
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <label style="font-family:Arial;font-weight:400;">Item Name<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9" style="width: 267px;margin-left: -8px;">
+                @*<input type="hidden" id="itemId" />
+                <input type="text" class="form-control" placeholder="" id="txtItemName" style="width:115%" />*@
+                @Html.DropDownList("ItemName", new SelectList(ViewBag.ItemList, "id", "name"), "--Select--", new { @id = "ddlItemName", @style = "width: 115%;" })
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <label style="font-family:Arial;font-weight:400;">Brand Name<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9" style="width: 267px;margin-left: -8px;">
+                @*<input type="hidden" id="BrandId" />
+                <input type="text" class="form-control" placeholder="" id="txtBrandName" style="width:115%" />*@
+                @Html.DropDownList("BrandName", new SelectList(ViewBag.BrandList, "id", "name"), "--Select--", new { @id = "ddlBrandName", @style = "width: 115%;" })
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <label style="font-family:Arial;font-weight:400;">Link<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9" style="width: 267px;margin-left: -8px;">
+                <input type="text" class="form-control" placeholder="" id="txtLink" style="width:115%" />
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <label style="font-family:Arial;font-weight:400;">Cost<span class="reqField" style="color:red;margin-left: 4px;">*</span></label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9" style="width: 267px;margin-left: -8px;">
+                <input type="text" class="form-control" placeholder="" id="txtCost" style="width:115%" />
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-top:10px;margin-left:10px;">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <label style="font-family:Arial;font-weight:400;">Status</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9" style="width: 267px;margin-left: -8px;">
+                <select  id="ddlStatus" style="width:115%">
+                    <option value="Active">Active</option>
+                    <option value="InActive">InActive</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:5px">
+            <div class="col-sm-8">
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" style="float: none; margin-top:5px; margin-left:25px; width:61px;" ID="btnSave" class="btndesign" onclick="SaveChanges();">Save</button>
+            </div>
+            <div class="col-sm-2">
+
+                <button type="button" style="float: none; margin-top:5px; " ID="btncancel" class="btndesign" onclick="hideAddEditpopup();">Cancel</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@*After Render Body Section Starts Here*@
+    </section>
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+<aside class="right-sidebar">
+    @* @Html.Partial("_OptionRightSideBar")*@
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@
+

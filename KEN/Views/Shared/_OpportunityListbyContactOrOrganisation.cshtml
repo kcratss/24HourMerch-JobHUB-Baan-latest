@@ -1,0 +1,43 @@
+﻿<div class="row showCurrenttab" style="margin-top: 30px;">
+    <div class="tab">
+        <button class="tablinks active" onclick="HighlightTabs(event, 'All'); GetOppoListByContactOrOrganisation('All',@ViewBag.Id);">All</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Opportunities'); GetOppoListByContactOrOrganisation('Opportunity',@ViewBag.Id);">Opportunities</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Declined'); GetOppoListByContactOrOrganisation('Declined',@ViewBag.Id);">Declined</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Quotes'); GetOppoListByContactOrOrganisation('Quote',@ViewBag.Id);">Quotes</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Lost'); GetOppoListByContactOrOrganisation('Lost',@ViewBag.Id);">Lost</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Orders'); GetOppoListByContactOrOrganisation('Order',@ViewBag.Id);">Orders</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Cancelled'); GetOppoListByContactOrOrganisation('Cancelled',@ViewBag.Id);">Cancelled</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Jobs'); GetOppoListByContactOrOrganisation('Job',@ViewBag.Id);">Jobs</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Packing'); GetOppoListByContactOrOrganisation('Packing',@ViewBag.Id);">Packing</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Invoiced'); GetOppoListByContactOrOrganisation('Invoiced',@ViewBag.Id);">Invoiced</button>
+        <button class="tablinks" onclick="HighlightTabs(event, 'Complete'); GetOppoListByContactOrOrganisation('Complete',@ViewBag.Id);">Complete</button>
+    </div>
+</div>
+
+
+
+
+<div class="row RowColumns tabBody" id="All" style="display:block;">
+
+    <div class="row" style="margin-top:10px">
+
+        <div class="col-sm-12">
+
+            <div class="panelheader">
+            </div>
+
+            <div id="ContactDetailsGrid" style="margin:0px 0px 0px 10px;width:auto"></div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:0px">
+
+        <div class="col-sm-12">
+
+            <div class="panelheader">
+            </div>
+
+            <div id="ContactDetailsGST" style="margin:0px 0px 0px 10px;width:auto"></div>
+        </div>
+    </div>
+</div>

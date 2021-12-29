@@ -1,0 +1,65 @@
+﻿@using KEN.Models
+
+@*<script src="~/Content/js/kanban.js"></script>
+
+<link href="~/Content/css/kanban.css" rel="stylesheet" type="text/css" />*@ @*commented and added by baans 07Aug2020*@
+
+<script src="~/Content/js/kanban.js?v=2"></script>
+
+<link href="~/Content/css/kanban.css?v=2" rel="stylesheet" type="text/css" />
+
+<div id="loaddata"></div>
+
+@*After Render Body Section Starts Here*@
+
+    </section>
+
+    </aside><!-- /.right-side -->
+<!--Right Sidebar starts-->
+
+@Html.Hidden("kanban", "kanban", new { @id = "PageName" })
+
+<aside class="right-sidebar">
+    @*29 April Stage Change List*@
+    <div id="OppListSidebar" style="display:none;">
+        @Html.Partial("_OptionRightSideBar")
+    </div>
+    @*29 April Stage Change List*@
+
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a>
+                    <button type="button" class="kanbanWeekbtns kanbanleftbtn active" id="currentWeek">This Week</button><button type="button" class="kanbanWeekbtns kanbanRightbtn" id="NextWeek">Next Week</button>
+                </a>
+            </li>
+
+            <li>
+                <a>
+                    <button type="button" class="kanbanMacbtns kanbanleftbtn active" id="machine12">Machine 1 & 2</button><button type="button" class="kanbanMacbtns kanbanRightbtn" id="machine34">Machine 3 & 4</button>
+                </a>
+            </li>
+
+        </ul>
+        <div class="KanOppList">
+            <div class="ListHeader">
+                <label id="lblUnassign" class="lblHeader">Unassigned Jobs</label>
+            </div>
+            <div id="kanSidebarOppList_unassign">
+
+            </div>
+
+
+            <div class="ListHeader">
+                <label id="lblUncomplete" class="lblHeader" style="margin: 10px 0 12px 0;">Uncompleted Jobs</label>
+            </div>
+            <div id="kanSidebarOppList_uncomplete">
+
+            </div>
+        </div>
+
+    </section>
+</aside>
+
+<!--Right SideBar Ends-->
+@*After Render Body Section Starts Ends*@

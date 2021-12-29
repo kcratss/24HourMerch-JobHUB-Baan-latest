@@ -1,0 +1,323 @@
+﻿<div class="row showCurrenttab" id="DetailTab" style="display:none;">
+    @*<hr class="middleHrfrst" />*@
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 0 0 0;" />
+    <div class="tab">
+        <button class="tablinks active" onclick="openCity(event, 'options')" style="padding: 5px 15px;">Items</button>
+        @*<button class="tablinks" onclick="openCity(event, 'mail')">Mail</button>
+            <button class="tablinks" onclick="openCity(event, 'chat')">Chat</button>*@
+
+        <div class="PurchasetotalSection">
+            <div class="col-lg-3" style="text-align:left;width:28%;">
+                <label class="lblbalancetitle" style="margin-left: 9px;">SubTotal:</label>
+                <label id="lblSubTotal" class="lblbalancevalue">$00000.00</label>
+            </div>
+
+            <div class="col-lg-3" style="text-align:left;width:22%;">
+                <label class="lblbalancetitle" style="text-align:center;">Shipping:</label>
+                <label id="lblShipping" class="lblbalancevalue">$00000.00</label>
+            </div>
+
+            <div class="col-lg-3" style="text-align:center;width:22%;">
+                <label class="lblbalancetitle">Tax:</label>
+                <label id="lblTax" class="lblbalancevalue">$00000.00</label>
+            </div>
+
+            <div class="col-lg-3" style="text-align:right;width:28%;">@*padding-right: 3px;*@
+                <label class="lblbalancetitle">Total:</label>
+                <label id="lblTotal" class="lblbalancevalue" style="text-align:right;">$00000.00</label>
+            </div>
+        </div>
+    </div>
+    @*<hr class="middleHrscnd" />*@
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -14px 0 0px 0;" />
+</div>
+
+
+<div class="row RowColumns tabBody OptionContainer" id="options" style="display:none;">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+
+        <div class="row OpprtDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail tablbl">Quantity<span class="reqField" style="color:red;">*</span></p>
+                <p class="lblOpprtDetail tablbl">Brand<span class="reqField" style="color:red;">*</span></p>
+                <p class="lblOpprtDetail tablbl">Colour</p>
+                <p class="lblOpprtDetail tablbl JobDetails OrderDetails QuoteDetails Opportunity PurchaseDetails" style="display:none;">Cost</p>
+                <p class="lblOpprtDetail tablbl PackingDetails InvoicingDetails ShippingDetails CompleteDetails" style="display:none;">Sizes Ordered</p>
+                <p class="lblOpprtDetail tablbl  JobDetails OrderDetails QuoteDetails Opportunity PurchaseDetails" style="display:none;">Sizes</p>
+                <p class="lblOpprtDetail tablbl PackingDetails InvoicingDetails ShippingDetails CompleteDetails " style="display:none;">Sizes Packed</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row optionRow">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <input type="hidden" id="HiddenforConfirm" />
+                        <input type="hidden" id="HiddenPurchaseDetailId" />
+                        <input type="text" id="txtOptionQty" class="txtOpprtDetails QtyFormat" />
+                    </div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                        <label for="ddlItem" class="lblForm Innerlbl">Item<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                        @Html.DropDownList("ddlItem", new SelectList(ViewBag.ItemList, "id", "name"), "--Select--", new { @id = "ddlItem", @class = "txtOpprtDetails chosen", @style = "width:162px;" })
+
+                    </div>
+                </div>
+
+                <div class="row optionRow">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        @Html.DropDownList("ddlBrand", new SelectList(ViewBag.BrandList, "id", "name"), "--Select--", new { @id = "ddlBrand", @class = "txtOpprtDetails chosen", @onchange = "ShowBrandModalPurchase();", tabindex = "-1" })
+
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <label for="txtCode" class="lblForm Innerlbl">Code<span class="reqField Innerfrm" style="color:red;margin: 0 0px 0 3px;">*</span></label>
+                        <input id="txtCode" type="text" class="txtOpprtDetails" style="width:107px;" />
+                    </div>
+                </div>
+
+                <div class="row optionRow">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <input id="txtColor" type="text" class="txtOpprtDetails" />
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <label class="lblForm">Link</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <input id="txtLink" type="text" class="txtOpprtDetails" />
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="row optionRow JobDetails OrderDetails QuoteDetails Opportunity PurchaseDetails " style="display:none;">
+                    @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <input type="text" class="txtOpprtDetails" />
+                        </div>*@
+                    @*<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <label class="lblForm" style="width: 54px;">Margin %</label>
+                        </div>*@
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        <input id="txtCost" onblur="CalculateUnitPrice($(this));" type="text" class="txtOpprtDetails CurrencyFormat" style="width: 108px;float: none;margin: 0 12px 0 4px;" />
+                    </div>
+
+
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+
+
+                        <label for="ddlSizeType" id="lblSizeType" class="lblForm" style="margin: 0px 12px 0 -62px;">Size Grid</label>
+                        @Html.DropDownList("ddlSizeType", new SelectList(ViewBag.SizeType, "value", "typeName"), new { @id = "ddlSizeType", @class = "txtOpprtDetails", @onchange = "javascript:GetSize(this.value,'');" })
+                    </div>
+                </div>
+
+                <div class="row optionRow">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        @*<select class="txtOpprtDetails" onclick="ShowModal();" style="width:98.5%;">
+                                <option value="T-shirt">T-shirt</option>
+                                <option value="T-shirt">T-shirt</option>
+                                <option value="T-shirt">T-shirt</option>
+                            </select>*@
+                        <input type="text" id="txtSizes" onfocus="ShowModal('SizeOrdered','txtSizes');" style="width:99.5%;" class="txtOpprtDetails SizesOrdered" />
+
+                        <input type="hidden" id="hiddenforsizes" />
+                    </div>
+                </div>
+
+                <div class="row optionRow PackingDetails ShippingDetails CompleteDetails InvoicingDetails" style="display:none;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        @*<input type="text" id="txtSizePacked" onfocus="ShowModal2();" style="width:99.5%;" class="txtOpprtDetails" />*@
+                        @*<input type="text" id="txtSizes" onfocus="ShowModal('SizeOrdered','txtSizes');" style="width:99.5%;" class="txtOpprtDetails SizesOrdered" />*@
+                        <input type="text" id="txtSizesPacked" onfocus="ShowModal('SizePacked','txtSizesPacked');" style="width:99.5%;" class="txtOpprtDetails SizesPacked" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*Baans Comment*@
+    
+    @*tarun 08/31/2018*@
+    <div class="col-lg-4">
+        <div class="col-lg-12">
+            <label class="labelItemNotes">Item Notes</label>
+            @Html.TextArea("ItemNotes", "", new { @id = "ItemNotes", @style = "width: 100%;resize: none;", @class = "txtItemNotes" })
+        </div>
+    </div>
+    @*end*@
+
+    @*Baans Comment*@
+    
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mainCol">
+
+        <div class="row OpprtOptionDetailsForm">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail tablbl">Comment</p>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input type="text" id="txtComment" style="width: 98.5%;float:left" class="txtOpprtDetails" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="row OpprtOptionDetailsForm Opportunity QuoteDetails OrderDetails JobDetails PackingDetails InvoicingDetails PurchaseDetails" style="display:none;">
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+                <p class="lblOpprtDetail tablbl">Unit Price Ex GST</p>
+            </div>
+    
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+                <div class="row">
+                        @*tarun 19th Sept*@
+                        <div class="col-lg-12">
+                            @*<label for="txtunitprcExgst" class="lblForm" style="font-family: 'Arial'; font-weight: 400; font-style: normal;color: #666666;">Unit Price Ex GST</label>*@  @*tarun*@
+                            <input onblur="MarginBackCalculate($(this));" type="text" id="txtunitprcExgst" style="width: 45%;float:left;" class="txtOpprtDetails CurrencyFormat" />                                                                          @*tarun*@
+                        </div>
+    
+                    </div>
+            </div>
+        </div>
+
+
+        <div class="row OpprtOptionDetailsForm">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:6vh;">
+                <div class="row" id="btnrow" style="float:right;">
+                    <button type="button" id="btnPurchaseOptionCopy" onclick="PurchaseOptionCopy();" class="colBtns btn btn-primary">COPY</button>
+                    <button type="button" id="btnPurchaseOptionSave" onclick="PurchaseOptionSave();" class="colBtns btn btn-primary">SAVE</button>
+                    <button type="button" id="btnPro" onclick="PerformaInvoice();" class="colBtns btn btn-primary">PRINT</button>
+                    <button type="button" id="btnPurchaseEmail" onclick="OpenPurchaseEmail();" class="colBtns btn btn-primary">Email</button>
+                    @*<button type="button" id="btnPurchaseDelete" onclick="PurchaseDelete();" class="colBtns btn btn-primary">DELETE</button>*@
+                    <button type="button" id="btnBill" onclick="PurchaseToQuickBooks();" class="colBtns btn btn-primary">BILL</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div id="PurchaseDetailsGrid" style="width:97%;margin: 0px 0px 0px 20px;"></div>
+    </div>
+</div>
+
+
+
+
+<div class="row RowColumns tabBody" id="mail">
+    @*<div id="paramQueryGrid" style="margin:auto;font-size:13px"></div>*@
+
+</div>
+
+<div class="row RowColumns tabBody" id="chat">
+
+</div>
+
+<div id="SizeModel" class="w3-modal" style="display: none">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height: auto; width: 540px; margin-top: 86px;padding-bottom: 20px;">
+        <header class="w3-container w3-dark-grey">
+            <h4 class="w3-text-white" id="h1">Choose Size</h4>
+        </header>
+        @*<div class="w3-container">
+                <p class="w3-padding-top w3-text-grey">
+                    <label id="c1">Please Choose the Inspection status...</label>
+                </p>
+            </div>*@
+        <div class="row" id="validrow" style="display:none;padding-bottom: 10px;">
+            <span id="validcheck" style="font-size: 13px;color: red;float: right;margin: 0 30px 0 0;">frejgfbvjherkrebhj</span>
+        </div>
+        @*baans change 6th July for Total Option Quantity in SizeModel*@
+        <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <p class="lblOpprtDetail1 tablbl">Total Quantity</p>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <label id="txttotalQuan" style="width:55%;margin: 0px 0px 0px 272px;"></label>
+                @*<input id="txttotalQuan" type="text" style="width:55%;" />*@
+            </div>
+
+        </div>
+        @*baans end 6th July*@
+        <div class="row" style="padding-bottom: 20px;margin: 25px 0 0 36px;">
+            @*@using (Html.BeginForm())
+                {
+                    <label for="ddlSizeType">Choose Size Type</label>
+                    @Html.DropDownList("ddlSizeType", new SelectList(ViewBag.SizeType, "typeName", "typeName"), new { @id = "ddlSizeType", @style = "width:200px;float: none;", @class = "txtOpprtDetails", @onchange = "javascript:GetSize(this.value);" })
+                    <br />
+                    <br />
+                    <label for="ddlsize">Select Size</label>
+                    <select id="ddlsize" class="txtOpprtDetails" name="ddlsize" style="width: 200px;float: none;"></select>
+
+                    <br /><br />
+                }*@
+
+            <label for="ddlsize">Select Size</label>
+            @*<select id="ddlsize" class="txtOpprtDetails" name="ddlsize" style="width: 200px;float: none;"></select>*@
+            <div id="ddlsize"></div>
+        </div>
+        @*baans change 6th July for Total of Size Quantity*@
+        <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <p class="lblOpprtDetail" style="margin: 0 0 0 9px;">Total</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <input id="txtTotalSize" disabled="disabled" style="margin: 0px 0px 0px 24px;" />
+            </div>
+        </div>
+        @*baaans end 6th July*@
+        <div class="row" style="margin-top:21px;padding-bottom:20px;">
+            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                @*<button type="button" ID="SizeOrdered" style="display:none" onclick="submitSize('SizesOrdered');" class="btnFormbtn btn btn-primary">Submit</button>*@
+                <button type="button" ID="SizesPacked" onclick="submitSize();" class="btnFormbtn btn btn-primary">Submit</button>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                <button type="button" onclick="HideModal();" style="float: none;margin: 0 0px 0 -24px;" ID="cancel" class="btnFormbtn btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="EmailModel" class="w3-modal" style="display: none; ">
+    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height:auto;width: 35%; margin-top: 86px;padding-bottom: 0px;">
+        <header class="w3-container w3-dark-grey">
+            <h4 class="w3-text-white" id="h1">Send Mail</h4>
+        </header>
+        <div style="border:1px solid rgba(204, 204, 204, 1) !important">
+            <div class="row" style="padding: 30px 30px 10px 30px;">
+                <div class="col-lg-12">
+                    <label>To</label>
+                    <input type="text" id="txtToMail" style="width:100%" />
+                </div>
+            </div>
+            <div class="row" style="padding: 0px 30px 10px 30px;">
+                <div class="col-lg-12">
+                    <label>Subject</label>
+                    <input type="text" id="txtMailSubject" style="width:100%" />
+                </div>
+            </div>
+ 
+                       <div class="row" style="padding: 0px 30px 10px 30px;">
+                <div class="col-lg-12">
+                    <label>Your Message</label>
+                    <textarea id="txtMailMessage2" style="width:100%;height:360px;resize:none"></textarea>
+                </div>
+            </div>
+            
+            <div class="row" style="padding: 0px 30px 10px 30px;">
+                <div class="col-lg-8">
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" onclick="PurchaseMail();" class="colBtns btn btn-primary">SEND</button>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" onclick="document.getElementById('EmailModel').style.display = 'none'" class="colBtns btn btn-primary">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

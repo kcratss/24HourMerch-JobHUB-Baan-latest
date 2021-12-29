@@ -1,0 +1,68 @@
+﻿<div class="row OpprtDetails">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <span class="rowUpperHead" id="lblAddress">Address</span>   @*tarun*@
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        @*<img src="~/Content/images/fontimg/search.png" class="formsearchfont" />*@
+    </div>
+
+
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        @*<button type="button" onclick="" class="btnFormbtn btn btn-primary">OPEN</button>*@
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <button type="button" onclick="AddOrganisationAddress();" id="btnsaveAddress" class="btnFormbtn btn btn-primary">SAVE</button>
+    </div>
+</div>
+
+<div class="row OpprtDetailsForm AddressContainer">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+        <p class="lblOpprtDetail">Delivery Address<span class="reqField" style="color:red;">*</span></p>
+        <p class="lblOpprtDetail">Trading Name<span class="reqField" style="color:red;">*</span></p>
+        <p class="lblOpprtDetail">Attention</p>
+        <p class="lblOpprtDetail">Address 1</p>
+        <p class="lblOpprtDetail">Address 2</p>
+        <p class="lblOpprtDetail" style="padding-top: 0;">State</p>
+        <p class="lblOpprtDetail">Address Notes</p>
+
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+        <select id="ddlDelivery" class="txtOpprtDetails">
+            <option value="">--Select--</option>
+        </select>
+        <input type="text" id="txtTradingName" class="txtOpprtDetails" />
+        @Html.Hidden("HiddenOrgIdforAddress", "", new { @id = "HiddenOrgIdforAddress" })
+        @Html.Hidden("HiddenAddressId", "", new { @id = "HiddenAddressId" })        @*18 Sep 2018(N)*@
+
+        @*<input type="text" id="txtAttention" class="txtOpprtDetails" maxlength="27"/>
+        <input type="text" id="txtAddress1" class="txtOpprtDetails" maxlength="27"/>
+        <input type="text" id="txtAddress2" class="txtOpprtDetails" maxlength="27"/>*@ @*commented and added by baans 08Aug2020*@
+        <input type="text" id="txtAttention" class="txtOpprtDetails" maxlength="100" />
+        <input type="text" id="txtAddress1" class="txtOpprtDetails" maxlength="100" />
+        <input type="text" id="txtAddress2" class="txtOpprtDetails" maxlength="100" />
+
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                @*<select class="txtOpprtDetails">
+                    <option value="">-Select-</option>
+                </select>*@
+                @Html.DropDownList("ddlStateList", new SelectList(ViewBag.StateList, "stateName", "stateName"), "--Select--", new { @id = "ddlStateList", @class = "txtOpprtDetails oppInnerleftCol" })
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <label class="lblForm">Post Code<span class="reqField" style="color:red;">*</span></label>
+
+                <input type="text" maxlength="4" id="txtPostCode" pattern="\d{4}" class="txtOpprtDetails QtyFormat oppInnerRightCol" />
+            </div>
+        </div>
+
+        <div class="row" style="margin: 0 0 0 0;">
+            @*<button type="button" style="float:right;" onclick="PrintAddressPdf()" class="btnFormbtn btn btn-primary">PRINT</button>*@     @*18 Sep 2018(N)*@
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 innerDiv">
+
+        <textarea class="txtOpprtDetails" id="txtAddressNotes" style="width: 100%;resize: none;"></textarea>
+    </div>
+</div>

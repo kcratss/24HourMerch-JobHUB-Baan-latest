@@ -1,0 +1,109 @@
+﻿
+<div class="row OpprtDetails">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <span class="rowUpperHead">Contact</span>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        <a title="Search" href="/Contact/ContactList"><span style="font-size:x-large;" class="fa fa-search CustomIcon"></span></a>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        <a title="Reset" id="btnContactreset" style="cursor:pointer;" onclick="ResetForm();"><span style="font-size:x-large" class="fa fa-refresh  CustomIcon"></span></a>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        <a id="btnPre" onclick="PreContact(this);" title="Previous" style="cursor:pointer;display:none;"><span style="font-size:x-large;font-size: 35px;margin: -5px 0 0 0;" class="fa fa-angle-double-left CustomIcon"></span></a>
+    </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+            <a id="btnNext" onclick="NextContact(this);" title="Next" style="cursor:pointer;display:none;"><span style="font-size:x-large;font-size: 35px;margin: -5px 0 0 0;" class="fa fa-angle-double-right CustomIcon"></span></a>
+        </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <button type="button" id="btnsaveContact" onclick="AddContact();" class="btnFormbtn btn btn-primary">SAVE</button>
+        <button type="button" id="btnOpenContact" onclick="OpenContact();" style="margin-right:8px" class="btnFormbtn btn btn-primary">OPEN</button>
+
+    </div>
+
+</div>
+<div class="row OpprtDetailsForm ContactContainer">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 innerDiv">
+        <p class="lblOpprtDetail" id="lbltype" >Type</p>
+        @*21 Aug 2018 (N)*@
+        <p class="lblOpprtDetail" id="lblorgname" style="display:none">Organisation</p>         @*New Heading*@
+        @*21 Aug 2018 (N)*@
+        <p class="lblOpprtDetail">First Name<span class="reqField" style="color:red;">*</span></p>
+        <p class="lblOpprtDetail">Last Name<span class="reqField" style="color:red;">*</span></p>
+        <p class="lblOpprtDetail">Email<span class="reqField" style="color:red;">*</span></p>
+        <p class="lblOpprtDetail">Mobile</p>
+        <p class="lblOpprtDetail" style="padding-top: 0px;">Account Manager<span class="reqField" style="color:red;">*</span></p>
+
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 innerDiv">
+        <div class="row" style="margin: 0 0 0px -10px;">
+            <div id="DivContactType" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                @Html.DropDownList("ContactType", new SelectList(ViewBag.ContactTypes, "Name", "Name"), new { @id = "txtContactType", @class = "txtOpprtDetails" })
+                @*21 Aug 2018 (N)*@
+                <input type="text" id="txtOrgName" class="txtOpprtDetails MakeReadonly" style="display:none; " />
+                @*21 Aug 2018 (N)*@
+                @Html.Hidden("HiddenFOrPrimary", "", new { @id = "HiddenFOrPrimary" })
+                @Html.Hidden("HiddenForContactOrganisation", "", new { @id = "HiddenForContactOrganisation" })
+            </div>
+
+            <div id="DivIsPrimary" class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
+                <label class="lblForm" style="margin-left:-6px" for="isPrimary">Primary</label>
+                <input type="checkbox" id="ContactisPrimary" name="isPrimary" style="vertical-align: -2px;" />
+
+            </div>
+            <div id="DivUnlink"  class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="text-align: right;">
+                <label class="lblForm" style="margin-left:-5px" for="btnunlinkContact">Linked</label>
+                <input type="checkbox" id="btnunlinkContact" onchange="DeletelinkwithOpportunity();" checked="checked" name="btnunlinkContact" style="vertical-align: -2px;" />
+                
+            </div>
+
+            
+        </div>
+        @Html.Hidden("HiddenContactId", "", new { @id = "HiddenContactId" })
+        @Html.Hidden("HiddenforDefaultOrgID", "", new { @id = "HiddenforDefaultOrgID" })
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <select class="txtOpprtDetails" id="ddlTitle"  style="width: 81%;">
+
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                </select>
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <input type="text" id="txtFirstName" class="txtOpprtDetails" />
+            </div>
+        </div>
+        <input type="text" id="txtLastName" class="txtOpprtDetails" />
+        @*<input type="email" id="txtEmail" required="required" class="txtOpprtDetails SearchText" />*@
+        <input type="email" id="txtEmail" required="required" onclick="this.select();" class="txtOpprtDetails SearchText" />
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <input type="tel" id="txtContactNo" class="txtOpprtDetails" style="margin-right:-5px;" />
+            </div>
+
+            @*<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <label class="lblForm" for="txtContactRole">Role</label>
+                </div>*@
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <label class="lblForm" for="txtContactRole" style="padding-top: 4px;margin:0 0 0 -20px;">Role</label>
+                @*@Html.DropDownList("ContactRole", new SelectList(ViewBag.ContactRoles, "Name", "Name"), "--Select--", new { @id = "txtContactRole", @class = "txtOpprtDetails", @style = "width:132px;" })*@
+                <input type="text" id="txtContactRole" class="txtOpprtDetails" style="width:132px" />
+            </div>
+        </div>
+        @Html.DropDownList("ddlAcctMgr", new SelectList(ViewBag.ManagerList, "id", "AccountManagerFullName"), "--Select--", new { @id = "ddlAcctMgr", @class = "txtOpprtDetails" })
+        @*@Html.DropDownList("ContactRole", new SelectList(ViewBag.ContactRoles, "Name", "Name"), "--Select--", new { @id = "txtContactRole", @class = "txtOpprtDetails" })*@
+        @*<select id="ddltype" class="txtOpprtDetails">
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+            </select>*@
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 innerDiv">
+        <p class="lblOpprtDetail">Contact Notes</p>
+        <textarea id="txtNotes" class="txtOpprtDetails" style="width: 100%;resize: none;"></textarea>
+    </div>
+</div>

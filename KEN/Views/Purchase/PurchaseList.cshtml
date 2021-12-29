@@ -1,0 +1,140 @@
+﻿@using KEN.Models
+@model PurchaseViewModel
+
+@*<script src="~/Content/js/Purchase.js"></script>*@ @*commented and added by baans 07Aug2020*@
+<script src="~/Content/js/Purchase.js?v=2"></script>
+<script>
+
+    function HighlightTabs(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabBody");
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        
+        if (cityName != "Custom") {
+            evt.currentTarget.className += " active";
+        }
+        else {
+            $('#PurchaseCustom').addClass('active');
+        }
+    }
+
+    $(function () {
+        PurchaseList("All");
+    });
+</script>
+
+<style>
+    button.tabheading {
+        float: left;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 20px;
+        transition: 0.3s;
+        left: 0px;
+        top: 0px;
+        background: inherit;
+        border: none;
+        border-radius: 0px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 16px;
+    }
+
+    .tab button.tablinks.active {
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px !important;
+        color: #FF0000 !important;
+    }
+
+    button.tablinks {
+        border-width: 0px;
+        font-size: 14px !important;
+        color: #666666 !important;
+    }
+    .row.RowColumns {
+        margin: 0px 30px 0 0px;
+        width: 100%;
+    }
+    .PurchaseTabs button.tablinks {
+        padding: 5px 6px;
+    }
+</style>
+
+<div class="row cuurentTabs">
+    <img src="~/Content/images/PURCHASES.png" class="img-responsive currentTabimg"/>
+    @Html.Hidden("PurchaseList", "PurchaseList", new { @id = "PageName" })
+</div>
+
+<div class="row showCurrent">
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 12px 0px 0 0;" />
+    <div class="tab">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-5 PurchaseTabs">
+                    <button class="tabheading" style="margin-top:-7px;">Purchase</button>
+                    <button class="tablinks active" id="All" onclick="HighlightTabs(event, 'All'); ">All</button>
+                    <button class="tablinks" id="PurchaseOrders" onclick="HighlightTabs(event, 'PurchaseOrders'); ">Purchase Orders</button>
+                    <button class="tablinks" id="OpenBills" onclick="HighlightTabs(event, 'OpenBills'); ">Open Bills</button>
+                    <button class="tablinks" id="ClosedBills" onclick="HighlightTabs(event, 'ClosedBills'); ">Closed Bills</button>
+                    <button class="tablinks" id="Deleted" onclick="HighlightTabs(event, 'Deleted'); ">Deleted</button>
+                    <button id="PurchaseCustom" class="tablinks" onclick="HighlightTabs(event, 'Custom'); ">Custom</button>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="col-lg-2">
+                        <label id="lbldatefrom" style="margin: 6px 0px 0px 0px; font-size:13px;">Purchase Date:</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="Purchfromdate" style="margin-top:3px;width: 100px;" />
+                    </div>
+                    <div class="col-lg-1">
+                        <label id="lbldatefrom" style="margin: 6px 0px 0px 35px;font-size:13px;">To:</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="Purchtodate" style="margin-top:3px;width: 100px;"/>
+                    </div>
+                    <div class="col-lg-2">
+                        <label id="lbldatefrom"style="margin: 6px 0px 0px 30px;font-size:13px;">Supplier:</label>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.DropDownList("ddlSupplier", new SelectList(ViewBag.OrgName, "OrgName", "OrgName"), "--Select--", new { @id = "ddlSupplier", @class = "ddlSupplierclass" , style= "color: #666666;width: 160px !important;height: 26px !important;margin-left: -30px;position: absolute;margin-top: 2px;" })
+
+                        <span id="btnFindPurchase" style="font-size:x-large;cursor: pointer;float:right" class="fa fa-search CustomIcon"></span>                     
+                    </div>
+                   
+                        
+                 </div>
+              
+            </div>
+          
+          
+
+        </div>
+    </div>
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -15px 0 0 0;" />
+</div>
+
+<div class="row RowColumns tabBody" id="All" style="display:block;">
+
+    <div class="row" style="margin-top:10px">
+
+        <div class="col-sm-12">
+            <div id="PurchaseList" style="margin:auto;width:auto"></div>
+        </div>
+    </div>
+</div>
+   </section>
+
+        </aside><!-- /.right-side -->
+
+
+<aside class="right-sidebar"></aside>
