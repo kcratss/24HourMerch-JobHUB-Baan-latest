@@ -123,6 +123,6 @@ namespace KEN_DataAccess
         public Nullable<decimal> total { get; set; }
         public Nullable<decimal> GP { get; set; }
         public Nullable<decimal> TotalBalance { get; set; }
-        public int Totalpayment { get; set; }
+        public Nullable<decimal> Totalpayment { get; set; }
     }
 }

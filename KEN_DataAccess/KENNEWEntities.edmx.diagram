@@ -82,6 +82,41 @@
         <AssociationConnector Association="hrModel.Fk_tblPayments_OpportunityID" />
         <AssociationConnector Association="hrModel.FK_tblPurchaseDetails_OpportunityId" />
         <EntityTypeShape EntityType="hrModel.Vw_tblOpportunity" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="hrModel.tblacct_managerToBeDeleted" Width="1.5" PointX="21.75" PointY="4.75" />
+        <EntityTypeShape EntityType="hrModel.tblarticle_has_attachmentsToBeDeleted" Width="1.5" PointX="21.75" PointY="7.75" />
+        <EntityTypeShape EntityType="hrModel.tblclientsToBeDeleted" Width="1.5" PointX="21.75" PointY="10.75" />
+        <EntityTypeShape EntityType="hrModel.tblcompaniesToBeDeleted" Width="1.5" PointX="21.75" PointY="15.75" />
+        <EntityTypeShape EntityType="hrModel.tblcoreToBeDeleted" Width="1.5" PointX="21.75" PointY="20.75" />
+        <EntityTypeShape EntityType="hrModel.tblinvoice_has_itemsToBeDeleted" Width="1.5" PointX="23.75" PointY="4.75" />
+        <EntityTypeShape EntityType="hrModel.tblinvoicesToBeDeleted" Width="1.5" PointX="23.75" PointY="8.75" />
+        <EntityTypeShape EntityType="hrModel.tblitemsToBeDeleted" Width="1.5" PointX="23.75" PointY="13.75" />
+        <EntityTypeShape EntityType="hrModel.tblmessagesToBeDeleted" Width="1.5" PointX="23.75" PointY="16.75" />
+        <EntityTypeShape EntityType="hrModel.tblmodulesToBeDeleted" Width="1.5" PointX="16.75" PointY="23.75" />
+        <EntityTypeShape EntityType="hrModel.tbloperatorToBeDeleted" Width="1.5" PointX="18.75" PointY="23.75" />
+        <EntityTypeShape EntityType="hrModel.tblorderedToBeDeleted" Width="1.5" PointX="23.75" PointY="19.75" />
+        <EntityTypeShape EntityType="hrModel.tblprivatemessagesToBeDeleted" Width="1.5" PointX="23.75" PointY="22.75" />
+        <EntityTypeShape EntityType="hrModel.tblproductionToBeDeleted" Width="1.5" PointX="25.75" PointY="0.75" />
+        <EntityTypeShape EntityType="hrModel.tblproject_has_filesToBeDeleted" Width="1.5" PointX="25.75" PointY="6.75" />
+        <EntityTypeShape EntityType="hrModel.tblproject_has_tasksToBeDeleted" Width="1.5" PointX="25.75" PointY="11.75" />
+        <EntityTypeShape EntityType="hrModel.tblproject_has_workersToBeDeleted" Width="1.5" PointX="25.75" PointY="14.75" />
+        <EntityTypeShape EntityType="hrModel.tblprojectsToBeDeleted" Width="1.5" PointX="25.75" PointY="17.75" />
+        <EntityTypeShape EntityType="hrModel.tblpw_resetToBeDeleted" Width="1.5" PointX="25.75" PointY="22.75" />
+        <EntityTypeShape EntityType="hrModel.tblqueuesToBeDeleted" Width="1.5" PointX="25.75" PointY="25.75" />
+        <EntityTypeShape EntityType="hrModel.tblquotationsToBeDeleted" Width="1.5" PointX="27.75" PointY="0.75" />
+        <EntityTypeShape EntityType="hrModel.tblsubscription_has_itemsToBeDeleted" Width="1.5" PointX="27.75" PointY="6.75" />
+        <EntityTypeShape EntityType="hrModel.tblsubscriptionsToBeDeleted" Width="1.5" PointX="27.75" PointY="10.75" />
+        <EntityTypeShape EntityType="hrModel.tblTempContactCleanData" Width="1.5" PointX="27.75" PointY="15.75" />
+        <EntityTypeShape EntityType="hrModel.tbltempJobCleanData" Width="1.5" PointX="27.75" PointY="18.75" />
+        <EntityTypeShape EntityType="hrModel.tblticket_has_articlesToBeDeleted" Width="1.5" PointX="27.75" PointY="21.75" />
+        <EntityTypeShape EntityType="hrModel.tblticket_has_attachmentsToBeDeleted" Width="1.5" PointX="27.75" PointY="25.75" />
+        <EntityTypeShape EntityType="hrModel.tblticketsToBeDeleted" Width="1.5" PointX="23.75" PointY="28.75" />
+        <EntityTypeShape EntityType="hrModel.tbltypesToBeDeleted" Width="1.5" PointX="25.75" PointY="28.75" />
+        <EntityTypeShape EntityType="hrModel.tblContactCopy" Width="1.5" PointX="27.75" PointY="28.75" />
+        <EntityTypeShape EntityType="hrModel.tblDaylightShift" Width="1.5" PointX="29.75" PointY="0.75" />
+        <EntityTypeShape EntityType="hrModel.tblJobCopy" Width="1.5" PointX="0.75" PointY="29.75" />
+        <EntityTypeShape EntityType="hrModel.tblmigrationsToBeDeleted" Width="1.5" PointX="5.75" PointY="7.75" />
+        <EntityTypeShape EntityType="hrModel.tblOptionCopy" Width="1.5" PointX="29.75" PointY="3.75" />
+        <EntityTypeShape EntityType="hrModel.tblProductionCopy" Width="1.5" PointX="13.75" PointY="29.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

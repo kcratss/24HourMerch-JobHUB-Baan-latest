@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="hrModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblacct_managerToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="user_name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblAddress">
           <Key>
             <PropertyRef Name="AddressId" />
@@ -180,6 +188,15 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="Status" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="tblarticle_has_attachmentsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="article_id" Type="bigint" />
+          <Property Name="filename" Type="varchar" MaxLength="250" />
+          <Property Name="savename" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="tblband">
           <Key>
             <PropertyRef Name="id" />
@@ -203,6 +220,27 @@
           <Property Name="updatedBy" Type="varchar" MaxLength="100" />
           <Property Name="updatedon" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblclientsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_id" Type="int" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="180" />
+          <Property Name="phone" Type="varchar" MaxLength="25" />
+          <Property Name="mobile" Type="varchar" MaxLength="25" />
+          <Property Name="address" Type="varchar" MaxLength="150" />
+          <Property Name="zipcode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="userpic" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="45" />
+          <Property Name="password" Type="varchar" MaxLength="128" />
+          <Property Name="inactive" Type="int" />
+          <Property Name="access" Type="varchar" MaxLength="150" />
+          <Property Name="last_active" Type="varchar" MaxLength="50" />
+          <Property Name="last_login" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblCommonData">
           <Key>
             <PropertyRef Name="Id" />
@@ -216,6 +254,25 @@
           <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="FieldDescription" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblcompaniesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reference" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="140" />
+          <Property Name="client_id" Type="varchar" MaxLength="140" />
+          <Property Name="phone" Type="varchar" MaxLength="25" />
+          <Property Name="mobile" Type="varchar" MaxLength="25" />
+          <Property Name="address" Type="varchar" MaxLength="150" />
+          <Property Name="zipcode" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="45" />
+          <Property Name="inactive" Type="int" />
+          <Property Name="website" Type="varchar" MaxLength="250" />
+          <Property Name="country" Type="varchar" MaxLength="250" />
+          <Property Name="vat" Type="varchar" MaxLength="250" />
+          <Property Name="note" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tblcontact">
           <Key>
@@ -239,6 +296,107 @@
           <Property Name="ContactRole" Type="varchar" MaxLength="100" />
           <Property Name="OrgId" Type="int" />
           <Property Name="oldacctMgrId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblContactCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblContactCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="acct_manager_id" Type="int" />
+          <Property Name="first_name" Type="varchar" MaxLength="255" />
+          <Property Name="last_name" Type="varchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="mobile" Type="varchar" MaxLength="255" />
+          <Property Name="send_email" Type="smallint" />
+          <Property Name="notes" Type="varchar(max)" />
+          <Property Name="title" Type="varchar(max)" />
+          <Property Name="company" Type="varchar(max)" />
+          <Property Name="ContactType" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="ContactRole" Type="varchar" MaxLength="100" />
+          <Property Name="OrgId" Type="int" />
+          <Property Name="oldacctMgrId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblcoreToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="domain" Type="varchar" MaxLength="65" />
+          <Property Name="email" Type="varchar" MaxLength="80" />
+          <Property Name="company" Type="varchar" MaxLength="100" />
+          <Property Name="tax" Type="varchar" MaxLength="5" />
+          <Property Name="currency" Type="varchar" MaxLength="20" />
+          <Property Name="autobackup" Type="int" />
+          <Property Name="cronjob" Type="int" />
+          <Property Name="last_cronjob" Type="int" />
+          <Property Name="last_autobackup" Type="int" />
+          <Property Name="invoice_terms" Type="varchar" MaxLength="200" />
+          <Property Name="company_reference" Type="int" />
+          <Property Name="project_reference" Type="int" />
+          <Property Name="invoice_reference" Type="int" />
+          <Property Name="subscription_reference" Type="int" />
+          <Property Name="ticket_reference" Type="int" />
+          <Property Name="date_format" Type="varchar" MaxLength="20" />
+          <Property Name="date_time_format" Type="varchar" MaxLength="20" />
+          <Property Name="invoice_mail_subject" Type="varchar" MaxLength="150" />
+          <Property Name="pw_reset_mail_subject" Type="varchar" MaxLength="150" />
+          <Property Name="pw_reset_link_mail_subject" Type="varchar" MaxLength="150" />
+          <Property Name="credentials_mail_subject" Type="varchar" MaxLength="150" />
+          <Property Name="notification_mail_subject" Type="varchar" MaxLength="150" />
+          <Property Name="language" Type="varchar" MaxLength="150" />
+          <Property Name="invoice_address" Type="varchar" MaxLength="200" />
+          <Property Name="invoice_city" Type="varchar" MaxLength="200" />
+          <Property Name="invoice_contact" Type="varchar" MaxLength="200" />
+          <Property Name="invoice_tel" Type="varchar" MaxLength="50" />
+          <Property Name="subscription_mail_subject" Type="varchar" MaxLength="250" />
+          <Property Name="logo" Type="varchar" MaxLength="150" />
+          <Property Name="template" Type="varchar" MaxLength="200" />
+          <Property Name="paypal" Type="varchar" MaxLength="5" />
+          <Property Name="paypal_currency" Type="varchar" MaxLength="200" />
+          <Property Name="paypal_account" Type="varchar" MaxLength="200" />
+          <Property Name="invoice_logo" Type="varchar" MaxLength="150" />
+          <Property Name="pc" Type="varchar" MaxLength="150" />
+          <Property Name="vat" Type="varchar" MaxLength="150" />
+          <Property Name="ticket_email" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_default_owner" Type="int" />
+          <Property Name="ticket_default_queue" Type="int" />
+          <Property Name="ticket_default_type" Type="int" />
+          <Property Name="ticket_default_status" Type="varchar" MaxLength="200" />
+          <Property Name="ticket_config_host" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_login" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_pass" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_port" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_ssl" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_email" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_flags" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_search" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_timestamp" Type="int" />
+          <Property Name="ticket_config_mailbox" Type="varchar" MaxLength="250" />
+          <Property Name="ticket_config_delete" Type="int" />
+          <Property Name="ticket_config_active" Type="int" />
+          <Property Name="ticket_config_imap" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblDaylightShift' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblDaylightShift">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="SSMA_TimeStamp" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Shift" Type="varchar" MaxLength="20" />
+          <Property Name="Hours" Type="int" />
+          <Property Name="Updatedby" Type="varchar" MaxLength="50" />
+          <Property Name="Updatedon" Type="datetime" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="tbldecoration">
           <Key>
@@ -354,7 +512,7 @@
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.tblHoliday_dates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblHoliday_dates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblHoliday_dates">
           <Key>
             <PropertyRef Name="id" />
@@ -390,6 +548,36 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblHoliday_dates' does not have a
           <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblinvoice_has_itemsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="invoice_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="amount" Type="char" MaxLength="11" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="value" Type="float" />
+          <Property Name="name" Type="varchar" MaxLength="250" />
+          <Property Name="type" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblinvoicesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reference" Type="int" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="currency" Type="varchar" MaxLength="20" />
+          <Property Name="issue_date" Type="varchar" MaxLength="20" />
+          <Property Name="due_date" Type="varchar" MaxLength="20" />
+          <Property Name="sent_date" Type="varchar" MaxLength="20" />
+          <Property Name="paid_date" Type="varchar" MaxLength="20" />
+          <Property Name="terms" Type="varchar" MaxLength="200" />
+          <Property Name="discount" Type="varchar" MaxLength="50" />
+          <Property Name="subscription_id" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblitem">
           <Key>
             <PropertyRef Name="id" />
@@ -402,9 +590,46 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblHoliday_dates' does not have a
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="Status" Type="varchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="tblitemsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="value" Type="float" />
+          <Property Name="type" Type="varchar" MaxLength="45" />
+          <Property Name="inactive" Type="int" />
+        </EntityType>
         <EntityType Name="tbljob">
           <Key>
             <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_contact" Type="int" Nullable="false" />
+          <Property Name="id_option" Type="int" Nullable="false" />
+          <Property Name="create_date" Type="date" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="notes" Type="varchar(max)" />
+          <Property Name="qty" Type="int" />
+          <Property Name="required_date" Type="date" />
+          <Property Name="ordered" Type="int" Nullable="false" />
+          <Property Name="reason" Type="varchar(max)" />
+          <Property Name="repeat_job" Type="int" />
+          <Property Name="send_quote" Type="int" />
+          <Property Name="job_value" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="job_department" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="quantity" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblJobCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblJobCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_contact" />
+            <PropertyRef Name="id_option" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="ordered" />
+            <PropertyRef Name="job_department" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_contact" Type="int" Nullable="false" />
@@ -437,6 +662,43 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblHoliday_dates' does not have a
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
           <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblmessagesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="project_id" Type="int" />
+          <Property Name="media_id" Type="int" />
+          <Property Name="from" Type="varchar" MaxLength="120" />
+          <Property Name="text" Type="varchar" MaxLength="120" />
+          <Property Name="datetime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblmigrationsToBeDeleted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblmigrationsToBeDeleted">
+          <Key>
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblmodulesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" />
+          <Property Name="link" Type="varchar" MaxLength="250" />
+          <Property Name="type" Type="varchar" MaxLength="250" />
+          <Property Name="icon" Type="varchar" MaxLength="150" />
+          <Property Name="sort" Type="int" />
+        </EntityType>
+        <EntityType Name="tbloperatorToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tblOppContactMapping">
           <Key>
@@ -629,7 +891,74 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblHoliday_dates' does not have a
           <Property Name="Status" Type="varchar" MaxLength="25" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.tblOptionSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblOptionCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblOptionCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="band_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="colour" Type="varchar" MaxLength="255" />
+          <Property Name="comment" Type="varchar(max)" />
+          <Property Name="private_comment" Type="varchar(max)" />
+          <Property Name="front_decoration" Type="int" />
+          <Property Name="back_decoration" Type="int" />
+          <Property Name="left_decoration" Type="int" />
+          <Property Name="right_decoration" Type="int" />
+          <Property Name="extra_decoration" Type="int" />
+          <Property Name="uni_price" Type="float" />
+          <Property Name="total" Type="float" />
+          <Property Name="include_job" Type="bit" />
+          <Property Name="job_id" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="OpportunityId" Type="int" />
+          <Property Name="SizeGrid" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar" MaxLength="100" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="varchar" MaxLength="300" />
+          <Property Name="OtherDesc" Type="varchar" MaxLength="200" />
+          <Property Name="OtherCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Back_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Left_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Right_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Extra_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Front_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Back_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Left_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Right_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Extra_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Declined" Type="varchar" MaxLength="50" />
+          <Property Name="Service" Type="varchar" MaxLength="100" />
+          <Property Name="Front_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="varchar" MaxLength="100" />
+          <Property Name="oldFront_decoration" Type="int" />
+          <Property Name="oldBack_decoration" Type="int" />
+          <Property Name="oldLeft_decoration" Type="int" />
+          <Property Name="oldRight_decoration" Type="int" />
+          <Property Name="oldExtra_decoration" Type="int" />
+          <Property Name="UnitInclGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblOptionSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblOptionSize">
           <Key>
             <PropertyRef Name="SizeId" />
@@ -642,6 +971,13 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblOptionSize' does not have a pr
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
           <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblorderedToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ordered" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="tblOrganisation">
           <Key>
@@ -697,6 +1033,132 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblOptionSize' does not have a pr
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="DepositAccountNo" Type="varchar" MaxLength="50" />
           <Property Name="DepositAccountName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblprivatemessagesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="sender" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="recipient" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="255" />
+          <Property Name="message" Type="varchar" MaxLength="255" />
+          <Property Name="time" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="conversation" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.tblProductionCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblProductionCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="digital_art" />
+            <PropertyRef Name="brief_to_artroom" />
+            <PropertyRef Name="stock_in" />
+            <PropertyRef Name="in_production" />
+            <PropertyRef Name="packed" />
+            <PropertyRef Name="paid" />
+            <PropertyRef Name="is_active" />
+            <PropertyRef Name="quote_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="myob_ord" Type="varchar" MaxLength="255" />
+          <Property Name="deposit_paid" Type="date" />
+          <Property Name="digital_art" Type="int" Nullable="false" />
+          <Property Name="brief_to_artroom" Type="int" Nullable="false" />
+          <Property Name="proof_to_client" Type="date" />
+          <Property Name="proof_approved" Type="date" />
+          <Property Name="stock_ordered" Type="date" />
+          <Property Name="stock_in" Type="int" Nullable="false" />
+          <Property Name="in_production" Type="int" Nullable="false" />
+          <Property Name="packed" Type="int" Nullable="false" />
+          <Property Name="invoiced" Type="date" />
+          <Property Name="paid" Type="int" Nullable="false" />
+          <Property Name="production_note" Type="varchar(max)" />
+          <Property Name="is_active" Type="int" Nullable="false" />
+          <Property Name="quote_id" Type="int" Nullable="false" />
+          <Property Name="conv_date_bk" Type="datetime" />
+          <Property Name="conv_date" Type="date" />
+        </EntityType>
+        <EntityType Name="tblproductionToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="myob_ord" Type="varchar" MaxLength="255" />
+          <Property Name="deposit_paid" Type="date" />
+          <Property Name="digital_art" Type="int" Nullable="false" />
+          <Property Name="brief_to_artroom" Type="int" Nullable="false" />
+          <Property Name="proof_to_client" Type="date" />
+          <Property Name="proof_approved" Type="date" />
+          <Property Name="stock_ordered" Type="date" />
+          <Property Name="stock_in" Type="int" Nullable="false" />
+          <Property Name="in_production" Type="int" Nullable="false" />
+          <Property Name="packed" Type="int" Nullable="false" />
+          <Property Name="invoiced" Type="date" />
+          <Property Name="paid" Type="int" Nullable="false" />
+          <Property Name="production_note" Type="varchar(max)" />
+          <Property Name="is_active" Type="int" Nullable="false" />
+          <Property Name="quote_id" Type="int" Nullable="false" />
+          <Property Name="conv_date_bk" Type="datetime" />
+          <Property Name="conv_date" Type="date" />
+        </EntityType>
+        <EntityType Name="tblproject_has_filesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="project_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="client_id" Type="int" />
+          <Property Name="type" Type="varchar" MaxLength="80" />
+          <Property Name="name" Type="varchar" MaxLength="120" />
+          <Property Name="filename" Type="varchar" MaxLength="150" />
+          <Property Name="description" Type="varchar" MaxLength="300" />
+          <Property Name="savename" Type="varchar" MaxLength="200" />
+          <Property Name="phase" Type="varchar" MaxLength="100" />
+          <Property Name="date" Type="varchar" MaxLength="50" />
+          <Property Name="download_counter" Type="int" />
+        </EntityType>
+        <EntityType Name="tblproject_has_tasksToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="project_id" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="250" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="public" Type="int" />
+        </EntityType>
+        <EntityType Name="tblproject_has_workersToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="project_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tblprojectsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reference" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="65" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="start" Type="varchar" MaxLength="20" />
+          <Property Name="end" Type="varchar" MaxLength="20" />
+          <Property Name="progress" Type="decimal" Precision="3" Scale="0" />
+          <Property Name="phases" Type="varchar" MaxLength="150" />
+          <Property Name="tracking" Type="int" />
+          <Property Name="time_spent" Type="int" />
+          <Property Name="datetime" Type="int" />
+          <Property Name="sticky" Type="int" />
+          <Property Name="category" Type="varchar" MaxLength="150" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+          <Property Name="note" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="progress_calc" Type="int" />
         </EntityType>
         <EntityType Name="tblPurchase">
           <Key>
@@ -755,6 +1217,152 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblOptionSize' does not have a pr
           <Property Name="ExtInclGST" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ItemNotes" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblpw_resetToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="250" />
+          <Property Name="timestamp" Type="varchar" MaxLength="250" />
+          <Property Name="token" Type="varchar" MaxLength="250" />
+          <Property Name="user" Type="int" />
+        </EntityType>
+        <EntityType Name="tblqueuesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="inactive" Type="int" />
+        </EntityType>
+        <EntityType Name="tblquotationsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="q1" Type="varchar" MaxLength="50" />
+          <Property Name="q2" Type="varchar" MaxLength="50" />
+          <Property Name="q3" Type="varchar" MaxLength="50" />
+          <Property Name="q4" Type="varchar" MaxLength="150" />
+          <Property Name="q5" Type="varchar" MaxLength="150" />
+          <Property Name="q6" Type="varchar" MaxLength="50" />
+          <Property Name="company" Type="varchar" MaxLength="150" />
+          <Property Name="fullname" Type="varchar" MaxLength="150" />
+          <Property Name="email" Type="varchar" MaxLength="150" />
+          <Property Name="phone" Type="varchar" MaxLength="150" />
+          <Property Name="address" Type="varchar" MaxLength="150" />
+          <Property Name="city" Type="varchar" MaxLength="150" />
+          <Property Name="zip" Type="varchar" MaxLength="150" />
+          <Property Name="country" Type="varchar" MaxLength="150" />
+          <Property Name="comment" Type="varchar" MaxLength="150" />
+          <Property Name="date" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="150" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="replied" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblsubscription_has_itemsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subscription_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="amount" Type="char" MaxLength="1" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="value" Type="float" />
+          <Property Name="name" Type="varchar" MaxLength="250" />
+          <Property Name="type" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblsubscriptionsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reference" Type="varchar" MaxLength="50" />
+          <Property Name="company_id" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="currency" Type="varchar" MaxLength="20" />
+          <Property Name="issue_date" Type="varchar" MaxLength="20" />
+          <Property Name="end_date" Type="varchar" MaxLength="20" />
+          <Property Name="frequency" Type="varchar" MaxLength="20" />
+          <Property Name="next_payment" Type="varchar" MaxLength="20" />
+          <Property Name="terms" Type="varchar(max)" />
+          <Property Name="discount" Type="varchar" MaxLength="50" />
+          <Property Name="subscribed" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblTempContactCleanData">
+          <Key>
+            <PropertyRef Name="CCId" />
+          </Key>
+          <Property Name="CCId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactId" Type="int" />
+          <Property Name="ContactName" Type="varchar" MaxLength="100" />
+          <Property Name="EmailId" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbltempJobCleanData">
+          <Key>
+            <PropertyRef Name="JCId" />
+          </Key>
+          <Property Name="JCId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobID" Type="int" />
+          <Property Name="Newid_Contact" Type="int" />
+          <Property Name="DeleteFlag" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="tblticket_has_articlesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_id" Type="int" />
+          <Property Name="from" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="reply_to" Type="varchar" MaxLength="250" />
+          <Property Name="to" Type="varchar" MaxLength="250" />
+          <Property Name="cc" Type="varchar" MaxLength="250" />
+          <Property Name="subject" Type="varchar" MaxLength="250" />
+          <Property Name="message" Type="varchar(max)" />
+          <Property Name="datetime" Type="varchar" MaxLength="250" />
+          <Property Name="internal" Type="int" />
+        </EntityType>
+        <EntityType Name="tblticket_has_attachmentsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_id" Type="bigint" />
+          <Property Name="filename" Type="varchar" MaxLength="250" />
+          <Property Name="savename" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblticketsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="from" Type="varchar" MaxLength="250" />
+          <Property Name="reference" Type="varchar" MaxLength="250" />
+          <Property Name="type_id" Type="int" />
+          <Property Name="lock" Type="int" />
+          <Property Name="subject" Type="varchar" MaxLength="250" />
+          <Property Name="text" Type="varchar(max)" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="client_id" Type="int" />
+          <Property Name="company_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="escalation_time" Type="int" />
+          <Property Name="priority" Type="varchar" MaxLength="50" />
+          <Property Name="created" Type="int" />
+          <Property Name="queue_id" Type="int" />
+          <Property Name="updated" Type="int" />
+        </EntityType>
+        <EntityType Name="tbltypesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="inactive" Type="int" />
+        </EntityType>
         <EntityType Name="tblusers">
           <Key>
             <PropertyRef Name="id" />
@@ -779,7 +1387,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.tblOptionSize' does not have a pr
           <Property Name="UserRole" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.VW_GetHolidays' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.VW_GetHolidays' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VW_GetHolidays">
           <Key>
             <PropertyRef Name="id" />
@@ -794,7 +1402,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.VW_GetHolidays' does not have a p
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.Vw_tblContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblContact">
           <Key>
             <PropertyRef Name="id" />
@@ -826,7 +1434,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblContact' does not have a pr
           <Property Name="OrgName" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.vw_tblKanban' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.vw_tblKanban' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_tblKanban">
           <Key>
             <PropertyRef Name="KanbanId" />
@@ -868,21 +1476,22 @@ warning 6002: The table/view '24hrtest_V11.dbo.vw_tblKanban' does not have a pri
           <Property Name="DecoratedDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.vw_tblopp1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.vw_tblopp1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_tblopp1">
           <Key>
             <PropertyRef Name="OpportunityId" />
+            
           </Key>
           <Property Name="OpportunityId" Type="int" Nullable="false" />
           <Property Name="TotalBalance" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="Totalpayment" Type="decimal" Precision="38" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblOpportunity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.Vw_tblOpportunity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblOpportunity">
           <Key>
             <PropertyRef Name="OpportunityId" />
             <PropertyRef Name="AccountManagerName" />
-            <PropertyRef Name="Totalpayment" />
           </Key>
           <Property Name="OpportunityId" Type="int" Nullable="false" />
           <Property Name="OppDate" Type="datetime" />
@@ -993,10 +1602,150 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblOpportunity' does not have 
           <Property Name="total" Type="decimal" Precision="38" Scale="2" />
           <Property Name="GP" Type="decimal" Precision="38" Scale="6" />
           <Property Name="TotalBalance" Type="decimal" Precision="38" Scale="2" />
-          <Property Name="Totalpayment" Type="int" Nullable="false" />
+          <Property Name="Totalpayment" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblOrganisation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.Vw_tblOptionForOpp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_tblOptionForOpp">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="band_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="colour" Type="varchar" MaxLength="255" />
+          <Property Name="comment" Type="varchar(max)" />
+          <Property Name="private_comment" Type="varchar(max)" />
+          <Property Name="front_decoration" Type="int" />
+          <Property Name="back_decoration" Type="int" />
+          <Property Name="left_decoration" Type="int" />
+          <Property Name="right_decoration" Type="int" />
+          <Property Name="extra_decoration" Type="int" />
+          <Property Name="uni_price" Type="float" />
+          <Property Name="total" Type="float" />
+          <Property Name="include_job" Type="bit" />
+          <Property Name="job_id" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="OpportunityId" Type="int" />
+          <Property Name="SizeGrid" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar" MaxLength="200" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="varchar" MaxLength="300" />
+          <Property Name="OtherDesc" Type="varchar" MaxLength="200" />
+          <Property Name="OtherCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Back_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Left_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Right_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Extra_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Front_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Back_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Left_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Right_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Extra_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Declined" Type="varchar" MaxLength="50" />
+          <Property Name="Service" Type="varchar" MaxLength="100" />
+          <Property Name="Front_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="varchar" MaxLength="100" />
+          <Property Name="oldFront_decoration" Type="int" />
+          <Property Name="oldBack_decoration" Type="int" />
+          <Property Name="oldLeft_decoration" Type="int" />
+          <Property Name="oldRight_decoration" Type="int" />
+          <Property Name="oldExtra_decoration" Type="int" />
+          <Property Name="UnitInclGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="varchar" MaxLength="300" />
+          <Property Name="ProofSent" Type="bit" />
+          <Property Name="ProofMailSent" Type="datetime" />
+          <Property Name="ProofVerion" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.Vw_tblOptionForOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_tblOptionForOrder">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="band_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="colour" Type="varchar" MaxLength="255" />
+          <Property Name="comment" Type="varchar(max)" />
+          <Property Name="private_comment" Type="varchar(max)" />
+          <Property Name="front_decoration" Type="int" />
+          <Property Name="back_decoration" Type="int" />
+          <Property Name="left_decoration" Type="int" />
+          <Property Name="right_decoration" Type="int" />
+          <Property Name="extra_decoration" Type="int" />
+          <Property Name="uni_price" Type="float" />
+          <Property Name="total" Type="float" />
+          <Property Name="include_job" Type="bit" />
+          <Property Name="job_id" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="OpportunityId" Type="int" />
+          <Property Name="SizeGrid" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar" MaxLength="200" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="varchar" MaxLength="300" />
+          <Property Name="OtherDesc" Type="varchar" MaxLength="200" />
+          <Property Name="OtherCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Back_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Left_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Right_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Extra_decDesign" Type="varchar" MaxLength="100" />
+          <Property Name="Front_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Back_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Left_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Right_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Extra_decQuantity" Type="varchar" MaxLength="100" />
+          <Property Name="Declined" Type="varchar" MaxLength="50" />
+          <Property Name="Service" Type="varchar" MaxLength="100" />
+          <Property Name="Front_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="varchar" MaxLength="100" />
+          <Property Name="oldFront_decoration" Type="int" />
+          <Property Name="oldBack_decoration" Type="int" />
+          <Property Name="oldLeft_decoration" Type="int" />
+          <Property Name="oldRight_decoration" Type="int" />
+          <Property Name="oldExtra_decoration" Type="int" />
+          <Property Name="UnitInclGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="varchar" MaxLength="300" />
+          <Property Name="ProofSent" Type="bit" />
+          <Property Name="ProofMailSent" Type="datetime" />
+          <Property Name="ProofVerion" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.Vw_tblOrganisation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblOrganisation">
           <Key>
             <PropertyRef Name="OrgId" />
@@ -1023,7 +1772,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblOrganisation' does not have
           <Property Name="AccountManagerLastName" Type="varchar" MaxLength="120" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrTest_7_1_2021.dbo.Vw_tblPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblPurchase">
           <Key>
             <PropertyRef Name="PurchaseId" />
@@ -1057,7 +1806,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <Property Name="AmountTotal" Type="decimal" Precision="38" Scale="2" />
           <Property Name="AccountManagerFullName" Type="varchar" MaxLength="241" />
         </EntityType>
-        <Association Name="FK__TblApplic__Panto__3F6663D5">
+        <Association Name="FK__TblApplic__Panto__3BCADD1B">
           <End Role="tblPantoneMaster" Type="Self.tblPantoneMaster" Multiplicity="0..1" />
           <End Role="TblApplicationColour" Type="Self.TblApplicationColour" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1510,6 +2259,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <Parameter Name="Source" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="hrModelStoreContainer">
+          <EntitySet Name="tblacct_managerToBeDeleted" EntityType="Self.tblacct_managerToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAddress" EntityType="Self.tblAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblApplication" EntityType="Self.TblApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblApplicationArt" EntityType="Self.tblApplicationArt" Schema="dbo" store:Type="Tables" />
@@ -1521,10 +2271,14 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <EntitySet Name="tblApplicationDesigners" EntityType="Self.tblApplicationDesigners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblApplicationStatus" EntityType="Self.tblApplicationStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblApplicationType" EntityType="Self.tblApplicationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblarticle_has_attachmentsToBeDeleted" EntityType="Self.tblarticle_has_attachmentsToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblband" EntityType="Self.tblband" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCampaign" EntityType="Self.tblCampaign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblclientsToBeDeleted" EntityType="Self.tblclientsToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommonData" EntityType="Self.tblCommonData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcompaniesToBeDeleted" EntityType="Self.tblcompaniesToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblcontact" EntityType="Self.tblcontact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcoreToBeDeleted" EntityType="Self.tblcoreToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbldecoration" EntityType="Self.tbldecoration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDecorationColours" EntityType="Self.tblDecorationColours" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDecorationCost" EntityType="Self.tblDecorationCost" Schema="dbo" store:Type="Tables" />
@@ -1533,19 +2287,75 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <EntitySet Name="tblEmailContent" EntityType="Self.tblEmailContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEvents" EntityType="Self.tblEvents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblInquiry" EntityType="Self.tblInquiry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblinvoice_has_itemsToBeDeleted" EntityType="Self.tblinvoice_has_itemsToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblinvoicesToBeDeleted" EntityType="Self.tblinvoicesToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblitem" EntityType="Self.tblitem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblitemsToBeDeleted" EntityType="Self.tblitemsToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbljob" EntityType="Self.tbljob" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblkanban" EntityType="Self.tblkanban" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmessagesToBeDeleted" EntityType="Self.tblmessagesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmodulesToBeDeleted" EntityType="Self.tblmodulesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbloperatorToBeDeleted" EntityType="Self.tbloperatorToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOppContactMapping" EntityType="Self.tblOppContactMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOpportunity" EntityType="Self.tblOpportunity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbloption" EntityType="Self.tbloption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOptionCode" EntityType="Self.tblOptionCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblorderedToBeDeleted" EntityType="Self.tblorderedToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOrganisation" EntityType="Self.tblOrganisation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPantoneMaster" EntityType="Self.tblPantoneMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPayments" EntityType="Self.tblPayments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblprivatemessagesToBeDeleted" EntityType="Self.tblprivatemessagesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblproductionToBeDeleted" EntityType="Self.tblproductionToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblproject_has_filesToBeDeleted" EntityType="Self.tblproject_has_filesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblproject_has_tasksToBeDeleted" EntityType="Self.tblproject_has_tasksToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblproject_has_workersToBeDeleted" EntityType="Self.tblproject_has_workersToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblprojectsToBeDeleted" EntityType="Self.tblprojectsToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPurchase" EntityType="Self.tblPurchase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPurchaseDetails" EntityType="Self.tblPurchaseDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblpw_resetToBeDeleted" EntityType="Self.tblpw_resetToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblqueuesToBeDeleted" EntityType="Self.tblqueuesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblquotationsToBeDeleted" EntityType="Self.tblquotationsToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsubscription_has_itemsToBeDeleted" EntityType="Self.tblsubscription_has_itemsToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsubscriptionsToBeDeleted" EntityType="Self.tblsubscriptionsToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTempContactCleanData" EntityType="Self.tblTempContactCleanData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltempJobCleanData" EntityType="Self.tbltempJobCleanData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblticket_has_articlesToBeDeleted" EntityType="Self.tblticket_has_articlesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblticket_has_attachmentsToBeDeleted" EntityType="Self.tblticket_has_attachmentsToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblticketsToBeDeleted" EntityType="Self.tblticketsToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltypesToBeDeleted" EntityType="Self.tbltypesToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblusers" EntityType="Self.tblusers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblContactCopy" EntityType="Self.tblContactCopy" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblContactCopy].[id] AS [id], 
+    [tblContactCopy].[acct_manager_id] AS [acct_manager_id], 
+    [tblContactCopy].[first_name] AS [first_name], 
+    [tblContactCopy].[last_name] AS [last_name], 
+    [tblContactCopy].[email] AS [email], 
+    [tblContactCopy].[mobile] AS [mobile], 
+    [tblContactCopy].[send_email] AS [send_email], 
+    [tblContactCopy].[notes] AS [notes], 
+    [tblContactCopy].[title] AS [title], 
+    [tblContactCopy].[company] AS [company], 
+    [tblContactCopy].[ContactType] AS [ContactType], 
+    [tblContactCopy].[CreatedBy] AS [CreatedBy], 
+    [tblContactCopy].[CreatedOn] AS [CreatedOn], 
+    [tblContactCopy].[UpdatedBy] AS [UpdatedBy], 
+    [tblContactCopy].[UpdatedOn] AS [UpdatedOn], 
+    [tblContactCopy].[ContactRole] AS [ContactRole], 
+    [tblContactCopy].[OrgId] AS [OrgId], 
+    [tblContactCopy].[oldacctMgrId] AS [oldacctMgrId]
+    FROM [dbo].[tblContactCopy] AS [tblContactCopy]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblDaylightShift" EntityType="Self.tblDaylightShift" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblDaylightShift].[id] AS [id], 
+    [tblDaylightShift].[Shift] AS [Shift], 
+    [tblDaylightShift].[Hours] AS [Hours], 
+    [tblDaylightShift].[Updatedby] AS [Updatedby], 
+    [tblDaylightShift].[Updatedon] AS [Updatedon], 
+    [tblDaylightShift].[SSMA_TimeStamp] AS [SSMA_TimeStamp]
+    FROM [dbo].[tblDaylightShift] AS [tblDaylightShift]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="tblHoliday_dates" EntityType="Self.tblHoliday_dates" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblHoliday_dates].[dayofyear] AS [dayofyear], 
@@ -1558,6 +2368,90 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
     [tblHoliday_dates].[UpdatedBy] AS [UpdatedBy]
     FROM [dbo].[tblHoliday_dates] AS [tblHoliday_dates]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="tblJobCopy" EntityType="Self.tblJobCopy" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblJobCopy].[id] AS [id], 
+    [tblJobCopy].[id_contact] AS [id_contact], 
+    [tblJobCopy].[id_option] AS [id_option], 
+    [tblJobCopy].[create_date] AS [create_date], 
+    [tblJobCopy].[name] AS [name], 
+    [tblJobCopy].[notes] AS [notes], 
+    [tblJobCopy].[qty] AS [qty], 
+    [tblJobCopy].[required_date] AS [required_date], 
+    [tblJobCopy].[ordered] AS [ordered], 
+    [tblJobCopy].[reason] AS [reason], 
+    [tblJobCopy].[repeat_job] AS [repeat_job], 
+    [tblJobCopy].[send_quote] AS [send_quote], 
+    [tblJobCopy].[job_value] AS [job_value], 
+    [tblJobCopy].[job_department] AS [job_department], 
+    [tblJobCopy].[quantity] AS [quantity]
+    FROM [dbo].[tblJobCopy] AS [tblJobCopy]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblmigrationsToBeDeleted" EntityType="Self.tblmigrationsToBeDeleted" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblmigrationsToBeDeleted].[version] AS [version]
+    FROM [dbo].[tblmigrationsToBeDeleted] AS [tblmigrationsToBeDeleted]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblOptionCopy" EntityType="Self.tblOptionCopy" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblOptionCopy].[id] AS [id], 
+    [tblOptionCopy].[quantity] AS [quantity], 
+    [tblOptionCopy].[code] AS [code], 
+    [tblOptionCopy].[band_id] AS [band_id], 
+    [tblOptionCopy].[item_id] AS [item_id], 
+    [tblOptionCopy].[colour] AS [colour], 
+    [tblOptionCopy].[comment] AS [comment], 
+    [tblOptionCopy].[private_comment] AS [private_comment], 
+    [tblOptionCopy].[front_decoration] AS [front_decoration], 
+    [tblOptionCopy].[back_decoration] AS [back_decoration], 
+    [tblOptionCopy].[left_decoration] AS [left_decoration], 
+    [tblOptionCopy].[right_decoration] AS [right_decoration], 
+    [tblOptionCopy].[extra_decoration] AS [extra_decoration], 
+    [tblOptionCopy].[uni_price] AS [uni_price], 
+    [tblOptionCopy].[total] AS [total], 
+    [tblOptionCopy].[include_job] AS [include_job], 
+    [tblOptionCopy].[job_id] AS [job_id], 
+    [tblOptionCopy].[CreatedBy] AS [CreatedBy], 
+    [tblOptionCopy].[CreatedOn] AS [CreatedOn], 
+    [tblOptionCopy].[UpdatedBy] AS [UpdatedBy], 
+    [tblOptionCopy].[UpdatedOn] AS [UpdatedOn], 
+    [tblOptionCopy].[OpportunityId] AS [OpportunityId], 
+    [tblOptionCopy].[SizeGrid] AS [SizeGrid], 
+    [tblOptionCopy].[Link] AS [Link], 
+    [tblOptionCopy].[Cost] AS [Cost], 
+    [tblOptionCopy].[Margin] AS [Margin], 
+    [tblOptionCopy].[InitialSizes] AS [InitialSizes], 
+    [tblOptionCopy].[OtherDesc] AS [OtherDesc], 
+    [tblOptionCopy].[OtherCost] AS [OtherCost], 
+    [tblOptionCopy].[Front_decDesign] AS [Front_decDesign], 
+    [tblOptionCopy].[Back_decDesign] AS [Back_decDesign], 
+    [tblOptionCopy].[Left_decDesign] AS [Left_decDesign], 
+    [tblOptionCopy].[Right_decDesign] AS [Right_decDesign], 
+    [tblOptionCopy].[Extra_decDesign] AS [Extra_decDesign], 
+    [tblOptionCopy].[Front_decQuantity] AS [Front_decQuantity], 
+    [tblOptionCopy].[Back_decQuantity] AS [Back_decQuantity], 
+    [tblOptionCopy].[Left_decQuantity] AS [Left_decQuantity], 
+    [tblOptionCopy].[Right_decQuantity] AS [Right_decQuantity], 
+    [tblOptionCopy].[Extra_decQuantity] AS [Extra_decQuantity], 
+    [tblOptionCopy].[Declined] AS [Declined], 
+    [tblOptionCopy].[Service] AS [Service], 
+    [tblOptionCopy].[Front_decCost] AS [Front_decCost], 
+    [tblOptionCopy].[Back_decCost] AS [Back_decCost], 
+    [tblOptionCopy].[Left_decCost] AS [Left_decCost], 
+    [tblOptionCopy].[Right_decCost] AS [Right_decCost], 
+    [tblOptionCopy].[Extra_decCost] AS [Extra_decCost], 
+    [tblOptionCopy].[OptionStage] AS [OptionStage], 
+    [tblOptionCopy].[oldFront_decoration] AS [oldFront_decoration], 
+    [tblOptionCopy].[oldBack_decoration] AS [oldBack_decoration], 
+    [tblOptionCopy].[oldLeft_decoration] AS [oldLeft_decoration], 
+    [tblOptionCopy].[oldRight_decoration] AS [oldRight_decoration], 
+    [tblOptionCopy].[oldExtra_decoration] AS [oldExtra_decoration], 
+    [tblOptionCopy].[UnitInclGST] AS [UnitInclGST], 
+    [tblOptionCopy].[ExtExGST] AS [ExtExGST], 
+    [tblOptionCopy].[ExtInclGST] AS [ExtInclGST], 
+    [tblOptionCopy].[SizesPacked] AS [SizesPacked]
+    FROM [dbo].[tblOptionCopy] AS [tblOptionCopy]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="tblOptionSize" EntityType="Self.tblOptionSize" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblOptionSize].[SizeId] AS [SizeId], 
@@ -1569,6 +2463,28 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
     [tblOptionSize].[UpdatedBy] AS [UpdatedBy], 
     [tblOptionSize].[UpdatedOn] AS [UpdatedOn]
     FROM [dbo].[tblOptionSize] AS [tblOptionSize]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblProductionCopy" EntityType="Self.tblProductionCopy" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblProductionCopy].[id] AS [id], 
+    [tblProductionCopy].[myob_ord] AS [myob_ord], 
+    [tblProductionCopy].[deposit_paid] AS [deposit_paid], 
+    [tblProductionCopy].[digital_art] AS [digital_art], 
+    [tblProductionCopy].[brief_to_artroom] AS [brief_to_artroom], 
+    [tblProductionCopy].[proof_to_client] AS [proof_to_client], 
+    [tblProductionCopy].[proof_approved] AS [proof_approved], 
+    [tblProductionCopy].[stock_ordered] AS [stock_ordered], 
+    [tblProductionCopy].[stock_in] AS [stock_in], 
+    [tblProductionCopy].[in_production] AS [in_production], 
+    [tblProductionCopy].[packed] AS [packed], 
+    [tblProductionCopy].[invoiced] AS [invoiced], 
+    [tblProductionCopy].[paid] AS [paid], 
+    [tblProductionCopy].[production_note] AS [production_note], 
+    [tblProductionCopy].[is_active] AS [is_active], 
+    [tblProductionCopy].[quote_id] AS [quote_id], 
+    [tblProductionCopy].[conv_date_bk] AS [conv_date_bk], 
+    [tblProductionCopy].[conv_date] AS [conv_date]
+    FROM [dbo].[tblProductionCopy] AS [tblProductionCopy]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VW_GetHolidays" EntityType="Self.VW_GetHolidays" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1647,7 +2563,8 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <EntitySet Name="vw_tblopp1" EntityType="Self.vw_tblopp1" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_tblopp1].[OpportunityId] AS [OpportunityId], 
-    [vw_tblopp1].[TotalBalance] AS [TotalBalance]
+    [vw_tblopp1].[TotalBalance] AS [TotalBalance], 
+    [vw_tblopp1].[Totalpayment] AS [Totalpayment]
     FROM [dbo].[vw_tblopp1] AS [vw_tblopp1]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_tblOpportunity" EntityType="Self.Vw_tblOpportunity" store:Type="Views" store:Schema="dbo">
@@ -1764,6 +2681,132 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
     [Vw_tblOpportunity].[Totalpayment] AS [Totalpayment]
     FROM [dbo].[Vw_tblOpportunity] AS [Vw_tblOpportunity]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Vw_tblOptionForOpp" EntityType="Self.Vw_tblOptionForOpp" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_tblOptionForOpp].[id] AS [id], 
+    [Vw_tblOptionForOpp].[quantity] AS [quantity], 
+    [Vw_tblOptionForOpp].[code] AS [code], 
+    [Vw_tblOptionForOpp].[band_id] AS [band_id], 
+    [Vw_tblOptionForOpp].[item_id] AS [item_id], 
+    [Vw_tblOptionForOpp].[colour] AS [colour], 
+    [Vw_tblOptionForOpp].[comment] AS [comment], 
+    [Vw_tblOptionForOpp].[private_comment] AS [private_comment], 
+    [Vw_tblOptionForOpp].[front_decoration] AS [front_decoration], 
+    [Vw_tblOptionForOpp].[back_decoration] AS [back_decoration], 
+    [Vw_tblOptionForOpp].[left_decoration] AS [left_decoration], 
+    [Vw_tblOptionForOpp].[right_decoration] AS [right_decoration], 
+    [Vw_tblOptionForOpp].[extra_decoration] AS [extra_decoration], 
+    [Vw_tblOptionForOpp].[uni_price] AS [uni_price], 
+    [Vw_tblOptionForOpp].[total] AS [total], 
+    [Vw_tblOptionForOpp].[include_job] AS [include_job], 
+    [Vw_tblOptionForOpp].[job_id] AS [job_id], 
+    [Vw_tblOptionForOpp].[CreatedBy] AS [CreatedBy], 
+    [Vw_tblOptionForOpp].[CreatedOn] AS [CreatedOn], 
+    [Vw_tblOptionForOpp].[UpdatedBy] AS [UpdatedBy], 
+    [Vw_tblOptionForOpp].[UpdatedOn] AS [UpdatedOn], 
+    [Vw_tblOptionForOpp].[OpportunityId] AS [OpportunityId], 
+    [Vw_tblOptionForOpp].[SizeGrid] AS [SizeGrid], 
+    [Vw_tblOptionForOpp].[Link] AS [Link], 
+    [Vw_tblOptionForOpp].[Cost] AS [Cost], 
+    [Vw_tblOptionForOpp].[Margin] AS [Margin], 
+    [Vw_tblOptionForOpp].[InitialSizes] AS [InitialSizes], 
+    [Vw_tblOptionForOpp].[OtherDesc] AS [OtherDesc], 
+    [Vw_tblOptionForOpp].[OtherCost] AS [OtherCost], 
+    [Vw_tblOptionForOpp].[Front_decDesign] AS [Front_decDesign], 
+    [Vw_tblOptionForOpp].[Back_decDesign] AS [Back_decDesign], 
+    [Vw_tblOptionForOpp].[Left_decDesign] AS [Left_decDesign], 
+    [Vw_tblOptionForOpp].[Right_decDesign] AS [Right_decDesign], 
+    [Vw_tblOptionForOpp].[Extra_decDesign] AS [Extra_decDesign], 
+    [Vw_tblOptionForOpp].[Front_decQuantity] AS [Front_decQuantity], 
+    [Vw_tblOptionForOpp].[Back_decQuantity] AS [Back_decQuantity], 
+    [Vw_tblOptionForOpp].[Left_decQuantity] AS [Left_decQuantity], 
+    [Vw_tblOptionForOpp].[Right_decQuantity] AS [Right_decQuantity], 
+    [Vw_tblOptionForOpp].[Extra_decQuantity] AS [Extra_decQuantity], 
+    [Vw_tblOptionForOpp].[Declined] AS [Declined], 
+    [Vw_tblOptionForOpp].[Service] AS [Service], 
+    [Vw_tblOptionForOpp].[Front_decCost] AS [Front_decCost], 
+    [Vw_tblOptionForOpp].[Back_decCost] AS [Back_decCost], 
+    [Vw_tblOptionForOpp].[Left_decCost] AS [Left_decCost], 
+    [Vw_tblOptionForOpp].[Right_decCost] AS [Right_decCost], 
+    [Vw_tblOptionForOpp].[Extra_decCost] AS [Extra_decCost], 
+    [Vw_tblOptionForOpp].[OptionStage] AS [OptionStage], 
+    [Vw_tblOptionForOpp].[oldFront_decoration] AS [oldFront_decoration], 
+    [Vw_tblOptionForOpp].[oldBack_decoration] AS [oldBack_decoration], 
+    [Vw_tblOptionForOpp].[oldLeft_decoration] AS [oldLeft_decoration], 
+    [Vw_tblOptionForOpp].[oldRight_decoration] AS [oldRight_decoration], 
+    [Vw_tblOptionForOpp].[oldExtra_decoration] AS [oldExtra_decoration], 
+    [Vw_tblOptionForOpp].[UnitInclGST] AS [UnitInclGST], 
+    [Vw_tblOptionForOpp].[ExtExGST] AS [ExtExGST], 
+    [Vw_tblOptionForOpp].[ExtInclGST] AS [ExtInclGST], 
+    [Vw_tblOptionForOpp].[SizesPacked] AS [SizesPacked], 
+    [Vw_tblOptionForOpp].[ProofSent] AS [ProofSent], 
+    [Vw_tblOptionForOpp].[ProofMailSent] AS [ProofMailSent], 
+    [Vw_tblOptionForOpp].[ProofVerion] AS [ProofVerion]
+    FROM [dbo].[Vw_tblOptionForOpp] AS [Vw_tblOptionForOpp]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_tblOptionForOrder" EntityType="Self.Vw_tblOptionForOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_tblOptionForOrder].[id] AS [id], 
+    [Vw_tblOptionForOrder].[quantity] AS [quantity], 
+    [Vw_tblOptionForOrder].[code] AS [code], 
+    [Vw_tblOptionForOrder].[band_id] AS [band_id], 
+    [Vw_tblOptionForOrder].[item_id] AS [item_id], 
+    [Vw_tblOptionForOrder].[colour] AS [colour], 
+    [Vw_tblOptionForOrder].[comment] AS [comment], 
+    [Vw_tblOptionForOrder].[private_comment] AS [private_comment], 
+    [Vw_tblOptionForOrder].[front_decoration] AS [front_decoration], 
+    [Vw_tblOptionForOrder].[back_decoration] AS [back_decoration], 
+    [Vw_tblOptionForOrder].[left_decoration] AS [left_decoration], 
+    [Vw_tblOptionForOrder].[right_decoration] AS [right_decoration], 
+    [Vw_tblOptionForOrder].[extra_decoration] AS [extra_decoration], 
+    [Vw_tblOptionForOrder].[uni_price] AS [uni_price], 
+    [Vw_tblOptionForOrder].[total] AS [total], 
+    [Vw_tblOptionForOrder].[include_job] AS [include_job], 
+    [Vw_tblOptionForOrder].[job_id] AS [job_id], 
+    [Vw_tblOptionForOrder].[CreatedBy] AS [CreatedBy], 
+    [Vw_tblOptionForOrder].[CreatedOn] AS [CreatedOn], 
+    [Vw_tblOptionForOrder].[UpdatedBy] AS [UpdatedBy], 
+    [Vw_tblOptionForOrder].[UpdatedOn] AS [UpdatedOn], 
+    [Vw_tblOptionForOrder].[OpportunityId] AS [OpportunityId], 
+    [Vw_tblOptionForOrder].[SizeGrid] AS [SizeGrid], 
+    [Vw_tblOptionForOrder].[Link] AS [Link], 
+    [Vw_tblOptionForOrder].[Cost] AS [Cost], 
+    [Vw_tblOptionForOrder].[Margin] AS [Margin], 
+    [Vw_tblOptionForOrder].[InitialSizes] AS [InitialSizes], 
+    [Vw_tblOptionForOrder].[OtherDesc] AS [OtherDesc], 
+    [Vw_tblOptionForOrder].[OtherCost] AS [OtherCost], 
+    [Vw_tblOptionForOrder].[Front_decDesign] AS [Front_decDesign], 
+    [Vw_tblOptionForOrder].[Back_decDesign] AS [Back_decDesign], 
+    [Vw_tblOptionForOrder].[Left_decDesign] AS [Left_decDesign], 
+    [Vw_tblOptionForOrder].[Right_decDesign] AS [Right_decDesign], 
+    [Vw_tblOptionForOrder].[Extra_decDesign] AS [Extra_decDesign], 
+    [Vw_tblOptionForOrder].[Front_decQuantity] AS [Front_decQuantity], 
+    [Vw_tblOptionForOrder].[Back_decQuantity] AS [Back_decQuantity], 
+    [Vw_tblOptionForOrder].[Left_decQuantity] AS [Left_decQuantity], 
+    [Vw_tblOptionForOrder].[Right_decQuantity] AS [Right_decQuantity], 
+    [Vw_tblOptionForOrder].[Extra_decQuantity] AS [Extra_decQuantity], 
+    [Vw_tblOptionForOrder].[Declined] AS [Declined], 
+    [Vw_tblOptionForOrder].[Service] AS [Service], 
+    [Vw_tblOptionForOrder].[Front_decCost] AS [Front_decCost], 
+    [Vw_tblOptionForOrder].[Back_decCost] AS [Back_decCost], 
+    [Vw_tblOptionForOrder].[Left_decCost] AS [Left_decCost], 
+    [Vw_tblOptionForOrder].[Right_decCost] AS [Right_decCost], 
+    [Vw_tblOptionForOrder].[Extra_decCost] AS [Extra_decCost], 
+    [Vw_tblOptionForOrder].[OptionStage] AS [OptionStage], 
+    [Vw_tblOptionForOrder].[oldFront_decoration] AS [oldFront_decoration], 
+    [Vw_tblOptionForOrder].[oldBack_decoration] AS [oldBack_decoration], 
+    [Vw_tblOptionForOrder].[oldLeft_decoration] AS [oldLeft_decoration], 
+    [Vw_tblOptionForOrder].[oldRight_decoration] AS [oldRight_decoration], 
+    [Vw_tblOptionForOrder].[oldExtra_decoration] AS [oldExtra_decoration], 
+    [Vw_tblOptionForOrder].[UnitInclGST] AS [UnitInclGST], 
+    [Vw_tblOptionForOrder].[ExtExGST] AS [ExtExGST], 
+    [Vw_tblOptionForOrder].[ExtInclGST] AS [ExtInclGST], 
+    [Vw_tblOptionForOrder].[SizesPacked] AS [SizesPacked], 
+    [Vw_tblOptionForOrder].[ProofSent] AS [ProofSent], 
+    [Vw_tblOptionForOrder].[ProofMailSent] AS [ProofMailSent], 
+    [Vw_tblOptionForOrder].[ProofVerion] AS [ProofVerion]
+    FROM [dbo].[Vw_tblOptionForOrder] AS [Vw_tblOptionForOrder]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Vw_tblOrganisation" EntityType="Self.Vw_tblOrganisation" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Vw_tblOrganisation].[OrgId] AS [OrgId], 
@@ -1820,7 +2863,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
     [Vw_tblPurchase].[AccountManagerFullName] AS [AccountManagerFullName]
     FROM [dbo].[Vw_tblPurchase] AS [Vw_tblPurchase]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__TblApplic__Panto__3F6663D5" Association="Self.FK__TblApplic__Panto__3F6663D5">
+          <AssociationSet Name="FK__TblApplic__Panto__3BCADD1B" Association="Self.FK__TblApplic__Panto__3BCADD1B">
             <End Role="tblPantoneMaster" EntitySet="tblPantoneMaster" />
             <End Role="TblApplicationColour" EntitySet="TblApplicationColour" />
           </AssociationSet>
@@ -2226,8 +3269,45 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
             <Parameter Name="todate" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Pro_QuoteCustomerData" ReturnType="Collection(hrModel.Pro_QuoteCustomerData_Result)">
-            <Parameter Name="oppid" Mode="In" Type="Int32" />
+          <Parameter Name="oppid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Vw_tblOptionForOpp" EntityType="hrModel.Vw_tblOptionForOpp" />
+          <EntitySet Name="Vw_tblOptionForOrder" EntityType="hrModel.Vw_tblOptionForOrder" />
+          <EntitySet Name="tblacct_managerToBeDeleted" EntityType="hrModel.tblacct_managerToBeDeleted" />
+          <EntitySet Name="tblarticle_has_attachmentsToBeDeleted" EntityType="hrModel.tblarticle_has_attachmentsToBeDeleted" />
+          <EntitySet Name="tblclientsToBeDeleteds" EntityType="hrModel.tblclientsToBeDeleted" />
+          <EntitySet Name="tblcompaniesToBeDeleteds" EntityType="hrModel.tblcompaniesToBeDeleted" />
+          <EntitySet Name="tblcoreToBeDeleteds" EntityType="hrModel.tblcoreToBeDeleted" />
+          <EntitySet Name="tblinvoice_has_itemsToBeDeleted" EntityType="hrModel.tblinvoice_has_itemsToBeDeleted" />
+          <EntitySet Name="tblinvoicesToBeDeleteds" EntityType="hrModel.tblinvoicesToBeDeleted" />
+          <EntitySet Name="tblitemsToBeDeleteds" EntityType="hrModel.tblitemsToBeDeleted" />
+          <EntitySet Name="tblmessagesToBeDeleteds" EntityType="hrModel.tblmessagesToBeDeleted" />
+          <EntitySet Name="tblmodulesToBeDeleteds" EntityType="hrModel.tblmodulesToBeDeleted" />
+          <EntitySet Name="tbloperatorToBeDeleteds" EntityType="hrModel.tbloperatorToBeDeleted" />
+          <EntitySet Name="tblorderedToBeDeleteds" EntityType="hrModel.tblorderedToBeDeleted" />
+          <EntitySet Name="tblprivatemessagesToBeDeleteds" EntityType="hrModel.tblprivatemessagesToBeDeleted" />
+          <EntitySet Name="tblproductionToBeDeleteds" EntityType="hrModel.tblproductionToBeDeleted" />
+          <EntitySet Name="tblproject_has_filesToBeDeleted" EntityType="hrModel.tblproject_has_filesToBeDeleted" />
+          <EntitySet Name="tblproject_has_tasksToBeDeleted" EntityType="hrModel.tblproject_has_tasksToBeDeleted" />
+          <EntitySet Name="tblproject_has_workersToBeDeleted" EntityType="hrModel.tblproject_has_workersToBeDeleted" />
+          <EntitySet Name="tblprojectsToBeDeleteds" EntityType="hrModel.tblprojectsToBeDeleted" />
+          <EntitySet Name="tblpw_resetToBeDeleted" EntityType="hrModel.tblpw_resetToBeDeleted" />
+          <EntitySet Name="tblqueuesToBeDeleteds" EntityType="hrModel.tblqueuesToBeDeleted" />
+          <EntitySet Name="tblquotationsToBeDeleteds" EntityType="hrModel.tblquotationsToBeDeleted" />
+          <EntitySet Name="tblsubscription_has_itemsToBeDeleted" EntityType="hrModel.tblsubscription_has_itemsToBeDeleted" />
+          <EntitySet Name="tblsubscriptionsToBeDeleteds" EntityType="hrModel.tblsubscriptionsToBeDeleted" />
+          <EntitySet Name="tblTempContactCleanDatas" EntityType="hrModel.tblTempContactCleanData" />
+          <EntitySet Name="tbltempJobCleanDatas" EntityType="hrModel.tbltempJobCleanData" />
+          <EntitySet Name="tblticket_has_articlesToBeDeleted" EntityType="hrModel.tblticket_has_articlesToBeDeleted" />
+          <EntitySet Name="tblticket_has_attachmentsToBeDeleted" EntityType="hrModel.tblticket_has_attachmentsToBeDeleted" />
+          <EntitySet Name="tblticketsToBeDeleteds" EntityType="hrModel.tblticketsToBeDeleted" />
+          <EntitySet Name="tbltypesToBeDeleteds" EntityType="hrModel.tbltypesToBeDeleted" />
+          <EntitySet Name="tblContactCopies" EntityType="hrModel.tblContactCopy" />
+          <EntitySet Name="tblDaylightShifts" EntityType="hrModel.tblDaylightShift" />
+          <EntitySet Name="tblJobCopies" EntityType="hrModel.tblJobCopy" />
+          <EntitySet Name="tblmigrationsToBeDeleteds" EntityType="hrModel.tblmigrationsToBeDeleted" />
+          <EntitySet Name="tblOptionCopies" EntityType="hrModel.tblOptionCopy" />
+          <EntitySet Name="tblProductionCopies" EntityType="hrModel.tblProductionCopy" />
           </EntityContainer>
         <EntityType Name="tblDecorationColour">
           <Key>
@@ -3687,6 +4767,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           </Key>
           <Property Name="OpportunityId" Type="Int32" Nullable="false" />
           <Property Name="TotalBalance" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="Totalpayment" Type="Decimal" Precision="38" Scale="2" Nullable="false" />
         </EntityType>
         <Association Name="FK_EventId">
           <End Type="hrModel.tblEvent" Role="tblEvent" Multiplicity="0..1" />
@@ -3796,7 +4877,6 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <Key>
             <PropertyRef Name="OpportunityId" />
             <PropertyRef Name="AccountManagerName" />
-            <PropertyRef Name="Totalpayment" />
           </Key>
           <Property Name="OpportunityId" Type="Int32" Nullable="false" />
           <Property Name="OppDate" Type="DateTime" Precision="3" />
@@ -3907,7 +4987,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <Property Name="total" Type="Decimal" Precision="38" Scale="2" />
           <Property Name="GP" Type="Decimal" Precision="38" Scale="6" />
           <Property Name="TotalBalance" Type="Decimal" Precision="38" Scale="2" />
-          <Property Name="Totalpayment" Type="Int32" Nullable="false" />
+          <Property Name="Totalpayment" Type="Decimal" Precision="38" Scale="2" />
         </EntityType>
         <ComplexType Name="Pro_InvoicedReport_Result">
           <Property Type="Int32" Name="OpportunityId" Nullable="false" />
@@ -3945,6 +5025,738 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <Property Type="Decimal" Name="QuoteGST" Nullable="true" Precision="38" Scale="2" />
           <Property Type="String" Name="AccountManager" Nullable="true" MaxLength="241" />
         </ComplexType>
+        <EntityType Name="Vw_tblOptionForOpp">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="band_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="front_decoration" Type="Int32" />
+          <Property Name="back_decoration" Type="Int32" />
+          <Property Name="left_decoration" Type="Int32" />
+          <Property Name="right_decoration" Type="Int32" />
+          <Property Name="extra_decoration" Type="Int32" />
+          <Property Name="uni_price" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="include_job" Type="Boolean" />
+          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="OpportunityId" Type="Int32" />
+          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="oldFront_decoration" Type="Int32" />
+          <Property Name="oldBack_decoration" Type="Int32" />
+          <Property Name="oldLeft_decoration" Type="Int32" />
+          <Property Name="oldRight_decoration" Type="Int32" />
+          <Property Name="oldExtra_decoration" Type="Int32" />
+          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ProofSent" Type="Boolean" />
+          <Property Name="ProofMailSent" Type="DateTime" Precision="3" />
+          <Property Name="ProofVerion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Vw_tblOptionForOrder">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="band_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="front_decoration" Type="Int32" />
+          <Property Name="back_decoration" Type="Int32" />
+          <Property Name="left_decoration" Type="Int32" />
+          <Property Name="right_decoration" Type="Int32" />
+          <Property Name="extra_decoration" Type="Int32" />
+          <Property Name="uni_price" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="include_job" Type="Boolean" />
+          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="OpportunityId" Type="Int32" />
+          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="oldFront_decoration" Type="Int32" />
+          <Property Name="oldBack_decoration" Type="Int32" />
+          <Property Name="oldLeft_decoration" Type="Int32" />
+          <Property Name="oldRight_decoration" Type="Int32" />
+          <Property Name="oldExtra_decoration" Type="Int32" />
+          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ProofSent" Type="Boolean" />
+          <Property Name="ProofMailSent" Type="DateTime" Precision="3" />
+          <Property Name="ProofVerion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblacct_managerToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblarticle_has_attachmentsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="article_id" Type="Int64" />
+          <Property Name="filename" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="savename" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblclientsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_id" Type="Int32" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="userpic" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="inactive" Type="Int32" />
+          <Property Name="access" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="last_active" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblcompaniesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reference" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Name="client_id" Type="String" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="inactive" Type="Int32" />
+          <Property Name="website" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="vat" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblcoreToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="domain" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tax" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="currency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="autobackup" Type="Int32" />
+          <Property Name="cronjob" Type="Int32" />
+          <Property Name="last_cronjob" Type="Int32" />
+          <Property Name="last_autobackup" Type="Int32" />
+          <Property Name="invoice_terms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="company_reference" Type="Int32" />
+          <Property Name="project_reference" Type="Int32" />
+          <Property Name="invoice_reference" Type="Int32" />
+          <Property Name="subscription_reference" Type="Int32" />
+          <Property Name="ticket_reference" Type="Int32" />
+          <Property Name="date_format" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="date_time_format" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_mail_subject" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="pw_reset_mail_subject" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="pw_reset_link_mail_subject" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="credentials_mail_subject" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="notification_mail_subject" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="language" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_city" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_contact" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subscription_mail_subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="logo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="template" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="paypal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="paypal_currency" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="paypal_account" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_logo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="pc" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="vat" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_default_owner" Type="Int32" />
+          <Property Name="ticket_default_queue" Type="Int32" />
+          <Property Name="ticket_default_type" Type="Int32" />
+          <Property Name="ticket_default_status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_host" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_login" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_pass" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_port" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_ssl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_flags" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_search" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_timestamp" Type="Int32" />
+          <Property Name="ticket_config_mailbox" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_config_delete" Type="Int32" />
+          <Property Name="ticket_config_active" Type="Int32" />
+          <Property Name="ticket_config_imap" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblinvoice_has_itemsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblinvoicesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reference" Type="Int32" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="currency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="issue_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="due_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="sent_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="paid_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="terms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="discount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subscription_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblitemsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" />
+          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="inactive" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblmessagesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="project_id" Type="Int32" />
+          <Property Name="media_id" Type="Int32" />
+          <Property Name="from" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblmodulesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="link" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbloperatorToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblorderedToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ordered" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblprivatemessagesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="sender" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="recipient" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="subject" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="conversation" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblproductionToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="myob_ord" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="deposit_paid" Type="DateTime" Precision="0" />
+          <Property Name="digital_art" Type="Int32" Nullable="false" />
+          <Property Name="brief_to_artroom" Type="Int32" Nullable="false" />
+          <Property Name="proof_to_client" Type="DateTime" Precision="0" />
+          <Property Name="proof_approved" Type="DateTime" Precision="0" />
+          <Property Name="stock_ordered" Type="DateTime" Precision="0" />
+          <Property Name="stock_in" Type="Int32" Nullable="false" />
+          <Property Name="in_production" Type="Int32" Nullable="false" />
+          <Property Name="packed" Type="Int32" Nullable="false" />
+          <Property Name="invoiced" Type="DateTime" Precision="0" />
+          <Property Name="paid" Type="Int32" Nullable="false" />
+          <Property Name="production_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Int32" Nullable="false" />
+          <Property Name="quote_id" Type="Int32" Nullable="false" />
+          <Property Name="conv_date_bk" Type="DateTime" Precision="3" />
+          <Property Name="conv_date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tblproject_has_filesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="project_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="client_id" Type="Int32" />
+          <Property Name="type" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="filename" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="savename" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="download_counter" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblproject_has_tasksToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="project_id" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="public" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblproject_has_workersToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="project_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblprojectsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reference" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="start" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="end" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="progress" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="phases" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="tracking" Type="Int32" />
+          <Property Name="time_spent" Type="Int32" />
+          <Property Name="datetime" Type="Int32" />
+          <Property Name="sticky" Type="Int32" />
+          <Property Name="category" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="progress_calc" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblpw_resetToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="token" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="user" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblqueuesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="inactive" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblquotationsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="q1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="q2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="q3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="q4" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="q5" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="q6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fullname" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="replied" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblsubscription_has_itemsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subscription_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblsubscriptionsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company_id" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="currency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="issue_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="end_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="next_payment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="terms" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="discount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subscribed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblTempContactCleanData">
+          <Key>
+            <PropertyRef Name="CCId" />
+          </Key>
+          <Property Name="CCId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactId" Type="Int32" />
+          <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbltempJobCleanData">
+          <Key>
+            <PropertyRef Name="JCId" />
+          </Key>
+          <Property Name="JCId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobID" Type="Int32" />
+          <Property Name="Newid_Contact" Type="Int32" />
+          <Property Name="DeleteFlag" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblticket_has_articlesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_id" Type="Int32" />
+          <Property Name="from" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="reply_to" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="to" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="cc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="internal" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblticket_has_attachmentsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_id" Type="Int64" />
+          <Property Name="filename" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="savename" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblticketsToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="from" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="reference" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="type_id" Type="Int32" />
+          <Property Name="lock" Type="Int32" />
+          <Property Name="subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_id" Type="Int32" />
+          <Property Name="company_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="escalation_time" Type="Int32" />
+          <Property Name="priority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created" Type="Int32" />
+          <Property Name="queue_id" Type="Int32" />
+          <Property Name="updated" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbltypesToBeDeleted">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="inactive" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblContactCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="acct_manager_id" Type="Int32" />
+          <Property Name="first_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="send_email" Type="Int16" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContactType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ContactRole" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrgId" Type="Int32" />
+          <Property Name="oldacctMgrId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblDaylightShift">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="SSMA_TimeStamp" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Shift" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Hours" Type="Int32" />
+          <Property Name="Updatedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Updatedon" Type="DateTime" Precision="3" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tblJobCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_contact" />
+            <PropertyRef Name="id_option" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="ordered" />
+            <PropertyRef Name="job_department" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_contact" Type="Int32" Nullable="false" />
+          <Property Name="id_option" Type="Int32" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="required_date" Type="DateTime" Precision="0" />
+          <Property Name="ordered" Type="Int32" Nullable="false" />
+          <Property Name="reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="repeat_job" Type="Int32" />
+          <Property Name="send_quote" Type="Int32" />
+          <Property Name="job_value" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="job_department" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblmigrationsToBeDeleted">
+          <Key>
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="version" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOptionCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="band_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="front_decoration" Type="Int32" />
+          <Property Name="back_decoration" Type="Int32" />
+          <Property Name="left_decoration" Type="Int32" />
+          <Property Name="right_decoration" Type="Int32" />
+          <Property Name="extra_decoration" Type="Int32" />
+          <Property Name="uni_price" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="include_job" Type="Boolean" />
+          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="OpportunityId" Type="Int32" />
+          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="oldFront_decoration" Type="Int32" />
+          <Property Name="oldBack_decoration" Type="Int32" />
+          <Property Name="oldLeft_decoration" Type="Int32" />
+          <Property Name="oldRight_decoration" Type="Int32" />
+          <Property Name="oldExtra_decoration" Type="Int32" />
+          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblProductionCopy">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="digital_art" />
+            <PropertyRef Name="brief_to_artroom" />
+            <PropertyRef Name="stock_in" />
+            <PropertyRef Name="in_production" />
+            <PropertyRef Name="packed" />
+            <PropertyRef Name="paid" />
+            <PropertyRef Name="is_active" />
+            <PropertyRef Name="quote_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="myob_ord" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="deposit_paid" Type="DateTime" Precision="0" />
+          <Property Name="digital_art" Type="Int32" Nullable="false" />
+          <Property Name="brief_to_artroom" Type="Int32" Nullable="false" />
+          <Property Name="proof_to_client" Type="DateTime" Precision="0" />
+          <Property Name="proof_approved" Type="DateTime" Precision="0" />
+          <Property Name="stock_ordered" Type="DateTime" Precision="0" />
+          <Property Name="stock_in" Type="Int32" Nullable="false" />
+          <Property Name="in_production" Type="Int32" Nullable="false" />
+          <Property Name="packed" Type="Int32" Nullable="false" />
+          <Property Name="invoiced" Type="DateTime" Precision="0" />
+          <Property Name="paid" Type="Int32" Nullable="false" />
+          <Property Name="production_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Int32" Nullable="false" />
+          <Property Name="quote_id" Type="Int32" Nullable="false" />
+          <Property Name="conv_date_bk" Type="DateTime" Precision="3" />
+          <Property Name="conv_date" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5163,6 +6975,7 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
           <EntitySetMapping Name="vw_tblopp1">
             <EntityTypeMapping TypeName="hrModel.vw_tblopp1">
               <MappingFragment StoreEntitySet="vw_tblopp1">
+                <ScalarProperty Name="Totalpayment" ColumnName="Totalpayment" />
                 <ScalarProperty Name="TotalBalance" ColumnName="TotalBalance" />
                 <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
               </MappingFragment>
@@ -5356,6 +7169,748 @@ warning 6002: The table/view '24hrtest_V11.dbo.Vw_tblPurchase' does not have a p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Vw_tblOptionForOpp">
+            <EntityTypeMapping TypeName="hrModel.Vw_tblOptionForOpp">
+              <MappingFragment StoreEntitySet="Vw_tblOptionForOpp">
+                <ScalarProperty Name="ProofVerion" ColumnName="ProofVerion" />
+                <ScalarProperty Name="ProofMailSent" ColumnName="ProofMailSent" />
+                <ScalarProperty Name="ProofSent" ColumnName="ProofSent" />
+                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
+                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
+                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
+                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
+                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
+                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
+                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
+                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
+                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
+                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
+                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
+                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
+                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
+                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
+                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Declined" ColumnName="Declined" />
+                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
+                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
+                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
+                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
+                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
+                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
+                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
+                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
+                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
+                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
+                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
+                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
+                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
+                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="include_job" ColumnName="include_job" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
+                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
+                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
+                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
+                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
+                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
+                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="band_id" ColumnName="band_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_tblOptionForOrder">
+            <EntityTypeMapping TypeName="hrModel.Vw_tblOptionForOrder">
+              <MappingFragment StoreEntitySet="Vw_tblOptionForOrder">
+                <ScalarProperty Name="ProofVerion" ColumnName="ProofVerion" />
+                <ScalarProperty Name="ProofMailSent" ColumnName="ProofMailSent" />
+                <ScalarProperty Name="ProofSent" ColumnName="ProofSent" />
+                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
+                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
+                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
+                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
+                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
+                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
+                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
+                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
+                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
+                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
+                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
+                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
+                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
+                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
+                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Declined" ColumnName="Declined" />
+                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
+                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
+                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
+                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
+                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
+                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
+                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
+                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
+                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
+                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
+                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
+                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
+                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
+                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="include_job" ColumnName="include_job" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
+                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
+                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
+                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
+                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
+                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
+                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="band_id" ColumnName="band_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblacct_managerToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblacct_managerToBeDeleted">
+              <MappingFragment StoreEntitySet="tblacct_managerToBeDeleted">
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblarticle_has_attachmentsToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblarticle_has_attachmentsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblarticle_has_attachmentsToBeDeleted">
+                <ScalarProperty Name="savename" ColumnName="savename" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="article_id" ColumnName="article_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblclientsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblclientsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblclientsToBeDeleted">
+                <ScalarProperty Name="last_login" ColumnName="last_login" />
+                <ScalarProperty Name="last_active" ColumnName="last_active" />
+                <ScalarProperty Name="access" ColumnName="access" />
+                <ScalarProperty Name="inactive" ColumnName="inactive" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="userpic" ColumnName="userpic" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcompaniesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblcompaniesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblcompaniesToBeDeleted">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="vat" ColumnName="vat" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="inactive" ColumnName="inactive" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcoreToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblcoreToBeDeleted">
+              <MappingFragment StoreEntitySet="tblcoreToBeDeleted">
+                <ScalarProperty Name="ticket_config_imap" ColumnName="ticket_config_imap" />
+                <ScalarProperty Name="ticket_config_active" ColumnName="ticket_config_active" />
+                <ScalarProperty Name="ticket_config_delete" ColumnName="ticket_config_delete" />
+                <ScalarProperty Name="ticket_config_mailbox" ColumnName="ticket_config_mailbox" />
+                <ScalarProperty Name="ticket_config_timestamp" ColumnName="ticket_config_timestamp" />
+                <ScalarProperty Name="ticket_config_search" ColumnName="ticket_config_search" />
+                <ScalarProperty Name="ticket_config_flags" ColumnName="ticket_config_flags" />
+                <ScalarProperty Name="ticket_config_email" ColumnName="ticket_config_email" />
+                <ScalarProperty Name="ticket_config_ssl" ColumnName="ticket_config_ssl" />
+                <ScalarProperty Name="ticket_config_port" ColumnName="ticket_config_port" />
+                <ScalarProperty Name="ticket_config_pass" ColumnName="ticket_config_pass" />
+                <ScalarProperty Name="ticket_config_login" ColumnName="ticket_config_login" />
+                <ScalarProperty Name="ticket_config_host" ColumnName="ticket_config_host" />
+                <ScalarProperty Name="ticket_default_status" ColumnName="ticket_default_status" />
+                <ScalarProperty Name="ticket_default_type" ColumnName="ticket_default_type" />
+                <ScalarProperty Name="ticket_default_queue" ColumnName="ticket_default_queue" />
+                <ScalarProperty Name="ticket_default_owner" ColumnName="ticket_default_owner" />
+                <ScalarProperty Name="ticket_email" ColumnName="ticket_email" />
+                <ScalarProperty Name="vat" ColumnName="vat" />
+                <ScalarProperty Name="pc" ColumnName="pc" />
+                <ScalarProperty Name="invoice_logo" ColumnName="invoice_logo" />
+                <ScalarProperty Name="paypal_account" ColumnName="paypal_account" />
+                <ScalarProperty Name="paypal_currency" ColumnName="paypal_currency" />
+                <ScalarProperty Name="paypal" ColumnName="paypal" />
+                <ScalarProperty Name="template" ColumnName="template" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="subscription_mail_subject" ColumnName="subscription_mail_subject" />
+                <ScalarProperty Name="invoice_tel" ColumnName="invoice_tel" />
+                <ScalarProperty Name="invoice_contact" ColumnName="invoice_contact" />
+                <ScalarProperty Name="invoice_city" ColumnName="invoice_city" />
+                <ScalarProperty Name="invoice_address" ColumnName="invoice_address" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="notification_mail_subject" ColumnName="notification_mail_subject" />
+                <ScalarProperty Name="credentials_mail_subject" ColumnName="credentials_mail_subject" />
+                <ScalarProperty Name="pw_reset_link_mail_subject" ColumnName="pw_reset_link_mail_subject" />
+                <ScalarProperty Name="pw_reset_mail_subject" ColumnName="pw_reset_mail_subject" />
+                <ScalarProperty Name="invoice_mail_subject" ColumnName="invoice_mail_subject" />
+                <ScalarProperty Name="date_time_format" ColumnName="date_time_format" />
+                <ScalarProperty Name="date_format" ColumnName="date_format" />
+                <ScalarProperty Name="ticket_reference" ColumnName="ticket_reference" />
+                <ScalarProperty Name="subscription_reference" ColumnName="subscription_reference" />
+                <ScalarProperty Name="invoice_reference" ColumnName="invoice_reference" />
+                <ScalarProperty Name="project_reference" ColumnName="project_reference" />
+                <ScalarProperty Name="company_reference" ColumnName="company_reference" />
+                <ScalarProperty Name="invoice_terms" ColumnName="invoice_terms" />
+                <ScalarProperty Name="last_autobackup" ColumnName="last_autobackup" />
+                <ScalarProperty Name="last_cronjob" ColumnName="last_cronjob" />
+                <ScalarProperty Name="cronjob" ColumnName="cronjob" />
+                <ScalarProperty Name="autobackup" ColumnName="autobackup" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="tax" ColumnName="tax" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="domain" ColumnName="domain" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblinvoice_has_itemsToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblinvoice_has_itemsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblinvoice_has_itemsToBeDeleted">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblinvoicesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblinvoicesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblinvoicesToBeDeleted">
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="terms" ColumnName="terms" />
+                <ScalarProperty Name="paid_date" ColumnName="paid_date" />
+                <ScalarProperty Name="sent_date" ColumnName="sent_date" />
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="issue_date" ColumnName="issue_date" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblitemsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblitemsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblitemsToBeDeleted">
+                <ScalarProperty Name="inactive" ColumnName="inactive" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmessagesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblmessagesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblmessagesToBeDeleted">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="media_id" ColumnName="media_id" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmodulesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblmodulesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblmodulesToBeDeleted">
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbloperatorToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tbloperatorToBeDeleted">
+              <MappingFragment StoreEntitySet="tbloperatorToBeDeleted">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblorderedToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblorderedToBeDeleted">
+              <MappingFragment StoreEntitySet="tblorderedToBeDeleted">
+                <ScalarProperty Name="ordered" ColumnName="ordered" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblprivatemessagesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblprivatemessagesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblprivatemessagesToBeDeleted">
+                <ScalarProperty Name="conversation" ColumnName="conversation" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="recipient" ColumnName="recipient" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblproductionToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblproductionToBeDeleted">
+              <MappingFragment StoreEntitySet="tblproductionToBeDeleted">
+                <ScalarProperty Name="conv_date" ColumnName="conv_date" />
+                <ScalarProperty Name="conv_date_bk" ColumnName="conv_date_bk" />
+                <ScalarProperty Name="quote_id" ColumnName="quote_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="production_note" ColumnName="production_note" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="invoiced" ColumnName="invoiced" />
+                <ScalarProperty Name="packed" ColumnName="packed" />
+                <ScalarProperty Name="in_production" ColumnName="in_production" />
+                <ScalarProperty Name="stock_in" ColumnName="stock_in" />
+                <ScalarProperty Name="stock_ordered" ColumnName="stock_ordered" />
+                <ScalarProperty Name="proof_approved" ColumnName="proof_approved" />
+                <ScalarProperty Name="proof_to_client" ColumnName="proof_to_client" />
+                <ScalarProperty Name="brief_to_artroom" ColumnName="brief_to_artroom" />
+                <ScalarProperty Name="digital_art" ColumnName="digital_art" />
+                <ScalarProperty Name="deposit_paid" ColumnName="deposit_paid" />
+                <ScalarProperty Name="myob_ord" ColumnName="myob_ord" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblproject_has_filesToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblproject_has_filesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblproject_has_filesToBeDeleted">
+                <ScalarProperty Name="download_counter" ColumnName="download_counter" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="phase" ColumnName="phase" />
+                <ScalarProperty Name="savename" ColumnName="savename" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblproject_has_tasksToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblproject_has_tasksToBeDeleted">
+              <MappingFragment StoreEntitySet="tblproject_has_tasksToBeDeleted">
+                <ScalarProperty Name="public" ColumnName="public" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblproject_has_workersToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblproject_has_workersToBeDeleted">
+              <MappingFragment StoreEntitySet="tblproject_has_workersToBeDeleted">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblprojectsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblprojectsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblprojectsToBeDeleted">
+                <ScalarProperty Name="progress_calc" ColumnName="progress_calc" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="sticky" ColumnName="sticky" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="time_spent" ColumnName="time_spent" />
+                <ScalarProperty Name="tracking" ColumnName="tracking" />
+                <ScalarProperty Name="phases" ColumnName="phases" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="end" ColumnName="end" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblpw_resetToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblpw_resetToBeDeleted">
+              <MappingFragment StoreEntitySet="tblpw_resetToBeDeleted">
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblqueuesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblqueuesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblqueuesToBeDeleted">
+                <ScalarProperty Name="inactive" ColumnName="inactive" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblquotationsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblquotationsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblquotationsToBeDeleted">
+                <ScalarProperty Name="replied" ColumnName="replied" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="q6" ColumnName="q6" />
+                <ScalarProperty Name="q5" ColumnName="q5" />
+                <ScalarProperty Name="q4" ColumnName="q4" />
+                <ScalarProperty Name="q3" ColumnName="q3" />
+                <ScalarProperty Name="q2" ColumnName="q2" />
+                <ScalarProperty Name="q1" ColumnName="q1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsubscription_has_itemsToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblsubscription_has_itemsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblsubscription_has_itemsToBeDeleted">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsubscriptionsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblsubscriptionsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblsubscriptionsToBeDeleted">
+                <ScalarProperty Name="subscribed" ColumnName="subscribed" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="terms" ColumnName="terms" />
+                <ScalarProperty Name="next_payment" ColumnName="next_payment" />
+                <ScalarProperty Name="frequency" ColumnName="frequency" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="issue_date" ColumnName="issue_date" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTempContactCleanDatas">
+            <EntityTypeMapping TypeName="hrModel.tblTempContactCleanData">
+              <MappingFragment StoreEntitySet="tblTempContactCleanData">
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="CCId" ColumnName="CCId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltempJobCleanDatas">
+            <EntityTypeMapping TypeName="hrModel.tbltempJobCleanData">
+              <MappingFragment StoreEntitySet="tbltempJobCleanData">
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="Newid_Contact" ColumnName="Newid_Contact" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="JCId" ColumnName="JCId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblticket_has_articlesToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblticket_has_articlesToBeDeleted">
+              <MappingFragment StoreEntitySet="tblticket_has_articlesToBeDeleted">
+                <ScalarProperty Name="internal" ColumnName="internal" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="cc" ColumnName="cc" />
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="reply_to" ColumnName="reply_to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblticket_has_attachmentsToBeDeleted">
+            <EntityTypeMapping TypeName="hrModel.tblticket_has_attachmentsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblticket_has_attachmentsToBeDeleted">
+                <ScalarProperty Name="savename" ColumnName="savename" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblticketsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblticketsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblticketsToBeDeleted">
+                <ScalarProperty Name="updated" ColumnName="updated" />
+                <ScalarProperty Name="queue_id" ColumnName="queue_id" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="escalation_time" ColumnName="escalation_time" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="lock" ColumnName="lock" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltypesToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tbltypesToBeDeleted">
+              <MappingFragment StoreEntitySet="tbltypesToBeDeleted">
+                <ScalarProperty Name="inactive" ColumnName="inactive" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContactCopies">
+            <EntityTypeMapping TypeName="hrModel.tblContactCopy">
+              <MappingFragment StoreEntitySet="tblContactCopy">
+                <ScalarProperty Name="oldacctMgrId" ColumnName="oldacctMgrId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="ContactRole" ColumnName="ContactRole" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ContactType" ColumnName="ContactType" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="send_email" ColumnName="send_email" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="acct_manager_id" ColumnName="acct_manager_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDaylightShifts">
+            <EntityTypeMapping TypeName="hrModel.tblDaylightShift">
+              <MappingFragment StoreEntitySet="tblDaylightShift">
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+                <ScalarProperty Name="Updatedon" ColumnName="Updatedon" />
+                <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblJobCopies">
+            <EntityTypeMapping TypeName="hrModel.tblJobCopy">
+              <MappingFragment StoreEntitySet="tblJobCopy">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="job_department" ColumnName="job_department" />
+                <ScalarProperty Name="job_value" ColumnName="job_value" />
+                <ScalarProperty Name="send_quote" ColumnName="send_quote" />
+                <ScalarProperty Name="repeat_job" ColumnName="repeat_job" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="ordered" ColumnName="ordered" />
+                <ScalarProperty Name="required_date" ColumnName="required_date" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="id_option" ColumnName="id_option" />
+                <ScalarProperty Name="id_contact" ColumnName="id_contact" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmigrationsToBeDeleteds">
+            <EntityTypeMapping TypeName="hrModel.tblmigrationsToBeDeleted">
+              <MappingFragment StoreEntitySet="tblmigrationsToBeDeleted">
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOptionCopies">
+            <EntityTypeMapping TypeName="hrModel.tblOptionCopy">
+              <MappingFragment StoreEntitySet="tblOptionCopy">
+                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
+                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
+                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
+                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
+                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
+                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
+                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
+                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
+                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
+                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
+                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
+                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
+                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
+                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
+                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Declined" ColumnName="Declined" />
+                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
+                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
+                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
+                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
+                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
+                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
+                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
+                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
+                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
+                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
+                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
+                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
+                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
+                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="include_job" ColumnName="include_job" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
+                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
+                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
+                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
+                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
+                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
+                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="band_id" ColumnName="band_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionCopies">
+            <EntityTypeMapping TypeName="hrModel.tblProductionCopy">
+              <MappingFragment StoreEntitySet="tblProductionCopy">
+                <ScalarProperty Name="conv_date" ColumnName="conv_date" />
+                <ScalarProperty Name="conv_date_bk" ColumnName="conv_date_bk" />
+                <ScalarProperty Name="quote_id" ColumnName="quote_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="production_note" ColumnName="production_note" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="invoiced" ColumnName="invoiced" />
+                <ScalarProperty Name="packed" ColumnName="packed" />
+                <ScalarProperty Name="in_production" ColumnName="in_production" />
+                <ScalarProperty Name="stock_in" ColumnName="stock_in" />
+                <ScalarProperty Name="stock_ordered" ColumnName="stock_ordered" />
+                <ScalarProperty Name="proof_approved" ColumnName="proof_approved" />
+                <ScalarProperty Name="proof_to_client" ColumnName="proof_to_client" />
+                <ScalarProperty Name="brief_to_artroom" ColumnName="brief_to_artroom" />
+                <ScalarProperty Name="digital_art" ColumnName="digital_art" />
+                <ScalarProperty Name="deposit_paid" ColumnName="deposit_paid" />
+                <ScalarProperty Name="myob_ord" ColumnName="myob_ord" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

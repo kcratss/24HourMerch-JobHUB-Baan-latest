@@ -115,6 +115,9 @@
     <Compile Include="Pro_ValueConversionReport_Result.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblacct_managerToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblAddress.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
@@ -148,16 +151,34 @@
     <Compile Include="tblApplicationType.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblarticle_has_attachmentsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblband.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCampaign.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblclientsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblCommonData.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblcompaniesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblcontact.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblContactCopy.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblcoreToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDaylightShift.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbldecoration.cs">
@@ -187,13 +208,37 @@
     <Compile Include="tblInquiry.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblinvoicesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblinvoice_has_itemsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblitem.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblitemsToBeDeleted.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbljob.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblJobCopy.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblkanban.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblmessagesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblmigrationsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblmodulesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbloperatorToBeDeleted.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblOppContactMapping.cs">
@@ -208,7 +253,13 @@
     <Compile Include="tblOptionCode.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblOptionCopy.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblOptionSize.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblorderedToBeDeleted.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblOrganisation.cs">
@@ -220,10 +271,64 @@
     <Compile Include="tblPayment.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblprivatemessagesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProductionCopy.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblproductionToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblprojectsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblproject_has_filesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblproject_has_tasksToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblproject_has_workersToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblPurchase.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblPurchaseDetail.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblpw_resetToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblqueuesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblquotationsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblsubscriptionsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblsubscription_has_itemsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTempContactCleanData.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbltempJobCleanData.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblticketsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblticket_has_articlesToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblticket_has_attachmentsToBeDeleted.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbltypesToBeDeleted.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbluser.cs">
@@ -242,6 +347,12 @@
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_tblOpportunity.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_tblOptionForOpp.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_tblOptionForOrder.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_tblOrganisation.cs">

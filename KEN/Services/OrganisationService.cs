@@ -23,7 +23,7 @@ namespace KEN.Services
         KENNEWEntities DbContext = new KENNEWEntities();  //tarun 08/09/2018
         private readonly IRepository<tblOpportunity> _tblOpportunityRepository; //tarun 18Sept
         ResponseViewModel response = new ResponseViewModel();
-
+       
         public OrganisationService(IRepository<tblOrganisation> tblOrganisationRepository, IRepository<tblAddress> tblAddressRepository, IRepository<tblOpportunity> tblOpportunityRepository, IRepository<Vw_tblOrganisation> VW_tblOrganisationRepository, IRepository<tblcontact> tblcontactRepository, IRepository<tblPurchase> tblPurchaseRepository)
         {
             _tblOrganisationRepository = tblOrganisationRepository;
@@ -297,6 +297,18 @@ namespace KEN.Services
                     }
                     else
                     {
+                        var count = DbContext.tblAddresses.Where(_ => _.OrgId == entity.OrgId).Count();
+                        if (count >= 5)
+                        {
+
+                            response.Message = ResponseMessage.addressMessage;
+                            response.Result = ResponseType.Warning;
+                            response.tblName = "Address";
+                            return response;
+                        }
+
+                        count = count + 1;
+                        entity.DeliveryAddress = "Delivery" + count;
                         entity.CreatedBy = DataBaseCon.ActiveUser();
                         entity.CreatedOn = Convert.ToDateTime(DataBaseCon.ToTimeZoneTime(DateTime.Now.ToUniversalTime()));
                         _tblAddressRepository.Insert(entity);

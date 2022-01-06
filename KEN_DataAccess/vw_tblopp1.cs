@@ -16,5 +16,6 @@ namespace KEN_DataAccess
     {
         public int OpportunityId { get; set; }
         public Nullable<decimal> TotalBalance { get; set; }
+        public decimal Totalpayment { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace KEN.Interfaces.Iservices
         List<ApplicationViewModel> GetDecorationImagesList(string keyword);
         //13 July 2019 (N)
         StageChangeResponseViewModel ChangeStageByOppoID(int OppId, string Stage);
+        StageChangeResponseViewModel ResetStageByOppoID(int OppId, string Stage);
         ResponseViewModel UploadOppImage(string filename, int OppId, string field, string path);
         ResponseViewModel UpdateOppInquiry(tblInquiry Entity);
         InquiryViewModel GetInquiryData(int OppId);
@@ -43,8 +44,9 @@ namespace KEN.Interfaces.Iservices
         //27 Aug 2018 (N)
         // baans change 13th Sept for Add New Brand
         ResponseViewModel SaveNewBrand(tblband Entity, string OptionBrand);
-            // baans end 13th Sept
+        // baans end 13th Sept
 
+        ResponseViewModel SaveNewItem(string optionItem);
         ResponseViewModel UpdateOppPackin(OpportunityPackInViewModel model);
         bool GetPackinDetails(int OppId);
         bool GetShipDetails(int OppId);

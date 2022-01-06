@@ -35,7 +35,8 @@ namespace KEN.Services
         private readonly IRepository<tbluser> _tblUsers;
         // baans change 13th Sept for New Brand
         private readonly IRepository<tblband> _tblBand;
-            // baans end 13th Sept
+        // baans end 13th Sept
+        private readonly IRepository<tblitem> _tblItem;
         private readonly IRepository<tblPurchase> _tblPurchase;         //28 Aug 2018 (N)
         private readonly IRepository<tblPurchaseDetail> _tblPurchaseDetail;         //29 Aug 2018 (N)
         private readonly IRepository<tblOrganisation> _tblOrganisation;     //13 Nov 2018(N)
@@ -45,7 +46,7 @@ namespace KEN.Services
 
         KENNEWEntities DbContext = new KENNEWEntities();
 
-        public OpportunityService(IRepository<tblOpportunity> tblOpportunityRepository, IRepository<tblOppContactMapping> tblOppContactMappingRepository, IRepository<tbloption> st_optionRepository, IRepository<tblcontact> st_contactRepository, IRepository<tblDecorationCost> tblDecorationCostRepository, /*IRepository<tbldecoration> st_DecorationRepository,*/ IRepository<tblInquiry> tblInquiryRepository, IRepository<Vw_tblOpportunity> VW_tblOpportunityRepository, IRepository<tblEmailContent> tblEmailContentRepository, IRepository<tblPayment> tblPaymentRepository, IRepository<tblCommonData> tblCommonData, IRepository<tbluser> tblUsers, IRepository<tblPurchase> tblPurchase, IRepository<tblPurchaseDetail> tblPurchaseDetail /*baans change 13th Sept*/, IRepository<tblband> tblBand /*baans end 13th Sept*/, IRepository<tblOrganisation> tblOrganisation/*13 Nov 2018 (N)*/, IRepository<tblOptionCode> tblOptionCodeRepository, IRepository<TblApplication> tblApplication)
+        public OpportunityService(IRepository<tblitem> tblItem,IRepository<tblOpportunity> tblOpportunityRepository, IRepository<tblOppContactMapping> tblOppContactMappingRepository, IRepository<tbloption> st_optionRepository, IRepository<tblcontact> st_contactRepository, IRepository<tblDecorationCost> tblDecorationCostRepository, /*IRepository<tbldecoration> st_DecorationRepository,*/ IRepository<tblInquiry> tblInquiryRepository, IRepository<Vw_tblOpportunity> VW_tblOpportunityRepository, IRepository<tblEmailContent> tblEmailContentRepository, IRepository<tblPayment> tblPaymentRepository, IRepository<tblCommonData> tblCommonData, IRepository<tbluser> tblUsers, IRepository<tblPurchase> tblPurchase, IRepository<tblPurchaseDetail> tblPurchaseDetail /*baans change 13th Sept*/, IRepository<tblband> tblBand /*baans end 13th Sept*/, IRepository<tblOrganisation> tblOrganisation/*13 Nov 2018 (N)*/, IRepository<tblOptionCode> tblOptionCodeRepository, IRepository<TblApplication> tblApplication)
         {
             _tblOpportunityRepository = tblOpportunityRepository;
             _tblOppContactMappingRepository = tblOppContactMappingRepository;
@@ -67,6 +68,7 @@ namespace KEN.Services
             // baans end 13th Sept
             _tblOrganisation = tblOrganisation;     //13 Nov 2018(N)
             _tblOptionCodeRepository = tblOptionCodeRepository;     //10 Jan 2019(P)
+            _tblItem = tblItem;
 
         }
 
@@ -80,7 +82,12 @@ namespace KEN.Services
         // baans change 13th Sept for New Brand in option
         public ResponseViewModel SaveNewBrand(tblband Entity, string OptionBrand)
         {
-            
+            if (OptionBrand == "")
+            {
+                response.Result = ResponseType.Warning;
+                response.Message = "Please Fill the Brand Name";
+                return response;
+            }
             Entity.CreatedBy = DataBaseCon.ActiveUser();
             Entity.CreatedOn = Convert.ToDateTime(DataBaseCon.ToTimeZoneTime(DateTime.Now.ToUniversalTime()));
             Entity.name = OptionBrand;
@@ -97,6 +104,31 @@ namespace KEN.Services
             //var data = DbContext.tblbands
         }
         // baans end 13th Sept
+
+        public ResponseViewModel SaveNewItem(string itemName)
+        {
+            tblitem entity = new tblitem();
+            var status = "Active";
+            if (itemName == "")
+            {
+                response.Result = ResponseType.Warning;
+                response.Message = "Please Fill the Item Name";
+                return response;
+            }
+            entity.CreatedBy = DataBaseCon.ActiveUser();
+            entity.CreatedOn = Convert.ToDateTime(DataBaseCon.ToTimeZoneTime(DateTime.Now.ToUniversalTime()));
+            entity.name = itemName;
+            entity.Status = status;
+            _tblItem.Insert(entity);
+            _tblItem.Save();
+            response.Message = ResponseMessage.SuccessMessage;
+            response.ID = entity.id;
+            response.Result = entity.name;
+            return response;
+           
+        }
+
+
         public ResponseViewModel OppBatchTransaction(tblOpportunity Entity, string PageSource, BatchOperation operation)
         {
             try
@@ -781,7 +813,7 @@ namespace KEN.Services
                             {
 
                                 OppData.ArtReadyDate = CurrentDate;
-                                IsstageUpdate = false;
+                               IsstageUpdate = false;
                                 break;
                             }
                         case "Stock Ordered":
@@ -799,7 +831,7 @@ namespace KEN.Services
                             }
                         case "Stock Checked":
                             {
-                                OppData.Checkeddate = CurrentDate;
+                                OppData.Checkeddate = CurrentDate;                            
                                 IsstageUpdate = false;
                                 break;
                             }
@@ -874,6 +906,191 @@ namespace KEN.Services
             return Resp;
         }
         // baans change 03rd November for ChangeConfirmedDateOppoID
+
+
+        public StageChangeResponseViewModel ResetStageByOppoID(int oppId, string stage)
+        {
+            StageChangeResponseViewModel resp = new StageChangeResponseViewModel();
+            try
+            {
+                var OppData = _tblOpportunityRepository.Get(_ => _.OpportunityId == oppId).FirstOrDefault();
+                if (OppData != null)
+                {
+                    switch (stage)
+                    {
+                       
+                        case "Quote":
+                            {
+                                OppData.QuoteDate = null;
+                                OppData.QuoteMail = null;
+                                OppData.QuoteNotes = null;
+                                OppData.Stage = "Opportunity";
+                                var optionData = _st_optionRepository.Get(x => x.OpportunityId == OppData.OpportunityId && x.OptionStage == "Opp").ToList();
+                                foreach (var item in optionData)
+                                {
+                                    _st_optionRepository.Delete(item);
+                                    _st_optionRepository.Save();
+                                }
+                                break;
+                            }
+                        case "Order":
+                            {
+                                OppData.Orderdate = null;
+                                OppData.OrderMailDate = null;
+                                OppData.OrderNotes = null;
+                                OppData.Stage = "Quote";
+
+                                var optionData = _st_optionRepository.Get(x=>x.OpportunityId==OppData.OpportunityId && x.OptionStage== "Order").ToList();
+                                foreach (var item in optionData)
+                                {
+                                    _st_optionRepository.Delete(item);
+                                    _st_optionRepository.Save();
+                                }
+                                break;
+                            }
+                        case "Job":
+                            {
+                                OppData.JobDate = null;
+                                OppData.JobNotes = null;
+                                OppData.JobAcceptedDate = null;
+                                OppData.AddressId = null;
+                                OppData.Stage = "Order";
+                                var paymetData = _tblPaymentRepository.Get(x=>x.OpportunityId==OppData.OpportunityId).ToList();
+                                foreach (var item in paymetData)
+                                {
+                                    _tblPaymentRepository.Delete(item);
+                                    _tblPaymentRepository.Save();
+                                }
+                                break;
+                            }
+                        case "Order Confirmed":
+                            {
+                                
+                                OppData.Stage = "Job";
+                                OppData.ConfirmedDate = null;
+                                OppData.OrderConfirmedDate = null;
+                                OppData.ConfirmMailDate = null;
+                                break;
+                            }
+                        case "Art Ordered":
+                            {
+
+                                OppData.ArtOrderedDate = null;
+                                OppData.Stage = "Job Accepted";
+                                break;
+                            }
+                        case "Proof Approved":
+                            {
+                                OppData.ApprovedDate = null;
+                                break;
+                            }
+                        case "Film/Digi Ready":
+                            {
+
+                                OppData.ArtReadyDate = null;
+                                break;
+                            }
+                        case "Stock Ordered":
+                            {
+                                OppData.StockOrderedDate = null;
+                                break;
+                            }
+                        case "Stock In":
+                            {
+                                OppData.ReceivedDate = null;
+                                break;
+                            }
+                        case "Stock Checked":
+                            {
+                                OppData.Checkeddate = null;
+                                break;
+                            }
+                        case "Stock Decorated":
+                            {
+                                OppData.DecoratedDate = null;
+                                OppData.Stage = "Proof Sent";
+                                break;
+                            }
+                        case "Order Packed":
+                            {
+                                OppData.PackingNotes = null;
+                                OppData.PackingDate = null;
+                                OppData.Stage = "Stock Decorated";
+                                break;
+                            }
+                        case "Order Invoiced":
+                            {
+                                OppData.InvoicingDate = null;
+                                OppData.InvoiceMailDate = null;
+                                OppData.InvoicingNotes = null;
+                                OppData.Stage = "Order Packed";
+                                break;
+                            }
+                        case "Paid":
+                            {
+                                OppData.PaidDate = null;
+                                OppData.PackingNotes = null;
+                                OppData.Stage = "Order Invoiced";
+                                break;
+                            }
+                        case "Order Shipped":
+                            {
+                                OppData.ShippedDate = null;
+                                OppData.Stage = "Paid";
+                                break;
+                            }
+                        case "Complete":
+                            {
+                                OppData.CompleteDate = null;
+                                OppData.Stage = "Order Shipped";
+                                OppData.PackedInSet1 =null;
+                                OppData.PackedInSet2 = null;
+                                OppData.ConsigNoteNo = null;
+                                OppData.PacagingNotes = null;
+                                break;
+                            }
+                        case "Job Accepted":
+                            {
+                                OppData.JobAcceptedDate = null;
+                                OppData.Stage = "Order Confirmed";
+                                break;
+                            }
+                        case "Proof Created":
+                            {
+                                OppData.ProofCreatedDate = null;
+                                OppData.Stage = "Art Ordered";
+                                break;
+                            }
+                        case "Proof Sent":
+                            {
+                                OppData.ProofSentdate = null;
+                                OppData.Stage = "Proof Created";
+                                break;
+                            }
+                    }
+                    
+                       
+                    OppData.UpdatedBy = DataBaseCon.ActiveUser();
+                    OppData.UpdatedOn = Convert.ToDateTime(DataBaseCon.ToTimeZoneTime(DateTime.Now.ToUniversalTime()));
+                    _tblOpportunityRepository.Update(OppData);
+                    _tblOpportunityRepository.Save();
+                }
+                
+                response.ID = OppData.OpportunityId;
+                response.Message = ResponseMessage.revertMessage;
+                response.Result = "Success";
+                resp.response = response;
+            }
+            catch (Exception ex)
+            {
+                response.ID = 0;
+                response.Message = ex.Message;
+                response.Result = "Error";
+                resp.response = response;
+            }
+            return resp;
+        }
+
         public ResponseViewModel ChangeConfirmedDateOppoID(int OppId, string ConfirmedDate)
         {
             DateTime NewConfirmDate = Convert.ToDateTime(ConfirmedDate);
@@ -1387,7 +1604,7 @@ namespace KEN.Services
         public List<opportunityViewModel> GetCustomOppList(string CustomText, string TableName)
         {
             //  var ddd = DbContext.Pro_Search(TableName, CustomText);
-            var CustomOppData = Mapper.Map<List<opportunityViewModel>>(DbContext.Database.SqlQuery<Vw_tblOpportunity>("exec Pro_Search '" + TableName + "','" + CustomText + "'").ToList()).ToList();
+           var CustomOppData = Mapper.Map<List<opportunityViewModel>>(DbContext.Database.SqlQuery<Vw_tblOpportunity>("exec Pro_Search '" + TableName + "','" + CustomText + "'").ToList()).ToList();
             //  DbContext.Pro_Search
             return CustomOppData;
         }

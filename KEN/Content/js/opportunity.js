@@ -95,11 +95,11 @@ $(function () {
         $('#lblAddress').text("Shipping");
         //$('#btnOptionSave').attr('disabled', true).addClass('MakeReadonly');
         $('#ddlSizeType').attr('disabled', true).addClass('MakeReadonly');
-        $('#txtSizes').attr('disabled', true).addClass('MakeReadonly');  
+        $('#txtSizes').attr('disabled', true).addClass('MakeReadonly');
     }
     if ($("#PageName").val() == "InvoicingDetails" || $("#PageName").val() == "CompleteDetails" || $("#PageName").val() == "ShippingDetails") {
-    $('#txtSizesPacked').attr('disabled', true).addClass('MakeReadonly');
-    $('#txtSizes').attr('disabled', true).addClass('MakeReadonly');  
+        $('#txtSizesPacked').attr('disabled', true).addClass('MakeReadonly');
+        $('#txtSizes').attr('disabled', true).addClass('MakeReadonly');
     }
 
     if ($("#PageName").val() == "InvoicingDetails") {
@@ -121,7 +121,7 @@ $(function () {
         $('#btnOptionPay').css("display", "none");
 
     }
-   
+
     if ($("#PageName").val() == "ShippingDetails") {
         //$('#btnOptionSave').css("display", "none");
         $('#btnOptionPay').css("margin-left", "8px");
@@ -131,13 +131,13 @@ $(function () {
         $('#btnOptionHistBlank').css("display", "none");
         $('#btnViewProof').css("display", "none");
         $('#btnSendProof').css("display", "none");
-        $('#btnOptionPay').css("display", "none"); 
+        $('#btnOptionPay').css("display", "none");
         $('#btnOptionList').css("display", "none");
 
     }
     if ($("#PageName").val() == "InvoicingDetails") {
         $('#btnOptionPay').css("margin-left", "8px");
-       // $('#btnOptionSave').css("margin-left", "73px");
+        // $('#btnOptionSave').css("margin-left", "73px");
         $('#btnOptionPrint').css("margin-left", "0px");
         $('#btnOptionPayBlank').css("display", "none");
         $('#btnOptionHistBlank').css("display", "none");
@@ -167,7 +167,7 @@ $(function () {
     }
     if ($("#PageName").val() == "QuoteDetails") {
         $('#btnOptionPay').css("display", "none");
-        $('#btnOptionHist').css("display", "none");       
+        $('#btnOptionHist').css("display", "none");
     }
     // baans end 1st November
 
@@ -176,7 +176,7 @@ $(function () {
         //$('#lblpackedIn1').html('Packed In <span class="reqField speField" style="color:red;">*</span>');
         if ($("#PageName").val() != "PackingDetails") {
             $('#lblConNoteNo').html('Con Note No <span class="reqField speField" style="color:red;">*</span>');
-            
+
         }
     }
     // baans end 06th October
@@ -214,57 +214,57 @@ $(function () {
                         $('#profileOfUser').val(response.CurrentUser);
                     }
                 }
-                
+
             },
             type: 'post',
         });
-       
-            //var dataOfUserProfile = $("#hiddenUserProfile").val();
-            //if (dataOfUserProfile == "") {
-            //    $.ajax({
-            //        url: '/Opportunity/GetUserByTitle',
-            //        data: {},
-            //        async: false,
-            //        success: function (response) {
-            //            if (response != "") {
-            //                $('#profileOfUser').val(response);
-                            
-            //            }
-                        
-            //        },
-            //        type: 'post',
-            //    });
-            //}
-            //else {
-            //    $('#profileOfUser').val(dataOfUserProfile);
-            //}
-        
+
+        //var dataOfUserProfile = $("#hiddenUserProfile").val();
+        //if (dataOfUserProfile == "") {
+        //    $.ajax({
+        //        url: '/Opportunity/GetUserByTitle',
+        //        data: {},
+        //        async: false,
+        //        success: function (response) {
+        //            if (response != "") {
+        //                $('#profileOfUser').val(response);
+
+        //            }
+
+        //        },
+        //        type: 'post',
+        //    });
+        //}
+        //else {
+        //    $('#profileOfUser').val(dataOfUserProfile);
+        //}
+
         //$('#profileOfUser').val("Hitesh Sindhu");
     }
     // baans end 15th November
-    
+
     setTimeout(function () {
         $(".chosen").chosen();
     }, 500);
     // Baans change 24th September for CompleteDetails
     if ($("#PageName").val() == "CompleteDetails") {
-        
+
         $("#btnOptionCopy").css("display", "none");
         $("#btnOptionSave").css("display", "none");
         $("#btnOptionPro").css("display", "none");
         $('#lblAddress').text("Shipping");
         $('#lblOppoName').html('Job Name <span class="reqField" style="color:red;">*</span>');
         $("#btnOptionRepeat").css("display", "initial");
-        
+
     }
     // baans end 24th September
     if ($("#PageName").val() == "Opportunity" || $("#PageName").val() == "QuoteDetails" || $("#PageName").val() == "OrderDetails") {
         var data = $("#PageName").val();
         if ($("#PageName").val() == "Opportunity") {
-            
+
             $('#oppCampaign').val("3");
         }
-        
+
         $('#ddlservice').val("Standard - 2 weeks*");
     }
     // baans change 5th October for default service and Campaign value
@@ -386,46 +386,46 @@ $(function () {
                 }
             }
         }
-            );
+    );
     $("#datepicker").datepicker(
-          {
-              dateFormat: 'dd/mm/yy',
-              onSelect: function (dateText) {
-                  var OldValues = ChangesValues.find(x=>x.id == "datepicker");
-                  var index = ChangesValues.findIndex(x=>x.id == "datepicker");
-                  if (OldValues != null && OldValues != undefined) {
+        {
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (dateText) {
+                var OldValues = ChangesValues.find(x=>x.id == "datepicker");
+                var index = ChangesValues.findIndex(x=>x.id == "datepicker");
+                if (OldValues != null && OldValues != undefined) {
 
-                      if (OldValues.value != $(this).val()) {
-                          $("#btnOppSubmit").addClass("customAlertChange");
+                    if (OldValues.value != $(this).val()) {
+                        $("#btnOppSubmit").addClass("customAlertChange");
 
-                      }
-                      ChangesValues.splice(index, 1);
-                  }
+                    }
+                    ChangesValues.splice(index, 1);
+                }
 
-                  SetDate('datepicker');
-              }
-          }
-              );
+                SetDate('datepicker');
+            }
+        }
+    );
 
     $("#depositreqdate").datepicker(
- {
-     dateFormat: 'dd/mm/yy',
-     onSelect: function (dateText) {
-         var OldValues = ChangesValues.find(x=>x.id == "depositreqdate");
-         var index = ChangesValues.findIndex(x=>x.id == "depositreqdate");
-         if (OldValues != null && OldValues != undefined) {
+        {
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (dateText) {
+                var OldValues = ChangesValues.find(x=>x.id == "depositreqdate");
+                var index = ChangesValues.findIndex(x=>x.id == "depositreqdate");
+                if (OldValues != null && OldValues != undefined) {
 
-             if (OldValues.value != $(this).val()) {
-                 $("#btnOppSubmit").addClass("customAlertChange");
+                    if (OldValues.value != $(this).val()) {
+                        $("#btnOppSubmit").addClass("customAlertChange");
 
-             }
-             ChangesValues.splice(index, 1);
-         }
+                    }
+                    ChangesValues.splice(index, 1);
+                }
 
-         SetDate('depositreqdate');
-     }
- }
-      );
+                SetDate('depositreqdate');
+            }
+        }
+    );
 
 
     //$("#fromdate").datepicker(
@@ -459,7 +459,7 @@ $(function () {
 });
 
 
- //tarun change 17th August for option Grid
+//tarun change 17th August for option Grid
 $(function () {
     if ($("#PageName").val() == "PurchaseDetails") {
         $('#DetailTab').css("display", "block");
@@ -471,7 +471,7 @@ $(function () {
     }
 })
 
- //tarun end
+//tarun end
 $(function () {
 
     var newdata = [];
@@ -537,7 +537,7 @@ function SaveOpportunity() {
     var filter = /^[^-\s][a-zA-Z0-9_.\s-]+$/;
     var data = $('#PageName').val();
     if ($('#PageName').val() == "Opportunity" || $('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "OrderDetails" || $('#PageName').val() == "JobDetails" || $('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails") {
-        if (filter.test($('#oppName').val())) {
+        if ($('#oppName').val() != "") {
             $("#oppName").removeClass("customAlertChange");
             //$("#oppQuantity").removeClass("customchangecheck");
         }
@@ -546,24 +546,24 @@ function SaveOpportunity() {
             $("#oppName").addClass("customAlertChange");
             //$("#oppQuantity").addClass("customchangecheck");
         }
-        
+
     }
-    if ($('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "OrderDetails" || $('#PageName').val() == "JobDetails" || $('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails")  
+    if ($('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "OrderDetails" || $('#PageName').val() == "JobDetails" || $('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails")
     {
-        
-        
+
+
         if (filter.test($('#txtshippingday').val())) {
             $("#txtshippingday").removeClass("customAlertChange");
         }
         else {
             IsValid = false;
             $("#txtshippingday").addClass("customAlertChange");
-           
-            
+
+
         }
     }
     if ($('#PageName').val() == "JobDetails" || $('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails") {
-        
+
         if ($('#txtConfirmedDate').val() == "") {
             $("#txtConfirmedDate").addClass("customAlertChange");
             IsValid = false;
@@ -644,7 +644,7 @@ function SaveOpportunity() {
 function SaveOppo() {
     var checkflag = ValidateOpportunity();
     if (checkflag == true) {
-       
+
 
         var oppName, oppQuantity, datepicker, oppSource, oppCampaign, oppDepart, oppNotes, oppStage, EventID, depositreqdate, OppShipping, txtshippingday, txtshippingprice, ddlDecline, txtrepeatfrom, txtlost, ddlOppAcctMgr, Cancelled, oppDepartId, ConfirmedDate;
         var OppData = new Object();
@@ -880,7 +880,7 @@ function SaveOppo() {
             }
         });
 
-        
+
         // baans end 2nd November
     }
     else {
@@ -909,35 +909,36 @@ function submitSize() {
     });
     // baans change 12th Sept for optionPopUp Calculation
     var optsize = parseInt($('#txtOptionQty').val());
-     // baans change 17th September for packing size
+    // baans change 17th September for packing size
     //if (TotalOptSize > optsize) {
 
-    if (TotalOptSize != optsize) {
-       
-        
+    if ($('#PageName').val() == "JobDetails" || $('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "OrderDetails" || $('#PageName').val() == "InvoicingDetails") {
+        if (TotalOptSize != optsize) {
+
+
             CustomWarning("Quantity Should be equal to Option Quantity");
-     
+        }
+
 
     }
     // baans end 12th Sept
-    else {
-        if (SizeString != "" && SizeString != null && sizeFlag == true) {
-            if ($("#hiddenforsizes").val() == "SizeOrdered") {
-                $("#txtSizes").val(SizeString);
-            }
-            else {
-                $("#txtSizesPacked").val(SizeString);
-            }
-
-            //$(".sizeQuantity").css("border-color", "rgba(204, 204, 204, 1)");
-            $(".sizeQuantity").removeClass('customAlertChange');
-            $("#SizeModel").css("display", "none");
-
+    if (SizeString != "" && SizeString != null && sizeFlag == true) {
+        if ($("#hiddenforsizes").val() == "SizeOrdered") {
+            $("#txtSizes").val(SizeString);
+            $("#txtSizesPacked").val(SizeString);
         }
         else {
-            //$(".sizeQuantity").css("border-color", "red");
-            $(".sizeQuantity").addClass('customAlertChange');
+            $("#txtSizesPacked").val(SizeString);
         }
+
+        //$(".sizeQuantity").css("border-color", "rgba(204, 204, 204, 1)");
+        $(".sizeQuantity").removeClass('customAlertChange');
+        $("#SizeModel").css("display", "none");
+
+    }
+    else {
+        //$(".sizeQuantity").css("border-color", "red");
+        $(".sizeQuantity").addClass('customAlertChange');
     }
 }
 
@@ -985,7 +986,7 @@ function ShowModal(SizesPacked, txtPackedandOrderId) {
         $(".sizeQuantity").each(function () {
             $(this).val('');
         });
-       
+
         if ($("#" + txtPackedandOrderId).val() != null && $("#" + txtPackedandOrderId).val() != "") {
             var sizes = $("#" + txtPackedandOrderId).val();
             var arr = sizes.split(' ');
@@ -1046,15 +1047,15 @@ function ShowModal(SizesPacked, txtPackedandOrderId) {
         if (total != parseInt(ExpectQuan)) {
             //$("#txtTotalSize").css("border-color", "red");
             $("#txtTotalSize").addClass('customAlertChange');
-            
+
         }
         else {
-            
+
             $("#txtTotalSize").removeClass('customAlertChange')
             $("#txtTotalSize").addClass('customAlertGreen');
         }
     }
-        // baans end 12th Sept
+    // baans end 12th Sept
 
 }
 
@@ -1108,19 +1109,25 @@ function calculatequantity() {
             total += parseInt(obj.value);
         }
     });
-        // baans change 12th Sept for optionPopUp Calculation
+    // baans change 12th Sept for optionPopUp Calculation
     $('#txtTotalSize').val(total);
-    if (total != parseInt(ExpectQuan)) {
-        //$("#txtTotalSize").css("border-color", "red");
-        $("#txtTotalSize").removeClass('customAlertGreen');
-        $("#txtTotalSize").addClass('customAlertChange');
-
-    }
-    else {
-        //$("#txtTotalSize").css("border-color", "rgba(204, 204, 204, 1)");
-        //$("#txtTotalSize").css("border-color", "green");
+    if ($('#PageName').val() == "PackingDetails") {
         $("#txtTotalSize").removeClass('customAlertChange');
         $("#txtTotalSize").addClass('customAlertGreen');
+    }
+    else {
+        if (total != parseInt(ExpectQuan)) {
+            //$("#txtTotalSize").css("border-color", "red");
+            $("#txtTotalSize").removeClass('customAlertGreen');
+            $("#txtTotalSize").addClass('customAlertChange');
+
+        }
+        else {
+            //$("#txtTotalSize").css("border-color", "rgba(204, 204, 204, 1)");
+            //$("#txtTotalSize").css("border-color", "green");
+            $("#txtTotalSize").removeClass('customAlertChange');
+            $("#txtTotalSize").addClass('customAlertGreen');
+        }
     }
     // baans end 12th Sept
 
@@ -1209,64 +1216,64 @@ function getRowIndx(grid) {
     }
 }
 function OptionCopy() {
-   
+
     if ($('#HiddenOptionID').val() != "") {
-            // BAANS CHANGE 11th January
-            // baans change 29th September for valid option fields
-            var OptionIsValid = true;
-            //var filter = /^[^-\s][a-zA-Z0-9_\s-]+$/;
-            if ($("#ddlSizeType").val() == "Custom" && $("#ddlSizeType").val() != "") {
-                //if (filter.test($('#txtSizes').val())) {
-                //    $("#txtSizes").removeClass("customAlertChange");
-                //}
-                if ($('#txtSizes').val() != "") {
-                    $("#txtSizes").removeClass("customAlertChange");
-                }
-                else {
-                    OptionIsValid = false;
-                    $("#txtSizes").addClass("customAlertChange");
-                }
-                if ($('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails") {
-                    //if (filter.test($('#txtSizesPacked').val())) {
-                    //    $("#txtSizesPacked").removeClass("customAlertChange");
-                    //}
-                    if ($('#txtSizesPacked').val() != "") {
-                        $("#txtSizesPacked").removeClass("customAlertChange");
-                    }
-                    // baans end 11th January
-                    else {
-                        OptionIsValid = false;
-                        $("#txtSizesPacked").addClass("customAlertChange");
-                    }
-                }
-            }
-            if (OptionIsValid) {
-                $('#hdnIsCopyPressId').val("True");
-                UpdateOption(0);
+        // BAANS CHANGE 11th January
+        // baans change 29th September for valid option fields
+        var OptionIsValid = true;
+        //var filter = /^[^-\s][a-zA-Z0-9_\s-]+$/;
+        if ($("#ddlSizeType").val() == "Custom" && $("#ddlSizeType").val() != "") {
+            //if (filter.test($('#txtSizes').val())) {
+            //    $("#txtSizes").removeClass("customAlertChange");
+            //}
+            if ($('#txtSizes').val() != "") {
+                $("#txtSizes").removeClass("customAlertChange");
             }
             else {
-                //CustomWarning('Fill all required fields.');
-                CustomErrorCode("Required");
+                OptionIsValid = false;
+                $("#txtSizes").addClass("customAlertChange");
+            }
+            if ($('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails") {
+                //if (filter.test($('#txtSizesPacked').val())) {
+                //    $("#txtSizesPacked").removeClass("customAlertChange");
+                //}
+                if ($('#txtSizesPacked').val() != "") {
+                    $("#txtSizesPacked").removeClass("customAlertChange");
+                }
+                // baans end 11th January
+                else {
+                    OptionIsValid = false;
+                    $("#txtSizesPacked").addClass("customAlertChange");
+                }
             }
         }
-        else {
-            $("#txtOptionQty").removeClass('customAlertChange');
-            $("#ddlBrand_chosen .chosen-single").removeClass('customAlertChange');
-            $("#ddlItem_chosen .chosen-single").removeClass('customAlertChange');
-            //$("#ddlItem").removeClass('customAlertChange');
-            //$("#ddlBrand").removeClass('customAlertChange');
-            $("#txtCode").removeClass('customAlertChange');
-            $("#ddlSizeType").removeClass('customAlertChange');
-            $("#txtSizes").removeClass('customAlertChange');
-            CustomWarning('Select Option First');
-
+        if (OptionIsValid) {
+            $('#hdnIsCopyPressId').val("True");
+            UpdateOption(0);
         }
-    
+        else {
+            //CustomWarning('Fill all required fields.');
+            CustomErrorCode("Required");
+        }
+    }
+    else {
+        $("#txtOptionQty").removeClass('customAlertChange');
+        $("#ddlBrand_chosen .chosen-single").removeClass('customAlertChange');
+        $("#ddlItem_chosen .chosen-single").removeClass('customAlertChange');
+        //$("#ddlItem").removeClass('customAlertChange');
+        //$("#ddlBrand").removeClass('customAlertChange');
+        $("#txtCode").removeClass('customAlertChange');
+        $("#ddlSizeType").removeClass('customAlertChange');
+        $("#txtSizes").removeClass('customAlertChange');
+        CustomWarning('Select Option First');
+
+    }
+
 
 }
 
 function OptionSave() {
-    debugger;
+
     var OptionAvail = $('#HiddenOptionID').val();
     UpdateOption($('#HiddenOptionID').val());
     if ($('#hdnBrandStatus').val() == "InActive") {
@@ -1285,7 +1292,7 @@ function OptionSave() {
             $(this).remove();
         });
     }
-   
+
 
 }
 function SaveOppoPacking() {
@@ -1301,7 +1308,7 @@ function SaveOppoPacking() {
             if ($("#PageName").val() == "ShippingDetails") {
                 $('#txtConsigNoteNo').removeClass('customAlertChange');
             }
-                            // baans end 27th September
+            // baans end 27th September
         },
         type: 'post',
 
@@ -1309,20 +1316,19 @@ function SaveOppoPacking() {
     return Result;
 }
 function UpdateOption(OptionID) {
-    debugger;
     var IsValid = true;
-    
+
     // baans change 29th September for valid option fields
     var OptionIsValid = true;
     var filter = /^[^-\s][a-zA-Z0-9_\s-]+$/;
     if ($('#PageName').val() != "ShippingDetails" && $('#PageName').val() != "InvoicingDetails" && $('#PageName').val() != "CompleteDetails" && $('#PageName').val() != "PackingDetails") {
-    //if (filter.test($('#txtCode').val())) {
-    //    $("#txtCode").removeClass("customAlertChange");
-    //}
-    //else {
-    //    OptionIsValid = false;
-    //    $("#txtCode").addClass("customAlertChange");
-    //}
+        //if (filter.test($('#txtCode').val())) {
+        //    $("#txtCode").removeClass("customAlertChange");
+        //}
+        //else {
+        //    OptionIsValid = false;
+        //    $("#txtCode").addClass("customAlertChange");
+        //}
     }
     // baans change 5th October for valid fields in option
     if ($('#PageName').val() != "ShippingDetails" && $('#PageName').val() != "InvoicingDetails" && $('#PageName').val() != "CompleteDetails" && $('#PageName').val() != "PackingDetails") {
@@ -1365,7 +1371,7 @@ function UpdateOption(OptionID) {
     // baans change 6th October for option valid fields
     if ($('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "CompleteDetails" || $('#PageName').val() == "PackingDetails") {
         if ($('#HiddenOptionID').val() != "") {
-            
+
             if ($("#txtOptionQty").val() != "" && $("#txtOptionQty").val() != "0" && parseInt($("#txtOptionQty").val()) > 0) {
                 $("#txtOptionQty").removeClass('customAlertChange');
             } else {
@@ -1416,11 +1422,11 @@ function UpdateOption(OptionID) {
     if ($("#ddlSizeType").val() == "Custom" && $("#ddlSizeType").val() != ""){
         if ($('#txtSizes').val() != "") {
             $("#txtSizes").removeClass("customAlertChange");
-            }
-            else
-            {
-                OptionIsValid = false;
-                $("#txtSizes").addClass("customAlertChange");
+        }
+        else
+        {
+            OptionIsValid = false;
+            $("#txtSizes").addClass("customAlertChange");
         }
         if ($('#PageName').val() == "PackingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails") {
             if (filter.test($('#txtSizesPacked').val())) {
@@ -1431,7 +1437,7 @@ function UpdateOption(OptionID) {
                 $("#txtSizesPacked").addClass("customAlertChange");
             }
         }
-        }
+    }
     if (OptionIsValid) {
         // baans change 18th Sept for Option save on packing
         if ($('#PageName').val() == "PackingDetails" && $("#ddlSizeType").val() != "Custom" && $("#ddlSizeType").val() != "") {
@@ -1458,16 +1464,16 @@ function UpdateOption(OptionID) {
                     //}
                 }
             }
-            if (total != OptionQuan && OptionQuan != NaN && $("#ddlSizeType").val() != "Custom") {
-                //$("#txtSizes").css("border-color", "red");
-                $("#txtSizes").addClass('customAlertChange');
-                //$("#txtOptionQty").css("border-color", "red");
-                $("#txtOptionQty").addClass('customAlertChange');
-                //$("#txtSizesPacked").css("border-color", "red");
-                $("#txtSizesPacked").addClass('customAlertChange');
-                CustomWarning("Before Moving to Packed Screen Sizes should be equal to Option Quantity !!!");
-                IsValid = false;
-            }
+            //if (total != OptionQuan && OptionQuan != NaN && $("#ddlSizeType").val() != "Custom") {
+            //    //$("#txtSizes").css("border-color", "red");
+            //    $("#txtSizes").addClass('customAlertChange');
+            //    //$("#txtOptionQty").css("border-color", "red");
+            //    $("#txtOptionQty").addClass('customAlertChange');
+            //    //$("#txtSizesPacked").css("border-color", "red");
+            //    //$("#txtSizesPacked").addClass('customAlertChange');
+            //    CustomWarning("Before Moving to Packed Screen Sizes should be equal to Option Quantity !!!");
+            //    IsValid = false;
+            //}
         }
         else {
             if ($("#ddlSizeType").val() != "Custom" && $("#ddlSizeType").val() != "") {
@@ -1512,7 +1518,7 @@ function UpdateOption(OptionID) {
                 $("#txtSizes").val("TBC=" + defaultOptionQuan);
 
             }
-                //baans end 11th Jan
+            //baans end 11th Jan
         }
         if (IsValid) {
             var Result;
@@ -1648,7 +1654,7 @@ function UpdateOption(OptionID) {
 
             // baans change 20th November
             CalculateUnitPriceAtOptionSavingStage('');
-                    // baans end 20th November
+            // baans end 20th November
             txtunitprcExgst = $("#txtunitprcExgst").val();
             if (IsInsert || OptionID != "") {
                 if (checkflag == true) {
@@ -1742,7 +1748,7 @@ function UpdateOption(OptionID) {
                     else {
                         OtherDecCost = $('#hiddenRangeOtherCost').val();
                     }
-                   
+
                     if (DecorationValid) {
                         var model = {
                             "model": { id: OptionID, quantity: txtOptionQty, code: txtCode, band_id: ddlBrand, item_id: ddlItem, colour: txtColor, comment: txtComment, SizeGrid: ddlSizeType, Link: txtLink, Cost: txtCost, Margin: txtMargin, InitialSizes: txtSizes, SizesPacked: txtSizesPacked, OtherDesc: txtotherDesc, OtherCost: txtothercost, Declined: ddlDecline, include: ddlinclude, Service: ddlservice, Front_decDesign: $('#txtDecorationFront').val(), Back_decDesign: $('#txtDecorationBack').val(), Left_decDesign: $('#txtDecorationLeft').val(), Right_decDesign: $('#txtDecorationRight').val(), Extra_decDesign: $('#txtDecorationOther').val(), Front_decQuantity: $('#txtRangeFront').val(), Back_decQuantity: $('#txtRangeBack').val(), Left_decQuantity: $('#txtRangeLeft').val(), Right_decQuantity: $('#txtRangeRight').val(), Extra_decQuantity: $('#txtRangeOther').val(), Front_decCost: FrontDecCost, Back_decCost: BackDecCost, Left_decCost: LeftDecCost, Right_decCost: RightDecCost, Extra_decCost: OtherDecCost, OpportunityId: $('#lblOpportunityId').text(), uni_price: txtunitprcExgst, front_decoration: $('#FrontDecorationID').val(), back_decoration: $('#BackDecorationID').val(), left_decoration: $('#LeftDecorationID').val(), right_decoration: $('#RightDecorationID').val(), extra_decoration: $('#OtherDecorationID').val(), OptionStage: OptionStage, ProofSent: ProofSent },
@@ -1759,7 +1765,7 @@ function UpdateOption(OptionID) {
                                 // baans change 17th September for disable save on packing and invoice
                                 if ($("#PageName").val() == "InvoicingDetails" || $("#PageName").val() == "PackingDetails") {
                                     //$('#btnOptionSave').attr('disabled', true).addClass('MakeReadonly');
-                                    $('#txtSizesPacked').val('');
+                                    // $('#txtSizesPacked').val('');
 
                                 }
                                 // baans end 17th Sept
@@ -1980,7 +1986,7 @@ function UpdateOption(OptionID) {
         CustomErrorCode("Required");
     }
     // baans end 29th September
-    
+
 }
 function GetOptionGrid(OpportunityID) {
     var data, Status;
@@ -2003,7 +2009,7 @@ function GetOptionGrid(OpportunityID) {
             $("#lblbalance").text('$' + response.TotalDue);
             $('#lbltotlaPrice').text('$' + response.Total);
             $('#HiddenPaymentTotal').val(response.PaymentTotal);
-            
+
             $('#lbltotlaMargin').text(response.TotalGp + '%');
         },
         error: function (response) {
@@ -2142,16 +2148,16 @@ function GetOptionGrid(OpportunityID) {
         var OptSelectId = parseInt($('#HiddenOptionID').val());
         var index = data.findIndex(x => x.id == OptSelectId);
         data[index].pq_rowattr = { style: "background:#cccccc;" };
-        
+
     }
     // baans end 26th November
- // 17 Sep 2018 (N)
-    obj.rowDblClick = function (evt, ui) {
+    // 17 Sep 2018 (N)
+    obj.rowDblClick = function (evt, ui) { 
         var rowIndx = getRowIndx(this);
         if (rowIndx != null) {
             // baans change 17th September for disable save on packing and invoice
             if ($("#PageName").val() == "InvoicingDetails" || $("#PageName").val() == "PackingDetails") {
-               // $('#btnOptionSave').attr('disabled', false).removeClass('MakeReadonly');
+                // $('#btnOptionSave').attr('disabled', false).removeClass('MakeReadonly');
             }
             // baans end 17th Sept
             var data = this.pdata[rowIndx];
@@ -2169,7 +2175,7 @@ function GetOptionGrid(OpportunityID) {
                     $('#hdnBrandvalue').val(data.BrandName);
                     $('#hdnBrandId').val(data.band_id);
                     $("#ddlBrand").append($('<option></option>').attr("value", data.band_id).text(data.BrandName)).trigger("chosen:updated");
-                   // $('#ddlBrand').val(data.band_id);
+                    // $('#ddlBrand').val(data.band_id);
                     $('#ddlBrand').val(data.band_id).trigger("chosen:updated");
                 }
                 else {
@@ -2194,16 +2200,16 @@ function GetOptionGrid(OpportunityID) {
                             $('#hdnTypeId').val(data.item_id);
                             $("#ddlItem").append($('<option></option>').attr("value", data.item_id).text(data.ItemName)).trigger("chosen:updated");
                             // baans change 27th October for chosen dropdown
-                           // $('#ddlItem').val(data.item_id);
+                            // $('#ddlItem').val(data.item_id);
                             $('#ddlItem').val(data.item_id).trigger("chosen:updated");
                         }
                         else {
                             $('#ddlItem').val(data.item_id).trigger("chosen:updated");
-                           // $('#ddlItem').val(data.item_id);
+                            // $('#ddlItem').val(data.item_id);
                         }
 
                         // baans end 27th October
-                       
+
                     },
                     error: function (response) {
                         data = response;
@@ -2224,7 +2230,13 @@ function GetOptionGrid(OpportunityID) {
                 $('#ddlservice').val(data.Service);
                 $('#ddlSizeType').val(data.SizeGrid);
                 $('#txtSizes').val(data.InitialSizes);
+                if (data.SizesPacked == null) {
+                    data.SizesPacked = data.InitialSizes;
+                }
                 $('#txtSizesPacked').val(data.SizesPacked);
+                if ($("#PageName").val() == "PackingDetails") {
+                    $('#txtSizesPacked').removeAttr("disabled");
+                }
                 //  $('#ddlDecline').val(data.Declined);
                 $('#HiddenOptionID').val(parseInt(data.id));
                 $('#txtDecorationFront').val(data.Front_decDesign);
@@ -2658,14 +2670,14 @@ function txtrangeonBlur() {
 //    else {
 //        $('#txtNewBrand').val('');
 //    }
-    
+
 //}
 
 // baans end 15th Sept
 
 // baans change 23rd October for Deleting Option
 function deleteOptionRow(rowIndx) {
-    
+
     if ($('#PageName').val() == "Opportunity" || $('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "OrderDetails")  {
         bootbox.confirm("Do you want to delete the Option?", function (result) {
             if (result) {
@@ -2690,7 +2702,7 @@ function deleteOptionRow(rowIndx) {
     }
     else
     {
-      CustomWarning("Option cannot be deleted at this stage !!!")
+        CustomWarning("Option cannot be deleted at this stage !!!")
     }
 }
 // baans end 23rd October
@@ -2714,14 +2726,23 @@ function GetOppById(OppId) {
             success: function (response) {
                 //tarun 18/09/2018
                 if ($('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "PackingDetails" || $('#PageName').val() == "JobDetails" || $("#PageName").val() == "CompleteDetails") {
-                    
+
                     if (response.AddressId != null && response.AddressId != 0) {
                         var count = CheckDeliveryAddress(response.OrgID);
                         GetOrganisationAddress(response.AddressId, "Purchase");
                     }
                     else {
                         var count = CheckDeliveryAddress(response.OrgID);
-                        GetOrganisationAddress(response.OrgID, "");
+                       // GetOrganisationAddress(response.OrgID, "");
+                        $("#txtAttention").val('');
+                        $("#ddlDelivery").val('');
+                        $("#txtAddress1").val('');
+                        $("#txtAddress2").val('');
+                        $("#ddlStateList").val('');
+                        $("#txtPostCode").val('');
+                        $("#txtTradingName").val('');
+                        $("#txtAddressNotes").val('');
+                        $("#HiddenAddressId").val('');
                     }
                 }
                 //end
@@ -2730,62 +2751,27 @@ function GetOppById(OppId) {
                 // 17 Aug 2018 (N)
                 // baans change 26th September for  Plandate in right side bar
                 //if ($("#PageName").val() == "OpportunityDetails" || $("#PageName").val() == "QuoteDetails" || $("#PageName").val() == "OrderDetails" || $("#PageName").val() == "JobDetails" || $("#PageName").val() == "PackingDetails" || $("#PageName").val() == "InvoicingDetails" || $("#PageName").val() == "ShippingDetails" || $("#PageName").val() == "CompleteDetails") {
-                    var Id = $('#lblOpportunityId').text();
-                    if (OppId != "") {
-                        var OppId = parseInt(Id);
-                        $.ajax({
-                            url: '/Opportunity/GetOppProductionDate',
-                            data: { OppId: OppId },
-                            async: false,
-                            success: function (response) {
-                                if (response.length > 0) {
-                                    if (response.length < 2)
+                var Id = $('#lblOpportunityId').text();
+                if (OppId != "") {
+                    var OppId = parseInt(Id);
+                    $.ajax({
+                        url: '/Opportunity/GetOppProductionDate',
+                        data: { OppId: OppId },
+                        async: false,
+                        success: function (response) {
+                            if (response.length > 0) {
+                                if (response.length < 2)
+                                {
+                                    if (response[0].ProductionDate != null)
                                     {
-                                        if (response[0].ProductionDate != null)
-                                        {
-                                            $('#lblPlanDate1').text(DateFormat(response[0].ProductionDate));
-                                        var DepId = parseInt(response[0].DeptId);
-                                        $.ajax({
-                                            url: '/Opportunity/GetOppProductionDepartment',
-                                            data: { DepId: DepId },
-                                            async: false,
-                                            success: function (response) {
-                                                $('#lblProdLine').text(response[0].department);
-                                            },
-                                            error: function (response) {
-                                                alert("error");
-                                            },
-                                            type: 'post'
-                                        });
-                                       }
-                                   }
-                                    else if (response.length > 1) {
                                         $('#lblPlanDate1').text(DateFormat(response[0].ProductionDate));
-                                        $('#lblPlanDate2').text(DateFormat(response[1].ProductionDate));
                                         var DepId = parseInt(response[0].DeptId);
-                                        var DepId1 = parseInt(response[1].DeptId);
-
                                         $.ajax({
                                             url: '/Opportunity/GetOppProductionDepartment',
                                             data: { DepId: DepId },
                                             async: false,
                                             success: function (response) {
-                                                
                                                 $('#lblProdLine').text(response[0].department);
-                                                $.ajax({
-                                                    url: '/Opportunity/GetOppProductionDepartment',
-                                                    data: { DepId: DepId1 },
-                                                    async: false,
-                                                    success: function (response) {
-                                                       
-                                                        $('#lblProdLine1').text(response[0].department);
-                                                        //alert("hii Line 2");
-                                                    },
-                                                    error: function (response) {
-                                                        alert("error");
-                                                    },
-                                                    type: 'post'
-                                                });
                                             },
                                             error: function (response) {
                                                 alert("error");
@@ -2793,16 +2779,51 @@ function GetOppById(OppId) {
                                             type: 'post'
                                         });
                                     }
-                                }  
-                            },
-                            error: function (response) {
-                                alert("error");
-                            },
-                            type: 'post'
-                        });
-                    }
+                                }
+                                else if (response.length > 1) {
+                                    $('#lblPlanDate1').text(DateFormat(response[0].ProductionDate));
+                                    $('#lblPlanDate2').text(DateFormat(response[1].ProductionDate));
+                                    var DepId = parseInt(response[0].DeptId);
+                                    var DepId1 = parseInt(response[1].DeptId);
+
+                                    $.ajax({
+                                        url: '/Opportunity/GetOppProductionDepartment',
+                                        data: { DepId: DepId },
+                                        async: false,
+                                        success: function (response) {
+
+                                            $('#lblProdLine').text(response[0].department);
+                                            $.ajax({
+                                                url: '/Opportunity/GetOppProductionDepartment',
+                                                data: { DepId: DepId1 },
+                                                async: false,
+                                                success: function (response) {
+
+                                                    $('#lblProdLine1').text(response[0].department);
+                                                    //alert("hii Line 2");
+                                                },
+                                                error: function (response) {
+                                                    alert("error");
+                                                },
+                                                type: 'post'
+                                            });
+                                        },
+                                        error: function (response) {
+                                            alert("error");
+                                        },
+                                        type: 'post'
+                                    });
+                                }
+                            }
+                        },
+                        error: function (response) {
+                            alert("error");
+                        },
+                        type: 'post'
+                    });
+                }
                 //}
-    // baans end 26th September
+                // baans end 26th September
                 $('#hdnOppName').val(response.OppName);
                 $('#hdnforoppOrgID').val(response.OrgID);
                 $('#lblOppDate').text(DateTimeFormat(response.OppDate));
@@ -2830,13 +2851,13 @@ function GetOppById(OppId) {
                 if (response.OppThumbnail != null && response.OppThumbnail != undefined && response.OppThumbnail != "") {
                     $('#imageOppThumbnail').attr('src', '/Content/uploads/Opportunity/' + response.OppThumbnail)
                     //$('#imageUserExist').attr('src', '/Content/uploads/Opportunity/' + response.OppThumbnail)
-                    
+
                 }
                 else {
                     $('#imageOppThumbnail').attr('src', '/Content/uploads/Opportunity/NoImage.png')
                 }
                 if (response.ProdLine != null && response.ProdLine != undefined) {
-                   // $('#lblProdLine').text(response.ProdLine);
+                    // $('#lblProdLine').text(response.ProdLine);
                 }
                 else {
                     //$('#lblProdLine').text("");
@@ -2851,7 +2872,7 @@ function GetOppById(OppId) {
                 $('#txtrepeatfrom').val(response.RepeatJobId);
                 $('#txtlost').val(response.Lost);
                 $("#OppShipping").val(response.Shipping);
-                
+
                 $('#ddlDecline').val(response.Declined);
                 $('#txtCancelled').val(response.Cancelled);
                 $("#txtConfirmedDate").val(DateFormat(response.ConfirmedDate));
@@ -2911,7 +2932,7 @@ function GetOppById(OppId) {
                 }
                 else if ($("#PageName").val() == "ShippingDetails") {
                     $('#oppNotes').val(response.ShippingNotes);
-                    $('#oppStage').val("Shipping"); 
+                    $('#oppStage').val("Shipping");
                 }
                 else if ($("#PageName").val() == "CompleteDetails") {
                     $('#oppNotes').val(response.CompleteNotes);
@@ -2922,10 +2943,10 @@ function GetOppById(OppId) {
                 //}
 
                 if (response.job_department != "" && response.job_department != undefined && response.job_department != null) {
-                  
-                        ms.setValue(response.job_department.split(','));
-                  
-                    
+
+                    ms.setValue(response.job_department.split(','));
+
+
                 }
                 //22 Aug 2018 (N)
                 if ($('#PageName').val() == "Event") {
@@ -3203,9 +3224,15 @@ function SaveBrand() {
                 if (response != null && response != undefined && response != "") {
                     //$('#ddlBrand').val(response.source);
                     //location.reload();
+                    if (response.Result == "Warning") {
+                        CustomAlert(response);
+                        $("#BrandModel").css("display", "block");
+                        return;
+                    }
                     $("#ddlBrand").append($('<option></option>').attr("value", response.ID).text(response.Result)).trigger("chosen:updated");
-                    var Res = { Result: "Success", Message: response.Message };
-                    CustomAlert(Res);
+                    $("#BrandModel").css("display", "none");
+                    var res = { Result: "Success", Message: response.Message };
+                    CustomAlert(res);
 
                 }
             },
@@ -3215,6 +3242,46 @@ function SaveBrand() {
     }
 }
 // baans end 13th Sept
+
+
+function ShowItemModal() {
+    $('#txtItemBrand').val('');
+    if ($("#ddlItem :selected").val() == 0) {
+        $("#itemModel").css("display", "block");
+        $('#ddlItem').val('Select');
+    }
+
+}
+
+function SaveItem() {
+
+    if ($('#txtItemBrand').val() != null) {
+        var itemdata = $('#txtItemBrand').val();
+        $.ajax({
+            url: '/Opportunity/SaveNewItem',
+            data: { optionItem: itemdata },
+            async: false,
+            success: function (response) {
+
+                if (response != null && response != undefined && response != "") {
+                    if (response.Result == "Warning") {
+                        CustomAlert(response);
+                        $("#itemModel").css("display", "block");
+                        return;
+                    }
+                    $("#ddlItem").append($('<option></option>').attr("value", response.ID).text(response.Result)).trigger("chosen:updated");
+                    $("#itemModel").css("display", "none");
+                    var res = { Result: "Success", Message: response.Message };
+                    CustomAlert(res);
+                }
+
+            },
+            type: 'post',
+
+        });
+    }
+}
+
 
 //baans change 10th Jan for MakeRepeatOrderAtCompleteStage
 function MakeRepeatOrder() {
@@ -3376,7 +3443,7 @@ function Print() {
 }
 
 function OpenProofPdf() {
-
+   
     var OptionId = $('#HiddenOptionID').val();
     if (OptionId != "" && OptionId != null && OptionId != undefined) {
         var PdfType = "";
@@ -3399,7 +3466,7 @@ function OpenProofPdf() {
 }
 
 function SendEmail() {
-
+  
     var checkflag = true;
     if ($("#txtToMail").val() != "") {
         //$("#txtToMail").css("border-color", "rgba(204, 204, 204, 1)");
@@ -3531,7 +3598,7 @@ function ValidateOpportunity() {
         //$("#oppQuantity").css("border-color", "rgba(204, 204, 204, 1)");
         $("#oppQuantity").removeClass('customAlertChange');
     } else {
-        /*$("#oppQuantity").css("border-color", "red");*/ 
+        /*$("#oppQuantity").css("border-color", "red");*/
         $("#oppQuantity").addClass('customAlertChange');
         checkflag = false;
     }
@@ -3552,8 +3619,8 @@ function ValidateOpportunity() {
         //$("#oppSource").css("border-color", "rgba(204, 204, 204, 1)");
         $("#oppSource").removeClass('customAlertChange');
     } else {
-       /* $("#oppSource").css("border-color", "red"); */
-       $("#oppSource").addClass('customAlertChange');
+        /* $("#oppSource").css("border-color", "red"); */
+        $("#oppSource").addClass('customAlertChange');
         checkflag = false;
     }
     if ($('#PageName').val() != "Opportunity") {
@@ -3569,7 +3636,7 @@ function ValidateOpportunity() {
             //$("#OppShipping").css("border-color", "rgba(204, 204, 204, 1)");
             $("#OppShipping").removeClass('customAlertChange');
         } else {
-            /*$("#OppShipping").css("border-color", "red");*/ 
+            /*$("#OppShipping").css("border-color", "red");*/
             $("#OppShipping").addClass('customAlertChange');
             checkflag = false;
         }
@@ -3577,7 +3644,7 @@ function ValidateOpportunity() {
             //$("#txtshippingday").css("border-color", "rgba(204, 204, 204, 1)");
             $("#txtshippingday").removeClass('customAlertChange');
         } else {
-            /*$("#txtshippingday").css("border-color", "red");*/ 
+            /*$("#txtshippingday").css("border-color", "red");*/
             $("#txtshippingday").addClass('customAlertChange');
             checkflag = false;
         }
@@ -3604,7 +3671,7 @@ function ValidateOpportunity() {
         //$('#ms1').css("border-color", "rgba(204, 204, 204, 1)");
         $('#ms1').removeClass('customAlertChange');
     } else {
-        /*$('#ms1').css("border-color", "red");*/ 
+        /*$('#ms1').css("border-color", "red");*/
         $('#ms1').addClass('customAlertChange');
         checkflag = false;
     }
@@ -3809,7 +3876,7 @@ function CheckDate(InputID) {
 function setOptionTotal() {
     var totalvalue = $('#HiddenPaymentTotal').val();
     var totaldue = $("#lblbalance").text().split('$');
-    
+
     var Paidvalue = $("#lblpaidbalance").text().split('$');
     if ($('#txtshippingprice').val() != "") {
         // Nikhil change 21st November
@@ -3819,7 +3886,7 @@ function setOptionTotal() {
         $("#lbltotalbalance").text('$' + Totalwithshipping.toFixed(2));
         var Paidvalue = Totalwithshipping - parseFloat(totaldue[totaldue.length - 1]);
         $("#lblpaidbalance").text('$' + Paidvalue.toFixed(2));
-        
+
     }
     else {
         var Totalwithshipping = 0 + parseFloat(totalvalue);
@@ -3833,7 +3900,7 @@ function setOptionTotal() {
 //8-Aug-2018 (N)
 function ShowHistory(OppID) {
     $('#historypopup').css("display", "block");
-   // $('#PaymentModal').css("display", "none");
+    // $('#PaymentModal').css("display", "none");
     var id = OppID;
     GetPaymentHistory(id);
 }
@@ -3913,27 +3980,27 @@ function GetPaymentHistory(id) {
     obj.columnTemplate = { width: 150 };
     obj.colModel = [
 
-            //{ title: "ID", dataIndx: "OpportunityId", width: "10%", dataType: "integer", editable: false },
+        //{ title: "ID", dataIndx: "OpportunityId", width: "10%", dataType: "integer", editable: false },
 
         { title: "Src", dataIndx: "Src", width: "14%", dataType: "string", editable: false },
 
-            {
-                title: "Date", dataIndx: "oppnewdate", width: "13%", dataType: "string", editable: false,
-                render: function (ui) {
-                    var date = ui.cellData;
-                    if (date != null && date != undefined) {
-                        //var nowDateopp = new Date(parseInt(date.substr(6)));
-                        //return ('00' + nowDateopp.getDate()).substr(-2) + '/' + (nowDateopp.getMonth() + 1) + '/' + nowDateopp.getFullYear();
-                        // baans change 22nd November
-                        return DateFormat(date);
-                       // baans end 22nd November
-                    }
+        {
+            title: "Date", dataIndx: "oppnewdate", width: "13%", dataType: "string", editable: false,
+            render: function (ui) {
+                var date = ui.cellData;
+                if (date != null && date != undefined) {
+                    //var nowDateopp = new Date(parseInt(date.substr(6)));
+                    //return ('00' + nowDateopp.getDate()).substr(-2) + '/' + (nowDateopp.getMonth() + 1) + '/' + nowDateopp.getFullYear();
+                    // baans change 22nd November
+                    return DateFormat(date);
+                    // baans end 22nd November
                 }
-            },
+            }
+        },
 
-            { title: "Acct", dataIndx: "DepositActNo", width: "12%", dataType: "string", editable: false, align: "right" },
+        { title: "Acct", dataIndx: "DepositActNo", width: "12%", dataType: "string", editable: false, align: "right" },
 
-            { title: "Memo", dataIndx: "memodesc", width: "34%", dataType: "string", editable: false },
+        { title: "Memo", dataIndx: "memodesc", width: "34%", dataType: "string", editable: false },
         {
             title: "Charges", dataIndx: "price", width: "13%", dataType: "string", editable: false, format: "$#,###.00", align: "right",
             //27 Aug 2018 (N)
@@ -3957,7 +4024,7 @@ function GetPaymentHistory(id) {
             }
             //27 Aug 2018 (N)
         },
-            //{ title: "Job", dataIndx: "OppName", width: "15%", dataType: "string", editable: false },
+        //{ title: "Job", dataIndx: "OppName", width: "15%", dataType: "string", editable: false },
     ];
 
     obj.dataModel = { data: data };
@@ -4025,7 +4092,7 @@ function getBalance(oppId) {
             var balance = "$" + response;
             $('#lblPayBalance').text(balance);
             $('#lblbalance').text(balance);
-           setOptionTotal();
+            setOptionTotal();
             $('#hdnAmountCheckValidation').val(response);
         },
         error: function (response) {
@@ -4036,54 +4103,54 @@ function getBalance(oppId) {
 }
 
 function OpenPayModal() {
-    
 
-            $('#txtAmountReceived').val('');
-            $('#txtPaymentMethod').val('');
-            var OrgId = $('#hdnforoppOrgID').val();
-            if (OrgId != "") {
 
-                $.ajax({
-                    url: "/Opportunity/OrgData",
-                    data: { OrgId: OrgId },
-                    async: false,
-                    success: function (response) {
-                        data = response;
-                        if (data == true) {
-                            // Baans change 7th December checking the Opp OptionData
-                            var data = QuoteValidCheck();
-                            if (data.resultOrg) {
-                                if (data.OptionCount != 0) {
-                                    $('#PaymentModal').css("display", "block");
-                                    var OpportunityId = $('#lblOpportunityId').text();
-                                    $('#txtID').val(OpportunityId);
-                                    getBalance(OpportunityId);
-                                    GetOrganisationId();
-                                    GetCommonDataOnPaymentDDL();
-                                    var todayDate = new Date();
-                                    var newdate = ("0" + todayDate.getDate()).slice(-2) + '/' + ("0" + (todayDate.getMonth() + 1)).slice(-2) + '/' + todayDate.getFullYear()
-                                    $('#CurrentDate').val(newdate);
-                                    //var OrgId = $('#hdnforoppOrgID').val();
-                                    GetPaymentGrid(OrgId);
-                                }
-                                else {
-                                    CustomWarning("Option Data does not exist so you cannot make payment against this job.");
-                                }
-                            }
-                            // Baans end 7th December
+    $('#txtAmountReceived').val('');
+    $('#txtPaymentMethod').val('');
+    var OrgId = $('#hdnforoppOrgID').val();
+    if (OrgId != "") {
+
+        $.ajax({
+            url: "/Opportunity/OrgData",
+            data: { OrgId: OrgId },
+            async: false,
+            success: function (response) {
+                data = response;
+                if (data == true) {
+                    // Baans change 7th December checking the Opp OptionData
+                    var data = QuoteValidCheck();
+                    if (data.resultOrg) {
+                        if (data.OptionCount != 0) {
+                            $('#PaymentModal').css("display", "block");
+                            var OpportunityId = $('#lblOpportunityId').text();
+                            $('#txtID').val(OpportunityId);
+                            getBalance(OpportunityId);
+                            GetOrganisationId();
+                            GetCommonDataOnPaymentDDL();
+                            var todayDate = new Date();
+                            var newdate = ("0" + todayDate.getDate()).slice(-2) + '/' + ("0" + (todayDate.getMonth() + 1)).slice(-2) + '/' + todayDate.getFullYear()
+                            $('#CurrentDate').val(newdate);
+                            //var OrgId = $('#hdnforoppOrgID').val();
+                            GetPaymentGrid(OrgId);
                         }
                         else {
-                            CustomWarning("Please assign the valid organisation before proceeding to the payment.");
+                            CustomWarning("Option Data does not exist so you cannot make payment against this job.");
                         }
                     }
-                });
+                    // Baans end 7th December
+                }
+                else {
+                    CustomWarning("Please assign the valid organisation before proceeding to the payment.");
+                }
+            }
+        });
 
-            }
-            else {
-                CustomWarning("Organisation has not been linked to the Opportunity . Please go QuoteDetails tab and specify Organisation before making Payment");
-            }
-      
-    
+    }
+    else {
+        CustomWarning("Organisation has not been linked to the Opportunity . Please go QuoteDetails tab and specify Organisation before making Payment");
+    }
+
+
 }
 
 function HidePaymentModal() {
@@ -4124,7 +4191,7 @@ function GetCommonDataOnPaymentDDL() {
 
 function ValidationPayment() {
     var CheckFlag = true;
-   
+
     return CheckFlag;
 }
 
@@ -4138,7 +4205,7 @@ function submitPayment() {
     }
     else {
         //$("#txtAmountReceived").css("border-color", "red"); 
-        $("#txtAmountReceived").addClass('customAlertChange'); 
+        $("#txtAmountReceived").addClass('customAlertChange');
 
         CheckFlag = false;
     }
@@ -4173,7 +4240,7 @@ function submitPayment() {
     }
 
     var CurrentFillAmount = parseInt($('#txtAmountReceived').val());
-    
+
     if ($("#txtAmountReceived").val() != "") {
         var CurrentFillAmount = parseInt($('#txtAmountReceived').val());
         var TotalAmtCheck = parseInt($('#hdnAmountCheckValidation').val());
@@ -4194,14 +4261,14 @@ function submitPayment() {
         $("#txtAmountReceived").addClass('customAlertChange');
         CheckFlag = false;
     }
-    
+
     if (CheckFlag == true) {
         var OrgId = $('#hdnforoppOrgID').val();
         var DepositAccountNo = $('#txtFieldValue').val()
         var CustomerName = $('#txtCustomerName').val();
         var OpportunityId = $('#txtID').val();
         var AmtReceived = $('#txtAmountReceived').val();
-       var CurrentDate = GetDate($('#CurrentDate').val()); 
+        var CurrentDate = GetDate($('#CurrentDate').val());
         var PaymentMethod = $('#txtPaymentMethod').val();
         var Memo = $('#txtMemo').val();
         var pmtId = 0;
@@ -4236,7 +4303,7 @@ function submitPayment() {
             //CustomWarning("Fill all required fields ");
             CustomErrorCode("Required");
         }
-            $('#PaymentModal').css("display", "block");
+        $('#PaymentModal').css("display", "block");
     }
 
 }
@@ -4266,18 +4333,18 @@ function GetPaymentGrid(OrgId) {
             title: "Invoice #", dataIndx: "DisplayOpportunityId", align: "center", width: "15%", dataType: "string",
 
         },
-           {
-               title: "Status", dataIndx: "Stage", align: "center", width: "18%", dataType: "string",
-               //render: function(ui)
-               //{
-               //    var stage = ui.cellData;
-               //    if(stage!=null && stage!= undefined)
-               //    {
-               //        return "=>" + stage;
-               //    }
-               //}
+        {
+            title: "Status", dataIndx: "Stage", align: "center", width: "18%", dataType: "string",
+            //render: function(ui)
+            //{
+            //    var stage = ui.cellData;
+            //    if(stage!=null && stage!= undefined)
+            //    {
+            //        return "=>" + stage;
+            //    }
+            //}
 
-           },
+        },
         {
             title: "Date", dataIndx: "PmtDate", width: "13%", align: "right", datatype: "date",
             render: function (ui) {
@@ -4287,22 +4354,22 @@ function GetPaymentGrid(OrgId) {
                     //return ('00' + nowDateopp.getDate()).substr(-2) + '/' + (nowDateopp.getMonth() + 1) + '/' + nowDateopp.getFullYear();
                     // baans change 22nd November
                     return DateFormat(date);
-                   // baans end 22nd November
+                    // baans end 22nd November
                 }
             },
         },
 
         { title: "Amount", dataIndx: "OrderTotal", width: "14%", dataType: "integer", format: "$#,###.00", align: "right" },
         { title: "Discount", dataIndx: "Quantity", width: "5%", dataType: "integer", hidden: true },
-         { title: "Total Due", dataIndx: "Balance", width: "14%", dataType: "integer", format: "$#,###.00", align: "right" },
-          { title: "Amount Applied", dataIndx: "AmtReceived", width: "14%", dataType: "integer", format: "$#,###.00", align: "right" },
-          {
-              title: "", dataIndx: "", width: "12%", editable: false, align: "center",
-              render: function (ui) {
-                  var invoiceId = ui.rowData.OpportunityId;
-                  return "<a   onclick= 'ShowHistory(" + invoiceId + ")'><span style='color:blue;border-bottom:1px solid blue;cursor:pointer'>History</span></a>";
-              }
-          },
+        { title: "Total Due", dataIndx: "Balance", width: "14%", dataType: "integer", format: "$#,###.00", align: "right" },
+        { title: "Amount Applied", dataIndx: "AmtReceived", width: "14%", dataType: "integer", format: "$#,###.00", align: "right" },
+        {
+            title: "", dataIndx: "", width: "12%", editable: false, align: "center",
+            render: function (ui) {
+                var invoiceId = ui.rowData.OpportunityId;
+                return "<a   onclick= 'ShowHistory(" + invoiceId + ")'><span style='color:blue;border-bottom:1px solid blue;cursor:pointer'>History</span></a>";
+            }
+        },
 
     ];
     //23 Aug 2018 (N)
@@ -4314,7 +4381,7 @@ function GetPaymentGrid(OrgId) {
         colModel: colModel,
         selectionModel: { type: 'row' },
         scrollModel: { pace: 'consistent', horizontal: false },
-       // pageModel: { type: "local", rPP: 50 },
+        // pageModel: { type: "local", rPP: 50 },
         strNoRows: 'No records found for the selected Criteria',
         editable: false,
         wrap: false,
@@ -4463,7 +4530,7 @@ function GetDecorationImageGrid(keyword) {
         },
         { title: "Name", dataIndx: "AppName", width: "37%", dataType: "string" },
         { title: "Type", dataIndx: "AppType", width: "28%", dataType: "string" },
-         //{ title: "  Acct Manager", dataIndx: "", width: "24%", dataType: "string" },
+        //{ title: "  Acct Manager", dataIndx: "", width: "24%", dataType: "string" },
     ];
 
     obj.dataModel = { data: data };
@@ -4478,6 +4545,7 @@ function GetDecorationImageGrid(keyword) {
             var hostname = window.location.origin;
 
             $("#decImage").attr("src", hostname + "/Content/uploads/Application/" + dataImage);
+            $("#btnSelectApp").unbind("click");
             $("#btnSelectApp").click(function () {
                 //console.log(rowIndx);
                 //console.log(dataName);
@@ -4539,6 +4607,9 @@ function ClickOnCrossBtn(Location) {
             success: function (response) {
                 if (response == "Success") {
                     $("#" + Location + "Shortlbl").text('......');
+                    $("#" + Location + "Longlbl").text('');
+                    $("#" + Location + "DecorationID").val("");
+
                 }
             }
         });

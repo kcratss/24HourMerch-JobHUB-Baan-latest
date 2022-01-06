@@ -1,7 +1,7 @@
 ﻿var AppChangesValues = [];
 
 $(function () {
-
+   
     if ($("#PageName").val() == "ApplicationDetails" || $("#PageName").val() == "ApplicationList") {
         $.ajax({
             url: '/Opportunity/GetUserByTitle',
@@ -111,7 +111,7 @@ $(function () {
     $('#drdApplicationType').trigger('change');
     $('#drdApplicationProduction').val('Internal');
     //$('#drdApplicationDesigner').val('Nigel');
-    $('#drdApplicationDesigner').val('Kenneth'); //Change By Baans 08Aug2020
+    $('#drdApplicationDesigner').val('Damon'); //Change By Baans 08Aug2020
     $('#drdApplicationArtSupplier').val('Internal Job');
     $('#drdApplicationStatus').val('Active');
     

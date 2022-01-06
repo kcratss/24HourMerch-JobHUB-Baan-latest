@@ -5,7 +5,7 @@
 <script src="~/Content/js/Contact.js"></script>
 <script src="~/Content/js/Event.js"></script>
 <script src="~/Content/js/Organization.js"></script>*@ @*commented and added by baans 07Aug2020*@
-<script src="~/Content/js/opportunity.js?v=4"></script>
+<script src="~/Content/js/opportunity.js?v=9.1"></script>
 <script src="~/Content/js/Contact.js?v=3"></script>
 <script src="~/Content/js/Event.js?v=2"></script>
 <script src="~/Content/js/Organization.js?v=2"></script>
@@ -127,7 +127,7 @@
     }
 </style>
 <script>
-    function GetSize(_stateId, IsEdit) {
+    function GetSize(_stateId, IsEdit) {        
         // baans change 31st October 
         var CurrentOppId = $('#lblOpportunityId').text();
         if(IsEdit=='')
@@ -142,7 +142,7 @@
             // baans end 31st October
             cache: false,
             type: "POST",
-            success: function (data) {
+            success: function (data) {               
                 var markup = "<div class='row'>";
                 for (var x = 0; x < data.length; x++) {
                     markup += "<div class='row sizeRow'><div class='col-lg-6'>" + data[x].Text + "</div><div class='col-lg-6'><input id='" + data[x].Text + "' onkeyup='calculatequantity();' class='sizeQuantity' type='number'/></div></div>";

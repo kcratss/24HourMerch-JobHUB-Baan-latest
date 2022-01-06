@@ -160,7 +160,7 @@ namespace KEN.Models
         public string AccountManagerName { get; set; }
         //Nikhil End
         public Nullable<decimal> TotalBalance { get; set; }
-        public int Totalpayment { get; set; }
+        public decimal? Totalpayment { get; set; }
 
         public Nullable<System.DateTime> JobAcceptedDate { get; set; }
         public Nullable<System.DateTime> ProofCreatedDate { get; set; }

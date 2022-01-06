@@ -72,6 +72,43 @@ namespace KEN_DataAccess
         public virtual DbSet<tblOpportunity> tblOpportunities { get; set; }
         public virtual DbSet<vw_tblopp1> vw_tblopp1 { get; set; }
         public virtual DbSet<Vw_tblOpportunity> Vw_tblOpportunity { get; set; }
+        public virtual DbSet<Vw_tblOptionForOpp> Vw_tblOptionForOpp { get; set; }
+        public virtual DbSet<Vw_tblOptionForOrder> Vw_tblOptionForOrder { get; set; }
+        public virtual DbSet<tblacct_managerToBeDeleted> tblacct_managerToBeDeleted { get; set; }
+        public virtual DbSet<tblarticle_has_attachmentsToBeDeleted> tblarticle_has_attachmentsToBeDeleted { get; set; }
+        public virtual DbSet<tblclientsToBeDeleted> tblclientsToBeDeleteds { get; set; }
+        public virtual DbSet<tblcompaniesToBeDeleted> tblcompaniesToBeDeleteds { get; set; }
+        public virtual DbSet<tblcoreToBeDeleted> tblcoreToBeDeleteds { get; set; }
+        public virtual DbSet<tblinvoice_has_itemsToBeDeleted> tblinvoice_has_itemsToBeDeleted { get; set; }
+        public virtual DbSet<tblinvoicesToBeDeleted> tblinvoicesToBeDeleteds { get; set; }
+        public virtual DbSet<tblitemsToBeDeleted> tblitemsToBeDeleteds { get; set; }
+        public virtual DbSet<tblmessagesToBeDeleted> tblmessagesToBeDeleteds { get; set; }
+        public virtual DbSet<tblmodulesToBeDeleted> tblmodulesToBeDeleteds { get; set; }
+        public virtual DbSet<tbloperatorToBeDeleted> tbloperatorToBeDeleteds { get; set; }
+        public virtual DbSet<tblorderedToBeDeleted> tblorderedToBeDeleteds { get; set; }
+        public virtual DbSet<tblprivatemessagesToBeDeleted> tblprivatemessagesToBeDeleteds { get; set; }
+        public virtual DbSet<tblproductionToBeDeleted> tblproductionToBeDeleteds { get; set; }
+        public virtual DbSet<tblproject_has_filesToBeDeleted> tblproject_has_filesToBeDeleted { get; set; }
+        public virtual DbSet<tblproject_has_tasksToBeDeleted> tblproject_has_tasksToBeDeleted { get; set; }
+        public virtual DbSet<tblproject_has_workersToBeDeleted> tblproject_has_workersToBeDeleted { get; set; }
+        public virtual DbSet<tblprojectsToBeDeleted> tblprojectsToBeDeleteds { get; set; }
+        public virtual DbSet<tblpw_resetToBeDeleted> tblpw_resetToBeDeleted { get; set; }
+        public virtual DbSet<tblqueuesToBeDeleted> tblqueuesToBeDeleteds { get; set; }
+        public virtual DbSet<tblquotationsToBeDeleted> tblquotationsToBeDeleteds { get; set; }
+        public virtual DbSet<tblsubscription_has_itemsToBeDeleted> tblsubscription_has_itemsToBeDeleted { get; set; }
+        public virtual DbSet<tblsubscriptionsToBeDeleted> tblsubscriptionsToBeDeleteds { get; set; }
+        public virtual DbSet<tblTempContactCleanData> tblTempContactCleanDatas { get; set; }
+        public virtual DbSet<tbltempJobCleanData> tbltempJobCleanDatas { get; set; }
+        public virtual DbSet<tblticket_has_articlesToBeDeleted> tblticket_has_articlesToBeDeleted { get; set; }
+        public virtual DbSet<tblticket_has_attachmentsToBeDeleted> tblticket_has_attachmentsToBeDeleted { get; set; }
+        public virtual DbSet<tblticketsToBeDeleted> tblticketsToBeDeleteds { get; set; }
+        public virtual DbSet<tbltypesToBeDeleted> tbltypesToBeDeleteds { get; set; }
+        public virtual DbSet<tblContactCopy> tblContactCopies { get; set; }
+        public virtual DbSet<tblDaylightShift> tblDaylightShifts { get; set; }
+        public virtual DbSet<tblJobCopy> tblJobCopies { get; set; }
+        public virtual DbSet<tblmigrationsToBeDeleted> tblmigrationsToBeDeleteds { get; set; }
+        public virtual DbSet<tblOptionCopy> tblOptionCopies { get; set; }
+        public virtual DbSet<tblProductionCopy> tblProductionCopies { get; set; }
     
         public virtual ObjectResult<Pro_DecorationExport_Result> Pro_DecorationExport()
         {

@@ -455,15 +455,11 @@ function AddOrganisationAddress() {
     //    checkflag = false;
     //}
 
-    if ($("#ddlDelivery").val() != "") {
-        ddlDelivery = $("#ddlDelivery").val();
-        //$("#ddlDelivery").css("border-color", "rgba(204, 204, 204, 1)");
-        $("#ddlDelivery").removeClass('customAlertChange');
-    } else {
-        //$("#ddlDelivery").css("border-color", "red");
-        $("#ddlDelivery").addClass('customAlertChange');
-        checkflag = false;
-    }
+        //else {
+    //    //$("#ddlDelivery").css("border-color", "red");
+    //    $("#ddlDelivery").addClass('customAlertChange');
+    //    checkflag = false;
+    //}
 
     //if ($("#txtAddress1").val() != "") {
     //    txtAddress1 = $("#txtAddress1").val();
@@ -559,9 +555,16 @@ function AddOrganisationAddress() {
    // $('#HiddenOrgIdforAddress').val();
 
     txtAddressNotes = $("#txtAddressNotes").val();
-
+    
     if (checkflag == true) {
-
+        if ($("#ddlDelivery").val() != "") {
+            ddlDelivery = $("#ddlDelivery").val();
+        }
+        else {
+            var address = CheckDeliveryAddress(OrgId);
+            address = address.length + 1;
+            ddlDelivery = "Delivery" + address;
+        }
         $.ajax({
             url: '/Organisation/AddOrganisationAddress',
             data: { OrgId: OrgId, TradingName: txtTradingName, Attention: txtAttention, DeliveryAddress: ddlDelivery, Address1: txtAddress1, Address2: txtAddress2, State: ddlStateList, Postcode: txtPostCode, AddNotes: txtAddressNotes, PageSource: PageSource, PurchaseId: PurchaseId, AddressId: AddressId, OppId: OppId },  //tarun 06/9/2018
@@ -592,7 +595,7 @@ function AddOrganisationAddress() {
 
 
 function CheckDeliveryAddress(OrgId) {
-    var data = "";
+    var data;
     $.ajax({
         url: '/Organisation/CheckDeliveryAddress',
         data: { OrgId: OrgId },
@@ -601,16 +604,17 @@ function CheckDeliveryAddress(OrgId) {
         success: function (response) {
             data = response;
             var HtmlData = "<option value=''>--Select--</option>";
-            if (response <= 5) {
+            if (response.length <= 5) {
                 var count = 0;
-                if (response == 5) {
-                    count = parseInt(response);
-                } else {
-                    count = parseInt(response) + 1;
-                }
+                count = parseInt(response.length);
+                //if (response.length == 5) {
+                    
+                //} else {
+                //    count = parseInt(response.length);// + 1;
+                //}
 
                 for (i = 1; i <= count; i++) {
-                    HtmlData += "<option value='Delivery" + i + "'>Delivery" + i + "</option>";
+                    HtmlData += "<option value='Delivery" + i + "'>Delivery" + i + "(" + response[i-1].TradingName + " , " + response[i-1].Address1 + ")</option>";
                 }
 
                 $("#ddlDelivery").html(HtmlData);
@@ -631,7 +635,7 @@ function GetOrganisationAddress(OrgId, AddType) {
         success: function (response) {
 
             //$('#HiddenOrgIdforAddress').val(response.AddressId)  //tarun 06/09/2018
-
+            
             $("#txtAttention").val('');
             $("#ddlDelivery").val('');
             $("#txtAddress1").val('');
@@ -643,6 +647,10 @@ function GetOrganisationAddress(OrgId, AddType) {
 
             if (response != null && response != "undefined") {
                 var data = response;
+                $('#ddlDelivery').removeClass("customAlertChange");
+                $('#txtTradingName').removeClass("customAlertChange");
+                $('#txtPostCode').removeClass("customAlertChange");
+                $('#btnsaveAddress').removeClass("customAlertChange");
                 $("#txtTradingName").val(data.TradingName);
                 $("#txtAttention").val(data.Attention);
                 $("#ddlDelivery").val(data.DeliveryAddress);

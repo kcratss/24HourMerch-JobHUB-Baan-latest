@@ -77,12 +77,17 @@ namespace KEN.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CheckDeliveryAddress(int OrgId)
+        
+        public JsonResult CheckDeliveryAddress(int OrgId)
         {
+            List<AddressViewModel> addressList = new List<AddressViewModel>();
+            List<tblAddress> addressEntity =dbContext.tblAddresses.Where(_ => _.OrgId == OrgId).ToList();
+            foreach (var item in addressEntity)
+            {
+                addressList.Add(Mapper.Map<AddressViewModel>(item));
+            }
            
-            var dataCount = dbContext.tblAddresses.Where(_ => _.OrgId == OrgId).Count();
-
-            return Json(dataCount, JsonRequestBehavior.AllowGet);
+            return Json(addressList, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetOrganisationAddress(int OrgId, string AddType)

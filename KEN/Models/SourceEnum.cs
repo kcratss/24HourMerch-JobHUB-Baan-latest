@@ -76,6 +76,8 @@ namespace KEN.Models
     {
         public const string ErrorMessage = "Something went wrong";
         public const string SuccessMessage = "Data saved successfully";
+        public const string revertMessage = "Revert Stage successfully";
+        public const string addressMessage = "You can not add more than five address";
 
     }
     public class ResponseCode

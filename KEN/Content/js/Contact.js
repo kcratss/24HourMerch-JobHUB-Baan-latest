@@ -7,6 +7,18 @@ $(function () {
 
     $("#ddlDelivery").on("change", function () {
         var OrgID = "";
+        if ($("#ddlDelivery").val() == "") {
+            $("#txtAttention").val('');
+            $("#ddlDelivery").val('');
+            $("#txtAddress1").val('');
+            $("#txtAddress2").val('');
+            $("#ddlStateList").val('');
+            $("#txtPostCode").val('');
+            $("#txtTradingName").val('');
+            $("#txtAddressNotes").val('');
+            $("#HiddenAddressId").val('');
+            $("#btnsaveAddress").removeClass("customAlertChange");  
+        }
         if ($('#PageName').val() == "JobDetails" || $('#PageName').val() == "InvoicingDetails" || $('#PageName').val() == "PackingDetails" || $('#PageName').val() == "ShippingDetails" || $('#PageName').val() == "CompleteDetails") {
             OrgID = $('#HiddenforDefaultOrgID').val();
         }
@@ -26,8 +38,9 @@ $(function () {
             
             //$("#txtTradingName").val(currTradingVal);
         }
-
-        $("#btnsaveAddress").addClass("customAlertChange");
+        if ($('#PageName').val() != "JobDetails") {
+            $("#btnsaveAddress").addClass("customAlertChange");
+        }
     });
     if ($('#PageName').val() == "ContactDetails") {
         $('#DivContactType').removeClass("col-lg-6 col-md-6 col-sm-6 col-xs-6");

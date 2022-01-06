@@ -361,7 +361,7 @@ function SaveDecoration() {
         });
     }
     else {
-        CustomWarning("Fill All Required Filds")
+        CustomWarning("Fill All Required Fields")
     }
 
 }

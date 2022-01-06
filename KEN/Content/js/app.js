@@ -64,15 +64,15 @@ $(function () {
     //if ($('#PageName').val() != "PurchaseDetails") {
     //    //$('#ddlOrgAcctMgr').parent().removeClass("col-lg-5");
     //    //$('#ddlOrgAcctMgr').parent().addClass("col-lg-12");
-        
+
     //}
     if ($('#PageName').val() == "PurchaseDetails") {
         //$('#ddlOrgAcctMgr').addClass("txtOpprtDetails oppInnerleftCol");
         $("#ddlOrgAcctMgr").css("display", "none");     //21 June 2019 (N)
         $("#lblOrgAcctmanager").css("display", "none");
     }
-   //end
- 
+    //end
+
     $(".QtyFormat").keydown(function (e) {
         // Allow: backspace, delete, tab, escape and enter
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
@@ -90,11 +90,11 @@ $(function () {
         }
 
     });
-   
+
     $(".CurrencyFormat").blur(function (e) {
         var newtext = $(this).val();
         if (newtext != "" && newtext != undefined && newtext!=null)
-        $(this).val(parseFloat(newtext).toFixed(2));
+            $(this).val(parseFloat(newtext).toFixed(2));
     });
     $(".CurrencyFormat").keydown(function (e) {
         // Allow: backspace, delete, tab, escape and enter
@@ -130,7 +130,7 @@ $(function () {
         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }
-        
+
 
     });
     $.ajax({
@@ -208,7 +208,7 @@ $(function () {
                 if (index == 0) ul.prepend('<li style="font-weight:bold" class="header-auto" ><table><thead><tr><th style="width: 280px;">Organisation Name</th><th style="width: 230px;">Trading Name</th><th style="width: 210px;">Branch</th></tr></thead><tbody></tbody></table></li>');
             });
         }
-         //18 Aug 2018 (N)
+        //18 Aug 2018 (N)
         if (AutoCompleteFlag == "Opportunity") {
             var self = this;
             $.each(items, function (index, item) {
@@ -241,49 +241,49 @@ $(function () {
 
         if (AutoCompleteFlag == "Contact") {
             return $("<li></li>")
-               .data("item.autocomplete", item)
-               .append('<a class="myclass"> <table><tr><td style="width:150px">' + item.first_name + '</td><td style="width:150px">' + item.last_name + '</td><td style="width:300px">' + item.email + '</td><td style="width:250px">' + item.Company + '</td></tr></table></a>')
-               .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"> <table><tr><td style="width:150px">' + item.first_name + '</td><td style="width:150px">' + item.last_name + '</td><td style="width:300px">' + item.email + '</td><td style="width:250px">' + item.Company + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         if (AutoCompleteFlag == "Event") {
             return $("<li></li>")
-          .data("item.autocomplete", item)
-          .append('<a class="myclass"> <table><tr><td style="width:150px">' + item.EventName + '</td><td style="width:150px">' + item.EventDate1 + '</td><td style="width:300px">' + item.EventLocation + '</td></tr></table></a>')
-          .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"> <table><tr><td style="width:150px">' + item.EventName + '</td><td style="width:150px">' + item.EventDate1 + '</td><td style="width:300px">' + item.EventLocation + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         if (AutoCompleteFlag == "DecorationCost") {
             return $("<li></li>")
-          .data("item.autocomplete", item)
-          .append('<a class="myclass"> <table><tr><td style="width:100px">' + item.Quantity + '</td><td style="width:100px">' + item.Cost + '</td></tr></table></a>')
-          .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"> <table><tr><td style="width:100px">' + item.Quantity + '</td><td style="width:100px">' + item.Cost + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         if (AutoCompleteFlag == "Decoration") {
             return $("<li></li>")
-          .data("item.autocomplete", item)
-          .append('<a class="myclass"> <table><tr><td style="width:150px">' + item.Dec_Desc + '</td></tr></table></a>')
-          .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"> <table><tr><td style="width:150px">' + item.Dec_Desc + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         if (AutoCompleteFlag == "Organisation") {
             return $("<li></li>")
-          .data("item.autocomplete", item)
-          .append('<a class="myclass"> <table><tr><td style="width: 280px;">' + item.OrgName + '</td><td style="width: 230px;">' + item.TradingName + '</td><td style="width: 210px;">' + item.Brand + '</td></tr></table></a>')
-          .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"> <table><tr><td style="width: 280px;">' + item.OrgName + '</td><td style="width: 230px;">' + item.TradingName + '</td><td style="width: 210px;">' + item.Brand + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         //18 Aug 2018 (N)
         if (AutoCompleteFlag == "Opportunity") {
             return $("<li></li>")
-            .data("item.autocomplete", item)
-            .append('<a class="myclass"><table><tr><td style="width:200px;">' + item.OppName + '</td><td style="width:200px;">' + item.ReqDate + '</td><td style="width:200px;">' + item.Stage + '</td><td style="width:200px;">' + item.Status + '</td><td style="width:200px;">' + item.AccountManagerFullName + '</td></tr></table></a>')
-            .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"><table><tr><td style="width:200px;">' + item.OppName + '</td><td style="width:200px;">' + item.ReqDate + '</td><td style="width:200px;">' + item.Stage + '</td><td style="width:200px;">' + item.Status + '</td><td style="width:200px;">' + item.AccountManagerFullName + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         //18 Aug 2018 (N)
 
         //31 July 2019 (N) Pantone Number
         if (AutoCompleteFlag == "Pantone") {
             return $("<li></li>")
-            .data("item.autocomplete", item)
-            .append('<a class="myclass"><table><tr><td style="width:150px;">' + item.Pantone + '</td><td style="width:150px;">' + item.Hexvalue + '</td></tr></table></a>')
-            .appendTo(ul);
+                .data("item.autocomplete", item)
+                .append('<a class="myclass"><table><tr><td style="width:150px;">' + item.Pantone + '</td><td style="width:150px;">' + item.Hexvalue + '</td></tr></table></a>')
+                .appendTo(ul);
         }
         //31 July 2019 (N) Pantone Number
     };
@@ -392,9 +392,9 @@ $(function () {
         })
     }
     //18 Aug 2018 (N)
-    if ($('#PageName').val() != "ContactDetails") {   
+    if ($('#PageName').val() != "ContactDetails") {
         $("#txtFirstName").autocomplete({
-          
+
             source: function (request, response) {
                 AutoCompleteFlag = "Contact";
                 // baans change 27th September for Autocomplete by Type
@@ -402,7 +402,7 @@ $(function () {
                 $.ajax({
                     url: '/Contact/GetContactByFirstName',
                     data: "{ 'prefix': '" + request.term + "', 'ContType': '" + ContactType + "'}",
-                     // baans end 27th September 
+                    // baans end 27th September 
                     dataType: "json",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
@@ -437,7 +437,7 @@ $(function () {
                 $("#txtContactType").val(i.item.ContactType);
                 $("#HiddenContactId").val(i.item.id);
                 SetAccountManager(i.item.acct_manager_id, "ddlAcctMgr", "AccountManager");
-               // $("#ddlAcctMgr").val(i.item.acct_manager_id);
+                // $("#ddlAcctMgr").val(i.item.acct_manager_id);
 
                 if ($("#HiddenFOrPrimary").val() != "") {
                     if ($("#HiddenContactId").val() == $("#HiddenFOrPrimary").val()) {
@@ -470,7 +470,7 @@ $(function () {
             minLength: 2
             // baans end 11th Sept
         })
-        
+
         $("#txtLastName").autocomplete({
 
             source: function (request, response) {
@@ -515,7 +515,7 @@ $(function () {
                 $("#txtContactType").val(i.item.ContactType);
                 $("#HiddenContactId").val(i.item.id);
                 SetAccountManager(i.item.acct_manager_id, "ddlAcctMgr", "AccountManager");
-               // $("#ddlAcctMgr").val(i.item.acct_manager_id);
+                // $("#ddlAcctMgr").val(i.item.acct_manager_id);
                 if ($("#HiddenFOrPrimary").val() != "") {
                     if ($("#HiddenContactId").val() == $("#HiddenFOrPrimary").val()) {
                         $('#ContactisPrimary').prop('checked', true);
@@ -590,7 +590,7 @@ $(function () {
                 $("#txtContactType").val(i.item.ContactType);
                 $("#HiddenContactId").val(i.item.id);
                 SetAccountManager(i.item.acct_manager_id, "ddlAcctMgr", "AccountManager");
-               // $("#ddlAcctMgr").val(i.item.acct_manager_id);
+                // $("#ddlAcctMgr").val(i.item.acct_manager_id);
                 if ($("#HiddenFOrPrimary").val() != "") {
                     if ($("#HiddenContactId").val() == $("#HiddenFOrPrimary").val()) {
                         $('#ContactisPrimary').prop('checked', true);
@@ -624,7 +624,7 @@ $(function () {
     }
 
     //P 10 Jan OptionCode
-        $("#txtCode").autocomplete({
+    $("#txtCode").autocomplete({
         source: function (request, response) {
             AutoCompleteFlag = "OptionCode";
             $("#HiddenOptionCodeID").val(0);
@@ -665,42 +665,42 @@ $(function () {
     //P 10 Jan OptionCode
 
     //31 July 2019 (N) Pantone Number
-        $('#txtPantone').autocomplete({
-            source: function(request, response){
-                AutoCompleteFlag = "Pantone";
-                $.ajax({
-                    url:'/Application/GetPantone',
-                    data: "{ 'prefix': '" + request.term + "'}",
-                    dataType:"json",
-                    type:"Post",
-                    contentType:"application/json; charset=utf-8",
-                    success: function(data){
-                        response($.map(data, function(item){
-                            return item;
-                        }))
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            },
-            select: function(e, i){
-                i.item.value = i.item.Pantone;
-                $('#hdnPantoneId').val('');
-                $('#txtBucketId').val('');
-                $('#txtHexValue').val('');
-                $('#hdnPantoneId').val(i.item.Id);
-                //$('#txtBucketId').val(i.item.BucketId);
-                $('#txtHexValue').val(i.item.Hexvalue);
+    $('#txtPantone').autocomplete({
+        source: function(request, response){
+            AutoCompleteFlag = "Pantone";
+            $.ajax({
+                url:'/Application/GetPantone',
+                data: "{ 'prefix': '" + request.term + "'}",
+                dataType:"json",
+                type:"Post",
+                contentType:"application/json; charset=utf-8",
+                success: function(data){
+                    response($.map(data, function(item){
+                        return item;
+                    }))
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        },
+        select: function(e, i){
+            i.item.value = i.item.Pantone;
+            $('#hdnPantoneId').val('');
+            $('#txtBucketId').val('');
+            $('#txtHexValue').val('');
+            $('#hdnPantoneId').val(i.item.Id);
+            //$('#txtBucketId').val(i.item.BucketId);
+            $('#txtHexValue').val(i.item.Hexvalue);
 
-                $('#txtColourChip').css('background-color', '#' + i.item.Hexvalue);
-                $('#txtColourChip').css('border', '1px solid #' + i.item.Hexvalue);
-            },
-            minLength: 2
-        });
+            $('#txtColourChip').css('background-color', '#' + i.item.Hexvalue);
+            $('#txtColourChip').css('border', '1px solid #' + i.item.Hexvalue);
+        },
+        minLength: 2
+    });
     //31 July 2019 (N) Pantone Number
 
     $("#txtEventName").autocomplete({
@@ -746,7 +746,7 @@ $(function () {
             MakeEventReadonly();
 
         },
-      // baans change 11th Sept for autocomplete
+        // baans change 11th Sept for autocomplete
         //minLength: 1
         minLength: 2
         // baans end 11th Sept
@@ -794,7 +794,7 @@ $(function () {
         select: function (e, i) {
             i.item.value = i.item.Quantity;
             var target = $(e.target);
-            
+
             if ((target.attr('id') == "txtRangeFront")) {
                 $('#hiddenRangeFrontCost').val(i.item.Cost);
             }
@@ -813,7 +813,7 @@ $(function () {
 
 
         },
-         // baans change 11th Sept for autocomplete
+        // baans change 11th Sept for autocomplete
         //minLength: 1
         minLength: 2
         // baans end 11th Sept
@@ -988,7 +988,7 @@ $(function () {
                 // $('#ddlOrgAcctMgr').val(i.item.AcctMgrId);
                 $('#txtorgEmail').val(i.item.EmailAddress);
 
-                
+
                 MakeorgReadonly();
                 //tarun 06/09/2018
                 if ($('#PageName').val() != "PurchaseDetails") {
@@ -1291,8 +1291,7 @@ function changeImageNew(type, department) {
 //}
 
 
-function JobsGridList(type, department, tabType) {
-
+function JobsGridList(type, department, tabType) {    
     var dpmt = $(".headerBtn.active").attr('id');
     //alert($(".headerBtn.active").attr('id'));
     if (dpmt == "Current" || dpmt == "List") {
@@ -1532,7 +1531,7 @@ function JobsGridList(type, department, tabType) {
                 sumTotal += data[h].Total;
             }
         }
-        
+
         totalData = { DisplayOpportunityId: "", StageWiseDate: "", OppName: "", Quantity: "", DepartmentName: "", ArtOrderedDate: "Other", ApprovedDate: "Other", ArtReadyDate: "Other", StockOrderedDate: "Other", ReceivedDate: "Other", Checkeddate: "Other", ReqDate: "", Contactfullname: "", EventName: "", StageWiseNotes: "Total Sum", Total: sumTotal, AccountManagerFullName: "" };
         if (stagetype == "Quote" || stagetype == "Lost" || stagetype == "Order" || stagetype == "Cancelled" || stagetype == "Job1") {
             return [totalData];
@@ -1542,23 +1541,23 @@ function JobsGridList(type, department, tabType) {
         }
     }
     var obj =
-        {
-            selectionModel: { type: 'row' },
-            virtualX: true, virtualY: true,
-            resizable: false,
-            pageModel: { type: "local", rPP: 50 },
-            strNoRows: 'No records found for the selected Criteria',
-            scrollModel: { autoFit: false },
-            //editable: false,
-            wrap: false,
-            hwrap: false,
-            width: "97%",
-            height: 750,
-            numberCell: { width: 0, title: "", minWidth: 0 },
-            columnTemplate: { width: 120, halign: "left" },
-            summaryData: calculateSumsummary(),
-            editModel: { clicksToEdit: 1, onTab: 'nextEdit', pressToEdit: true, onBlur: 'validate' },
-        };
+    {
+        selectionModel: { type: 'row' },
+        virtualX: true, virtualY: true,
+        resizable: false,
+        pageModel: { type: "local", rPP: 50 },
+        strNoRows: 'No records found for the selected Criteria',
+        scrollModel: { autoFit: false },
+        //editable: false,
+        wrap: false,
+        hwrap: false,
+        width: "97%",
+        height: 750,
+        numberCell: { width: 0, title: "", minWidth: 0 },
+        columnTemplate: { width: 120, halign: "left" },
+        summaryData: calculateSumsummary(),
+        editModel: { clicksToEdit: 1, onTab: 'nextEdit', pressToEdit: true, onBlur: 'validate' },
+    };
 
     // 29 April NotesEditing List
     obj.editorEnd = function (event, ui) {
@@ -1586,7 +1585,7 @@ function JobsGridList(type, department, tabType) {
     // 29 April NotesEditing List
 
     obj.colModel = [
-        {
+       {
             title: "Job No",  editable: false, width: "5%", dataType: "string", align: "center", dataIndx: "DisplayOpportunityId",
             render: function (ui) {
                 var id = ui.cellData;
@@ -1995,7 +1994,7 @@ function CustomAlert(response) {
         {
             response.Message =  response.tblName + " with this name already exists";
         }
-            
+
         $('#CustomAlert').removeClass('j-alertBox-Warning').removeClass('j-alertBox-Success').css('display', 'none');
         $('#CustomAlert').addClass('j-alertBox-Failed').css('display', 'block');
         $('#alertMsg').html('<strong>Error ! </strong>' + response.Message);
@@ -2068,13 +2067,13 @@ function SetOppoStage() {
     }
     if ($('#lblQuoteDate').text() != "") {
         $("#btnQuoteStage").css("border-color", color);
-    }
+    }   
     if ($('#lblOrderDate').text() != "") {
         if ($('#PageName').val() == "Opportunity" || $('#PageName').val() == "QuoteDetails")
         {
             $('#btnOptionSave,#btnOptionCopy').css("display", "none");
             $('#btnOptionSaveBlank,#btnOptionCopyBlank').css("display", "initial");//Added by baans 07Sep2020
-            
+
         }
         $("#btnOrderStage").css("border-color", color);
     }
@@ -2132,13 +2131,207 @@ function SetOppoStage() {
     if ($('#lblProofSentDate').text() != "") {
         $("#btnProofSent").css("border-color", color);
     }
-
 }
+
+function ReSetOppoStage(Stage) {   
+    var color = "white"; 
+    switch (Stage) {
+        case "Quote": {
+            if ($('#lblQuoteDate').text() != "") {
+                $('#lblQuoteDate').html('');
+                $("#btnQuoteStage").css("border-color", color);
+            }
+            break;
+        }
+        case "Order": {
+            if ($('#lblOrderDate').text() != "") {
+                $('#lblOrderDate').html('');
+                $("#btnOrderStage").css("border-color", color);
+            }
+            break;
+        }
+        case "Job": {
+            if ($('#lblJobDate').text() != "") {
+                $('#lblJobDate').html('');
+                $("#btnJobStage").css("border-color", color);
+            }
+            break;
+        }
+        case "Order Confirmed":
+            {
+                if ($('#lblOrderConfirmDate').text() != "") {
+                    $('#lblOrderConfirmDate').html('');
+                    $("#btnOrderConfirmedStage").css("border-color", color);
+                }
+                break;
+            }
+        
+        case "Job Accepted":
+            {
+                if ($('#lblJobAcceptedDate').text() != "") {
+                    $('#lblJobAcceptedDate').html('');
+                    $("#btnJobAccepted").css("border-color", color);
+                }
+                break;
+            }
+        case "Art Ordered":
+            {
+                if ($('#lblArtOrderdDate').text() != "") {
+                    $('#lblArtOrderdDate').html('');
+                    $("#btnArtOrderedStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Proof Created":
+            {
+                if ($('#lblProofCreatedDate').text() != "") {
+                    $('#lblProofCreatedDate').html('');
+                    $("#btnProofCreated").css("border-color", color);
+                }
+                break;
+            }
+        case "Proof Sent":
+            {
+                if ($('#lblProofSentDate').text() != "") {
+                    $('#lblProofSentDate').html('');
+                    $("#btnProofSent").css("border-color", color);
+                }
+                break;
+            }
+        case "Proof Approved":
+            {
+                if ($('#lblProofApprovedDate').text() != "") {
+                    $('#lblProofApprovedDate').html('');
+                    $("#btnProofApprovedStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Film/Digi Ready":
+            {
+                if ($('#lblDigiReadyDate').text() != "") {
+                    $('#lblDigiReadyDate').html('');
+                    $("#btnDigiReadyStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Stock Ordered":
+            {
+                if ($('#lblStockOrderedDate').text() != "") {
+                    $('#lblStockOrderedDate').html('');
+                    $("#btnStockOrderStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Stock In":
+            {
+                if ($('#lblStockInDate').text() != "") {
+                    $('#lblStockInDate').html('');
+                    $("#btnStockInStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Stock Checked":
+            {
+                if ($('#lblStockCheckedDate').text() != "") {
+                    $('#lblStockCheckedDate').html('');
+                    $("#btnStockCheckedStage").css("border-color", color);
+                }
+                break;
+            }
+
+        case "Stock Decorated":
+            {
+                if ($('#lblStockDecoratedDate').text() != "") {
+                    $('#lblStockDecoratedDate').html('');
+                    $("#btnStockDecoratedStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Order Packed":
+            {
+                if ($('#lblOrderPackedDate').text() != "") {
+                    $('#lblOrderPackedDate').html('');
+                    $("#btnOrderPackedStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Order Invoiced":
+            {
+                if ($('#lblInvoiceDate').text() != "") {
+                    $('#lblInvoiceDate').html('');
+                    $("#btnOrderInvoicedStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Paid":
+            {
+                if ($('#lblPaidDate').text() != "") {
+                    $('#lblPaidDate').html('');
+                    $("#btnPaidStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Order Shipped":
+            {
+                if ($('#lblShippedDate').text() != "") {
+                    $('#lblShippedDate').html('');
+                    $("#btnOrderShippedStage").css("border-color", color);
+                }
+                break;
+            }
+        case "Complete":
+            {
+                if ($('#lblCompleteDate').text() != "") {
+                    $('#lblCompleteDate').html('');
+                    $("#btnCompleteStage").css("border-color", color);
+                }
+                break;
+            }
+    }
+    
+}
+
+function ResetOppStagePopUp(stage, updateURL) {
+    bootbox.confirm("Are you sure you want to Revert this Stage?", function (result) {
+        if (result) {
+
+            $.ajax({
+                url: '/Opportunity/ResetStageByOppoID',
+                data: { oppId: $('#lblOpportunityId').text(), stage: stage },
+                async: false,
+                success: function (response) {
+                    var data = response.data;
+                    if (data.response.Result == "Success") {
+                        ReSetOppoStage(stage);
+                        CustomAlert(data.response);
+                        if (updateURL != "") {
+                            setTimeout(function () {
+                                location.href = "/Opportunity/" + updateURL + "/" + parseInt($('#lblOpportunityId').text());
+
+                            }, 1000);
+                        }                       
+
+                    }
+                    else {
+                        CustomAlert(data.response);
+                    }
+                }
+            });
+
+        }
+    });
+}
+
+
 function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
-    debugger;
+    var revertmessage = "You can not Revert this Stage First you have to Revert Last Stage";
+    
     if ($('#lblOpportunityId').val() != "000000") {
         if (Stage == "Opportunity") {
-            location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+            if ($("#lblQuoteDate").text() == "") {
+                location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text()); 
+            }
+            CustomWarning(revertmessage);
         }
         if (Stage == "Quote") {
             if ($('#lblQuoteDate').text() == "") {
@@ -2159,36 +2352,42 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 }
 
                 bootbox.confirm(ConfirmMessage, function (result) {
-                        if (result) {
-                            $.ajax({
-                                url: '/Opportunity/ChangeStageByOppoID',
-                                data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
-                                async: false,
-                                success: function (response) {
-                                    debugger;
-                                    var data = response.data;
-                                    if (data.response.Result == "Success") {
-                                        location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
-                                    }
-                                    else {
-                                        CustomAlert(data.response);
-                                    }
+                    if (result) {
+                        $.ajax({
+                            url: '/Opportunity/ChangeStageByOppoID',
+                            data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
+                            async: false,
+                            success: function (response) {
+                                var data = response.data;
+                                if (data.response.Result == "Success") {
+                                    location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
                                 }
-                            });
+                                else {
+                                    CustomAlert(data.response);
+                                }
+                            }
+                        });
 
-                        }
-                    });
+                    }
+                });
 
-                
+
 
 
             }
             else {
-                location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                if ($('#lblOppDate').text() != "" && $('#lblOrderDate').text() == "") {
+               
+                    ResetOppStagePopUp(Stage, "OpportunityDetails");
+
+                }
+                else {
+                    CustomWarning(revertmessage);
+                }
             }
         }
         if (Stage == "Order") {
-            
+
             var Oppid = $('#lblOpportunityId').text();
             $.ajax({
                 url: '/Opportunity/GetOptionStatus',
@@ -2196,7 +2395,6 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 async: false,
 
                 success: function (response) {
-                    debugger;
                     if (response == true) {
                         if ($('#lblQuoteDate').text() != "") {
 
@@ -2214,7 +2412,6 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                                                     data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
                                                     async: false,
                                                     success: function (response) {
-                                                        debugger;
                                                         var data = response.data;
                                                         if (data.response.Result == "Success") {
                                                             location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
@@ -2270,7 +2467,13 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                             }
 
                             else {
-                                location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                                if ($('#lblOrderDate').text() != "" && $('#lblJobDate').text() == "") {
+                                
+                                    ResetOppStagePopUp(Stage, "QuoteDetails");
+                                }
+                                else {
+                                    CustomWarning(revertmessage);
+                                }
                             }
                         }
                         else {
@@ -2303,57 +2506,76 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                                     async: false,
                                     success: function (response) {
                                         if (response == true) {
-                                            // baans change 2nd November for checking the Delivery Address
-                                            var OpporId = $('#lblOpportunityId').text();
-                                            $.ajax({
-                                                url: '/Opportunity/CheckDeliveryAddressByOppId',
-                                                data: { OppId: OpporId },
-                                                async: false,
-                                                success: function (response) {
-                                                    if (response == true) {
-                                                        bootbox.confirm("Are you sure you want to Continue?", function (result) {
-                                                            if (result) {
-                                                                $.ajax({
-                                                                    url: '/Opportunity/ChangeStageByOppoID',
-                                                                    data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
-                                                                    async: false,
-                                                                    success: function (response) {
-                                                                        var data = response.data;
-                                                                        if (data.response.Result == "Success") {
-                                                                            location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
-                                                                        }
-                                                                        else {
-                                                                            CustomAlert(data.response);
-                                                                        }
-                                                                    }
-                                                                });
-
+                                            bootbox.confirm("Are you sure you want to Continue?", function (result) {
+                                                if (result) {
+                                                    $.ajax({
+                                                        url: '/Opportunity/ChangeStageByOppoID',
+                                                        data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
+                                                        async: false,
+                                                        success: function (response) {
+                                                            var data = response.data;
+                                                            if (data.response.Result == "Success") {
+                                                                location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
                                                             }
-                                                        });
-                                                    }
-                                                    else {
-                                                        bootbox.confirm("There is still no delivery address recorded for this Job. Are you sure you want to Continue?", function (result) {
-                                                            if (result) {
-                                                                $.ajax({
-                                                                    url: '/Opportunity/ChangeStageByOppoID',
-                                                                    data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
-                                                                    async: false,
-                                                                    success: function (response) {
-                                                                        var data = response.data;
-                                                                        if (data.response.Result == "Success") {
-                                                                            location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
-                                                                        }
-                                                                        else {
-                                                                            CustomAlert(data.response);
-                                                                        }
-                                                                    }
-                                                                });
-
+                                                            else {
+                                                                CustomAlert(data.response);
                                                             }
-                                                        });
-                                                    }
+                                                        }
+                                                    });
+
                                                 }
                                             });
+                                            // baans change 2nd November for checking the Delivery Address
+                                            //var OpporId = $('#lblOpportunityId').text();
+                                            //$.ajax({
+                                            //    url: '/Opportunity/CheckDeliveryAddressByOppId',
+                                            //    data: { OppId: OpporId },
+                                            //    async: false,
+                                            //    success: function (response) {
+                                            //        if (response == true) {
+                                            //            bootbox.confirm("Are you sure you want to Continue?", function (result) {
+                                            //                if (result) {
+                                            //                    $.ajax({
+                                            //                        url: '/Opportunity/ChangeStageByOppoID',
+                                            //                        data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
+                                            //                        async: false,
+                                            //                        success: function (response) {
+                                            //                            var data = response.data;
+                                            //                            if (data.response.Result == "Success") {
+                                            //                                location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                                            //                            }
+                                            //                            else {
+                                            //                                CustomAlert(data.response);
+                                            //                            }
+                                            //                        }
+                                            //                    });
+
+                                            //                }
+                                            //            });
+                                            //        }
+                                            //        //else {
+                                            //        //    bootbox.confirm("There is still no delivery address recorded for this Job. Are you sure you want to Continue?", function (result) {
+                                            //        //        if (result) {
+                                            //        //            $.ajax({
+                                            //        //                url: '/Opportunity/ChangeStageByOppoID',
+                                            //        //                data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
+                                            //        //                async: false,
+                                            //        //                success: function (response) {
+                                            //        //                    var data = response.data;
+                                            //        //                    if (data.response.Result == "Success") {
+                                            //        //                        location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                                            //        //                    }
+                                            //        //                    else {
+                                            //        //                        CustomAlert(data.response);
+                                            //        //                    }
+                                            //        //                }
+                                            //        //            });
+
+                                            //        //        }
+                                            //        //    });
+                                            //        //}
+                                            //    }
+                                            //});
                                             //bootbox.confirm("Are you sure you want to Continue?", function (result) {
                                             //    if (result) {
                                             //        $.ajax({
@@ -2385,7 +2607,7 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                             }
                         }
                     });
-                    
+
 
 
 
@@ -2411,7 +2633,15 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                     // baans end 24th October
                 }
                 else {
-                    location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                    if ($('#lblJobDate').text() != "" && $('#lblOrderConfirmDate').text() == "") {
+
+                        ResetOppStagePopUp(Stage, "OrderDetails");
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
+
+
                 }
             }
             else {
@@ -2420,7 +2650,7 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
 
         }
         if (Stage == "Order Confirmed") {
-           
+
             if ($('#lblOrderConfirmDate').text() == "") {
                 if ($('#lblJobDate').text() != "") {
                     var CmfrmDate = "";
@@ -2474,14 +2704,24 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                         $("#txtConfirmedDate").addClass('customAlertChange');
                     }
                 }
-            
+
+                else {
+                    CustomWarning('You cannot confirm order before job');
+                }
+            }
             else {
-                CustomWarning('You cannot confirm order before job');
+                if ($('#lblJobDate').text() != "" && $('#lblJobAcceptedDate').text() == "") {
+                
+                    ResetOppStagePopUp(Stage, "");
+
+                }
+                else {
+                    CustomWarning(revertmessage);
+                }
+
+
+
             }
-            }
-        else {
-            CustomWarning('Order already confirmed');
-        }
         }
 
         if (Stage == "Art Ordered") {
@@ -2508,6 +2748,16 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                     if ($('#lblArtOrderdDate').text() == "") {
                         SaveStageByOppoID(Stage, 'lblArtOrderdDate');
                     }
+                    else {
+                        if ($('#lblArtOrderdDate').text() != "" && $('#lblProofCreatedDate').text() == "") {
+
+                            ResetOppStagePopUp(Stage, "");
+
+                        }
+                        else {
+                            CustomWarning(revertmessage);
+                        }
+                    }
                 }
                 else {
                     CustomWarning('You can not order art before order confirm');
@@ -2519,6 +2769,16 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 if ($('#lblProofApprovedDate').text() == "") {
                     SaveStageByOppoID(Stage, 'lblProofApprovedDate');
                 }
+                else {
+                    if ($('#lblProofSentDate').text() != "" && $('#lblDigiReadyDate').text() == "") {
+
+                        ResetOppStagePopUp(Stage, "");
+
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
+                }
             }
             else {
                 CustomWarning('You can not apporove art before art order');
@@ -2528,6 +2788,16 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
             if ($('#lblProofApprovedDate').text() != "") {
                 if ($('#lblDigiReadyDate').text() == "") {
                     SaveStageByOppoID(Stage, 'lblDigiReadyDate');
+                }
+                else {
+                    if ($('#lblProofApprovedDate').text() != "" && $('#lblStockOrderedDate').text() == "") {
+
+                        ResetOppStagePopUp(Stage, "");
+
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
                 }
             }
             else {
@@ -2563,23 +2833,42 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
             //        CustomWarning('You can not order stock before Job');
             //    }
             //}// 29 April Stage Change List (else end)
-            
-                // Commented and changed by Baans 16Sep2020
-                if ($('#lblJobDate').text() != "") {
-                    if ($('#lblStockOrderedDate').text() == "") {
-                        SaveStageByOppoID(Stage, 'lblStockOrderedDate');
-                    }
+
+            // Commented and changed by Baans 16Sep2020
+            // if ($('#lblJobDate').text() != "") {
+
+            if ($('#lblStockOrderedDate').text() == "") {
+                SaveStageByOppoID(Stage, 'lblStockOrderedDate');
+            }
+            else {
+               if ($('#lblDigiReadyDate').text() != "" && $('#lblStockInDate').text() == "") {
+
+                   ResetOppStagePopUp(Stage, "");
                 }
                 else {
-                    CustomWarning('You can not order stock before Job');
+                    CustomWarning(revertmessage);
                 }
+            }
         }
+        //else {
+        //    CustomWarning('You can not order stock before Job');
+        //}
+        //}
 
         if (Stage == "Stock In") {
             if ($('#lblOrderConfirmDate').text() != "") {
                 if ($('#lblStockOrderedDate').text() != "") {
                     if ($('#lblStockInDate').text() == "") {
                         SaveStageByOppoID(Stage, 'lblStockInDate');
+                    }
+                    else {
+                        if ($('#lblStockOrderedDate').text() != "" && $('#lblStockCheckedDate').text() == "") {
+
+                            ResetOppStagePopUp(Stage, "");
+                        }
+                        else {
+                            CustomWarning(revertmessage);
+                        }
                     }
                 }
                 else {
@@ -2596,6 +2885,15 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 if ($('#lblStockCheckedDate').text() == "") {
                     SaveStageByOppoID(Stage, 'lblStockCheckedDate');
                 }
+                else {
+                    if ($('#lblStockInDate').text() != "" && $('#lblStockDecoratedDate').text() == "") {
+
+                        ResetOppStagePopUp(Stage, "");
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
+                }
             }
             else {
                 CustomWarning('You can not stock check before stock In');
@@ -2604,7 +2902,7 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
         if (Stage == "Stock Decorated") {
 
             if ($('#lblStockCheckedDate').text() != "" && $('#lblDigiReadyDate').text() != "") {
-               
+
                 if ($('#lblStockDecoratedDate').text() == "") {
                     bootbox.confirm("Are you sure you want to Continue?", function (result) {
                         if (result) {
@@ -2627,13 +2925,20 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                     });
                 }
                 else {
-                    location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                    if ($('#lblStockCheckedDate').text() != "" && $('#lblOrderPackedDate').text() == "") {
+                   
+                        ResetOppStagePopUp(Stage, "JobDetails");
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
+                    
                 }
             }
             else {
                 CustomWarning('You can not decorate before Art ready and Stock checked');//msg disscuss
             }
-          
+
         }
         if (Stage == "Order Packed") {
             if ($('#lblStockDecoratedDate').text() != "") {
@@ -2678,7 +2983,14 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                         });
                     }
                     else {
-                        location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                        if ($('#lblStockDecoratedDate').text() != "" && $('#lblInvoiceDate').text() == "") {
+                        
+                            ResetOppStagePopUp(Stage, "PackingDetails");
+                        }
+                        else {
+                            CustomWarning(revertmessage);
+                        }
+                        
                     }
                 }
                 else
@@ -2726,22 +3038,28 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                                 });
                             }
                             else {
-                                location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                                if ($('#lblOrderPackedDate').text() != "" && $('#lblPaidDate').text() == "") {
+                                
+                                    ResetOppStagePopUp(Stage, "InvoicingDetails");
+                                }
+                                else {
+                                    CustomWarning(revertmessage);
+                                }
                             }
                         }
                         else {
                             CustomError("Size Packed Should be complete before Moving to Invoice Screen.");
                             $('#txtSizesPacked').addClass('customAlertChange');
                         }
-                        
-                        
+
+
                     },
                     error: function (response) {
-                        
+
                     },
                     type: 'post'
                 });
-                
+
                 // baans end 25th September
             }
             else {
@@ -2754,7 +3072,7 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 if ($('#lblbalance').text() == "$0") {
                     if ($('#lblPaidDate').text() == "") {
                         // baans change 13th November for change stage when paid
-                       //SaveStageByOppoID(Stage, 'lblPaidDate');
+                        //SaveStageByOppoID(Stage, 'lblPaidDate');
                         bootbox.confirm("Are you sure you want to confirm?", function (result) {
                             if (result) {
                                 $.ajax({
@@ -2774,6 +3092,15 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                             }
                         });
                         // baans end 13th November
+                    }
+                    else {
+                        if ($('#lblInvoiceDate').text() != "" && $('#lblShippedDate').text() == "") {
+                        
+                            ResetOppStagePopUp(Stage, "InvoicingDetails");
+                        }
+                        else {
+                            CustomWarning(revertmessage);
+                        }
                     }
                 }
                 else {
@@ -2825,11 +3152,16 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                         });
                     }
                     else {
-                        location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                        if ($('#lblPaidDate').text() != "" && $('#lblCompleteDate').text() == "") {
+                        
+                            ResetOppStagePopUp(Stage, "ShippingDetails");
+                        }
+                        else {
+                            CustomWarning(revertmessage);
+                        }
                     }
                 }
-                else
-                {
+                else{
                     CustomWarning('Consignment No. should be saved before shipping');//msg disscuss
                 }
             }
@@ -2848,31 +3180,38 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                     success: function (response) {
                         if (response == true) {
                             $('#txtConsigNoteNo').removeClass('customAlertChange');
-                           if ($('#lblCompleteDate').text() == "") {
+                            if ($('#lblCompleteDate').text() == "") {
 
-                    bootbox.confirm("Are you sure you want to Continue?", function (result) {
-                        if (result) {
-                            $.ajax({
-                                url: '/Opportunity/ChangeStageByOppoID',
-                                data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
-                                async: false,
-                                success: function (response) {
-                                    var data = response.data;
-                                    if (data.response.Result == "Success") {
-                                        location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                                bootbox.confirm("Are you sure you want to Continue?", function (result) {
+                                    if (result) {
+                                        $.ajax({
+                                            url: '/Opportunity/ChangeStageByOppoID',
+                                            data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
+                                            async: false,
+                                            success: function (response) {
+                                                var data = response.data;
+                                                if (data.response.Result == "Success") {
+                                                    location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                                                }
+                                                else {
+                                                    CustomAlert(data.response);
+                                                }
+                                            }
+                                        });
+
                                     }
-                                    else {
-                                        CustomAlert(data.response);
-                                    }
+                                });
+                            }
+                            else {
+                                if ($('#lblShippedDate').text() != "" && $('#lblCompleteDate').text() != "") {
+                                
+                                    ResetOppStagePopUp(Stage, "ShippingDetails");
                                 }
-                            });
-
-                        }
-                    });
-                }
-                else {
-                    location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
-                }
+                                else {
+                                    CustomWarning(revertmessage);
+                                }
+                              
+                            }
                         }
                         else {
                             CustomError("consignment Note No. Should be saved before Moving to Complete Screen.");
@@ -2897,6 +3236,16 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 if ($('#lblJobAcceptedDate').text() == "") {
                     SaveStageByOppoID(Stage, 'lblJobAcceptedDate');
                 }
+                else {
+
+                    if ($('#lblOrderConfirmDate').text() != "" && $('#lblArtOrderdDate').text() == "") {
+
+                        ResetOppStagePopUp(Stage, "");
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
+                }
             }
             else {
                 CustomWarning('You can not accept before Confirmed');
@@ -2907,6 +3256,17 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
                 if ($('#lblProofCreatedDate').text() == "") {
                     SaveStageByOppoID(Stage, 'lblProofCreatedDate');
                 }
+                else {
+
+                    if ($('#lblArtOrderdDate').text() != "" && $('#lblProofSentDate').text() == "") {
+
+                        ResetOppStagePopUp(Stage, "");
+
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
+                }
             }
             else {
                 CustomWarning('You can not create before Ordered');
@@ -2916,6 +3276,15 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
             if ($('#lblProofCreatedDate').text() != "") {
                 if ($('#lblProofSentDate').text() == "") {
                     SaveStageByOppoID(Stage, 'lblProofSentDate');
+                }
+                else {
+                     if ($('#lblArtOrderdDate').text() != "" && $('#lblProofApprovedDate').text() == "") {
+
+                         ResetOppStagePopUp(Stage,"");
+                    }
+                    else {
+                        CustomWarning(revertmessage);
+                    }
                 }
             }
             else {
@@ -3075,7 +3444,7 @@ function MakeReadonly() {
 function MakeorgReadonly() {
     //if ($('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "ContactDetails") {
     if ($('#PageName').val() == "QuoteDetails" || $('#PageName').val() == "OrderDetails" || $('#PageName').val() == "ContactDetails" || $('#PageName').val() == "PurchaseDetails") {
-        
+
         $('#txtorgName').attr('readonly', true).addClass('MakeReadonly');
         $('#txtOrgType').attr('disabled', true).addClass('MakeReadonly');
         $('#ddlOrgAcctMgr').attr('disabled', true).addClass('MakeReadonly');
@@ -3100,7 +3469,6 @@ function GetDate(date) {
 }
 
 function QuoteValidCheck() {
-    debugger;
     var data = false;
     // Baans change 30th November for checking the valid OptionData
     var Stage = "";
@@ -3115,7 +3483,6 @@ function QuoteValidCheck() {
         data: { 'OpportunityID': $('#lblOpportunityId').text(), Stage: Stage },
         async: false,
         success: function (response) {
-            debugger;
             data = response;
 
         },
@@ -3138,7 +3505,7 @@ function DateFormat(date) {
     //}
     if (date != null && date != undefined && date != "") {
         var dateString = date.substr(6);
-         var currentTime = new Date(parseInt(dateString + " UTC"));
+        var currentTime = new Date(parseInt(dateString + " UTC"));
         var tzOffset = currentTime.getTimezoneOffset();
         currentTime.setMinutes(currentTime.getMinutes() + tzOffset);
         var month = currentTime.getMonth() + 1;
@@ -3202,7 +3569,7 @@ function validateEmailAddress(sEmail) {
     // baans end 11th January
 }
 function MasterSearch() {
-    
+
     if ($("#PageName").val() == "ContactList") {
         $('#btnCustomSearch').click();
     }
@@ -3232,7 +3599,7 @@ function MasterSearch() {
 function PageSearch() {
     var options = {
         "acrossElements": true,
-        };
+    };
     $(".SearchText").unmark();
     var SearchedText = $('#searchtextbox').val();
     $(".SearchText").mark(SearchedText);
@@ -3350,7 +3717,7 @@ function GetyyyymmddDate(date) {
 function GetFormattedDate(date) {
     //Get Current date Without Time
     var DateValue = date.getDate();
-//    alert(DateValue);
+    //    alert(DateValue);
     return date.getFullYear() + '-' + ('00' + (date.getMonth() + 1)).substr(-2) + '-' + date.getDate();    //tarun 22/09/2018
 }
 

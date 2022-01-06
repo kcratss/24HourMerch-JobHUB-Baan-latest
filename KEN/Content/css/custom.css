@@ -4,11 +4,20 @@
   margin: 17px 25px 0 20px;
 }
 
+.pq-grid-row{
+    height:30px !important;
+}
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
     color: #666666;
     box-shadow: none;
 }
 
+.sidebar-menu a {
+    margin-top: 2px !important;
+    padding-top: 5px !important;
+    padding-bottom: 14px !important;
+}
 
 button.headerBtn.active {
     left: 0px;
@@ -136,10 +145,11 @@ body > .header .logo {
 
 span.rightsideText {
     border-width: 0px;
-    left: 1690px;
-    top: 185px;
+    
+   /* left: 1690px;
+    top: 0px !important;
     width: 50px;
-    height: 27px;
+    height: 27px;*/
     font-family: 'Arial';
     font-weight: 400;
     font-style: normal;
@@ -171,7 +181,7 @@ button.rightSideBtn {
     height: 31px;*/ /*Commented and added by baans 08Sep2020*/
     width: 100px;
     height: 30px;
-    margin: -1px 0 0 0;
+    margin: -2px 0 0 0;
     background: inherit;
     background-color: rgba(255, 255, 255, 1);
     box-sizing: border-box;
