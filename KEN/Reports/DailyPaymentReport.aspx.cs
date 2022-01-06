@@ -37,7 +37,8 @@ namespace KEN.Reports
                 //Commented by Baans 11Sep2020
                // GeneratedReport(date);
 
-                GeneratedReport(Convert.ToDateTime(date).ToString("yyyy/mm/dd"));
+               // GeneratedReport(Convert.ToDateTime(date).ToString("yyyy/mm/dd"));
+                GeneratedReport(Convert.ToDateTime(date).ToString("dd/MM/yyyy"));
             }
         }
 

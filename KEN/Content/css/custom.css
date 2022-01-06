@@ -4,6 +4,10 @@
   margin: 17px 25px 0 20px;
 }
 
+.pq-grid-row{
+    height:30px !important;
+}
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
     color: #666666;
     box-shadow: none;

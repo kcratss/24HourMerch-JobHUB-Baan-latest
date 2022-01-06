@@ -26,8 +26,7 @@ using Intuit.Ipp.QueryFilter;
 using Intuit.Ipp.Security;
 using System.Collections;
 using System.Net;
-
-
+using System.Data.Entity;
 
 namespace KEN.Controllers
 {
@@ -225,11 +224,12 @@ namespace KEN.Controllers
         }
         public IEnumerable<tblitem> GetItemList()
         {
-            // baans change 19th Sept for active values
-            //var getData = dbContext.tblitems.ToList().OrderBy(_=>_.name);
-            var getData = dbContext.tblitems.Where(_ => _.Status == "Active").ToList().OrderBy(_ => _.name);
+           
+            var getData = dbContext.tblitems.Where(_ => _.Status == "Active").OrderBy(_ => _.name).ToList();
+           getData.Insert(0,new tblitem { name = "Add New" });
+            
             return getData;
-            // baans end 19th Sept
+            
         }
         public IEnumerable<tblband> GetBrandList()
         {
@@ -366,6 +366,15 @@ namespace KEN.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
         }
         // baans end 13th September
+
+        [HttpPost]
+        public ActionResult SaveNewItem(string optionItem)
+        {
+            response = _baseService.SaveNewItem(optionItem);
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult updateOpportunity(opportunityViewModel model)
         {
             if (model != null)
@@ -539,7 +548,7 @@ namespace KEN.Controllers
             //{
             //    objcity = GetAllSizes().Where(m => m.sizeType == SizeType).OrderBy(_ => _.size).ToList();
             //}
-            List<tblOptionSize> objSize = new List<tblOptionSize>();
+           // List<tblOptionSize> objSize = new List<tblOptionSize>();
 
             var data = DbContext.tblOptionSizes.Where(_ => _.sizeType == SizeType).OrderBy(_ => _.SortOrder).ToList();
             var TbcValid = DbContext.tblOpportunities.Where(_ => _.OpportunityId == OppId).FirstOrDefault();
@@ -568,8 +577,12 @@ namespace KEN.Controllers
             objstate.Add(new sizeType { value = "Shorts/Pants", typeName = "Shorts/Pants" });
             objstate.Add(new sizeType { value = "Toddlers/Youth", typeName = "Toddlers/Youth" });
             objstate.Add(new sizeType { value = "Womens", typeName = "Womens" });
+            objstate.Add(new sizeType { value = "Infants/Toddlers", typeName = "Infants/Toddlers" });
+            objstate.Add(new sizeType { value = "OSFM", typeName = "OSFM" });
+            objstate.Add(new sizeType { value = "OSFA", typeName = "OSFA" });
+            
             // baans change 13th November for old Women
-            objstate.Add(new sizeType { value = "Womens_Old", typeName = "Womens_Old" });
+            //objstate.Add(new sizeType { value = "Womens_Old", typeName = "Womens_Old" });
             // baans end 13th November
             objstate.Add(new sizeType { value = "Youths", typeName = "Youths" });
             objstate.Add(new sizeType { value = "Custom", typeName = "Custom" });
@@ -603,16 +616,28 @@ namespace KEN.Controllers
             var data = _baseService.GetDecorationByDesc(prefix).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdateOption(OptionViewModel model, OptionCodeBrandItemViewModel OptionCodeModel)
+        public ActionResult UpdateOption(OptionViewModel model, OptionCodeBrandItemViewModel optionCodeModel)
         {
 
             //P 10 Jan OptionCode
-            if (OptionCodeModel != null && OptionCodeModel.cost != null && OptionCodeModel.Link != null)
+            if (optionCodeModel != null && optionCodeModel.cost != null && optionCodeModel.Link != null)
             {
-                var data = dbContext.tblOptionCodes.Where(x => x.Code == OptionCodeModel.Code).FirstOrDefault();
-                if (OptionCodeModel.id == 0 && data == null)
+                var data = dbContext.tblOptionCodes.Where(x => x.Code == optionCodeModel.Code).FirstOrDefault();
+                if (data != null)
                 {
-                    var OptionCodeData = Mapper.Map<tblOptionCode>(OptionCodeModel);
+                    data.UpdatedBy = DataBaseCon.ActiveUser();
+                    data.UpdatedOn = DateTime.Now;
+                    data.Link = optionCodeModel.Link;
+                    data.BrandId = optionCodeModel.BrandId;
+                    data.itemId = optionCodeModel.itemId;
+                    dbContext.tblOptionCodes.Attach(data);
+                    dbContext.Entry(data).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
+                
+                if (optionCodeModel.id == 0 && data == null)
+                {
+                    var OptionCodeData = Mapper.Map<tblOptionCode>(optionCodeModel);
                     OptionCodeData.CreatedBy = DataBaseCon.ActiveUser();
                     OptionCodeData.CreatedOn = DateTime.Now;
                     dbContext.tblOptionCodes.Add(OptionCodeData);
@@ -664,6 +689,15 @@ namespace KEN.Controllers
             //29 April Stage Change List
             //return Json(data, JsonRequestBehavior.AllowGet);
             return Json(new { data = data, Stage = JobStage }, JsonRequestBehavior.AllowGet);
+        }
+
+       
+    // [UserAuthorize("Admin")]   
+        public JsonResult ResetStageByOppoID(int oppId, string stage)
+        {
+            var data = _baseService.ResetStageByOppoID(oppId, stage);
+            
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult UploadOppImage(string imageData, string filename, int OppId)
         {

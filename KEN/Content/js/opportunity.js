@@ -978,7 +978,7 @@ function submitSize() {
 //    }
 //}
 function ShowModal(SizesPacked, txtPackedandOrderId) {
-
+ 
     $('#hiddenforsizes').val(SizesPacked);
     var ddlSize = $("#ddlSizeType").val();
     if ($("#ddlSizeType").val() != "") {
@@ -1266,7 +1266,7 @@ function OptionCopy() {
 }
 
 function OptionSave() {
-    debugger;
+    
     var OptionAvail = $('#HiddenOptionID').val();
     UpdateOption($('#HiddenOptionID').val());
     if ($('#hdnBrandStatus').val() == "InActive") {
@@ -1309,7 +1309,6 @@ function SaveOppoPacking() {
     return Result;
 }
 function UpdateOption(OptionID) {
-    debugger;
     var IsValid = true;
     
     // baans change 29th September for valid option fields
@@ -1866,7 +1865,7 @@ function UpdateOption(OptionID) {
                                                         $("#FrontLonglbl").text("Click On Search");
                                                         $("#FrontDecorationID").val("");
                                                     }
-
+                                                   
                                                     if (data.back_decoration != null && data.back_decoration != undefined) {
                                                         $("#BackShortlbl").text(data.Back_decDesignName.substr(0, 6));
                                                         $("#BackLonglbl").text(data.Back_decDesignName);
@@ -2261,7 +2260,7 @@ function GetOptionGrid(OpportunityID) {
                     $("#FrontLonglbl").text("Click On Search");
                     $("#FrontDecorationID").val("");
                 }
-
+               
                 if (data.back_decoration != null && data.back_decoration != undefined) {
                     var shortName = "";
                     if (data.Back_decDesignName.length > 12) {
@@ -2280,7 +2279,7 @@ function GetOptionGrid(OpportunityID) {
                     $("#BackShortlbl").text("......");
                     $("#BackLonglbl").text("Click On Search");
                     $("#BackDecorationID").val("");
-                }
+               }
                 if (data.left_decoration != null && data.left_decoration != undefined) {
                     var shortName = "";
                     if (data.Left_decDesignName.length > 12) {
@@ -3203,9 +3202,15 @@ function SaveBrand() {
                 if (response != null && response != undefined && response != "") {
                     //$('#ddlBrand').val(response.source);
                     //location.reload();
+                    if (response.Result == "Warning") {
+                        CustomAlert(response);
+                        $("#BrandModel").css("display", "block");
+                        return;
+                    }
                     $("#ddlBrand").append($('<option></option>').attr("value", response.ID).text(response.Result)).trigger("chosen:updated");
-                    var Res = { Result: "Success", Message: response.Message };
-                    CustomAlert(Res);
+                    $("#BrandModel").css("display", "none");
+                    var res = { Result: "Success", Message: response.Message };
+                    CustomAlert(res);
 
                 }
             },
@@ -3215,6 +3220,46 @@ function SaveBrand() {
     }
 }
 // baans end 13th Sept
+
+
+function ShowItemModal() {
+    $('#txtItemBrand').val('');
+    if ($("#ddlItem :selected").val() == 0) {
+        $("#itemModel").css("display", "block");
+        $('#ddlItem').val('Select');
+    }
+ 
+}
+
+function SaveItem() {
+   
+    if ($('#txtItemBrand').val() != null) {
+        var itemdata = $('#txtItemBrand').val();
+        $.ajax({
+            url: '/Opportunity/SaveNewItem',
+            data: { optionItem: itemdata },
+            async: false,
+            success: function (response) {
+              
+                if (response != null && response != undefined && response != "") {
+                    if (response.Result == "Warning") {
+                        CustomAlert(response);
+                        $("#itemModel").css("display", "block");
+                        return;
+                    }
+                    $("#ddlItem").append($('<option></option>').attr("value", response.ID).text(response.Result)).trigger("chosen:updated");
+                    $("#itemModel").css("display", "none");
+                    var res = { Result: "Success", Message: response.Message };
+                    CustomAlert(res);
+                }
+                
+            },
+            type: 'post',
+
+        });
+    }
+}
+
 
 //baans change 10th Jan for MakeRepeatOrderAtCompleteStage
 function MakeRepeatOrder() {
@@ -3399,7 +3444,7 @@ function OpenProofPdf() {
 }
 
 function SendEmail() {
-
+    
     var checkflag = true;
     if ($("#txtToMail").val() != "") {
         //$("#txtToMail").css("border-color", "rgba(204, 204, 204, 1)");
@@ -3466,7 +3511,7 @@ function SendEmail() {
                                         url: '/Opportunity/ChangeStageByOppoID',
                                         data: { OppId: $('#lblOpportunityId').text(), Stage: 'Order Confirmed' },
                                         async: false,
-                                        success: function (response) {
+                                        success: function (response) {  
                                             var data = response.data;
                                             if (data.response.Result == "Success") {
                                                 $('#lblOrderConfirmDate').text(DateTimeFormat(data.ChangeDate));
@@ -4478,6 +4523,7 @@ function GetDecorationImageGrid(keyword) {
             var hostname = window.location.origin;
 
             $("#decImage").attr("src", hostname + "/Content/uploads/Application/" + dataImage);
+            $("#btnSelectApp").unbind("click");
             $("#btnSelectApp").click(function () {
                 //console.log(rowIndx);
                 //console.log(dataName);
@@ -4539,6 +4585,9 @@ function ClickOnCrossBtn(Location) {
             success: function (response) {
                 if (response == "Success") {
                     $("#" + Location + "Shortlbl").text('......');
+                    $("#" + Location + "Longlbl").text('');
+                    $("#" + Location + "DecorationID").val("");
+
                 }
             }
         });

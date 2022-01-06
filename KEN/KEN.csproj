@@ -382,6 +382,7 @@
     <Compile Include="Controllers\QuickBooksController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\UserAuthenticationFilter.cs" />
+    <Compile Include="Filters\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
