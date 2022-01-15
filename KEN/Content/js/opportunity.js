@@ -979,7 +979,7 @@ function submitSize() {
 //    }
 //}
 function ShowModal(SizesPacked, txtPackedandOrderId) {
-
+ 
     $('#hiddenforsizes').val(SizesPacked);
     var ddlSize = $("#ddlSizeType").val();
     if ($("#ddlSizeType").val() != "") {
@@ -1872,7 +1872,7 @@ function UpdateOption(OptionID) {
                                                         $("#FrontLonglbl").text("Click On Search");
                                                         $("#FrontDecorationID").val("");
                                                     }
-
+                                                   
                                                     if (data.back_decoration != null && data.back_decoration != undefined) {
                                                         $("#BackShortlbl").text(data.Back_decDesignName.substr(0, 6));
                                                         $("#BackLonglbl").text(data.Back_decDesignName);
@@ -2273,7 +2273,7 @@ function GetOptionGrid(OpportunityID) {
                     $("#FrontLonglbl").text("Click On Search");
                     $("#FrontDecorationID").val("");
                 }
-
+               
                 if (data.back_decoration != null && data.back_decoration != undefined) {
                     var shortName = "";
                     if (data.Back_decDesignName.length > 12) {
@@ -2292,7 +2292,7 @@ function GetOptionGrid(OpportunityID) {
                     $("#BackShortlbl").text("......");
                     $("#BackLonglbl").text("Click On Search");
                     $("#BackDecorationID").val("");
-                }
+               }
                 if (data.left_decoration != null && data.left_decoration != undefined) {
                     var shortName = "";
                     if (data.Left_decDesignName.length > 12) {
@@ -3533,7 +3533,7 @@ function SendEmail() {
                                         url: '/Opportunity/ChangeStageByOppoID',
                                         data: { OppId: $('#lblOpportunityId').text(), Stage: 'Order Confirmed' },
                                         async: false,
-                                        success: function (response) {
+                                        success: function (response) {  
                                             var data = response.data;
                                             if (data.response.Result == "Success") {
                                                 $('#lblOrderConfirmDate').text(DateTimeFormat(data.ChangeDate));
