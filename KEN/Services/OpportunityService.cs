@@ -954,6 +954,8 @@ namespace KEN.Services
                                 OppData.JobNotes = null;
                                 OppData.JobAcceptedDate = null;
                                 OppData.AddressId = null;
+                                OppData.ConfirmedDate = null;
+                                OppData.ConfirmMailDate = null;
                                 OppData.Stage = "Order";
                                 var paymetData = _tblPaymentRepository.Get(x=>x.OpportunityId==OppData.OpportunityId).ToList();
                                 foreach (var item in paymetData)
