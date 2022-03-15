@@ -182,7 +182,7 @@ namespace KEN.Controllers
                     //Img = new LinkedResource(path, MediaTypeNames.Image.Jpeg);
                     //Img.ContentId = "MyImage";
 
-                    str = @"<br>Hi " + ContactName + ",<br><br>Your order is confirmed to be dispatched by " + model.Shipping + " by "+model.ConfirmedDate+",<br><br>" + model.MailMessage2 + "<br><br>Regards,<br><br>" + AccountManageName + "<br>" + MailSignature[0] + "<br><br>" + AcctDesignation + "<br>" + MailSignature[1] + "<br>" + Msg4 + "<br><br><table style ='width:100%'><tr><td colspan='3'><a href ='https://24hourt-shirts.com.au/'><img src = \"cid:MailFooter.jpg\" id = 'img' alt = '' style='width:86%;height:auto;' /></a></td></tr></table>";
+                    str = @"<br>Hi " + ContactName + ",<br><br>Your order is confirmed to be dispatched by " + model.Shipping + " by " + model.ConfirmedDate + ",<br><br>" + model.MailMessage2 + "<br><br>Regards,<br><br>" + AccountManageName + "<br>" + MailSignature[0] + "<br><br>" + AcctDesignation + "<br>" + MailSignature[1] + "<br>" + Msg4 + "<br><br><table style ='width:100%'><tr><td colspan='3'><a href ='https://24hourt-shirts.com.au/'><img src = \"cid:MailFooter.jpg\" id = 'img' alt = '' style='width:86%;height:auto;' /></a></td></tr></table>";
                     // baans end 22nd Octber
                 }
 
@@ -214,7 +214,8 @@ namespace KEN.Controllers
                 var message = new PostmarkMessage()
                 {
                     To = To,
-                    From = DataBaseCon.FromEmailName+" <" + AcctEmail +">",
+                    //From = DataBaseCon.FromEmailName+" <" + AcctEmail +">",
+                    From = DataBaseCon.FromEmailID,
                     // Bcc = DataBaseCon.BCCMailID == "" ? null : DataBaseCon.BCCMailID,
                     Cc = AcctEmail == "" ? null : AcctEmail,
                     TrackOpens = true,
@@ -308,7 +309,7 @@ namespace KEN.Controllers
             var OpportunityData = dbContext.tblOpportunities.Where(_ => _.OpportunityId == OppoId).FirstOrDefault();
 
             List<OptionViewModel> ProofOptions = new List<OptionViewModel>();
-            if(PageName == "QuoteDetails")
+            if (PageName == "QuoteDetails")
             {
                 ProofOptions = Mapper.Map<List<OptionViewModel>>(dbContext.tbloptions.Where(_ => _.OpportunityId == OppoId && _.OptionStage == "Opp" && _.include_job == true && _.ProofSent == true));
             }
@@ -317,7 +318,7 @@ namespace KEN.Controllers
                 ProofOptions = Mapper.Map<List<OptionViewModel>>(dbContext.tbloptions.Where(_ => _.OpportunityId == OppoId && _.OptionStage == "Order" && _.include_job == true && _.ProofSent == true));
             }
 
-            foreach(var item in ProofOptions)
+            foreach (var item in ProofOptions)
             {
                 PathPdf = "~/Content/uploads/Proof/24 Hour Merchandise Proof - " + OpportunityData.OppName + " - " + item.OpportunityId + " - " + item.id + ".pdf";
                 PathPdf = Server.MapPath(PathPdf);
@@ -411,7 +412,7 @@ namespace KEN.Controllers
 
                 var Count = 1;
                 var Attachments = MultipleFiles.Split('|');
-                foreach(var file in Attachments)
+                foreach (var file in Attachments)
                 {
                     if (file != null && file != "")
                     {
@@ -463,7 +464,7 @@ namespace KEN.Controllers
                 //##############################################
                 var optionstage = "";
 
-                if(PageName == "QuoteDetails")
+                if (PageName == "QuoteDetails")
                 {
                     optionstage = "Opp";
                 }
@@ -474,14 +475,14 @@ namespace KEN.Controllers
 
                 var Optiondata = dbContext.tbloptions.Where(_ => _.OpportunityId == OppoId && _.OptionStage == optionstage && _.include_job == true && _.ProofSent == true).ToList();
 
-                if(Optiondata.Count > 0)
+                if (Optiondata.Count > 0)
                 {
-                    for (var i = 0; i<Optiondata.Count; i++)
+                    for (var i = 0; i < Optiondata.Count; i++)
                     {
                         Optiondata[i].ProofSent = false;
                         Optiondata[i].ProofMailSent = Convert.ToDateTime(DataBaseCon.ToTimeZoneTime(DateTime.Now.ToUniversalTime()));
                         var Version = Optiondata[i].ProofVerion;
-                        if(Version != null)
+                        if (Version != null)
                         {
                             Optiondata[i].ProofVerion = Version + 1;
                         }
@@ -574,6 +575,7 @@ namespace KEN.Controllers
             var FColor = new BaseColor(38, 171, 227);  //40, 171, 255        //font color declaration for highlighted data
             var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows  
             var FColor2 = new BaseColor(51, 51, 51);                /*tarun 20/09/2018*/
+            var FColor3 = new BaseColor(255, 255, 255);
 
             var Heading1 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
             var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 28, iTextSharp.text.Font.NORMAL, FColor);
@@ -581,6 +583,7 @@ namespace KEN.Controllers
             var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
             var contentfontCheck = FontFactory.GetFont((Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
             var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+            var Heading6 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor3);  /*tarun 20/09/2018*/
 
 
 
@@ -592,7 +595,8 @@ namespace KEN.Controllers
             //PdfPTable headertable2 = new PdfPTable(18);
             //headertable2.SetWidths(new int[] { 7, 4, 6, 6, 9, 6, 11, 9, 9, 9, 9, 9, 6, 9, 8, 8, 9, 9 });
             PdfPTable headertable2 = new PdfPTable(19);
-            headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+            //headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+            headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
             headertable2.SpacingAfter = 2f;
             PdfPTable headertable3 = new PdfPTable(18);
             headertable3.SetWidths(new int[] { 7, 6, 6, 6, 7, 6, 8, 10, 11, 10, 9, 9, 6, 8, 8, 9, 9, 8 });
@@ -629,7 +633,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -650,7 +654,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -668,7 +672,7 @@ namespace KEN.Controllers
                     phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -688,7 +692,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -706,7 +710,7 @@ namespace KEN.Controllers
                     phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -725,7 +729,7 @@ namespace KEN.Controllers
                     phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -754,7 +758,7 @@ namespace KEN.Controllers
                         //    linkurl2 = linkurl;
                         //}
                         //Chunk chunk = new Chunk(linkurl2, FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.UNDERLINE, BaseColor.BLUE));
-                        iTextSharp.text.Image ImagePath = iTextSharp.text.Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/hyperlink-icons.jpg"));
+                        iTextSharp.text.Image ImagePath = iTextSharp.text.Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/maximize.png"));
                         System.Drawing.PointF location = new System.Drawing.PointF(1, 1);
                         System.Drawing.RectangleF linkBounds = new System.Drawing.RectangleF(location, new System.Drawing.SizeF(ImagePath.Width, ImagePath.Height));
                         Chunk chunk = new Chunk(ImagePath, 0, 0, true);
@@ -762,11 +766,11 @@ namespace KEN.Controllers
                         phrase.Add(chunk);
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.PaddingTop = 0f;
+                        cell.PaddingTop = 3f;
                         //cell.NoWrap = true;
-                        cell.PaddingBottom = 0f;
+                        cell.PaddingBottom = 5f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
                         if (i % 2 == 0)
                         {
@@ -784,7 +788,7 @@ namespace KEN.Controllers
                         phrase.Add(new Chunk("N/A", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -804,7 +808,7 @@ namespace KEN.Controllers
                     phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     //cell.NoWrap = true;
@@ -837,7 +841,7 @@ namespace KEN.Controllers
                     //phrase.Add(new Paragraph(" Digital Print", Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -866,7 +870,7 @@ namespace KEN.Controllers
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -895,7 +899,7 @@ namespace KEN.Controllers
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -924,7 +928,7 @@ namespace KEN.Controllers
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -954,7 +958,7 @@ namespace KEN.Controllers
                     // baans end 28th November
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -977,7 +981,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -995,7 +999,7 @@ namespace KEN.Controllers
                     phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -1019,7 +1023,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -1040,7 +1044,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -1060,7 +1064,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -1081,7 +1085,7 @@ namespace KEN.Controllers
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = 0;
@@ -1218,7 +1222,7 @@ namespace KEN.Controllers
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingLeft = 15f;
-            cell.PaddingBottom = 3f;
+            cell.PaddingBottom = 5f;
             cell.Border = 0;
             headertable3.AddCell(cell);
 
@@ -1228,7 +1232,7 @@ namespace KEN.Controllers
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell.PaddingBottom = 3f;
+            cell.PaddingBottom = 5f;
             cell.Border = 0;
             headertable3.AddCell(cell);
 
@@ -1312,14 +1316,14 @@ namespace KEN.Controllers
             //cell.HorizontalAlignment = Element.ALIGN_LEFT;
             //cell.PaddingBottom = 0f;
             //headertable3.AddCell(cell);
-            //commented by baans 30Sep2020 end
+            //commented by baans 30Sep2020 end        
 
             //Added new values by baans 01Oct2020 start
             phrase = new Phrase();
             phrase.Add(new Chunk("Quote Total:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
             cell.PaddingLeft = 15f;
             headertable3.AddCell(cell);
@@ -1332,7 +1336,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -1344,7 +1348,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -1363,14 +1367,14 @@ namespace KEN.Controllers
             phrase.Add(new Chunk("GST:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 7f;
             cell.Border = 0;
             cell.PaddingLeft = 15f;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            if (CustomerDetail.QuoteGST!=null)
+            if (CustomerDetail.QuoteGST != null)
             {
                 phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.QuoteGST).ToString()), 2)), Heading4));
             }
@@ -1381,7 +1385,7 @@ namespace KEN.Controllers
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 7f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
@@ -1420,7 +1424,7 @@ namespace KEN.Controllers
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
             cell.Colspan = 1;
-            cell.PaddingBottom = 3f;
+            cell.PaddingBottom = 5f;
             cell.Border = 0;
             headertable3.AddCell(cell);
 
@@ -1429,7 +1433,7 @@ namespace KEN.Controllers
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 9;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
@@ -1448,7 +1452,7 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (CustomerDetail.QuoteFinalTotal != null)
             {
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.QuoteFinalTotal.ToString()), 2)), Heading4));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice), 2)), Heading4));
             }
             else
             {
@@ -1604,11 +1608,11 @@ namespace KEN.Controllers
             if (CustomerDetail.AmtReceived != null)
             {
 
-                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
+                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.QuoteFinalTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
             }
             else
             {
-                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2);
+                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.QuoteFinalTotal + CustomerDetail.ShippingPrice), 2);
             }
             phrase = new Phrase();
             phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading4));
@@ -1656,6 +1660,7 @@ namespace KEN.Controllers
                 var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows  
                 var FColor2 = new BaseColor(51, 51, 51);                /*tarun 20/09/2018*/
                 var FColor3 = new BaseColor(38, 38, 38);
+                var FColor4 = new BaseColor(255, 255, 255);
 
                 //var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
                 var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor3);
@@ -1666,6 +1671,9 @@ namespace KEN.Controllers
                 var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
                 var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
+                var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
 
 
 
@@ -1673,14 +1681,15 @@ namespace KEN.Controllers
                 PdfPCell cell;
 
                 PdfPTable headertable1 = new PdfPTable(15);
-                headertable1.SetWidths(new int[] { 5, 5, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
+                headertable1.SetWidths(new int[] { 6, 4, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
                 //PdfPTable headertable2 = new PdfPTable(18);
                 //headertable2.SetWidths(new int[] { 7, 4, 6, 6, 9, 6, 11, 9, 9, 9, 9, 9, 6, 9, 8, 8, 9, 9 });
                 //headertable2.SpacingAfter = 1f;
                 PdfPTable headertable2 = new PdfPTable(19);
-                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
 
+                PdfPTable headertable3 = new PdfPTable(15);
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
                 cell.Border = 0;
@@ -1701,9 +1710,10 @@ namespace KEN.Controllers
                 //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Job Name:", Heading4));
+                phrase.Add(new Chunk("Job Name: ", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
+                cell.Colspan = 1;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingBottom = 5f;
                 cell.PaddingTop = 24f;
                 cell.Border = 0;
@@ -1713,19 +1723,20 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingBottom = 5f;
                 cell.PaddingTop = 24f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
-
+               
                 phrase = new Phrase();
                 /*phrase.Add(new Chunk("Custom Merchandise Quote", Heading2));*/
                 phrase.Add(new Chunk("CUSTOM MERCHANDISE ", Heading1));
                 phrase.Add(new Chunk("QUOTE", Heading2));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 8;
-                cell.PaddingBottom = 6f;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
@@ -1733,7 +1744,7 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk("Quote Date:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 5f;
+                //cell.PaddingBottom = 5f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingLeft = 15f;
                 cell.PaddingTop = 24f;
@@ -1773,11 +1784,11 @@ namespace KEN.Controllers
                 //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Contact:", Heading4));
+                phrase.Add(new Chunk("Contact: ", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 5f;
-                cell.PaddingTop = 9f;
+                cell.Colspan = 1;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
@@ -1785,8 +1796,8 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                //cell.PaddingBottom = 5f;
-                cell.PaddingTop = 9f;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
@@ -1811,7 +1822,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 phrase.Add(new Chunk("", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 8;
+                cell.Colspan = 9;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
@@ -1853,7 +1864,7 @@ namespace KEN.Controllers
                 cell.Colspan = 2;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 //cell.PaddingBottom = 5f;
-                cell.PaddingTop = 9f;
+                cell.PaddingBottom = 5f;
                 cell.PaddingLeft = 15f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
@@ -1863,7 +1874,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingTop = 9f;
+                cell.PaddingBottom = 5f;
                 //cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 cell.PaddingRight = -1;
@@ -1908,9 +1919,10 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 phrase.Add(new Chunk("Organisation:", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
+                cell.Colspan = 1;
                 //cell.PaddingBottom = 3f;
-                cell.PaddingTop = 10;
+                cell.PaddingBottom = 5f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
@@ -1919,11 +1931,12 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 //cell.PaddingBottom = 3f;
-                cell.PaddingTop = 10f;
+                cell.PaddingBottom = 5f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
-                //phrase = new Phrase();
+                //phrase = new Phrase();            
                 //phrase.Add(new Chunk("", Heading4));
                 //cell = new PdfPCell(phrase);
                 //cell.Colspan = 1;
@@ -1956,9 +1969,10 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk(" Pending", Heading6));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 8;
-                cell.PaddingBottom = 6f;
-                cell.PaddingTop = -10;
+                cell.VerticalAlignment = Element.ALIGN_TOP;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 10f;
+                cell.PaddingTop = -15;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
@@ -2012,17 +2026,17 @@ namespace KEN.Controllers
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 //cell.PaddingBottom = 3f;
-                cell.PaddingTop = 10;
+                cell.PaddingBottom = 3f;
                 cell.PaddingLeft = 15f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" 50% Deposit Upfront \n Balance prior to shipping", Heading4));
+                phrase.Add(new Chunk(" 50% Production Deposit \n Balance prior to shipping", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 2;
-                cell.PaddingTop = 10f;
+                //cell.PaddingTop = 10f;
                 cell.PaddingBottom = 3f;
                 cell.Border = 0;
                 cell.PaddingRight = -1;
@@ -2049,6 +2063,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 7;
                 cell.PaddingBottom = 6f;
+                cell.PaddingTop = 3f;
                 cell.PaddingLeft = -1f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
@@ -2057,12 +2072,25 @@ namespace KEN.Controllers
                 //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
                 //phrase.Add(new Chunk("To proceed please request an Invoice", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
-                phrase.Add(new Chunk("To proceed please request an Invoice", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 8;
-                cell.PaddingBottom = 6f;
+                cell.Colspan = 3;
+                cell.PaddingBottom = 3f;
+                cell.PaddingTop = 3f;
                 cell.Border = 0;
                 cell.PaddingRight = -1;
+                cell.PaddingLeft = 0;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("To proceed please request an Invoice", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 5;
+                cell.PaddingBottom = 1f;
+                cell.PaddingTop = 3f;
+                cell.Border = 0;
+                cell.PaddingRight = -1;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 headertable1.AddCell(cell);
 
@@ -2158,96 +2186,45 @@ namespace KEN.Controllers
 
                 // Next Line
 
-                BaseColor BackgroundColor = WebColors.GetRGBColor("#F2F6F6");
-                string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Quote-V2.png");
-                cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
-                cell.Border = 0;
-                cell.PaddingTop = -1f;
-                cell.Colspan = 15;
-                cell.FixedHeight = 29;
-                cell.PaddingLeft = -1f;
-                cell.PaddingRight = -1f;
-                cell.BackgroundColor = BackgroundColor;
-                headertable1.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Shipping Location:", Heading4));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 2;
-                //cell.PaddingBottom = 6f;
-                //cell.PaddingTop = 4f;
+                BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");
+                //string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Quote-V2.png");
+                //cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
                 //cell.Border = 0;
+                
                 //headertable1.AddCell(cell);
 
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk(CustomerDetail.ShippingLocation.ToString(), Heading4));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 2;
-                //cell.PaddingBottom = 6f;
-                //cell.PaddingTop = 4f;
-                //cell.Border = 0;
-                //headertable1.AddCell(cell);
 
+               
                 //phrase = new Phrase();
-                //phrase.Add(new Chunk("", contentfontCheck));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 7;
-                //cell.PaddingBottom = 6f;
-                //cell.Border = 0;
-                //headertable1.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("\x6C", contentfontCheck));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                ////cell.PaddingTop = -1f;
-                //cell.PaddingBottom = 6f;
-                //cell.Border = 0;
-                //cell.HorizontalAlignment = Element.ALIGN_RIGHT;           /*tarun 20/09/2018*/
-                //headertable1.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Stock levels are changing daily. The earlier an order is confirmed the less the chance of an item being unavailable. \n", Heading5));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 4;
-                //cell.PaddingBottom = 6f;
-                //cell.PaddingTop = -2;
-                //cell.Border = 0;
-                //headertable1.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 2;
-                //cell.PaddingBottom = 2f;
+              
                 //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                ////cell.PaddingLeft = 20f;
+                
                 //cell.Border = 0;
-                //headertable1.AddCell(cell);
+               
 
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Shipping:", Heading4));
-                //phrase.Add(new Chunk(" " + CustomerDetail.ShippingBy.ToString(), Heading4));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 2;
-                //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                //cell.PaddingBottom = 6f;
-                //cell.PaddingLeft = 15f;
-                //cell.PaddingTop = 4f;
-                //cell.Border = 0;
-                //headertable1.AddCell(cell);
+                BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
+                phrase = new Phrase();
+                phrase.Add(new Chunk("[QUOTE]        >>>", Heading9));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 2;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
 
-                //phrase = new Phrase();
-                //string decivalue = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.ShippingPrice.ToString()), 2));
-                ////converting value to decimal format with Currency sign($).
-                //phrase.Add(new Chunk(decivalue, Heading4));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 4f;
-                //cell.PaddingBottom = 6f;
-                //cell.Border = 0;
-                //headertable1.AddCell(cell);
+                phrase = new Phrase();
+                phrase.Add(new Chunk("INVOICE       >>>       DEPOSIT       >>>       PROOF       >>>       PRODUCTION       >>>       COMPLETE       >>>       PAID       >>>       SHIPPED", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 13;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
+
 
                 //Next Line
                 phrase = new Phrase();
@@ -2263,264 +2240,14 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 15;
-                cell.PaddingTop = -2f;
-                cell.PaddingBottom = 5f;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
-                cell.BackgroundColor=BackgroundColor;
-                headertable1.AddCell(cell);
+                cell.BackgroundColor = BackgroundColor;
+                headertable3.AddCell(cell);
 
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("", Heading5));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 5;
-                //cell.Border = 0;
-                //cell.PaddingBottom = 0f;
-                //headertable1.AddCell(cell);
 
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("\x6C", contentfontCheck));
-                //cell = new PdfPCell(phrase);
-                //cell.Border = 0;
-                //cell.VerticalAlignment = Element.ALIGN_CENTER;
-                //cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                //cell.PaddingTop = 5f;
-                //cell.Colspan = 1;
-                //cell.PaddingBottom = 0f;
-                //headertable1.AddCell(cell);
 
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Need it sooner? Contact us now!", Heading5));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 4;
-                //cell.Border = 0;
-                //cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                //cell.PaddingBottom = 0f;
-                //headertable1.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("", Heading5));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 5;
-                //cell.Border = 0;
-                //cell.PaddingBottom = 0f;
-                //headertable1.AddCell(cell);
-
-                //Table Started from here    ########################################################################################
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk(" ", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 18;
-                //cell.PaddingBottom = 3f;
-                //cell.Border = 0;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk(" ", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 18;
-                //cell.PaddingBottom = -5f;
-                //cell.Border = PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Option No ", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingBottom = 0f;
-                //cell.PaddingTop = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Qty", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = 0;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Brand", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Code", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Item", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Colour", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Item Link", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingTop = 0f;
-                //cell.NoWrap = true;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Front Dec", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Back Dec", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Lft Slv Dec", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Rht Slv Dec", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Other Dec", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Other", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Service", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 1;
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Unit Ex GST", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Unit + GST", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Ext Ex GST", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk("Ext + GST", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.Colspan = 1;
-                //cell.PaddingTop = 0f;
-                //cell.PaddingBottom = 0f;
-                //cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk(" ", Heading3));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 18;
-                //cell.PaddingBottom = -5f;
-                //cell.Border = PdfPCell.BOTTOM_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
-                //headertable2.AddCell(cell);
-
-                //phrase = new Phrase();
-                //phrase.Add(new Chunk(" ", Heading5));
-                //cell = new PdfPCell(phrase);
-                //cell.Colspan = 19;
-                //cell.PaddingBottom = -4f;
-                //cell.Border = 0;
-                //cell.BackgroundColor = BackgroundColor;
-                //headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk(" ", Heading5));
@@ -2531,205 +2258,210 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Option No ", Heading5));
+                phrase.Add(new Chunk("Option No ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.PaddingTop = 0f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Qty", Heading5));
+                phrase.Add(new Chunk("Qty", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = 0;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Brand", Heading5));
+                phrase.Add(new Chunk("Brand", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
+                cell.PaddingLeft = 4f;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Code", Heading5));
+                phrase.Add(new Chunk("Code", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
+                cell.PaddingLeft = 4f;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Item", Heading5));
+                phrase.Add(new Chunk("Item", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingLeft = 4f;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Colour", Heading5));
+                phrase.Add(new Chunk("Colour", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Link", Heading5));
-                phrase.Add(new Chunk("View", Heading5));
+                phrase.Add(new Chunk("View", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Sizes", Heading5));
+                phrase.Add(new Chunk("Sizes", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
+                cell.PaddingLeft = 4f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Front Dec", Heading5)); //Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Front App", Heading5));
+                phrase.Add(new Chunk("Front App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Back Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Back App", Heading5));
+                phrase.Add(new Chunk("Back App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Lft Slv Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Lft Slv App", Heading5));
+                phrase.Add(new Chunk("Lft Slv App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Rht Slv Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Rht Slv App", Heading5));
+                phrase.Add(new Chunk("Rht Slv App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Other Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Other App", Heading5));
+                phrase.Add(new Chunk("Other App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Other", Heading5));
+                phrase.Add(new Chunk("Other", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Service", Heading5));
+                phrase.Add(new Chunk("Service", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit Ex GST", Heading5));
+                phrase.Add(new Chunk("Unit Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit + GST", Heading5));
+                phrase.Add(new Chunk("Unit + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext Ex GST", Heading5));
+                phrase.Add(new Chunk("Ext Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext + GST", Heading5));
+                phrase.Add(new Chunk("Ext + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading5));
+                phrase.Add(new Chunk(" ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 19;
                 cell.PaddingBottom = -5f;
@@ -2737,6 +2469,7 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 doc.Add(headertable1);
+                doc.Add(headertable3);
                 doc.Add(headertable2);
             }
             public override void OnEndPage(PdfWriter writer, Document document)
@@ -2755,7 +2488,7 @@ namespace KEN.Controllers
 
                 var FColor2 = new BaseColor(89, 89, 89);   /*tarun 20/09/2018*/
 
-                var FColor3 = new BaseColor(26,26,26); /*tarun 20/09/2018*/
+                var FColor3 = new BaseColor(26, 26, 26); /*tarun 20/09/2018*/
 
                 BaseFont bf = BaseFont.CreateFont(System.Web.HttpContext.Current.Server.MapPath("~/fonts/Myriad Pro Regular.ttf"), BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 
@@ -2769,8 +2502,8 @@ namespace KEN.Controllers
 
                 /*Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);*/    /*tarun 20/09/2018*/
                 //commented and changed by baans 30Sep2020
-                Paragraph footer = new Paragraph("Licensed Partners Online Pty Ltd t/ a 24 Hour Merchandise", footerfont2);
-                Paragraph address = new Paragraph("Unit 2, 85-87 Railway Pde, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 60 130 686 234 Ph: 02 9449 2400 Account Manager:"+ CustomerDetail.AccountManager, footerfont3);
+                Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9449 2400  Account Manager:" + CustomerDetail.AccountManager, footerfont3);
 
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
@@ -2814,7 +2547,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(PayPalImagePath), true);
                 cell.Border = 0;
                 cell.PaddingBottom = -20f;
-                cell.PaddingTop = 12f;
+                cell.PaddingTop = 15f;
                 cell.FixedHeight = 22;
                 cell.PaddingLeft = 670;
                 footerTbl.AddCell(cell);
@@ -2946,24 +2679,25 @@ namespace KEN.Controllers
 
             int i, j, k = 5;
             var rcount = 0;
-            var FColor = new BaseColor(35, 168, 225);             //font color declaration for highlighted data
-            var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows background 
-            var FColor2 = new BaseColor(38, 38, 38);
-            //var FColor3 = new BaseColor(26, 26, 26);
+            var FColor = new BaseColor(38, 171, 227);
+            var RColor = new BaseColor(230, 230, 230);
+            var FColor2 = new BaseColor(51, 51, 51);
+            var FColor3 = new BaseColor(255, 255, 255);
 
             var Heading1 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
-            var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 27, iTextSharp.text.Font.NORMAL, FColor);
-            var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 27, iTextSharp.text.Font.NORMAL, FColor2);
-            var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
-            var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
-
-            Phrase phrase;
+            var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 28, iTextSharp.text.Font.NORMAL, FColor);
+            var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+            var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+            var contentfontCheck = FontFactory.GetFont((Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
+            var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+            var Heading6 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor3);  /*tarun 20/09/2018*/Phrase phrase;
             PdfPCell cell;
 
-            PdfPTable headertable1 = new PdfPTable(14);
-            headertable1.SetWidths(new int[] { 4, 4, 6, 6, 7, 7, 7, 7, 7, 7, 4, 5, 5, 5 });
+            PdfPTable headertable1 = new PdfPTable(15);
+            headertable1.SetWidths(new int[] { 5, 5, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
             PdfPTable headertable2 = new PdfPTable(19);
-            headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+            headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
+            headertable2.SpacingAfter = 2f;
             PdfPTable headertable3 = new PdfPTable(14);
             headertable3.SetWidths(new int[] { 3, 4, 6, 7, 7, 7, 7, 7, 7, 7, 4, 4, 5, 5 });
             //headertable3.SpacingBefore = 50f;
@@ -2981,7 +2715,7 @@ namespace KEN.Controllers
                     // ? RColor : Color.WHITE;
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(" ", Heading5));
+                    phrase.Add(new Chunk(" ", Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 19;
                     cell.PaddingBottom = -6f;
@@ -2997,10 +2731,10 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].OptionNo.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].OptionNo.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.Colspan = 1;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -3018,10 +2752,10 @@ namespace KEN.Controllers
 
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].Quantity.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].Quantity.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.Colspan = 1;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -3037,9 +2771,9 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.Colspan = 1;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -3056,11 +2790,11 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].code.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].code.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -3075,10 +2809,10 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -3094,10 +2828,10 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -3126,17 +2860,17 @@ namespace KEN.Controllers
                         //    linkurl2 = linkurl;
                         //}
                         //Chunk chunk = new Chunk(linkurl2, FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.UNDERLINE, BaseColor.BLUE));
-                        Image ImagePath = Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/hyperlink-icons.jpg"));
+                        iTextSharp.text.Image ImagePath = iTextSharp.text.Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/maximize.png"));
                         Chunk chunk = new Chunk(ImagePath, 0, 0, true);
                         chunk.SetAnchor(OptionData[i].Link.ToString());
                         phrase.Add(chunk);
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 15f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.PaddingTop = 0f;
+                        cell.PaddingTop = 3f;
                         //cell.NoWrap = true;
-                        cell.PaddingBottom = 0f;
+                        cell.PaddingBottom = 5f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
                         if (i % 2 == 0)
                         {
@@ -3151,10 +2885,10 @@ namespace KEN.Controllers
                     else
                     {
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("N/A", Heading5));
+                        phrase.Add(new Chunk("N/A", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         //cell.NoWrap = true;
@@ -3173,10 +2907,10 @@ namespace KEN.Controllers
                     }
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     //cell.NoWrap = true;
@@ -3197,17 +2931,18 @@ namespace KEN.Controllers
                     //phrase.Add(new Chunk(OptionData[i].front.ToString(), Heading5));
                     if (OptionData[i].Front_Detail_Desc1 != "N/A")
                     {
-                        phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading3));
                         phrase.Add(Chunk.NEWLINE);
-                        phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc2.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc2.ToString(), Heading3));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading3));
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
                     cell.PaddingTop = 0f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -3225,17 +2960,17 @@ namespace KEN.Controllers
                     //phrase.Add(new Chunk(OptionData[i].back.ToString(), Heading5));
                     if (OptionData[i].Back_Detail_Desc1 != "N/A")
                     {
-                        phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading3));
                         phrase.Add(Chunk.NEWLINE);
-                        phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc2.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc2.ToString(), Heading3));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading3));
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -3254,17 +2989,17 @@ namespace KEN.Controllers
                     //phrase.Add(new Chunk(OptionData[i].leftdec.ToString(), Heading5));
                     if (OptionData[i].Left_Detail_Desc1 != "N/A")
                     {
-                        phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading3));
                         phrase.Add(Chunk.NEWLINE);
-                        phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc2.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc2.ToString(), Heading3));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading3));
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -3283,17 +3018,17 @@ namespace KEN.Controllers
                     //phrase.Add(new Chunk(OptionData[i].rightdec.ToString(), Heading5));
                     if (OptionData[i].Right_Detail_Desc1 != "N/A")
                     {
-                        phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading3));
                         phrase.Add(Chunk.NEWLINE);
-                        phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc2.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc2.ToString(), Heading3));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading3));
                     }
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -3312,18 +3047,18 @@ namespace KEN.Controllers
                     //phrase.Add(new Chunk(OptionData[i].other.ToString(), Heading5));
                     if (OptionData[i].Other_Detail_Desc1 != "N/A")
                     {
-                        phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading3));
                         phrase.Add(Chunk.NEWLINE);
-                        phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc2.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc2.ToString(), Heading3));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading3));
                     }
                     // baans end 28th November
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingBottom = 0f;
@@ -3342,11 +3077,11 @@ namespace KEN.Controllers
                     string decimalvalue = string.Format("{0:C}", OptionData[i].OtherCost.ToString());
                     //converting value to decimal format with Currency sign($).
 
-                    phrase.Add(new Chunk(decimalvalue, Heading5));
+                    phrase.Add(new Chunk(decimalvalue, Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -3361,10 +3096,10 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading5));
+                    phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
@@ -3384,11 +3119,11 @@ namespace KEN.Controllers
                     string decimalvalue1 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].UnitExGST.ToString()), 2));
                     //converting value to decimal format with Currency sign($).
 
-                    phrase.Add(new Chunk(decimalvalue1, Heading5));
+                    phrase.Add(new Chunk(decimalvalue1, Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -3405,11 +3140,11 @@ namespace KEN.Controllers
 
                     phrase = new Phrase();
                     string decimalvalue2 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].UnitInclGST.ToString()), 2));
-                    phrase.Add(new Chunk(decimalvalue2, Heading5));
+                    phrase.Add(new Chunk(decimalvalue2, Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -3425,11 +3160,11 @@ namespace KEN.Controllers
 
                     phrase = new Phrase();
                     string decimalvalue3 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].ExtExGST.ToString()), 2));
-                    phrase.Add(new Chunk(decimalvalue3, Heading5));
+                    phrase.Add(new Chunk(decimalvalue3, Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = PdfPCell.RIGHT_BORDER;
@@ -3446,11 +3181,11 @@ namespace KEN.Controllers
 
                     phrase = new Phrase();
                     string decimalvalue4 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].ExtInclGST.ToString()), 2));
-                    phrase.Add(new Chunk(decimalvalue4, Heading5));
+                    phrase.Add(new Chunk(decimalvalue4, Heading3));
                     cell = new PdfPCell(phrase);
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     cell.Colspan = 1;
-                    cell.FixedHeight = 25f;
+                    cell.FixedHeight = 19f;
                     cell.PaddingTop = 0f;
                     cell.PaddingBottom = 0f;
                     cell.Border = 0;
@@ -3465,10 +3200,10 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(" ", Heading5));
+                    phrase.Add(new Chunk(" ", Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 19;
-                    cell.PaddingBottom = -6f;
+                    cell.PaddingBottom = -5f;
                     cell.Border = 0;
                     if (i % 2 == 0)
                     {
@@ -3498,7 +3233,7 @@ namespace KEN.Controllers
                 for (j = 0; j <= (k - rcount); j++)
                 {
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(" ", Heading5));
+                    phrase.Add(new Chunk(" ", Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 19;
                     cell.PaddingBottom = -6f;
@@ -3514,7 +3249,7 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(" ", Heading5));
+                    phrase.Add(new Chunk(" ", Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 19;
                     cell.FixedHeight = 25f;
@@ -3534,7 +3269,7 @@ namespace KEN.Controllers
                     headertable2.AddCell(cell);
 
                     phrase = new Phrase();
-                    phrase.Add(new Chunk(" ", Heading5));
+                    phrase.Add(new Chunk(" ", Heading3));
                     cell = new PdfPCell(phrase);
                     cell.Colspan = 19;
                     cell.PaddingBottom = -6f;
@@ -3571,30 +3306,28 @@ namespace KEN.Controllers
             cell.Rowspan = 2;
             cell.Border = 0;
             cell.PaddingLeft = -1;
-            cell.PaddingTop = 6f;
+            cell.PaddingTop = 4f;
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.VerticalAlignment = Element.ALIGN_TOP;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Shipping:", Heading3));
+            phrase.Add(new Chunk("Shipping:", Heading4));
             phrase.Add(new Chunk(" " + CustomerDetail.ShippingBy.ToString(), Heading3));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingLeft = 15f;
-            cell.PaddingBottom = 3f;
-            cell.PaddingTop = 4f;
+            cell.PaddingBottom = 5f;
             cell.Border = 0;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
             string decivalue = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.ShippingPrice.ToString()), 2));
-            phrase.Add(new Chunk(decivalue, Heading3));
+            phrase.Add(new Chunk(decivalue, Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell.PaddingBottom = 3f;
-            cell.PaddingTop = 4f;
+            cell.PaddingBottom = 5f;
             cell.PaddingRight = -1;
             cell.Border = 0;
             headertable3.AddCell(cell);
@@ -3609,10 +3342,10 @@ namespace KEN.Controllers
             //headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Order/Invoice Total:", Heading3));
+            phrase.Add(new Chunk("Order/Invoice Total:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 9f;
             cell.Border = 0;
             cell.PaddingLeft = 15f;
             headertable3.AddCell(cell);
@@ -3620,27 +3353,26 @@ namespace KEN.Controllers
             phrase = new Phrase();
             // (CustomerDetail.OrderTotal + Convert.ToDecimal(CustomerDetail.ShippingPrice))
             // string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal.ToString()), 2));
-            string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice).ToString()), 2));
-            phrase.Add(new Chunk(Ordertotal, Heading3));
+            string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.OrderTotal).ToString()), 2));
+            phrase.Add(new Chunk(Ordertotal, Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 1f;
             cell.Border = 0;
             cell.PaddingRight = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk(" ", Heading3));
+            phrase.Add(new Chunk(" ", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 11;
             cell.Border = 0;
-            cell.HorizontalAlignment = Element.ALIGN_CENTER;
             cell.PaddingBottom = -2f;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("GST:", Heading3));
+            phrase.Add(new Chunk("GST:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingBottom = 5f;
@@ -3652,24 +3384,25 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (CustomerDetail.GST != null)
             {
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading3));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading4));
             }
             else
             {
-                phrase.Add(new Chunk("$0.00", Heading3));
+                phrase.Add(new Chunk("$0.00", Heading4));
             }
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell.PaddingBottom = 5f;
-            cell.Border = 0;
+            cell.VerticalAlignment = Element.ALIGN_TOP;
+            cell.PaddingBottom = 8f;
             cell.PaddingTop = -1;
+            cell.Border = 0;
             cell.PaddingRight = -1;
             headertable3.AddCell(cell);
 
             //Next Row
             phrase = new Phrase();
-            phrase.Add(new Chunk("Delivery Address:", Heading3));
+            phrase.Add(new Chunk("Delivery Address:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingBottom = 5f;
@@ -3681,37 +3414,39 @@ namespace KEN.Controllers
             var Address1 = " ";
             if (AddressinOpp != null)
             {
-                Address1 = dAddress.Address1 == null ? "": dAddress.Address1.ToString();
+                Address1 = dAddress.Address1 == null ? "" : dAddress.Address1.ToString();
             }
             else
             {
                 Address1 = CustomerDetail.Address1 == "N/A" ? "" : CustomerDetail.Address1.ToString();
             }
             phrase = new Phrase();
-            phrase.Add(new Chunk(Address1, Heading3));
+            phrase.Add(new Chunk(Address1, Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 3;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("To proceed with this order please make payment to:", Heading3));
+            phrase.Add(new Chunk("To proceed with this order please make payment to:", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 3;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
+            cell.PaddingLeft = -50f;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Bank: ANZ", Heading3));
+            phrase.Add(new Chunk("Bank: ANZ", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 3;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
+            cell.PaddingLeft = -50f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
@@ -3740,29 +3475,30 @@ namespace KEN.Controllers
             //commented and added new cell 29sep2020
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Final Total:", Heading3));
+            phrase.Add(new Chunk("Final Total:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingLeft = 15f;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
 
-            phrase = new Phrase();
-            if (CustomerDetail.AmtReceived != null)
+            phrase = new Phrase();          
+            if (CustomerDetail.FinalTotal != null)
             {
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal.ToString()), 2)), Heading3));
+                decimal? FinalTotal = Math.Round(Convert.ToDecimal(CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice), 2);
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(FinalTotal.ToString()), 2)), Heading4));
             }
             else
             {
-                phrase.Add(new Chunk("$0.00", Heading3));
+                phrase.Add(new Chunk("$0.00", Heading4));
             }
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             cell.PaddingRight = -1;
@@ -3770,7 +3506,7 @@ namespace KEN.Controllers
 
             //Next Row
             phrase = new Phrase();
-            phrase.Add(new Chunk(" ", Heading3));
+            phrase.Add(new Chunk(" ", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -3781,43 +3517,45 @@ namespace KEN.Controllers
             var Address2 = " ";
             if (AddressinOpp != null)
             {
-                Address2 = dAddress.Address2 == null ? "": dAddress.Address2.ToString();
+                Address2 = dAddress.Address2 == null ? "" : dAddress.Address2.ToString();
             }
             else
             {
                 Address2 = CustomerDetail.Address2 == "N/A" ? "" : CustomerDetail.Address2.ToString();
             }
             phrase = new Phrase();
-            phrase.Add(new Chunk(Address2, Heading3));
+            phrase.Add(new Chunk(Address2, Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 3;
-            cell.PaddingBottom = 5f;
+            cell.PaddingBottom = 8f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Or pay by Visa, Mastercard or PayPal", Heading3));
-            cell = new PdfPCell(phrase);
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            cell.Colspan = 3;
-            cell.PaddingTop = -1;
-            cell.PaddingBottom = 5f;
-            cell.Border = 0;
-            headertable3.AddCell(cell);
-
-            phrase = new Phrase();
-            phrase.Add(new Chunk("Acct Name: 24 Hour Merchandise", Heading3));
+            phrase.Add(new Chunk("Or pay by Visa, Mastercard or PayPal", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 3;
+            cell.PaddingLeft = -50f;
+            cell.PaddingTop = -1;
             cell.PaddingBottom = 5f;
+            cell.Border = 0;
+            headertable3.AddCell(cell);
+
+            phrase = new Phrase();
+            phrase.Add(new Chunk("Acct Name: Tuff Tees Pty Ltd", Heading4));
+            cell = new PdfPCell(phrase);
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            cell.Colspan = 3;
+            cell.PaddingBottom = 5f;
+            cell.PaddingLeft = -50f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Deposit Paid:", Heading3));
+            phrase.Add(new Chunk("Deposit Paid:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingLeft = 15f;
@@ -3830,11 +3568,11 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (CustomerDetail.AmtReceived != null)
             {
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2)), Heading3));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2)), Heading4));
             }
             else
             {
-                phrase.Add(new Chunk("$0.00", Heading3));
+                phrase.Add(new Chunk("$0.00", Heading4));
             }
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
@@ -3846,7 +3584,7 @@ namespace KEN.Controllers
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk(" ", Heading3));
+            phrase.Add(new Chunk(" ", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingBottom = 5f;
@@ -3857,17 +3595,17 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (AddressinOpp != null)
             {
-                phrase.Add(new Chunk(dAddress.State == null ? "": dAddress.State.ToString()+ "  " + dAddress.Postcode.ToString(), Heading3));
+                phrase.Add(new Chunk(dAddress.State == null ? "" : dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading4));
             }
             else
             {
                 if (CustomerDetail.Postcode != null)
                 {
-                    phrase.Add(new Chunk(CustomerDetail.State == "N/A" ? "" : CustomerDetail.State.ToString() + "  " + CustomerDetail.Postcode.ToString(), Heading3));
+                    phrase.Add(new Chunk(CustomerDetail.State == "N/A" ? "" : CustomerDetail.State.ToString() + "  " + CustomerDetail.Postcode.ToString(), Heading4));
                 }
                 else
                 {
-                    phrase.Add(new Chunk(" ", Heading3));
+                    phrase.Add(new Chunk(" ", Heading4));
                 }
             }
             cell = new PdfPCell(phrase);
@@ -3878,11 +3616,12 @@ namespace KEN.Controllers
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Phone 02 9559 2400 for payment", Heading3));
+            phrase.Add(new Chunk("Phone 02 9559 2400 for payment", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             //cell.PaddingTop = -4f;
             cell.Colspan = 3;
+            cell.PaddingLeft = -50f;
             cell.PaddingBottom = 5f;
             cell.Border = 0;
             cell.PaddingTop = -1;
@@ -3890,17 +3629,18 @@ namespace KEN.Controllers
 
             phrase = new Phrase();
             //phrase.Add(new Chunk("BSB: 012351      Acct No.: 401 303 731", Heading3));  //Commented and changed by baans 01Oct2020
-            phrase.Add(new Chunk("BSB: 012351      Acct No.: 528 351 271", Heading3));
+            phrase.Add(new Chunk("BSB: 012301         Acct No.: 5323 562 825", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 3;
+            cell.PaddingLeft = -50f;
             cell.PaddingBottom = 5f;
             cell.Border = 0;
             cell.PaddingTop = -1;
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Balance Due:", Heading3));
+            phrase.Add(new Chunk("Balance Due:", Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 2;
             cell.PaddingLeft = 15f;
@@ -3914,14 +3654,14 @@ namespace KEN.Controllers
             if (CustomerDetail.AmtReceived != null)
             {
 
-                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
+                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
             }
             else
-            {
-                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2);
+            {      
+                Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2);
             }
             phrase = new Phrase();
-            phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading3));
+            phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading4));
             cell = new PdfPCell(phrase);
             cell.Colspan = 1;
             cell.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -3960,40 +3700,47 @@ namespace KEN.Controllers
 
                 Rectangle pageSize = doc.PageSize;
 
-                var FColor = new BaseColor(35, 168, 225);             //font color declaration for highlighted data
-                var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows background 
-                var FColor2 = new BaseColor(38, 38, 38);
-                //var FColor3 = new BaseColor(26, 26, 26);
+                var FColor = new BaseColor(38, 171, 227);  //40, 171, 255        //font color declaration for highlighted data
+                var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows  
+                var FColor2 = new BaseColor(51, 51, 51);                /*tarun 20/09/2018*/
+                var FColor3 = new BaseColor(38, 38, 38);
+                var FColor4 = new BaseColor(255, 255, 255);
 
                 //var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
                 //Commented and changed 10Dec2020 by baasns start
                 //var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
                 //var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor2);
-                //Commented and changed 10Dec2020 by baasns start
-                var Heading3 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor3);
+                var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading3 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+                var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+                var contentfontCheck = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
+                var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+                var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
+                var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
+                var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+
 
                 Phrase phrase;
                 PdfPCell cell;
 
-                PdfPTable headertable1 = new PdfPTable(14);
-                headertable1.SetWidths(new int[] { 4, 4, 6, 6, 5, 8, 8, 7, 8, 8, 4, 4, 5, 5 });
+                PdfPTable headertable1 = new PdfPTable(15);
+                headertable1.SetWidths(new int[] { 6, 4, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
                 PdfPTable headertable2 = new PdfPTable(19);
-                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
+                PdfPTable headertable3 = new PdfPTable(15);
 
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
                 cell.Border = 0;
                 //cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = -18;
-                cell.Colspan = 14;
+                cell.Colspan = 15;
                 cell.FixedHeight = 58;
-                cell.PaddingRight = -800;
+                cell.PaddingRight = -700;
                 cell.PaddingLeft = -28;
                 headertable1.AddCell(cell);
 
@@ -4024,126 +3771,126 @@ namespace KEN.Controllers
                 //headertable1.AddCell(cell); //Commented by baans 28Sep2020 end
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Job Name:", Heading3));
+                phrase.Add(new Chunk("Job Name: ", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 1f;
+                cell.Colspan = 1;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 5f;
                 cell.PaddingTop = 24f;
                 cell.Border = 0;
-                cell.PaddingLeft = -1f;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3));
+                phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 1f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 5f;
                 cell.PaddingTop = 24f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("CUSTOM MERCHANDISE ORDER", Heading4)); //Commented and changed by baans 28Sep2020
-                phrase.Add(new Chunk("CUSTOM MERCHANDISE ", Heading4));
-                phrase.Add(new Chunk("TAX INVOICE", Heading1));
+                phrase.Add(new Chunk("CUSTOM MERCHANDISE ", Heading1));
+                phrase.Add(new Chunk("TAX INVOICE", Heading2));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 6;
-                cell.PaddingBottom = 0f;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;
                 //cell.PaddingTop = -8;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
-                phrase = new Phrase();
-                phrase.Add(new Chunk("", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk("", Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 1;
+                //cell.PaddingBottom = 2f;
+                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 //cell.PaddingLeft = 20f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Order Date:", Heading3)); //Commented and changed by baans 28Sep2020
-                phrase.Add(new Chunk("Order/Invoice Date:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice Date:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 1f;
+                //cell.PaddingBottom = 1f;
                 cell.PaddingTop = 24f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingLeft = 12f;
+                cell.PaddingLeft = 15f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 string datetime2 = string.Format("{0:dd/MM/yyyy}", CustomerDetail.Orderdate);      //setting date format to only show date in desired format
-                phrase.Add(new Chunk(datetime2, Heading3));
+                phrase.Add(new Chunk(datetime2, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 1f;
+                cell.PaddingBottom = 5f;
                 cell.PaddingTop = 24f;
                 cell.Border = 0;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Contact:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = 15f;
-                cell.PaddingLeft = -1;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = 15f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 6;
-                //cell.PaddingBottom = 2f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk("Contact: ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingLeft = 20f;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
+                phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 2;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingBottom = 2f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk(" ", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+              
+                phrase = new Phrase();
                 // baans change 2nd November for the JobHub Number
-                phrase.Add(new Chunk("Order/Invoice No:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice No:", Heading4));
                 //phrase.Add(new Chunk("JobHUB Number:", Heading3));
                 // baans end 2nd November 
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 1f;
-                cell.PaddingTop = 15f;
+                cell.PaddingBottom = 5f;
+                cell.PaddingLeft = 15f;
                 cell.Border = 0;
-                cell.PaddingLeft = 12f;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.QuoteNo.ToString(), Heading3));
+                phrase.Add(new Chunk(CustomerDetail.QuoteNo.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 1f;
-                cell.PaddingTop = 15f;
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 //Commented by baans 28Sep2020 start
@@ -4165,64 +3912,61 @@ namespace KEN.Controllers
                 //Commented by baans 28Sep2020 end
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Organisation:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = 13f;
-                cell.Border = 0;
-                cell.PaddingLeft = -1f;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = 13f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Order Status: ", Heading2));
-                phrase.Add(new Chunk("Pending", Heading6));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 6;
-                cell.PaddingTop = -8f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk("Organisation:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingLeft = 20f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Terms:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 1;
-                cell.PaddingTop = 9f;
+                cell.PaddingBottom = 5f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
                 cell.Border = 0;
-                cell.PaddingTop = 13f;
-                cell.PaddingLeft = 12f;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                //phrase.Add(new Chunk(" - 50% Deposit Upfront \n - Balance prior to shipping", Heading3));
-                phrase.Add(new Chunk(" 50% Deposit Upfront \n Balance prior to shipping", Heading3));
+                phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingTop = 9f;
+                cell.PaddingBottom = 5f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
                 cell.Border = 0;
-                cell.PaddingTop = 13f;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingTop = 13f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Order Status: ", Heading7));
+                phrase.Add(new Chunk("Pending Deposit", Heading6));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_TOP;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 10f;
+                cell.PaddingTop = -15;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+              
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Terms:", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 1;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 3f;
+                cell.PaddingLeft = 15f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk(" 50% Production Deposit \n Balance prior to shipping", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.Colspan = 2;
+                cell.PaddingBottom = 3f;
+                cell.Border = 0;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 //Commented by baans 28Sep2020 start
@@ -4246,10 +3990,11 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk("To be Confirmed", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 //Commented and changed by baans 11Dec2020 end
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 6;
+                cell.Colspan = 7;
                 cell.PaddingBottom = 6f;
+                cell.PaddingTop = 3f;
                 cell.Border = 0;
-                cell.PaddingLeft = -1;
+                cell.PaddingLeft = -1f;
                 headertable1.AddCell(cell);
                 //Commented by baans 28Sep2020 start
                 //phrase = new Phrase();
@@ -4284,26 +4029,67 @@ namespace KEN.Controllers
                 //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
                 //phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
+                //phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                //commented and changed by baans 10Dec2020 end
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 2;
+                cell.PaddingBottom = 1f;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                cell.Border = 0;
+                cell.PaddingRight = -1;
+                headertable1.AddCell(cell);
+
+
+                phrase = new Phrase();
+                //commented and changed by baans 10Dec2020 start
+                //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
+                //phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
                 phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 //commented and changed by baans 10Dec2020 end
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 8;
-                cell.PaddingBottom = 6f;
+                cell.Colspan = 6;
+                cell.PaddingBottom = 1f;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Border = 0;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
-                BaseColor BackgroundColor = WebColors.GetRGBColor("#F2F6F6");
-                string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Order-V2.png");
-                cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
+                BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");             
+                BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
+                phrase = new Phrase();
+                phrase.Add(new Chunk("QUOTE      >>>", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 2;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
-                cell.PaddingTop = -1f;
-                cell.Colspan = 14;
-                cell.FixedHeight = 30;
-                cell.PaddingLeft = -1;
-                cell.PaddingRight = -1;
-                cell.BackgroundColor=BackgroundColor;
-                headertable1.AddCell(cell);
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("INVOICE         >>>", Heading9));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 2;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("DEPOSIT      >>>      PROOF      >>>      PRODUCTION      >>>      COMPLETE      >>>      PAID      >>>      SHIPPED      ", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 11;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("For your order to be completed by: ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
@@ -4317,12 +4103,12 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk(depreqdate, FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.BOLD, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 14;
-                cell.PaddingTop = -2f;
-                cell.PaddingBottom = 4f;
+                cell.Colspan = 15;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = BackgroundColor;
-                headertable1.AddCell(cell);
+                headertable3.AddCell(cell);
 
                 //Commented by baans 28Sep2020 start
                 //phrase = new Phrase();
@@ -4356,204 +4142,209 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Option No ", Heading5));
+                phrase.Add(new Chunk("Option No ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.PaddingTop = 0f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Qty", Heading5));
+                phrase.Add(new Chunk("Qty", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = 0;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Brand", Heading5));
+                phrase.Add(new Chunk("Brand", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Code", Heading5));
+                phrase.Add(new Chunk("Code", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Item", Heading5));
+                phrase.Add(new Chunk("Item", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Colour", Heading5));
+                phrase.Add(new Chunk("Colour", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("View", Heading5));
+                phrase.Add(new Chunk("View", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Sizes", Heading5));
+                phrase.Add(new Chunk("Sizes", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
+                cell.PaddingLeft = 4f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Front Dec", Heading5)); //Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Front App", Heading5));
+                phrase.Add(new Chunk("Front App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Back Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Back App", Heading5));
+                phrase.Add(new Chunk("Back App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Lft Slv Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Lft Slv App", Heading5));
+                phrase.Add(new Chunk("Lft Slv App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Rht Slv Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Rht Slv App", Heading5));
+                phrase.Add(new Chunk("Rht Slv App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Other Dec", Heading5));//Commented and changed by baans 28Sep2020 
-                phrase.Add(new Chunk("Other App", Heading5));
+                phrase.Add(new Chunk("Other App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Other", Heading5));
+                phrase.Add(new Chunk("Other", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Service", Heading5));
+                phrase.Add(new Chunk("Service", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit Ex GST", Heading5));
+                phrase.Add(new Chunk("Unit Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit + GST", Heading5));
+                phrase.Add(new Chunk("Unit + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext Ex GST", Heading5));
+                phrase.Add(new Chunk("Ext Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext + GST", Heading5));
+                phrase.Add(new Chunk("Ext + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading5));
+                phrase.Add(new Chunk(" ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 19;
                 cell.PaddingBottom = -5f;
@@ -4561,6 +4352,7 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 doc.Add(headertable1);
+                doc.Add(headertable3);
                 doc.Add(headertable2);
             }
 
@@ -4592,9 +4384,9 @@ namespace KEN.Controllers
                 iTextSharp.text.Font footerfont3 = new iTextSharp.text.Font(bf, 7, iTextSharp.text.Font.NORMAL, FColor2);
                 iTextSharp.text.Font footerfont4 = new iTextSharp.text.Font(bf, 9, iTextSharp.text.Font.NORMAL, FColor3);
 
-                Paragraph footer = new Paragraph("Licensed Partners Online Pty Ltd t/a 24 Hour Merchandise", footerfont2);/*tarun 20/09/2018*/
+                Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);/*tarun 20/09/2018*/
                 /*Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);*/    /*tarun 20/09/2018*/
-                Paragraph address = new Paragraph("Unit 2, 85-87 Railway Pde, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 60 130 686 234 Ph: 02 9449 2400 Account Manager:"+ CustomerDetail.AccountManager, footerfont3);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9449 2400  Account Manager:" + CustomerDetail.AccountManager, footerfont3);
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);
@@ -4614,7 +4406,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(PayPalImagePath), true);
                 cell.Border = 0;
                 cell.PaddingBottom = -20f;
-                cell.PaddingTop = 12f;
+                cell.PaddingTop = 15f;
                 cell.FixedHeight = 22;
                 cell.PaddingLeft = 675;
                 cell.PaddingRight = -4;
@@ -4754,26 +4546,30 @@ namespace KEN.Controllers
 
                 int i, j, k = 5;
                 var rcount = 0;
-                var FColor = new BaseColor(35, 168, 225);             //font color declaration for highlighted data
-                var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows background 
-                var FColor2 = new BaseColor(38, 38, 38);
-                var FColor3 = new BaseColor(26, 26, 26);
+                var FColor = new BaseColor(38, 171, 227);
+                var RColor = new BaseColor(230, 230, 230);
+                var FColor2 = new BaseColor(51, 51, 51);
+                var FColor3 = new BaseColor(255, 255, 255);
+                //var FColor3 = new BaseColor(26, 26, 26);
 
-                var Heading1 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 20, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 27, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 27, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading1 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 28, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
+                var contentfontCheck = FontFactory.GetFont((Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
+                var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading6 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor3);
 
                 Phrase phrase;
                 PdfPCell cell;
 
-                //PdfPTable headertable1 = new PdfPTable(14);
-                //headertable1.SetWidths(new int[] { 4, 4, 6, 6, 7, 7, 7, 7, 7, 7, 4, 5, 5, 5 });
+                PdfPTable headertable1 = new PdfPTable(15);
+                headertable1.SetWidths(new int[] { 5, 5, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
                 PdfPTable headertable2 = new PdfPTable(19);
-                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
+                headertable2.SpacingAfter = 2f;
                 PdfPTable headertable3 = new PdfPTable(14);
-                headertable3.SetWidths(new int[] { 3, 4, 7, 6, 7, 7, 7, 7, 7, 7, 3, 5, 5, 5 });
+                headertable3.SetWidths(new int[] { 3, 4, 6, 7, 7, 7, 7, 7, 7, 7, 3, 5, 5, 5 });
 
                 // Table Data ############################################################################################################
 
@@ -4787,7 +4583,7 @@ namespace KEN.Controllers
                         // ? RColor : Color.WHITE;
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
                         cell.PaddingBottom = -6f;
@@ -4803,11 +4599,11 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].OptionNo.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].OptionNo.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 16f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -4824,11 +4620,11 @@ namespace KEN.Controllers
 
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].Quantity.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Quantity.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -4843,10 +4639,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -4862,11 +4658,11 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].code.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].code.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -4881,10 +4677,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -4900,10 +4696,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -4934,16 +4730,16 @@ namespace KEN.Controllers
                             //Chunk chunk = new Chunk(linkurl2, FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.UNDERLINE, BaseColor.BLUE));
                             //chunk.SetAnchor(OptionData[i].Link.ToString());
                             ////phrase.Add(new Chunk(OptionData[i].Link.ToString(), FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.UNDERLINE, BaseColor.BLUE)));
-                            Image ImagePath = Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/hyperlink-icons.jpg"));
+                            Image ImagePath = Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/maximize.png"));
                             Chunk chunk = new Chunk(ImagePath, 0, 0, true);
                             phrase.Add(chunk);
                             cell = new PdfPCell(phrase);
                             cell.Colspan = 1;
-                            cell.FixedHeight = 25f;
+                            cell.FixedHeight = 19f;
                             cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                            cell.PaddingTop = 0f;
+                            cell.PaddingTop = 3f;
                             //cell.NoWrap = true;
-                            cell.PaddingBottom = 0f;
+                            cell.PaddingBottom = 6f;
                             cell.Border = PdfPCell.RIGHT_BORDER;
                             if (i % 2 == 0)
                             {
@@ -4958,10 +4754,10 @@ namespace KEN.Controllers
                         else
                         {
                             phrase = new Phrase();
-                            phrase.Add(new Chunk("N/A", Heading5));
+                            phrase.Add(new Chunk("N/A", Heading3));
                             cell = new PdfPCell(phrase);
                             cell.Colspan = 1;
-                            cell.FixedHeight = 25f;
+                            cell.FixedHeight = 19f;
                             cell.HorizontalAlignment = Element.ALIGN_CENTER;
                             cell.PaddingTop = 0f;
                             //cell.NoWrap = true;
@@ -4979,10 +4775,10 @@ namespace KEN.Controllers
                         }
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         //cell.NoWrap = true;
@@ -5003,17 +4799,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].front.ToString(), Heading5));
                         if (OptionData[i].Front_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -5032,17 +4828,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].back.ToString(), Heading5));
                         if (OptionData[i].Back_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -5061,17 +4857,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].leftdec.ToString(), Heading5));
                         if (OptionData[i].Left_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -5090,17 +4886,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].rightdec.ToString(), Heading5));
                         if (OptionData[i].Right_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -5119,18 +4915,18 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].other.ToString(), Heading5));
                         if (OptionData[i].Other_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading3));
                         }
                         // baans end 28th November
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -5149,11 +4945,11 @@ namespace KEN.Controllers
                         string decimalvalue = string.Format("{0:C}", OptionData[i].OtherCost.ToString());
                         //converting value to decimal format with Currency sign($).
 
-                        phrase.Add(new Chunk(decimalvalue, Heading5));
+                        phrase.Add(new Chunk(decimalvalue, Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -5168,10 +4964,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -5191,12 +4987,12 @@ namespace KEN.Controllers
                         string decimalvalue1 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].UnitExGST.ToString()), 2));
                         //converting value to decimal format with Currency sign($).
 
-                        phrase.Add(new Chunk(decimalvalue1, Heading5));
+                        phrase.Add(new Chunk(decimalvalue1, Heading3));
                         //phrase.Add(new Chunk('$' + dt_data.Rows[i]["UnitExGST"].ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -5213,12 +5009,12 @@ namespace KEN.Controllers
 
                         phrase = new Phrase();
                         string decimalvalue2 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].UnitInclGST.ToString()), 2));
-                        phrase.Add(new Chunk(decimalvalue2, Heading5));
+                        phrase.Add(new Chunk(decimalvalue2, Heading3));
                         //phrase.Add(new Chunk('$' + dt_data.Rows[i]["UnitInclGST"].ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -5234,12 +5030,12 @@ namespace KEN.Controllers
 
                         phrase = new Phrase();
                         string decimalvalue3 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].ExtExGST.ToString()), 2));
-                        phrase.Add(new Chunk(decimalvalue3, Heading5));
+                        phrase.Add(new Chunk(decimalvalue3, Heading3));
                         //phrase.Add(new Chunk('$' + dt_data.Rows[i]["ExtExGST"].ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -5256,12 +5052,12 @@ namespace KEN.Controllers
 
                         phrase = new Phrase();
                         string decimalvalue4 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].ExtInclGST.ToString()), 2));
-                        phrase.Add(new Chunk(decimalvalue4, Heading5));
+                        phrase.Add(new Chunk(decimalvalue4, Heading3));
                         //phrase.Add(new Chunk('$'+dt_data.Rows[i]["ExtInclGST"].ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = 0;
@@ -5279,7 +5075,7 @@ namespace KEN.Controllers
                         phrase.Add(new Chunk(" ", Heading5));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
-                        cell.PaddingBottom = -6f;
+                        cell.PaddingBottom = -5f;
                         cell.Border = 0;
                         if (i % 2 == 0)
                         {
@@ -5325,10 +5121,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 22f;
                         cell.PaddingBottom = 6f;
                         cell.Border = 0;
                         cell.BackgroundColor = RColor;
@@ -5345,7 +5141,7 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
                         cell.PaddingBottom = -6f;
@@ -5392,84 +5188,89 @@ namespace KEN.Controllers
                 cell.Border = 0;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.VerticalAlignment = Element.ALIGN_TOP;
-                cell.PaddingTop = 6f;
+                cell.PaddingTop = 4f;
+                cell.PaddingLeft = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Shipping:", Heading3));
-                phrase.Add(new Chunk(" " + CustomerDetail.ShippingBy.ToString(), Heading3));
+                phrase.Add(new Chunk("Shipping:", Heading4));
+                phrase.Add(new Chunk(" " + CustomerDetail.ShippingBy.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingLeft = 19f;
-                cell.PaddingBottom = 3f;
-                cell.PaddingTop = 3f;
+                cell.PaddingLeft = 25f;
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 string decivalue = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.ShippingPrice.ToString()), 2));
-                phrase.Add(new Chunk(decivalue, Heading3));
+                phrase.Add(new Chunk(decivalue, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 3f;
-                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 5f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Order/Invoice Total:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice Total:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 9f;
                 cell.Border = 0;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 // (CustomerDetail.OrderTotal + Convert.ToDecimal(CustomerDetail.ShippingPrice))
                 // string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal.ToString()), 2));
-                string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice).ToString()), 2));
-                phrase.Add(new Chunk(Ordertotal, Heading3));
+                string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.OrderTotal).ToString()), 2));
+                phrase.Add(new Chunk(Ordertotal, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 1f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk(" ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 11;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = -2f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("GST:", Heading3));
+                phrase.Add(new Chunk("GST:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
+                cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 if (CustomerDetail.GST != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading3));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading4));
                 }
                 else
                 {
-                    phrase.Add(new Chunk("$0.00", Heading3));
+                    phrase.Add(new Chunk("$0.00", Heading4));
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.VerticalAlignment = Element.ALIGN_TOP;
+                cell.PaddingBottom = 8f;
+                cell.PaddingRight = -1;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -5483,12 +5284,13 @@ namespace KEN.Controllers
                 //headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Delivery Address:", Heading3));
+                phrase.Add(new Chunk("Delivery Address:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
+                cell.PaddingLeft = -1;
                 headertable3.AddCell(cell);
 
                 var Address1 = " ";
@@ -5501,63 +5303,66 @@ namespace KEN.Controllers
                     Address1 = CustomerDetail.Address1 == "N/A" ? "" : CustomerDetail.Address1.ToString();
                 }
                 phrase = new Phrase();
-                phrase.Add(new Chunk(Address1, Heading3));
+                phrase.Add(new Chunk(Address1, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("To finalise this Invoice please make payment to:", Heading3));
+                phrase.Add(new Chunk("To finalise this Invoice please make payment to:", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingLeft = -50f;
+                cell.Colspan = 3;
+                cell.PaddingBottom = 8f;
+                cell.Border = 0;
+                cell.PaddingTop = -1;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Bank: ANZ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingLeft = -50f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Bank: ANZ", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
-                cell.Border = 0;
-                cell.PaddingTop = -1;
-                headertable3.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Final Total:", Heading3));
+                phrase.Add(new Chunk("Final Total:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 if (CustomerDetail.FinalTotal != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.FinalTotal).ToString()), 2)), Heading3));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice).ToString()), 2)), Heading4));
                 }
                 else
                 {
-                    phrase.Add(new Chunk("$0.00", Heading3));
+                    phrase.Add(new Chunk("$0.00", Heading4));
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
+                cell.PaddingRight = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk(" ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -5575,39 +5380,41 @@ namespace KEN.Controllers
                     Address2 = CustomerDetail.Address2 == "N/A" ? "" : CustomerDetail.Address2.ToString();
                 }
                 phrase = new Phrase();
-                phrase.Add(new Chunk(Address2, Heading3));
+                phrase.Add(new Chunk(Address2, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Or pay by Visa, Mastercard or PayPal", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 3;
-                cell.PaddingTop = -1;
-                cell.PaddingBottom = 5f;
-                cell.Border = 0;
-                headertable3.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Acct Name: 24 Hour Merchandise", Heading3));
+                phrase.Add(new Chunk("Or pay by Visa, Mastercard or PayPal", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
+                cell.PaddingTop = -1;
+                cell.PaddingLeft = -50f;
                 cell.PaddingBottom = 5f;
+                cell.Border = 0;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Acct Name: 24 Hour Merchandise", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.Colspan = 3;
+                cell.PaddingBottom = 5f;
+                cell.PaddingLeft = -50f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Deposit Paid:", Heading3));
+                phrase.Add(new Chunk("Deposit Paid:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
@@ -5617,42 +5424,44 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 if (CustomerDetail.AmtReceived != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2)), Heading3));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2)), Heading4));
                 }
                 else
                 {
-                    phrase.Add(new Chunk("$0.00", Heading3));
+                    phrase.Add(new Chunk("$0.00", Heading4));
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingRight = -1;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk(" ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 if (AddressinOpp != null)
                 {
-                    phrase.Add(new Chunk(dAddress.State == null ? "" : dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading3));
+                    phrase.Add(new Chunk(dAddress.State == null ? "" : dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading4));
                 }
                 else
                 {
                     if (CustomerDetail.Postcode != null)
                     {
-                        phrase.Add(new Chunk(CustomerDetail.State == "N/A" ? "" : CustomerDetail.State.ToString() + "  " + CustomerDetail.Postcode.ToString(), Heading3));
+                        phrase.Add(new Chunk(CustomerDetail.State == "N/A" ? "" : CustomerDetail.State.ToString() + "  " + CustomerDetail.Postcode.ToString(), Heading4));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(" ", Heading3));
+                        phrase.Add(new Chunk(" ", Heading4));
                     }
                 }
                 cell = new PdfPCell(phrase);
@@ -5663,12 +5472,13 @@ namespace KEN.Controllers
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Phone 02 9559 2400 for payment", Heading3));
+                phrase.Add(new Chunk("Phone 02 9559 2400 for payment", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 //cell.PaddingTop = -4f;
                 cell.Colspan = 3;
                 cell.PaddingBottom = 5f;
+                cell.PaddingLeft = -50f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
@@ -5676,21 +5486,22 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("BSB: 012351      Acct No.: 401 303 731", Heading3)); 
                 //commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("BSB: 012351      Acct No.: 528 351 271", Heading3));
+                phrase.Add(new Chunk("BSB: 012351      Acct No.: 5323 562 825", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
                 cell.PaddingBottom = 5f;
+                cell.PaddingLeft = -50f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Balance Due:", Heading3));
+                phrase.Add(new Chunk("Balance Due:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingLeft = 19f;
-                //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingLeft = 25f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
@@ -5700,18 +5511,19 @@ namespace KEN.Controllers
                 if (CustomerDetail.AmtReceived != null)
                 {
 
-                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
+                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
                 }
                 else
                 {
-                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2);
+                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2);
                 }
                 phrase = new Phrase();
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading3));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingBottom = 5f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
                 cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
@@ -5754,233 +5566,264 @@ namespace KEN.Controllers
 
                 Rectangle pageSize = doc.PageSize;
 
-                var FColor = new BaseColor(35, 168, 225);             //font color declaration for highlighted data
-                var FColor2 = new BaseColor(38, 38, 38);
-                var FColor3 = new BaseColor(26, 26, 26);
+                var FColor = new BaseColor(38, 171, 227); 
+                var RColor = new BaseColor(230, 230, 230);
+                var FColor2 = new BaseColor(51, 51, 51);
+                var FColor3 = new BaseColor(38, 38, 38);
+                var FColor4 = new BaseColor(255, 255, 255);
 
-                var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 20, iTextSharp.text.Font.NORMAL, FColor);
-                //Commented and changed by baans 11Dec2020 start
-                //var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                //var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor2);
-                //Commented and changed by baans 11Dec2020 end
-                var Heading3 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading3 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+                var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+                var contentfontCheck = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
+                var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
+                var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
+                var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
+                var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
 
                 Phrase phrase;
                 PdfPCell cell;
 
-                PdfPTable headertable1 = new PdfPTable(14);
-                headertable1.SetWidths(new int[] { 4, 4, 5, 5, 7, 7, 7, 7, 7, 7, 4, 6, 5, 5 });
+                PdfPTable headertable1 = new PdfPTable(15);
+                headertable1.SetWidths(new int[] { 6, 4, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
                 PdfPTable headertable2 = new PdfPTable(19);
-                headertable2.SetWidths(new int[] {7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
+                headertable2.SpacingAfter = 2f;
+                PdfPTable headertable3 = new PdfPTable(15);
 
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
                 cell.Border = 0;
                 //cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = -18;
-                cell.Colspan = 14;
+                cell.Colspan = 15;
                 cell.FixedHeight = 58;
-                cell.PaddingRight = -800;
+                cell.PaddingRight = -700;
                 cell.PaddingLeft = -28;
                 headertable1.AddCell(cell);
 
+                //next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk("Job Name: ", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 14;
+                cell.Colspan = 1;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = 24f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                //phrase.Add(new Chunk("Organisation:", Heading3));// commented and chaged by baans 01Oct2020
-                phrase.Add(new Chunk("Job Name:", Heading3));
+                phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 5f;
+                cell.PaddingTop = 24f;
                 cell.Border = 0;
-                cell.PaddingLeft = -1;
-                cell.PaddingTop = 12f;
                 headertable1.AddCell(cell);
 
-                phrase = new Phrase();
+                //phrase = new Phrase();
                 //phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading3));//Commented and chaged by baans 01Oct2020
-                phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.Border = 0;
-                cell.PaddingTop = 12f;
-                headertable1.AddCell(cell);
+                //phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingBottom = 2f;
+                //cell.Border = 0;
+                //cell.PaddingTop = 12f;
+                //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("CUSTOM MERCHANDISE", Heading4));
+                phrase.Add(new Chunk("CUSTOM MERCHANDISE", Heading1));
                 phrase.Add(new Chunk(" TAX INVOICE", Heading2));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 6;
-                cell.PaddingBottom = 0f;
-                cell.PaddingTop = -8;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;                
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
-                phrase = new Phrase();
-                phrase.Add(new Chunk("", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk("", Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 1;
+                //cell.PaddingBottom = 2f;
+                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 //cell.PaddingLeft = 20f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Order/Invoice Date:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice Date:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
+                //cell.PaddingBottom = 2f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingLeft = 15f;
                 cell.Border = 0;
-                cell.PaddingTop = 12f;
+                cell.PaddingTop = 24f;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 string datetime2 = string.Format("{0:dd/MM/yyyy}", ProductionDate);      //setting date format to only show date in desired format
-                phrase.Add(new Chunk(datetime2, Heading3));
+                phrase.Add(new Chunk(datetime2, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
-                cell.PaddingTop = 12f;
+                cell.PaddingTop = 24f;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Contact:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.Border = 0;
-                cell.PaddingTop = 12f;
-                cell.PaddingLeft = -1;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.Border = 0;
-                cell.PaddingTop = 12f;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading1));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 6;
-                cell.PaddingBottom = 2f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk("Contact: ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingLeft = 20f;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                // cell.PaddingTop = 9f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Order/Invoice No.:", Heading3));
+                phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 2;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                // cell.PaddingTop = 9f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingBottom = 2f;
+                //cell.Border = 0;
+                //cell.PaddingTop = 12f;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk(" ", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(" ", Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 1;
+                //cell.PaddingBottom = 2f;
+                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                //cell.PaddingLeft = 20f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Order/Invoice No:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
+                cell.PaddingBottom = 5f;
                 cell.PaddingLeft = 15f;
                 cell.Border = 0;
-                cell.PaddingTop = 12f;
+
+                /*cell.PaddingTop = 12f;*/
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.QuoteNo.ToString(), Heading3));
+                phrase.Add(new Chunk(CustomerDetail.QuoteNo.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
+                cell.PaddingBottom = 5f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
-                cell.PaddingTop = 12f;
+                /*cell.PaddingTop = -1f;*/
                 headertable1.AddCell(cell);
 
+                //Next Row
                 phrase = new Phrase();
-                //phrase.Add(new Chunk("Job Name:", Heading3));// commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Organisation:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = -4f;
-                cell.Border = 0;
-                cell.PaddingLeft = -1;
-                cell.PaddingTop = 12f;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                //phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3)); //Commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = -4f;
-                cell.Border = 0;
-                cell.PaddingTop = 12f;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Order Status: ", Heading6));
-                phrase.Add(new Chunk("Complete!", Heading7));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 6;
-                cell.PaddingTop = -8f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk("Organisation:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingLeft = 20f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Terms:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 1;
-                cell.PaddingTop = -4f;
+                cell.PaddingBottom = 5f;
+                //cell.PaddingTop = 5;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
                 cell.Border = 0;
-                cell.PaddingTop = 12f;
-                cell.PaddingLeft = 15;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("50% Deposit Upfront \nBalance prior to shipping", Heading3));
+                phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingTop = -4f;
+                cell.PaddingBottom = 5f;
+                //cell.PaddingTop = 5;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
                 cell.Border = 0;
-                cell.PaddingTop = 12f;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                ////phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3)); //Commented and changed by baans 01Oct2020
+                //phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading4));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingTop = -4f;
+                //cell.Border = 0;
+                //cell.PaddingTop = 12f;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Order Status: ", Heading7));
+                phrase.Add(new Chunk("Complete!", Heading6));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_TOP;
+                cell.Colspan = 9;
+                cell.PaddingTop = -15f;
+                cell.PaddingBottom = 10f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(" ", Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 1;
+                //cell.PaddingBottom = 2f;
+                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                ////cell.PaddingLeft = 20f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Terms:", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 1;
+                //cell.PaddingTop = -4f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 3f;
+                cell.Border = 0;
+                //cell.PaddingTop = 12f;
+                cell.PaddingLeft = 15f;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("50% Production Deposit \nBalance prior to shipping", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 2;
+                //cell.PaddingTop = -4f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 3f;
+                cell.Border = 0;
+                cell.PaddingLeft = 5f;
+                cell.PaddingRight = -3;
                 headertable1.AddCell(cell);
 
                 //Commented by baans 01Oct2020 Start
@@ -6028,34 +5871,81 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk("Complete", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 //Commented and changed by  baans 11Dec2020 end
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 6;
+                cell.Colspan = 7;
                 cell.PaddingBottom = 6f;
                 cell.Border = 0;
-                cell.PaddingLeft = - 1;
+                cell.PaddingLeft = -1f;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
                 phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
-                phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                //phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 8;
-                cell.PaddingBottom = 6f;
+                cell.Colspan = 2;
+                cell.PaddingBottom = 1f;
                 cell.Border = 0;
                 cell.PaddingRight = -1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 headertable1.AddCell(cell);
 
-                BaseColor BackgroundColor = WebColors.GetRGBColor("#F2F6F6");
-                string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Invoiced-V2.png");
-                cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
+                phrase = new Phrase();
+                //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
+                //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
+                phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 6;
+                cell.PaddingBottom = 1f;
                 cell.Border = 0;
-                cell.PaddingTop = -1f;
-                cell.Colspan = 14;
-                cell.FixedHeight = 30;
-                cell.BackgroundColor = BackgroundColor;
                 cell.PaddingRight = -1;
-                cell.PaddingLeft = -1;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                headertable1.AddCell(cell);
+
+                BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");
+                //string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Invoiced-V2.png");
+                //cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
+                //cell.Border = 0;
+                //cell.PaddingTop = -1f;
+                //cell.Colspan = 14;
+                //cell.FixedHeight = 30;
+                //cell.BackgroundColor = BackgroundColor;
+                //cell.PaddingRight = -1;
+                //cell.PaddingLeft = -1;
+                //headertable1.AddCell(cell);
+
+                BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
+                phrase = new Phrase();
+                phrase.Add(new Chunk("QUOTE     >>>     INVOICE     >>>     DEPOSIT     >>>     PROOF     >>>     PRODUCTION     >>>", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 9;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("COMPLETE           >>>", Heading9));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 2;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("PAID         >>>        SHIPPED        ", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 4;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
@@ -6063,24 +5953,25 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 7;
-                cell.PaddingTop = -5f;
-                cell.PaddingBottom = 5f;
+                cell.PaddingTop = 3f;
+                cell.PaddingLeft = 2f;
+                cell.PaddingRight = -2;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = BackgroundColor;
-                cell.PaddingLeft = -1;
-                headertable1.AddCell(cell);
+                headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("If you Invoice is fully paid for your order will be automatically released for Pick Up of Shipping", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.Colspan = 7;
-                cell.PaddingTop = -5f;
-                cell.PaddingBottom = 5f;
+                cell.Colspan = 8;
+                cell.PaddingTop = 3f;
+                cell.PaddingRight = 2f;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = BackgroundColor;
-                cell.PaddingRight = -1;
-                headertable1.AddCell(cell);
+                headertable3.AddCell(cell);
 
                 // Order Detail Table ###############################################################################################
 
@@ -6102,204 +5993,209 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Option No ", Heading5));
+                phrase.Add(new Chunk("Option No ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.PaddingTop = 0f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Qty", Heading5));
+                phrase.Add(new Chunk("Qty", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = 0;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Brand", Heading5));
+                phrase.Add(new Chunk("Brand", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Code", Heading5));
+                phrase.Add(new Chunk("Code", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Item", Heading5));
+                phrase.Add(new Chunk("Item", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Colour", Heading5));
+                phrase.Add(new Chunk("Colour", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("View", Heading5));
+                phrase.Add(new Chunk("View", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Sizes", Heading5));
+                phrase.Add(new Chunk("Sizes", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
+                cell.PaddingLeft = 4f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Front Dec", Heading5)); //commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Front App", Heading5));
+                phrase.Add(new Chunk("Front App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Back Dec", Heading5)); //commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Back App", Heading5));
+                phrase.Add(new Chunk("Back App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Lft Slv Dec", Heading5));//Commentd and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Lft Slv App", Heading5));
+                phrase.Add(new Chunk("Lft Slv App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Rht Slv Dec", Heading5));//commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Rht Slv App", Heading5));
+                phrase.Add(new Chunk("Rht Slv App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Other Dec", Heading5)); //commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Other App", Heading5));
+                phrase.Add(new Chunk("Other App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Other", Heading5));
+                phrase.Add(new Chunk("Other", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Service", Heading5));
+                phrase.Add(new Chunk("Service", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit Ex GST", Heading5));
+                phrase.Add(new Chunk("Unit Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit + GST", Heading5));
+                phrase.Add(new Chunk("Unit + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext Ex GST", Heading5));
+                phrase.Add(new Chunk("Ext Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext + GST", Heading5));
+                phrase.Add(new Chunk("Ext + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading5));
+                phrase.Add(new Chunk(" ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 19;
                 cell.PaddingTop = -4f;
@@ -6308,6 +6204,7 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 doc.Add(headertable1);
+                doc.Add(headertable3);
                 doc.Add(headertable2);
             }
             public override void OnEndPage(PdfWriter writer, Document document)
@@ -6338,8 +6235,8 @@ namespace KEN.Controllers
 
                 //Paragraph footer = new Paragraph("TeeCorp Pty Ltd t/a 24 Hour Merchandise", footerfont2);/*tarun 20/09/2018*/
                 //Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);    /*tarun 20/09/2018*/
-                Paragraph footer = new Paragraph("Licensed Partners Online Pty Ltd t/ a 24 Hour Merchandise", footerfont2);
-                Paragraph address = new Paragraph("Unit 2, 85-87 Railway Pde, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 60 130 686 234 Ph: 02 9449 2400 Account Manager:"+ CustomerDetail.AccountManager, footerfont3);
+                Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/ a 24 Hour Merchandise", footerfont2);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 60 130 686 234 Ph: 02 9449 2400 Account Manager:" + CustomerDetail.AccountManager, footerfont3);
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);
@@ -6360,9 +6257,9 @@ namespace KEN.Controllers
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(PayPalImagePath), true);
                 cell.Border = 0;
                 cell.PaddingBottom = -20f;
-                cell.PaddingTop = 12f;
+                cell.PaddingTop = 15f;
                 cell.FixedHeight = 22;
-                cell.PaddingLeft = 670;
+                cell.PaddingLeft = 675;
                 cell.PaddingRight = -1;
                 footerTbl.AddCell(cell);
 
@@ -6497,7 +6394,7 @@ namespace KEN.Controllers
 
             int i, j, k = 6;
             var rcount = 0;
-            var FColor = new BaseColor(26,26,26);             //font color declaration for highlighted data
+            var FColor = new BaseColor(26, 26, 26);             //font color declaration for highlighted data
             var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows background 
             var FColor2 = new BaseColor(51, 51, 51);
 
@@ -6870,7 +6767,7 @@ namespace KEN.Controllers
             var Address1 = " ";
             if (AddressinOpp != null)
             {
-                Address1 = dAddress.Address1 == null ? "": dAddress.Address1.ToString();
+                Address1 = dAddress.Address1 == null ? "" : dAddress.Address1.ToString();
             }
             else
             {
@@ -6906,7 +6803,7 @@ namespace KEN.Controllers
             var Address2 = " ";
             if (AddressinOpp != null)
             {
-                Address2 = dAddress.Address2 == null ? "": dAddress.Address2.ToString();
+                Address2 = dAddress.Address2 == null ? "" : dAddress.Address2.ToString();
             }
             else
             {
@@ -6943,7 +6840,7 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (AddressinOpp != null)
             {
-                phrase.Add(new Chunk(dAddress.State == null ? "": dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading3));
+                phrase.Add(new Chunk(dAddress.State == null ? "" : dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading3));
             }
             else
             {
@@ -7238,6 +7135,7 @@ namespace KEN.Controllers
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = -2f;
+
                 cell.PaddingBottom = 0f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
@@ -7483,24 +7381,28 @@ namespace KEN.Controllers
 
                 int i, j, k = 5;
                 var rcount = 0;
-                var FColor = new BaseColor(35, 168, 225);             //font color declaration for highlighted data
-                var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows background 
-                var FColor2 = new BaseColor(38, 38, 38);
+                var FColor = new BaseColor(38, 171, 227);
+                var RColor = new BaseColor(230, 230, 230);
+                var FColor2 = new BaseColor(51, 51, 51);
+                var FColor3 = new BaseColor(255, 255, 255);
                 //var FColor3 = new BaseColor(26, 26, 26);
 
                 var Heading1 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 27, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 27, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
-
+                var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 28, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  
+                var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);  
+                var contentfontCheck = FontFactory.GetFont((Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
+                var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor2);  
+                var Heading6 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor3);  
+              
                 Phrase phrase;
                 PdfPCell cell;
 
-                PdfPTable headertable1 = new PdfPTable(14);
-                headertable1.SetWidths(new int[] { 4, 4, 6, 6, 7, 7, 7, 7, 7, 7, 4, 5, 5, 5 });
+                PdfPTable headertable1 = new PdfPTable(15);
+                headertable1.SetWidths(new int[] { 5, 5, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
                 PdfPTable headertable2 = new PdfPTable(19);
-                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
+                headertable2.SpacingAfter = 2f;
                 PdfPTable headertable3 = new PdfPTable(14);
                 headertable3.SetWidths(new int[] { 3, 4, 6, 7, 7, 7, 7, 7, 7, 7, 3, 5, 5, 5 });
                 //headertable3.SpacingBefore = 50f;
@@ -7518,7 +7420,7 @@ namespace KEN.Controllers
                         // ? RColor : Color.WHITE;
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
                         cell.PaddingBottom = -6f;
@@ -7534,10 +7436,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].OptionNo.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].OptionNo.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.Colspan = 1;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -7558,7 +7460,7 @@ namespace KEN.Controllers
                         phrase.Add(new Chunk(OptionData[i].Quantity.ToString(), Heading5));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.Colspan = 1;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -7574,9 +7476,9 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].brand.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.Colspan = 1;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -7593,11 +7495,11 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].code.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].code.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -7612,10 +7514,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Item.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -7631,10 +7533,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].colour.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -7663,17 +7565,17 @@ namespace KEN.Controllers
                             //    linkurl2 = linkurl;
                             //}
                             //Chunk chunk = new Chunk(linkurl2, FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.UNDERLINE, BaseColor.BLUE));
-                            Image ImagePath = Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/hyperlink-icons.jpg"));
+                            Image ImagePath = Image.GetInstance(System.Web.HttpContext.Current.Server.MapPath("~/Content/images/maximize.png"));
                             Chunk chunk = new Chunk(ImagePath, 0, 0, true);
                             chunk.SetAnchor(OptionData[i].Link.ToString());
                             phrase.Add(chunk);
                             cell = new PdfPCell(phrase);
                             cell.Colspan = 1;
-                            cell.FixedHeight = 25f;
+                            cell.FixedHeight = 19f;
                             cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                            cell.PaddingTop = 0f;
+                            cell.PaddingTop = 3f;
                             //cell.NoWrap = true;
-                            cell.PaddingBottom = 0f;
+                            cell.PaddingBottom = 6f;
                             cell.Border = PdfPCell.RIGHT_BORDER;
                             if (i % 2 == 0)
                             {
@@ -7688,10 +7590,10 @@ namespace KEN.Controllers
                         else
                         {
                             phrase = new Phrase();
-                            phrase.Add(new Chunk("N/A", Heading5));
+                            phrase.Add(new Chunk("N/A", Heading3));
                             cell = new PdfPCell(phrase);
                             cell.Colspan = 1;
-                            cell.FixedHeight = 25f;
+                            cell.FixedHeight = 19f;
                             cell.HorizontalAlignment = Element.ALIGN_CENTER;
                             cell.PaddingTop = 0f;
                             //cell.NoWrap = true;
@@ -7710,10 +7612,10 @@ namespace KEN.Controllers
                         }
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].size.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         //cell.NoWrap = true;
@@ -7734,17 +7636,18 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].front.ToString(), Heading5));
                         if (OptionData[i].Front_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Front_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
                         cell.PaddingTop = 0f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -7762,17 +7665,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].back.ToString(), Heading5));
                         if (OptionData[i].Back_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Back_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -7791,17 +7694,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].leftdec.ToString(), Heading5));
                         if (OptionData[i].Left_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Left_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -7820,17 +7723,17 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].rightdec.ToString(), Heading5));
                         if (OptionData[i].Right_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Right_Detail_Desc1.ToString(), Heading3));
                         }
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -7849,18 +7752,18 @@ namespace KEN.Controllers
                         //phrase.Add(new Chunk(OptionData[i].other.ToString(), Heading5));
                         if (OptionData[i].Other_Detail_Desc1 != "N/A")
                         {
-                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading3));
                             phrase.Add(Chunk.NEWLINE);
-                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc2.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc2.ToString(), Heading3));
                         }
                         else
                         {
-                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading5));
+                            phrase.Add(new Chunk(OptionData[i].Other_Detail_Desc1.ToString(), Heading3));
                         }
                         // baans end 28th November
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingBottom = 0f;
@@ -7879,11 +7782,11 @@ namespace KEN.Controllers
                         string decimalvalue = string.Format("{0:C}", OptionData[i].OtherCost.ToString());
                         //converting value to decimal format with Currency sign($).
 
-                        phrase.Add(new Chunk(decimalvalue, Heading5));
+                        phrase.Add(new Chunk(decimalvalue, Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -7898,10 +7801,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading5));
+                        phrase.Add(new Chunk(OptionData[i].Service.ToString(), Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
@@ -7921,11 +7824,11 @@ namespace KEN.Controllers
                         string decimalvalue1 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].UnitExGST.ToString()), 2));
                         //converting value to decimal format with Currency sign($).
 
-                        phrase.Add(new Chunk(decimalvalue1, Heading5));
+                        phrase.Add(new Chunk(decimalvalue1, Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -7942,11 +7845,11 @@ namespace KEN.Controllers
 
                         phrase = new Phrase();
                         string decimalvalue2 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].UnitInclGST.ToString()), 2));
-                        phrase.Add(new Chunk(decimalvalue2, Heading5));
+                        phrase.Add(new Chunk(decimalvalue2, Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -7962,11 +7865,11 @@ namespace KEN.Controllers
 
                         phrase = new Phrase();
                         string decimalvalue3 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].ExtExGST.ToString()), 2));
-                        phrase.Add(new Chunk(decimalvalue3, Heading5));
+                        phrase.Add(new Chunk(decimalvalue3, Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = PdfPCell.RIGHT_BORDER;
@@ -7983,11 +7886,11 @@ namespace KEN.Controllers
 
                         phrase = new Phrase();
                         string decimalvalue4 = string.Format("{0:C}", Math.Round(Convert.ToDecimal(OptionData[i].ExtInclGST.ToString()), 2));
-                        phrase.Add(new Chunk(decimalvalue4, Heading5));
+                        phrase.Add(new Chunk(decimalvalue4, Heading3));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.Colspan = 1;
-                        cell.FixedHeight = 25f;
+                        cell.FixedHeight = 19f;
                         cell.PaddingTop = 0f;
                         cell.PaddingBottom = 0f;
                         cell.Border = 0;
@@ -8002,10 +7905,10 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
-                        cell.PaddingBottom = -6f;
+                        cell.PaddingBottom = -5f;
                         cell.Border = 0;
                         if (i % 2 == 0)
                         {
@@ -8035,7 +7938,7 @@ namespace KEN.Controllers
                     for (j = 0; j <= (k - rcount); j++)
                     {
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
                         cell.PaddingBottom = -6f;
@@ -8051,7 +7954,7 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
                         cell.FixedHeight = 25f;
@@ -8071,7 +7974,7 @@ namespace KEN.Controllers
                         headertable2.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(" ", Heading5));
+                        phrase.Add(new Chunk(" ", Heading3));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 19;
                         cell.PaddingBottom = -6f;
@@ -8095,6 +7998,7 @@ namespace KEN.Controllers
 
                 // baans change 13th December for EFT in the Confirmation pdf
 
+
                 //Next Row
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Paying by EFT please enter this number as the payment ID:", Heading2));
@@ -8102,36 +8006,36 @@ namespace KEN.Controllers
                 //phrase.Add(new Chunk("Please Note: ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 19, iTextSharp.text.Font.NORMAL, FColor)));
                 phrase.Add(new Chunk("Please Note: ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 24, iTextSharp.text.Font.NORMAL, FColor)));
                 //Commented and changed by baans 11Dec2020 end
-                phrase.Add(new Chunk("Paying by EFT please enter this number as the Description: Inv" + CustomerDetail.QuoteNo.ToString(), FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                phrase.Add(new Chunk("Orders will only proceed after your Artwork Proof is confirmed", FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 11;
                 cell.Rowspan = 2;
                 cell.Border = 0;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.VerticalAlignment = Element.ALIGN_TOP;
-                cell.PaddingTop = 6f;
+                /*cell.PaddingBottom = 5f;*/
+                cell.PaddingTop = 4f;
                 cell.PaddingLeft = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Shipping:", Heading3));
-                phrase.Add(new Chunk(" " + CustomerDetail.ShippingBy.ToString(), Heading3));
+                phrase.Add(new Chunk("Shipping:", Heading4));
+                phrase.Add(new Chunk(" " + CustomerDetail.ShippingBy.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingLeft = 19f;
-                cell.PaddingBottom = 3f;
-                cell.PaddingTop = 4f;
+                cell.PaddingLeft = 25f;
+                cell.PaddingBottom = 5f;            
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 string decivalue = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.ShippingPrice.ToString()), 2));
-                phrase.Add(new Chunk(decivalue, Heading3));
+                phrase.Add(new Chunk(decivalue, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 3f;
-                cell.PaddingTop = 4f;
+                cell.PaddingBottom = 5f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -8147,66 +8051,72 @@ namespace KEN.Controllers
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Order/Invoice Total:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice Total:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 9f;
                 cell.Border = 0;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 // (CustomerDetail.OrderTotal + Convert.ToDecimal(CustomerDetail.ShippingPrice))
                 // string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal.ToString()), 2));
-                string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice).ToString()), 2));
-                phrase.Add(new Chunk(Ordertotal, Heading3));
+                string Ordertotal = string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.OrderTotal).ToString()), 2));
+                phrase.Add(new Chunk(Ordertotal, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 1f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk(" ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 11;
                 cell.Border = 0;
-                cell.PaddingTop = -6;
+                cell.PaddingBottom = -2f;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("GST:", Heading3));
+                phrase.Add(new Chunk("GST:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                if(CustomerDetail.GST!=null)
+                if (CustomerDetail.GST != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading3));
-                }else
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading4));
+                }
+                else
                 {
-                    phrase.Add(new Chunk("$0.00", Heading3));
+                    phrase.Add(new Chunk("$0.00", Heading4));
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
+                cell.PaddingRight = -1;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Delivery Address:", Heading3));
+                phrase.Add(new Chunk("Delivery Address:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingTop = -1;
                 cell.PaddingLeft = -1;
                 headertable3.AddCell(cell);
 
@@ -8220,65 +8130,73 @@ namespace KEN.Controllers
                     Address1 = CustomerDetail.Address1 == "N/A" ? "" : CustomerDetail.Address1.ToString();
                 }
                 phrase = new Phrase();
-                phrase.Add(new Chunk(Address1, Heading3));
+                phrase.Add(new Chunk(Address1, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("To finalise this Invoice please make payment to:", Heading3));
+                phrase.Add(new Chunk("To finalise this Invoice please make payment to:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingLeft = -50f;
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Bank: ANZ", Heading3));
+                phrase.Add(new Chunk("Bank: ANZ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingLeft = -50f;
+                cell.PaddingBottom = 8f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Final Total:", Heading3));
+                phrase.Add(new Chunk("Final Total:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                if (CustomerDetail.FinalTotal!=null)
+                if (CustomerDetail.FinalTotal != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.FinalTotal).ToString()), 2)), Heading3));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice).ToString()), 2)), Heading4));
                 }
                 else
                 {
-                    phrase.Add(new Chunk("$0.00", Heading3));
+                    phrase.Add(new Chunk("$0.00", Heading4));
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
                 cell.Border = 0;
+                cell.PaddingTop = -1;
+                cell.PaddingRight = -1;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk(" ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingBottom = 5f;
                 headertable3.AddCell(cell);
 
                 var Address2 = " ";
@@ -8291,38 +8209,43 @@ namespace KEN.Controllers
                     Address2 = CustomerDetail.Address2 == "N/A" ? "" : CustomerDetail.Address2.ToString();
                 }
                 phrase = new Phrase();
-                phrase.Add(new Chunk(Address2, Heading3));
+                phrase.Add(new Chunk(Address2, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 3;
-                cell.PaddingBottom = 5f;
+                cell.PaddingBottom = 8f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Or pay by Visa, Mastercard or PayPal", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 3;
-                //cell.PaddingTop = 6f;
-                cell.PaddingBottom = 5f;
-                cell.Border = 0;
-                headertable3.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Acct Name: 24 Hour Merchandise", Heading3));
+                phrase.Add(new Chunk("Or pay by Visa, Mastercard or PayPal", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
+                cell.PaddingLeft = -50f;
+                cell.PaddingTop = -1;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Deposit Paid:", Heading3));
+                phrase.Add(new Chunk("Acct Name: Tuff Tees Pty Ltd", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.Colspan = 3;
+                cell.PaddingLeft = -50f;
+                cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
+                cell.Border = 0;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Deposit Paid:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingLeft = 19f;
+                cell.PaddingLeft = 25f;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -8330,76 +8253,85 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 if (CustomerDetail.AmtReceived != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2)), Heading3));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2)), Heading4));
                 }
                 else
                 {
-                    phrase.Add(new Chunk("$0.00", Heading3));
+                    phrase.Add(new Chunk("$0.00", Heading4));
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk(" ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 if (AddressinOpp != null)
                 {
-                    phrase.Add(new Chunk(dAddress.State == null ? "" : dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading3));
+                    phrase.Add(new Chunk(dAddress.State == null ? "" : dAddress.State.ToString() + "  " + dAddress.Postcode.ToString(), Heading4));
                 }
                 else
                 {
                     if (CustomerDetail.Postcode != null)
                     {
-                        phrase.Add(new Chunk(CustomerDetail.State == "N/A" ? "" : CustomerDetail.State.ToString() + "  " + CustomerDetail.Postcode.ToString(), Heading3));
+                        phrase.Add(new Chunk(CustomerDetail.State == "N/A" ? "" : CustomerDetail.State.ToString() + "  " + CustomerDetail.Postcode.ToString(), Heading4));
                     }
                     else
                     {
-                        phrase.Add(new Chunk(" ", Heading3));
+                        phrase.Add(new Chunk(" ", Heading4));
                     }
                 }
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 3;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Phone 02 9559 2400 for payment", Heading3));
+                phrase.Add(new Chunk("Phone 02 9559 2400 for payment", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 //cell.PaddingTop = -4f;
                 cell.Colspan = 3;
+                cell.PaddingLeft = -50f;
+                cell.PaddingTop = -1;
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("BSB: 012351      Acct No.: 528 351 271", Heading3));
+                phrase.Add(new Chunk("BSB: 012301          Acct No.: 5323 562 825", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
+                cell.PaddingLeft = -50f;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Balance Due:", Heading3));
+                phrase.Add(new Chunk("Balance Due:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingLeft = 19f;
-                //cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingLeft = 25f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingBottom = 5f;
+                cell.PaddingTop = -1;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -8407,19 +8339,21 @@ namespace KEN.Controllers
                 if (CustomerDetail.AmtReceived != null)
                 {
 
-                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
+                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
                 }
                 else
                 {
-                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.OrderTotal + CustomerDetail.ShippingPrice), 2);
+                    Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2);
                 }
                 phrase = new Phrase();
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading3));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal(Balance.ToString()), 2)), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingBottom = 5f;
+                cell.PaddingRight = -1;
                 cell.Border = 0;
+                cell.PaddingTop = -1;
                 headertable3.AddCell(cell);
 
                 //doc.Add(headertable1);
@@ -8429,7 +8363,7 @@ namespace KEN.Controllers
                 doc.Close();
                 doc.Dispose();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -8461,41 +8395,46 @@ namespace KEN.Controllers
                 // baans end 14th November
                 Rectangle pageSize = doc.PageSize;
 
-                var FColor = new BaseColor(35, 168, 225);             //font color declaration for highlighted data
-                var RColor = new BaseColor(230, 230, 230);            //font color declaration for table rows background 
-                var FColor2 = new BaseColor(38, 38, 38);
-                //var FColor3 = new BaseColor(26, 26, 26);
+                var FColor = new BaseColor(38, 171, 227);
+                var RColor = new BaseColor(230, 230, 230);
+                var FColor2 = new BaseColor(51, 51, 51);
+                var FColor3 = new BaseColor(38, 38, 38);
+                var FColor4 = new BaseColor(255, 255, 255);
 
                 //var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
                 //Commented and changed by baans 11Dec2020 start
                 //var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
                 //var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading1 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading2 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 32, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor2);
-                var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                //Commented and changed by baans 11Dec2020 end
-                var Heading3 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading3 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading4 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
+                var contentfontCheck = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
                 var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
+                var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
+                var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);
 
                 Phrase phrase;
                 PdfPCell cell;
 
-                PdfPTable headertable1 = new PdfPTable(14);
-                headertable1.SetWidths(new int[] { 4, 4, 6, 6, 7, 5, 9, 7, 7, 7, 4, 5, 5, 5 });
-                PdfPTable headertable2 = new PdfPTable(19);
-                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 14, 8, 8, 8, 8, 8, 6, 9, 8, 8, 9, 9 });
+                 PdfPTable headertable1 = new PdfPTable(15);
+                 headertable1.SetWidths(new int[] { 6, 4, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
+                 PdfPTable headertable2 = new PdfPTable(19);
+                 headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
-
+                PdfPTable headertable3 = new PdfPTable(15);
                 //Row 
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
                 cell.Border = 0;
                 //cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = -18;
-                cell.Colspan = 14;
+                cell.Colspan = 15;
                 cell.FixedHeight = 58;
-                cell.PaddingRight = -800;
+                cell.PaddingRight = -700;
                 cell.PaddingLeft = -28;
                 headertable1.AddCell(cell);
 
@@ -8511,30 +8450,41 @@ namespace KEN.Controllers
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Job Name:", Heading3));
+                phrase.Add(new Chunk("Job Name: ", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingTop = 23f;
+                cell.Colspan = 1;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 5f;
+                cell.PaddingTop = 24f;
                 cell.Border = 0;
-                cell.PaddingLeft = -1;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3));
+                phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingTop = 23f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 5f;
+                cell.PaddingTop = 24f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(CustomerDetail.OppName.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingTop = 23f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("CUSTOM MERCHANDISE ORDER", Heading4));
-                phrase.Add(new Chunk("CUSTOM MERCHANDISE ", Heading4));
+                phrase.Add(new Chunk("CUSTOM MERCHANDISE ", Heading1));
                 phrase.Add(new Chunk("TAX INVOICE", Heading2));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 7;
-                cell.PaddingBottom = 0f;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;
                 //cell.PaddingTop = -8;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
@@ -8551,10 +8501,10 @@ namespace KEN.Controllers
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Order Date:", Heading3)); //commented and changed by baans 03Oct2020
-                phrase.Add(new Chunk("Order/Invoice Date:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice Date:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingTop = 23f;
+                cell.PaddingTop = 24f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingLeft = 15f;
                 cell.Border = 0;
@@ -8562,126 +8512,151 @@ namespace KEN.Controllers
 
                 phrase = new Phrase();
                 string datetime2 = string.Format("{0:dd/MM/yyyy}", CustomerDetail.Orderdate);      //setting date format to only show date in desired format
-                phrase.Add(new Chunk(datetime2, Heading3));
+                phrase.Add(new Chunk(datetime2, Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingTop = 23f;
+                cell.PaddingTop = 24f;
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
+                cell.PaddingRight = -1f;
                 headertable1.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Contact:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.PaddingTop = 10f;
-                cell.Border = 0;
-                cell.PaddingLeft = -1;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.PaddingTop = 10f;
-                cell.Border = 0;
-                cell.PaddingLeft = -1;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 6;
-                cell.PaddingBottom = 2f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading3));
+                phrase.Add(new Chunk("Contact: ", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                //cell.PaddingLeft = 20f;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                // cell.PaddingTop = 9f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 2;
+                cell.PaddingBottom = 7f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                // cell.PaddingTop = 9f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(CustomerDetail.ContactName.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingBottom = 2f;
+                //cell.PaddingTop = 10f;
+                //cell.Border = 0;
+                //cell.PaddingLeft = -1;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk(" ", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 9;
+                cell.PaddingBottom = 5f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(" ", Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 1;
+                //cell.PaddingBottom = 2f;
+                //cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                ////cell.PaddingLeft = 20f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
 
                 phrase = new Phrase();
                 // baans change 03OCT2020 for the JobHub Number
-                phrase.Add(new Chunk("Order/Invoice Number:", Heading3));
+                phrase.Add(new Chunk("Order/Invoice No:", Heading4));
                 //phrase.Add(new Chunk("Invoice No:", Heading3));
                 // baans end 2nd November 
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
-                cell.PaddingTop = 10f;
+                cell.PaddingBottom = 5f;
+                cell.PaddingLeft = 15f;
                 cell.Border = 0;
                 cell.PaddingLeft = 15f;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.QuoteNo.ToString(), Heading3));
+                phrase.Add(new Chunk(CustomerDetail.QuoteNo.ToString(), Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 2f;
-                cell.PaddingTop = 10f;
+                cell.PaddingBottom = 5f;                
                 cell.Border = 0;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 //Next Row
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Organisation:", Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.PaddingTop = 12f;
-                cell.Border = 0;
-                cell.PaddingLeft = -1;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading3));
-                cell = new PdfPCell(phrase);
-                cell.Colspan = 2;
-                cell.PaddingBottom = 2f;
-                cell.PaddingTop = 12f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Order Status: ", Heading6));
-                phrase.Add(new Chunk("Confirmed!", Heading4));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 7;
-                cell.PaddingTop = -8f;
-                cell.Border = 0;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Terms:", Heading3));
+                phrase.Add(new Chunk("Organisation:", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.PaddingTop = 12f;
+                cell.PaddingBottom = 5f;
+                //cell.PaddingTop = 5;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 2;
+                cell.PaddingBottom = 5f;
+                //cell.PaddingTop = 5;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                //phrase = new Phrase();
+                //phrase.Add(new Chunk(CustomerDetail.Organisation.ToString(), Heading3));
+                //cell = new PdfPCell(phrase);
+                //cell.Colspan = 2;
+                //cell.PaddingBottom = 2f;
+                //cell.PaddingTop = 12f;
+                //cell.Border = 0;
+                //headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Order Status: ", Heading7));
+                phrase.Add(new Chunk("Confirmed!", Heading6));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_TOP;
+                cell.Colspan = 9;
+                cell.PaddingBottom = 10f;
+                cell.PaddingTop = -15;
+                cell.Border = 0;
+                headertable1.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("Terms:", Heading4));
+                cell = new PdfPCell(phrase);
+                cell.Colspan = 1;
+                //cell.PaddingTop = 12f;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.PaddingBottom = 3f;
                 cell.PaddingLeft = 15f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("50% Deposit Upfront \nBalance prior to shipping", Heading3));
+                phrase.Add(new Chunk("50% Production Deposit \nBalance prior to shipping", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
-                cell.PaddingTop = 12f;
+                //cell.PaddingTop = 12f;
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.PaddingBottom = 2f;
+                cell.PaddingBottom = 3f;
                 cell.Border = 0;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 //Next Row
@@ -8735,10 +8710,10 @@ namespace KEN.Controllers
                 }
                 //Commented and change by baans 11Dec2020 end
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 6;
-                cell.PaddingBottom = 4f;
+                cell.Colspan = 7;
+                cell.PaddingBottom = 6f;
                 cell.Border = 0;
-                cell.PaddingLeft = -1;
+                cell.PaddingLeft = -1f;
                 headertable1.AddCell(cell);
 
                 //phrase = new Phrase();
@@ -8755,50 +8730,98 @@ namespace KEN.Controllers
                 //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
                 //phrase.Add(new Chunk("An Artwork Proof will be sent to you for confirmation", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
-                phrase.Add(new Chunk("An Artwork Proof will be sent to you for confirmation", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                //phrase.Add(new Chunk("An Artwork Proof will be sent to you for confirmation", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 cell = new PdfPCell(phrase);
-                cell.Colspan = 8;
-                cell.PaddingBottom = 4f;
+                cell.Colspan = 2;
+                cell.PaddingBottom = 1f;
                 cell.Border = 0;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
-                BaseColor BackgroundColor = WebColors.GetRGBColor("#F2F6F6");
-                string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Confirmed-V2.png");
-                cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
-                cell.Border = 0;
-                cell.PaddingTop = -1f;
-                cell.Colspan = 14;
-                cell.FixedHeight = 30;
-                cell.PaddingLeft = -1;
+                phrase = new Phrase();
+                //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
+                //phrase.Add(new Chunk("An Artwork Proof will be sent to you for confirmation", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
+                phrase.Add(new Chunk("An Artwork Proof will be sent to you for confirmation", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                cell = new PdfPCell(phrase);
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                cell.Colspan = 6;
+                cell.PaddingBottom = 1f;
+                cell.Border = 0;               
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingRight = -1;
-                cell.BackgroundColor = BackgroundColor;
                 headertable1.AddCell(cell);
+
+                BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");
+                //string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Confirmed-V2.png");
+                //cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
+                //cell.Border = 0;
+                //cell.PaddingTop = -1f;
+                //cell.Colspan = 14;
+                //cell.FixedHeight = 30;
+                //cell.PaddingLeft = -1;
+                //cell.PaddingRight = -1;
+                //cell.BackgroundColor = BackgroundColor;
+                //headertable1.AddCell(cell);
+
+                BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
+                phrase = new Phrase();
+                phrase.Add(new Chunk("QUOTE      >>>      INVOICE        >>>", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 4;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("DEPOSIT         >>>", Heading9));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 2;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
+
+                phrase = new Phrase();
+                phrase.Add(new Chunk("PROOF     >>>      PRODUCTION      >>>      COMPLETE      >>>      PAID     >>>      SHIPPED      ", Heading8));
+                cell = new PdfPCell(phrase);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.Colspan = 9;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
+                cell.Border = 0;
+                cell.BackgroundColor = TopBarColor;
+                headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("Your order is scheduled to be completed on or before the Completion Date", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 7;
-                cell.PaddingTop = -5f;
-                cell.PaddingBottom = 5f;
+                cell.PaddingTop = 3f;
+                cell.PaddingLeft = 2f;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = BackgroundColor;
-                cell.PaddingLeft = -1;
-                headertable1.AddCell(cell);
+                headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("Please keep an eye on your email for a confirmation proof of your artwork", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.Colspan = 7;
-                cell.PaddingTop = -5f;
-                cell.PaddingBottom = 5f;
+                cell.Colspan = 8;
+                cell.PaddingRight = 2f;
+                cell.PaddingTop = 3f;
+                cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = BackgroundColor;
-                cell.PaddingRight = -1;
-                headertable1.AddCell(cell);
+                headertable3.AddCell(cell);
 
                 //Connfirm table start form here
                 //#############################################################################################################
@@ -8821,123 +8844,127 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Option No ", Heading5));
+                phrase.Add(new Chunk("Option No ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.PaddingTop = 0f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Qty", Heading5));
+                phrase.Add(new Chunk("Qty", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = 0;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Brand", Heading5));
+                phrase.Add(new Chunk("Brand", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Code", Heading5));
+                phrase.Add(new Chunk("Code", Heading10));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Item", Heading5));
+                phrase.Add(new Chunk("Item", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Colour", Heading5));
+                phrase.Add(new Chunk("Colour", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Link", Heading5)); //commented and changed by baans 03Oct2020
-                phrase.Add(new Chunk("View", Heading5));
+                phrase.Add(new Chunk("View", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.PaddingTop = 0f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Sizes", Heading5));
+                phrase.Add(new Chunk("Sizes", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
                 cell.NoWrap = true;
-                cell.PaddingBottom = 0f;
+                cell.PaddingLeft = 4f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("Front Dec", Heading5)); //Commentd and changed by baans 03Oct2020
-                phrase.Add(new Chunk("Front App", Heading5));
+                phrase.Add(new Chunk("Front App", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Back App", Heading5));
+                phrase.Add(new Chunk("Back App", Heading10));
                 //phrase.Add(new Chunk("Back Dec", Heading5));//Commented and changed by baans 03Oct2020
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Lft Slv App", Heading5));
+                phrase.Add(new Chunk("Lft Slv App", Heading10));
                 //phrase.Add(new Chunk("Lft Slv Dec", Heading5)); //Commented and changed by baans 03Oct2020
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Rht Slv Dec", Heading5));
+                phrase.Add(new Chunk("Rht Slv App", Heading10));
                 //phrase.Add(new Chunk("Rht Slv Dec", Heading5)); //Commented and changed by baans 03Oct2020
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
@@ -8948,86 +8975,88 @@ namespace KEN.Controllers
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Other App", Heading5));
+                phrase.Add(new Chunk("Other App", Heading10));
                 //phrase.Add(new Chunk("Other Dec", Heading5)); //Commented and Changed By baans 03oct2020
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Other", Heading5));
+                phrase.Add(new Chunk("Other", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Service", Heading5));
+                phrase.Add(new Chunk("Service", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 1;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
+                cell.PaddingLeft = 4f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit Ex GST", Heading5));
+                phrase.Add(new Chunk("Unit Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Unit + GST", Heading5));
+                phrase.Add(new Chunk("Unit + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext Ex GST", Heading5));
+                phrase.Add(new Chunk("Ext Ex GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Ext + GST", Heading5));
+                phrase.Add(new Chunk("Ext + GST", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 1;
                 cell.PaddingTop = 0f;
-                cell.PaddingBottom = 0f;
+                cell.PaddingBottom = 2f;
                 cell.Border = PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 headertable2.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk(" ", Heading5));
+                phrase.Add(new Chunk(" ", Heading10));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 19;
-                cell.PaddingBottom = -4f;
+                cell.PaddingBottom = -5f;
                 cell.Border = PdfPCell.BOTTOM_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
                 cell.BorderWidthBottom = 0.75f;
                 headertable2.AddCell(cell);
 
                 doc.Add(headertable1);
+                doc.Add(headertable3);
                 doc.Add(headertable2);
             }
 
@@ -9062,8 +9091,8 @@ namespace KEN.Controllers
                 /*Paragraph footer = new Paragraph("TeeCorp Pty Ltd t/a 24 Hour Merchandise", footerfont2);*//*tarun 20/09/2018*/
                 /*Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);*/    /*tarun 20/09/2018*/
                 //Commented and change by baans 01Oct2020
-                Paragraph footer = new Paragraph("Licensed Partners Online Pty Ltd t/a 24 Hour Merchandise", footerfont2);
-                Paragraph address = new Paragraph("Unit 2, 85-87 Railway Pde, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 60 130 686 234 Ph: 02 9449 2400 Account Manager:"+ CustomerDetail.AccountManager, footerfont3);
+                Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9449 2400  Account Manager:" + CustomerDetail.AccountManager, footerfont3);
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);
@@ -9083,10 +9112,10 @@ namespace KEN.Controllers
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(PayPalImagePath), true);
                 cell.Border = 0;
                 cell.PaddingBottom = -20f;
-                cell.PaddingTop = 12f;
+                cell.PaddingTop = 15f;
                 cell.FixedHeight = 22;
-                cell.PaddingLeft = 670;
-                cell.PaddingRight = -1;
+                cell.PaddingLeft = 675;
+                cell.PaddingRight = -4;
                 footerTbl.AddCell(cell);
 
                 cell = new PdfPCell(footer);
@@ -9521,7 +9550,7 @@ namespace KEN.Controllers
                         phrase.Add(new Chunk(" ", Heading4));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        if(data.Colours[i].HexvalueColour != null && data.Colours[i].HexvalueColour != "")
+                        if (data.Colours[i].HexvalueColour != null && data.Colours[i].HexvalueColour != "")
                         {
                             var ColourHexCode = data.Colours[i].HexvalueColour;
                             if (data.Colours[i].HexvalueColour == "NA" || data.Colours[i].HexvalueColour == "TBC" || data.Colours[i].HexvalueColour.Contains("White"))
@@ -9534,11 +9563,11 @@ namespace KEN.Controllers
                         headertable3.AddCell(cell);
 
                         var AppColor = "";
-                        if(data.AppType == "Digital Print" || data.AppType == "Screen Print")
+                        if (data.AppType == "Digital Print" || data.AppType == "Screen Print")
                         {
                             AppColor = data.Colours[i].InkColour;
                         }
-                        else if(data.AppType == "Embroidery")
+                        else if (data.AppType == "Embroidery")
                         {
                             AppColor = data.Colours[i].ThreadColour;
                         }
@@ -9597,7 +9626,7 @@ namespace KEN.Controllers
                         phrase.Add(new Chunk(" ", Heading4));
                         cell = new PdfPCell(phrase);
                         cell.Colspan = 1;
-                        if(data.Colours[i].HexvalueColour != null && data.Colours[i].HexvalueColour != "")
+                        if (data.Colours[i].HexvalueColour != null && data.Colours[i].HexvalueColour != "")
                         {
                             var ColourHexCode = data.Colours[i].HexvalueColour;
                             if (data.Colours[i].HexvalueColour == "NA" || data.Colours[i].HexvalueColour == "TBC" || data.Colours[i].HexvalueColour.Contains("White"))
@@ -9658,7 +9687,7 @@ namespace KEN.Controllers
                 rcount++;
             }
 
-            if(rcount % 2 != 0)
+            if (rcount % 2 != 0)
             {
                 string Placeholder = Path.Combine(Server.MapPath("~/Images/Place-Holder.jpg"));
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(Placeholder), true);
@@ -11606,7 +11635,7 @@ namespace KEN.Controllers
 
                 //var CurrentTimestamp = string.Format("{0:dd/MM/yyyy hh:mm}", DateTime.Now);
                 var version = 1;
-                if(HeaderInfo.ProofVerion != null)
+                if (HeaderInfo.ProofVerion != null)
                 {
                     version = Convert.ToInt32(HeaderInfo.ProofVerion);
                 }
@@ -11761,7 +11790,7 @@ namespace KEN.Controllers
                 for (int i = 0; i < pdfdocument.Pages.Count; i++)
                 {
                     System.Drawing.Image image = pdfdocument.SaveAsImage(i, 96, 96);
-                    image.Save(string.Format(JpegPath+outImageName + i+".Jpeg", i), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    image.Save(string.Format(JpegPath + outImageName + i + ".Jpeg", i), System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
             }
             catch (Exception ex)

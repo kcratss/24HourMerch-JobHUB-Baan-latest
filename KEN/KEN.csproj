@@ -556,6 +556,7 @@
     <Content Include="Content\images\JobStageIndicators-Shipped-V2.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\MailFooter.jpg" />
+    <Content Include="Content\images\maximize.png" />
     <Content Include="Content\images\OpenLinkIcon-40pxls.png" />
     <Content Include="Content\images\OpenLinkIcon-50pxls.png" />
     <Content Include="Content\images\OpenLinkIcon-60pxls.png" />
