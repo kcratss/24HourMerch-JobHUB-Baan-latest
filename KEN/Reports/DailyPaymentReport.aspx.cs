@@ -35,10 +35,10 @@ namespace KEN.Reports
                 var NewDateGroup = NewWholeDate[0].Split('/');
                 //date = NewDateGroup[2]+ "-" + NewDateGroup[0]+ "-" + NewDateGroup[1] + " " + NewWholeDate[1] + " " + NewWholeDate[2];
                 //Commented by Baans 11Sep2020
-               // GeneratedReport(date);
+                GeneratedReport(date);
 
-               // GeneratedReport(Convert.ToDateTime(date).ToString("yyyy/mm/dd"));
-                GeneratedReport(Convert.ToDateTime(date).ToString("dd/MM/yyyy"));
+                
+               // GeneratedReport(Convert.ToDateTime(date).ToString("dd/MM/yyyy"));
             }
         }
 
