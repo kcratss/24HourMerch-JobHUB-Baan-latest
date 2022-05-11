@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f3e8bc129f174248a34e3ca806ca4cbf" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="f3e8bc129f174248a34e3ca806ca4cbf" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="hrModel.tblEvent" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hrModel.tblOppContactMapping" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="hrModel.tblDecorationColour" Width="1.5" PointX="12.375" PointY="0.75" />
@@ -60,15 +60,7 @@
         <AssociationConnector Association="hrModel.FK_tblApplication_AppId" />
         <AssociationConnector Association="hrModel.Fk_TblApplicationColoursMapping_Application" />
         <EntityTypeShape EntityType="hrModel.tblAddress" Width="1.5" PointX="15.625" PointY="41.625" />
-        <EntityTypeShape EntityType="hrModel.tbloption" Width="1.5" PointX="18.625" PointY="28.125" />
         <AssociationConnector Association="hrModel.FK_OrgID_Address" />
-        <AssociationConnector Association="hrModel.FK_back_dec" />
-        <AssociationConnector Association="hrModel.FK_extra_dec" />
-        <AssociationConnector Association="hrModel.FK_front_dec" />
-        <AssociationConnector Association="hrModel.FK_left_dec" />
-        <AssociationConnector Association="hrModel.FK_right_dec" />
-        <AssociationConnector Association="hrModel.FK_BandId" />
-        <AssociationConnector Association="hrModel.FK_itemId" />
         <EntityTypeShape EntityType="hrModel.tblOptionCode" Width="1.5" PointX="14.625" PointY="4.125" />
         <AssociationConnector Association="hrModel.FK_BrandIdOnTblOptionCode" />
         <AssociationConnector Association="hrModel.FK_ItemIdOnTblOptionCode" />
@@ -78,10 +70,8 @@
         <AssociationConnector Association="hrModel.FK_OppID" />
         <AssociationConnector Association="hrModel.FK_OppID_tblOpportunity" />
         <AssociationConnector Association="hrModel.FK_OpportunityId_OppContact" />
-        <AssociationConnector Association="hrModel.FK_OpportunityId" />
         <AssociationConnector Association="hrModel.Fk_tblPayments_OpportunityID" />
         <AssociationConnector Association="hrModel.FK_tblPurchaseDetails_OpportunityId" />
-        <EntityTypeShape EntityType="hrModel.Vw_tblOpportunity" Width="1.5" PointX="19.375" PointY="0.75" />
         <EntityTypeShape EntityType="hrModel.tblacct_managerToBeDeleted" Width="1.5" PointX="21.75" PointY="4.75" />
         <EntityTypeShape EntityType="hrModel.tblarticle_has_attachmentsToBeDeleted" Width="1.5" PointX="21.75" PointY="7.75" />
         <EntityTypeShape EntityType="hrModel.tblclientsToBeDeleted" Width="1.5" PointX="21.75" PointY="10.75" />
@@ -117,6 +107,47 @@
         <EntityTypeShape EntityType="hrModel.tblmigrationsToBeDeleted" Width="1.5" PointX="5.75" PointY="7.75" />
         <EntityTypeShape EntityType="hrModel.tblOptionCopy" Width="1.5" PointX="29.75" PointY="3.75" />
         <EntityTypeShape EntityType="hrModel.tblProductionCopy" Width="1.5" PointX="13.75" PointY="29.75" />
+        <EntityTypeShape EntityType="hrModel.tblColor" Width="1.5" PointX="13.375" PointY="35.875" />
+        <EntityTypeShape EntityType="hrModel.tblFabric" Width="1.5" PointX="13.375" PointY="47.875" />
+        <EntityTypeShape EntityType="hrModel.tblOptionProperty" Width="1.5" PointX="30.875" PointY="21.125" />
+        <AssociationConnector Association="hrModel.FK__tblColor__Create__703EA55A" />
+        <AssociationConnector Association="hrModel.FK__tblOption__Color__731B1205" />
+        <AssociationConnector Association="hrModel.FK__tblFabric__Creat__6D6238AF" />
+        <AssociationConnector Association="hrModel.FK__tblOption__Fabri__79C80F94" />
+        <AssociationConnector Association="hrModel.FK__tblOption__Optio__75F77EB0" />
+        <AssociationConnector Association="hrModel.FK__tblOption__Creat__740F363E" />
+        <AssociationConnector Association="hrModel.FK__tblOption__Updat__75035A77" />
+        <EntityTypeShape EntityType="hrModel.tblState" Width="1.5" PointX="30.375" PointY="16.75" />
+        <EntityTypeShape EntityType="hrModel.tblUserAddressMapping" Width="1.5" PointX="20.875" PointY="36.25" />
+        <AssociationConnector Association="hrModel.FK__tblUserAd__Addre__00750D23" />
+        <AssociationConnector Association="hrModel.FK__tblUserAd__UserI__7F80E8EA" />
+        <EntityTypeShape EntityType="hrModel.tblUserLogo" Width="1.5" PointX="13.375" PointY="51.5" />
+        <AssociationConnector Association="hrModel.FK__tblUserLo__UserI__269AB60B" />
+        <EntityTypeShape EntityType="hrModel.tblUserItem" Width="1.5" PointX="33.125" PointY="35.375" />
+        <AssociationConnector Association="hrModel.FK__tblUserIt__Image__39AD8A7F" />
+        <AssociationConnector Association="hrModel.FK__tblUserIt__Front__3C89F72A" />
+        <AssociationConnector Association="hrModel.FK__tblUserIt__LogoI__3B95D2F1" />
+        <AssociationConnector Association="hrModel.FK__tblUserIt__UserI__3AA1AEB8" />
+        <EntityTypeShape EntityType="hrModel.Vw_tblOpportunity" Width="1.5" PointX="30.375" PointY="26.75" />
+        <EntityTypeShape EntityType="hrModel.tbloption" Width="1.5" PointX="18.625" PointY="28.125" />
+        <AssociationConnector Association="hrModel.FK_back_dec" />
+        <AssociationConnector Association="hrModel.FK_extra_dec" />
+        <AssociationConnector Association="hrModel.FK_front_dec" />
+        <AssociationConnector Association="hrModel.FK_left_dec" />
+        <AssociationConnector Association="hrModel.FK_right_dec" />
+        <AssociationConnector Association="hrModel.FK_BandId" />
+        <AssociationConnector Association="hrModel.FK_itemId" />
+        <AssociationConnector Association="hrModel.FK_OpportunityId" />
+        <EntityTypeShape EntityType="hrModel.tblProcess" Width="1.5" PointX="13.375" PointY="74" />
+        <AssociationConnector Association="hrModel.FK__tblProces__creat__658C0CBD" />
+        <EntityTypeShape EntityType="hrModel.tblOrderDetail" Width="1.5" PointX="35.375" PointY="51.25" />
+        <AssociationConnector Association="hrModel.FK__tblOrderD__Proce__72E607DB" />
+        <AssociationConnector Association="hrModel.FK__tblOrderD__UserI__73DA2C14" />
+        <AssociationConnector Association="hrModel.FK__tblOrderD__UserI__74CE504D" />
+        <EntityTypeShape EntityType="hrModel.tblDraftOrderItem" Width="2.125" PointX="15.625" PointY="77.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="hrModel.tblDraftOrder" Width="1.5" PointX="13.375" PointY="77.5" />
+        <AssociationConnector Association="hrModel.FK__tblDraftO__Order__02284B6B" />
+        <AssociationConnector Association="hrModel.FK__tblDraftO__UserI__7F4BDEC0" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

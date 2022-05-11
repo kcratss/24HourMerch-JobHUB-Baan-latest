@@ -150,7 +150,11 @@ namespace KEN.Controllers
 
                 if (EmailContent != null)
                 {
-                    MailSignature = EmailContent.Body3.Split('^');
+                    var accManager = dbContext.tblcontacts.FirstOrDefault(_ => _.acct_manager_id == CurrentAccountManagerDetail);
+                    string mobileNumber = accManager.mobile;
+                    string changeNumber = EmailContent.Body3.Replace("02 9559 2400", mobileNumber);
+                    MailSignature = changeNumber.Split('^');
+                    /*MailSignature = EmailContent.Body3.Split('^');*/
                 }
 
                 //                string Msg1 = "", Msg2 = "", Msg3 = "", Msg4 = "";
@@ -1376,7 +1380,7 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (CustomerDetail.QuoteGST != null)
             {
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.QuoteGST).ToString()), 2)), Heading4));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice) / 11), 2)), Heading4));
             }
             else
             {
@@ -1671,7 +1675,7 @@ namespace KEN.Controllers
                 var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
                 var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 12, iTextSharp.text.Font.NORMAL, FColor4);
                 var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
                 var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
 
@@ -1689,7 +1693,7 @@ namespace KEN.Controllers
                 headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
 
-                PdfPTable headertable3 = new PdfPTable(15);
+                PdfPTable headertable3 = new PdfPTable(14);
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
                 cell.Border = 0;
@@ -2034,7 +2038,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 phrase.Add(new Chunk(" 50% Production Deposit \n Balance prior to shipping", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 2;
                 //cell.PaddingTop = 10f;
                 cell.PaddingBottom = 3f;
@@ -2204,28 +2208,23 @@ namespace KEN.Controllers
 
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
                 phrase = new Phrase();
-                phrase.Add(new Chunk("[QUOTE]        >>>", Heading9));
+                phrase.Add(new Chunk("[ QUOTE ]", Heading9));
+                phrase.Add(new Chunk("        >>>        ", Heading8));
+                phrase.Add(new Chunk("INVOICE        >>>        ", Heading8));                
+                phrase.Add(new Chunk("DEPOSIT        >>>        ", Heading8));
+                phrase.Add(new Chunk("PROOF        >>>        ", Heading8));
+                phrase.Add(new Chunk("PRODUCTION        >>>        ", Heading8));
+                phrase.Add(new Chunk("COMPLETE        >>>        ", Heading8));
+                phrase.Add(new Chunk("PAID        >>>        ", Heading8));
+                phrase.Add(new Chunk("SHIPPED", Heading8));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 2;
+                cell.Colspan = 14;
                 cell.PaddingTop = 3f;
                 cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = TopBarColor;
                 headertable3.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("INVOICE       >>>       DEPOSIT       >>>       PROOF       >>>       PRODUCTION       >>>       COMPLETE       >>>       PAID       >>>       SHIPPED", Heading8));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 13;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable3.AddCell(cell);
-
-
                 //Next Line
                 phrase = new Phrase();
                 phrase.Add(new Chunk("For your order to be completed by: ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
@@ -2503,7 +2502,7 @@ namespace KEN.Controllers
                 /*Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);*/    /*tarun 20/09/2018*/
                 //commented and changed by baans 30Sep2020
                 Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);
-                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9449 2400  Account Manager:" + CustomerDetail.AccountManager, footerfont3);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9559 2400  Account Manager: " + CustomerDetail.AccountManager, footerfont3);
 
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
@@ -3384,10 +3383,10 @@ namespace KEN.Controllers
             phrase = new Phrase();
             if (CustomerDetail.GST != null)
             {
-                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading4));
+                phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice) / 11), 2)), Heading4));
             }
             else
-            {
+            {     
                 phrase.Add(new Chunk("$0.00", Heading4));
             }
             cell = new PdfPCell(phrase);
@@ -3544,7 +3543,7 @@ namespace KEN.Controllers
             headertable3.AddCell(cell);
 
             phrase = new Phrase();
-            phrase.Add(new Chunk("Acct Name: Tuff Tees Pty Ltd", Heading4));
+            phrase.Add(new Chunk("Acct Name: Tuff Tees", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 3;
@@ -3629,7 +3628,7 @@ namespace KEN.Controllers
 
             phrase = new Phrase();
             //phrase.Add(new Chunk("BSB: 012351      Acct No.: 401 303 731", Heading3));  //Commented and changed by baans 01Oct2020
-            phrase.Add(new Chunk("BSB: 012301         Acct No.: 5323 562 825", Heading4));
+            phrase.Add(new Chunk("BSB: 012301         Acct No.:  323 562 825", Heading4));
             cell = new PdfPCell(phrase);
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.Colspan = 3;
@@ -3718,7 +3717,7 @@ namespace KEN.Controllers
                 var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
                 var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 12, iTextSharp.text.Font.NORMAL, FColor4);
                 var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
                 var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
 
@@ -3962,7 +3961,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 phrase.Add(new Chunk(" 50% Production Deposit \n Balance prior to shipping", Heading4));
                 cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 2;
                 cell.PaddingBottom = 3f;
                 cell.Border = 0;
@@ -4056,35 +4055,23 @@ namespace KEN.Controllers
                 cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
-                BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");             
+                BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
-                phrase = new Phrase();
-                phrase.Add(new Chunk("QUOTE      >>>", Heading8));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 2;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable3.AddCell(cell);
+                
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("INVOICE         >>>", Heading9));
+                phrase.Add(new Chunk("QUOTE        >>>        ", Heading8));
+                phrase.Add(new Chunk("[ INVOICE ]", Heading9));
+                phrase.Add(new Chunk("        >>>        ", Heading8));
+                phrase.Add(new Chunk("DEPOSIT        >>>        ", Heading8));
+                phrase.Add(new Chunk("PROOF        >>>        ", Heading8));
+                phrase.Add(new Chunk("PRODUCTION        >>>        ", Heading8));
+                phrase.Add(new Chunk("COMPLETE        >>>        ", Heading8));
+                phrase.Add(new Chunk("PAID        >>>        ", Heading8));
+                phrase.Add(new Chunk("SHIPPED", Heading8));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 2;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable3.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("DEPOSIT      >>>      PROOF      >>>      PRODUCTION      >>>      COMPLETE      >>>      PAID      >>>      SHIPPED      ", Heading8));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 11;
+                cell.Colspan = 15;
                 cell.PaddingTop = 3f;
                 cell.PaddingBottom = 7f;
                 cell.Border = 0;
@@ -4386,7 +4373,7 @@ namespace KEN.Controllers
 
                 Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);/*tarun 20/09/2018*/
                 /*Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);*/    /*tarun 20/09/2018*/
-                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9449 2400  Account Manager:" + CustomerDetail.AccountManager, footerfont3);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9559 2400  Account Manager: " + CustomerDetail.AccountManager, footerfont3);
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);
@@ -5181,7 +5168,7 @@ namespace KEN.Controllers
                 //phrase.Add(new Chunk("Paying by EFT please enter this number as the payment ID:", Heading2));
                 /*phrase.Add(new Chunk("Paying by EFT please enter this number as the Description: Inv" + CustomerDetail.QuoteNo.ToString(), FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 14, iTextSharp.text.Font.NORMAL, BaseColor.RED)));*/
                 //commentd and changed by baans 01Oct2020
-                phrase.Add(new Chunk("Your order is complete! Thank you for choosing 24 Hours Merdhandise", FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                phrase.Add(new Chunk("Your order is complete! Thank you for choosing 24 Hour Merchandise", FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 11;
                 cell.Rowspan = 2;
@@ -5258,7 +5245,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 if (CustomerDetail.GST != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading4));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice) / 11), 2)), Heading4));
                 }
                 else
                 {
@@ -5400,7 +5387,7 @@ namespace KEN.Controllers
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Acct Name: 24 Hour Merchandise", Heading4));
+                phrase.Add(new Chunk("Acct Name: Tuff Tees", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
@@ -5486,7 +5473,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("BSB: 012351      Acct No.: 401 303 731", Heading3)); 
                 //commented and changed by baans 01Oct2020
-                phrase.Add(new Chunk("BSB: 012351      Acct No.: 5323 562 825", Heading4));
+                phrase.Add(new Chunk("BSB: 012301      Acct No.: 323 562 825", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
@@ -5580,7 +5567,7 @@ namespace KEN.Controllers
                 var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
                 var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 12, iTextSharp.text.Font.NORMAL, FColor4);
                 var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
                 var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);  /*tarun 20/09/2018*/
 
@@ -5592,7 +5579,7 @@ namespace KEN.Controllers
                 PdfPTable headertable2 = new PdfPTable(19);
                 headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
-                PdfPTable headertable3 = new PdfPTable(15);
+                PdfPTable headertable3 = new PdfPTable(16);
 
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
@@ -5819,11 +5806,11 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 //cell.PaddingTop = -4f;
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingBottom = 3f;
                 cell.Border = 0;
                 cell.PaddingLeft = 5f;
-                cell.PaddingRight = -3;
+                cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
 
                 //Commented by baans 01Oct2020 Start
@@ -5892,7 +5879,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
                 //phrase.Add(new Chunk("NEXT STEP >>> ", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 26, iTextSharp.text.Font.NORMAL, FColor)));
-                phrase.Add(new Chunk("To proceed please pay the 50% production deposit", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 16, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
+                phrase.Add(new Chunk("For quick shipping, please pay any invoice balance due", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 14, iTextSharp.text.Font.NORMAL, BaseColor.RED)));
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 6;
                 cell.PaddingBottom = 1f;
@@ -5915,41 +5902,29 @@ namespace KEN.Controllers
                 //headertable1.AddCell(cell);
 
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
+                
+
                 phrase = new Phrase();
-                phrase.Add(new Chunk("QUOTE     >>>     INVOICE     >>>     DEPOSIT     >>>     PROOF     >>>     PRODUCTION     >>>", Heading8));
+                phrase.Add(new Chunk("QUOTE        >>>        ", Heading8));
+                phrase.Add(new Chunk("INVOICE        >>>        ", Heading8));
+                phrase.Add(new Chunk("DEPOSIT        >>>        ", Heading8));
+                phrase.Add(new Chunk("PROOF        >>>        ", Heading8));
+                phrase.Add(new Chunk("PRODUCTION        >>>        ", Heading8));
+                phrase.Add(new Chunk("[ COMPLETE ]", Heading9));
+                phrase.Add(new Chunk("        >>>        ", Heading8));
+                phrase.Add(new Chunk("PAID        >>>        ", Heading8));
+                phrase.Add(new Chunk("SHIPPED", Heading8));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 9;
+                cell.Colspan = 16;
                 cell.PaddingTop = 3f;
                 cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = TopBarColor;
-                headertable1.AddCell(cell);
+                headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("COMPLETE           >>>", Heading9));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 2;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("PAID         >>>        SHIPPED        ", Heading8));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 4;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable1.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("Your order is Complete. Thank you for choosing 24 Hour Merchandies", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
+                phrase.Add(new Chunk("Your order is Complete. Thank you for choosing 24 Hour Merchandise", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 7;
@@ -5962,10 +5937,10 @@ namespace KEN.Controllers
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("If you Invoice is fully paid for your order will be automatically released for Pick Up of Shipping", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
+                phrase.Add(new Chunk("If your Invoice is fully paid for your order will be automatically released for Pick Up or Shipping", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                cell.Colspan = 8;
+                cell.Colspan = 9;
                 cell.PaddingTop = 3f;
                 cell.PaddingRight = 2f;
                 cell.PaddingBottom = 7f;
@@ -6200,7 +6175,6 @@ namespace KEN.Controllers
                 cell.Colspan = 19;
                 cell.PaddingTop = -4f;
                 cell.Border = PdfPCell.BOTTOM_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
-                cell.BorderWidthBottom = 0.75f;
                 headertable2.AddCell(cell);
 
                 doc.Add(headertable1);
@@ -6235,8 +6209,8 @@ namespace KEN.Controllers
 
                 //Paragraph footer = new Paragraph("TeeCorp Pty Ltd t/a 24 Hour Merchandise", footerfont2);/*tarun 20/09/2018*/
                 //Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);    /*tarun 20/09/2018*/
-                Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/ a 24 Hour Merchandise", footerfont2);
-                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 60 130 686 234 Ph: 02 9449 2400 Account Manager:" + CustomerDetail.AccountManager, footerfont3);
+                Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015 ABN 81 003 060 633 Ph: 02 9559 2400 Account Manager: " + CustomerDetail.AccountManager, footerfont3);
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);
@@ -7237,7 +7211,7 @@ namespace KEN.Controllers
                 iTextSharp.text.Font footerfont4 = new iTextSharp.text.Font(bf, 9, iTextSharp.text.Font.NORMAL, FColor3);
 
                 Paragraph footer = new Paragraph("TeeCorp Pty Ltd t/a 24 Hour Merchandise", footerfont2);/*tarun 20/09/2018*/
-                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.   PO Box 7295 Alexandria NSW 2015   ABN 60 130 686 234", footerfont3);    /*tarun 20/09/2018*/
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.   PO Box 7295 Alexandria NSW 2015   ABN 81 003 060 633", footerfont3);    /*tarun 20/09/2018*/
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);
@@ -8094,7 +8068,7 @@ namespace KEN.Controllers
                 phrase = new Phrase();
                 if (CustomerDetail.GST != null)
                 {
-                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.GST).ToString()), 2)), Heading4));
+                    phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice) / 11), 2)), Heading4));
                 }
                 else
                 {
@@ -8229,7 +8203,7 @@ namespace KEN.Controllers
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("Acct Name: Tuff Tees Pty Ltd", Heading4));
+                phrase.Add(new Chunk("Acct Name: Tuff Tees", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
@@ -8314,7 +8288,7 @@ namespace KEN.Controllers
                 headertable3.AddCell(cell);
 
                 phrase = new Phrase();
-                phrase.Add(new Chunk("BSB: 012301          Acct No.: 5323 562 825", Heading4));
+                phrase.Add(new Chunk("BSB: 012301          Acct No.: 323 562 825", Heading4));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Colspan = 3;
@@ -8413,7 +8387,7 @@ namespace KEN.Controllers
                 var Heading5 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
                 var Heading6 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor3);
                 var Heading7 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/COMPACTASB-BOLD.OTF")), BaseFont.CP1252, true, 30, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.NORMAL, FColor4);
+                var Heading8 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 12, iTextSharp.text.Font.NORMAL, FColor4);
                 var Heading9 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 13, iTextSharp.text.Font.BOLD, FColor4);
                 var Heading10 = FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 7, iTextSharp.text.Font.NORMAL, FColor2);
 
@@ -8425,7 +8399,7 @@ namespace KEN.Controllers
                  PdfPTable headertable2 = new PdfPTable(19);
                  headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
-                PdfPTable headertable3 = new PdfPTable(15);
+                PdfPTable headertable3 = new PdfPTable(16);
                 //Row 
                 string ImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Images/Header.jpg");
                 cell = new PdfPCell(iTextSharp.text.Image.GetInstance(ImagePath), true);
@@ -8653,7 +8627,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 //cell.PaddingTop = 12f;
-                cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingBottom = 3f;
                 cell.Border = 0;
                 cell.PaddingRight = -1;
@@ -8767,43 +8741,30 @@ namespace KEN.Controllers
 
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
                 phrase = new Phrase();
-                phrase.Add(new Chunk("QUOTE      >>>      INVOICE        >>>", Heading8));
+                phrase.Add(new Chunk("QUOTE        >>>        ", Heading8));
+                phrase.Add(new Chunk("INVOICE        >>>        ", Heading8));
+                phrase.Add(new Chunk("[ DEPOSIT ]", Heading9));
+                phrase.Add(new Chunk("        >>>        ", Heading8));
+                phrase.Add(new Chunk("PROOF        >>>        ", Heading8));
+                phrase.Add(new Chunk("PRODUCTION        >>>        ", Heading8));
+                phrase.Add(new Chunk("COMPLETE        >>>        ", Heading8));
+                phrase.Add(new Chunk("PAID        >>>        ", Heading8));
+                phrase.Add(new Chunk("SHIPPED", Heading8));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 4;
+                cell.Colspan = 16;
                 cell.PaddingTop = 3f;
                 cell.PaddingBottom = 7f;
                 cell.Border = 0;
                 cell.BackgroundColor = TopBarColor;
                 headertable3.AddCell(cell);
 
-                phrase = new Phrase();
-                phrase.Add(new Chunk("DEPOSIT         >>>", Heading9));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 2;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable3.AddCell(cell);
-
-                phrase = new Phrase();
-                phrase.Add(new Chunk("PROOF     >>>      PRODUCTION      >>>      COMPLETE      >>>      PAID     >>>      SHIPPED      ", Heading8));
-                cell = new PdfPCell(phrase);
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.Colspan = 9;
-                cell.PaddingTop = 3f;
-                cell.PaddingBottom = 7f;
-                cell.Border = 0;
-                cell.BackgroundColor = TopBarColor;
-                headertable3.AddCell(cell);
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("Your order is scheduled to be completed on or before the Completion Date", FontFactory.GetFont((System.Web.HttpContext.Current.Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 11, iTextSharp.text.Font.NORMAL, BaseColor.BLACK)));
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Colspan = 7;
+                cell.Colspan = 8;
                 cell.PaddingTop = 3f;
                 cell.PaddingLeft = 2f;
                 cell.PaddingBottom = 7f;
@@ -9052,7 +9013,6 @@ namespace KEN.Controllers
                 cell.Colspan = 19;
                 cell.PaddingBottom = -5f;
                 cell.Border = PdfPCell.BOTTOM_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER;
-                cell.BorderWidthBottom = 0.75f;
                 headertable2.AddCell(cell);
 
                 doc.Add(headertable1);
@@ -9092,7 +9052,7 @@ namespace KEN.Controllers
                 /*Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia.    PO Box 7295 Alexandria NSW 2015    ABN 60 130 686 234", footerfont3);*/    /*tarun 20/09/2018*/
                 //Commented and change by baans 01Oct2020
                 Paragraph footer = new Paragraph("Tuff Tees Pty Ltd t/a 24 Hour Merchandise", footerfont2);
-                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9449 2400  Account Manager:" + CustomerDetail.AccountManager, footerfont3);
+                Paragraph address = new Paragraph("145 Renwick St, Marrickville NSW 2204 Australia. PO Box 7295 Alexandria NSW 2015  ABN 81 003 060 633  Ph: 02 9559 2400  Account Manager: " + CustomerDetail.AccountManager, footerfont3);
                 Paragraph numbering = new Paragraph("Page 1 of 1", footerfont4);  /*tarun 20/09/2018*/
                 Paragraph numbering2 = new Paragraph("Page 1 of 2", footerfont4);
                 Paragraph numbering3 = new Paragraph("Page 2 of 2", footerfont4);

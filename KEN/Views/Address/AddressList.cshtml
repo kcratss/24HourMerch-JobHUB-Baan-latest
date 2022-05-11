@@ -1,0 +1,188 @@
+﻿@model IEnumerable<KEN.Models.ClientAddressViewModel>
+@{
+    Layout = Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+
+
+
+<div class="row g-0">
+    <div class=" pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Address List</h5>
+            </div>
+            <div class="card-body bg-light">
+                <div class="d-flex justify-content-end">
+
+                    <input class="submit btn btn-primary mb-3" type="submit" name="submit" value="Add New Address" data-toggle="modal" data-target="#addAddressModal">
+                </div>
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="name">Name</th>
+                                    <th class="sort" data-sort="attention">Attention</th>
+                                    <th class="sort" data-sort="address1">Address Line 1</th>
+                                    <th class="sort" data-sort="address2">Address Line 2</th>
+                                    <th class="sort" data-sort="state">State</th>
+                                    <th class="sort" data-sort="postcode">PostCode</th>
+                                    <th class="sort" data-sort="addressnote">Address Notes</th>
+                                    <th class="sort" data-sort="action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @if (Model == null)
+                                {
+                                    <tr class="text-center"><td colspan="8">No Addresses found.</td></tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            @Html.HiddenFor(x => item.AddressId, new { id = "txtAdddressId" })
+                                            <td class="id">@Html.DisplayFor(modelItem => item.Name)</td>
+
+                                            <td class="quantity">@Html.DisplayFor(modelItem => item.Attention)</td>
+                                            <td class="code"> @Html.DisplayFor(modelItem => item.AddressLine1) </td>
+                                            <td class="brandname"> @Html.DisplayFor(modelItem => item.AddressLine2) </td>
+
+                                            <td class="item">@Html.DisplayFor(modelItem => item.State)</td>
+                                            <td class="sizegrid">@Html.DisplayFor(modelItem => item.PostCode)</td>
+                                            <td class="color">@Html.DisplayFor(modelItem => item.AddressNote)</td>
+
+                                            <td>
+                                                <div class="d-flex justify-content-evenly">
+                                                    <button onclick="GetAddressById(@item.AddressId)" id="addressbtn"><i class="fas fa-pen" style="color:green;"></i></button>
+                                                    <button onclick="DeleteAddress(@item.AddressId)" id="addressbtn" class="delete"><i class="fas fa-trash-alt" style="color:red;"></i></button>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="modal fade" id="updateAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Address Details</h5>
+                                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body row m-1">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Address Details</h5>
+                                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" onclick="clearForm()">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body row m-1">
+
+                                    <form class="col" id="addressForm">
+                                        <input type="hidden" id="txtaddressId" />
+                                        <div class="form-group mb-3">
+                                            <label for="name">Name<span class="me-1 spanrequired">*</span></label>
+                                            <input type="text" class="form-control" id="txtname" name="txtname" placeholder="Enter Name">
+
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="attention">Attention<span class="me-1 spanrequired">*</span></label>
+                                            <input type="text" class="form-control" id="txtattention" name="txtattention" placeholder="Enter Attention">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="address1">Address Line 1<span class="me-1 spanrequired">*</span></label>
+                                            <input type="text" class="form-control" id="txtaddress1" name="txtaddress1" placeholder="Enter Address">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="address2">Address Line 2<span class="me-1 spanrequired">*</span></label>
+                                            <input type="text" class="form-control" id="txtaddress2" name="txtaddress2" placeholder="Enter Address">
+                                        </div>
+                                        <div class="form-group mb-3 row">
+                                            <div class="col">
+
+                                                <label for="state">State<span class="me-1 spanrequired">*</span></label>
+                                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--Select--", new { @id = "txtstate", @class = "col-12" })
+
+
+                                            </div>
+                                            <div class="col">
+                                                <label for="postcode">PostCode<span class="me-1 spanrequired">*</span></label>
+                                                <input type="number" class="form-control" id="txtpostcode" name="txtpostcode" placeholder="Enter PostCode">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="addressnote">Address Note<span class="me-1 spanrequired">*</span></label>
+                                            <textarea class="form-control" id="addressnote" name="addressnote" rows="3" style="resize:none;"></textarea>
+                                        </div>
+
+                                        <div class="form-group d-flex justify-content-end">
+
+                                            <input type="submit" class="btn btn-primary me-1" name="submit" value="Save">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearForm()">Close</button>
+
+                                        </div>
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content modalConfirm">
+                                <h4 class="modal-title w-100">Are you sure?</h4>
+                                <div class="modal-body row m-1" >
+                                    <p id="confirmMessage"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="confirmCancel">Cancel</button>
+                                    <button type="button" class="btn btn-danger" id="confirmOk">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    @*<script src="~/assets/js/config.navbar-vertical.js"></script>*@
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <link href="~/assets/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/Content/css/libraries/theme.css" rel="stylesheet" />
+    <script src="~/Content/js/Cart.js"></script>
+
+
+</head>
+<body>
+    <div class="container "></div>
+    <div class="card ">
+        <div class="card-header">
+            <div class="row justify-content-between">
+                <div class="col-md-auto">
+                    <h5 class="mb-3 mb-md-0 item"></h5>
+                </div>
+                <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 mr-2" href="~/Design/DesignerTool"> <span class="fas fa-chevron-left mr-1" data-fa-transform="shrink-4"></span>Continue Shopping</a><a class="btn btn-sm btn-primary" href="~/Design/CheckOut">Checkout</a></div>
+
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="row bg-200 text-900 no-gutters px-1 fs--1 font-weight-semi-bold">
+                <div class="col-9 col-md-8 p-2 px-md-3">ProductItem</div>
+                <div class="col-3 col-md-4 px-3">
+                    <div class="row">
+                        <div class="col-md-8 py-2 d-none d-md-block text-center">Quantity</div>
+                        <div class="col-12 col-md-4 text-right p-2 px-md-3">SubTotal</div>
+                    </div>
+                </div>
+            </div>
+            <div id="allOrders">
+            </div>
+            <div class="row font-weight-bold px-1">
+                <div class="col-9 col-md-8 py-2 py-0 px-md-3 d-flex justify-content-end">Total</div>
+                <div class="col px-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-8 py-2 d-none d-md-block text-center length"></div>
+                        <div class="col-12 col-md-4 text-right py-2 pr-md-3 pl-0" id="allItemTotalPrice"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light d-flex justify-content-end">
+            <form class="mr-3">
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" placeholder="Promocode" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary border-300 btn-sm" type="submit">Apply</button>
+                    </div>
+                </div>
+            </form><button class="btn btn-sm btn-primary" onclick="orderdetail()">Checkout</button>
+        </div>
+    </div>
+
+
+    <script src="~/Content/js/libraries/jquery-ui.min.js"></script>
+    <script src="~/Content/js/libraries/bootstrap.min.js"></script>
+</body>
+</html>

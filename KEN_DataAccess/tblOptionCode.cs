@@ -14,6 +14,12 @@ namespace KEN_DataAccess
     
     public partial class tblOptionCode
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblOptionCode()
+        {
+            this.tblOptionProperties = new HashSet<tblOptionProperty>();
+        }
+    
         public int id { get; set; }
         public string Code { get; set; }
         public Nullable<int> itemId { get; set; }
@@ -25,8 +31,13 @@ namespace KEN_DataAccess
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string Status { get; set; }
+        public Nullable<int> Gender { get; set; }
+        public Nullable<int> FabricId { get; set; }
     
         public virtual tblband tblband { get; set; }
         public virtual tblitem tblitem { get; set; }
+        public virtual tblFabric tblFabric { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOptionProperty> tblOptionProperties { get; set; }
     }
 }

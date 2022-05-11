@@ -1,0 +1,130 @@
+﻿@model IEnumerable<KEN.Models.ClientOptionViewModel>
+
+
+
+@{
+    Layout = Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+
+
+<div class="row g-0">
+    <div class=" pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Order List</h5>
+            </div>
+            <div class="card-body bg-light">
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="id">Option Code</th>
+                                    <th class="sort" data-sort="quantity">Quantity</th>
+                                    <th class="sort" data-sort="code">Code</th>
+                                    <th class="sort" data-sort="brandname">BrandName</th>
+                                    <th class="sort" data-sort="item">Item</th>
+                                    <th class="sort" data-sort="sizegrid">SizeGrid</th>
+                                    <th class="sort" data-sort="color">Color</th>
+                                    <th class="sort" data-sort="frontimage">FrontDesign</th>
+                                    <th class="sort" data-sort="backimage">BackDesign</th>
+                                    <th class="sort" data-sort="gst">Gst</th>
+                                    <th class="sort" data-sort="cost">Cost</th>
+                                    <th class="sort" data-sort="total">Total</th>
+                                    <th class="sort" data-sort="totalwithgst">TotalWithGst</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @if (Model == null)
+                                {
+                                    <tr><td colspan="8">No Opportunity found.</td></tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="id">@Html.DisplayFor(modelItem => item.Id)</td>
+
+                                            <td class="quantity">@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                            <td class="code"> @Html.DisplayFor(modelItem => item.Code) </td>
+                                            <td class="brandname"> @Html.DisplayFor(modelItem => item.BrandName) </td>
+
+                                            <td class="item">@Html.DisplayFor(modelItem => item.Item)</td>
+                                            <td class="sizegrid">@Html.DisplayFor(modelItem => item.SizeGrid)</td>
+                                            <td class="color">@Html.DisplayFor(modelItem => item.Color)</td>
+
+                                            @*<td class="name"><a href="#" data-toggle="modal" data-target="#imageModal">@Html.DisplayFor(modelItem => item.FrontDesign)</a></td>*@
+                                            <td class="frontimage"><a href="#" data-toggle="modal" data-target="#imageFrontModal"> @Html.DisplayFor(modelItem => item.FrontDesign)</a></td>
+
+                                            <td class="backimage"><a href="#" data-toggle="modal" data-target="#imageBackModal">@Html.DisplayFor(modelItem => item.BackDesign)</a></td>
+                                            <td class="gst">@Html.DisplayFor(modelItem => item.Gst)</td>
+                                            <td class="cost">@Html.DisplayFor(modelItem => item.Cost)</td>
+                                            <td class="total">@Html.DisplayFor(modelItem => item.Total)</td>
+                                            <td class="totalwithgst">@Html.DisplayFor(modelItem => item.TotalWithGst)</td>
+                                            <td><a href="#"><i class="fab fa-rev"></i></a></td>
+                                        </tr>
+
+                                        <div class="modal fade" id="imageFrontModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Front Image</h5>
+                                                        <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body row">
+                                                        <img src="@Url.Content(item.ImageFilePath)" class="img-responsive" />
+                                                        @*<img src="~/Content/uploads/Application/back_21965637733041522096313.jpeg" />*@
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="imageBackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Back Image</h5>
+                                                        <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body row">
+                                                        <img src="@Url.Content(item.ImageFilePathBack)" class="img-responsive" />
+                                                        @*<img src="~/Content/uploads/Application/back_21965637733041522096313.jpeg" />*@
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+

@@ -67,11 +67,9 @@ namespace KEN_DataAccess
         public virtual DbSet<tblPantoneMaster> tblPantoneMasters { get; set; }
         public virtual DbSet<TblApplication> TblApplications { get; set; }
         public virtual DbSet<tblAddress> tblAddresses { get; set; }
-        public virtual DbSet<tbloption> tbloptions { get; set; }
         public virtual DbSet<tblOptionCode> tblOptionCodes { get; set; }
         public virtual DbSet<tblOpportunity> tblOpportunities { get; set; }
         public virtual DbSet<vw_tblopp1> vw_tblopp1 { get; set; }
-        public virtual DbSet<Vw_tblOpportunity> Vw_tblOpportunity { get; set; }
         public virtual DbSet<Vw_tblOptionForOpp> Vw_tblOptionForOpp { get; set; }
         public virtual DbSet<Vw_tblOptionForOrder> Vw_tblOptionForOrder { get; set; }
         public virtual DbSet<tblacct_managerToBeDeleted> tblacct_managerToBeDeleted { get; set; }
@@ -109,6 +107,19 @@ namespace KEN_DataAccess
         public virtual DbSet<tblmigrationsToBeDeleted> tblmigrationsToBeDeleteds { get; set; }
         public virtual DbSet<tblOptionCopy> tblOptionCopies { get; set; }
         public virtual DbSet<tblProductionCopy> tblProductionCopies { get; set; }
+        public virtual DbSet<tblColor> tblColors { get; set; }
+        public virtual DbSet<tblFabric> tblFabrics { get; set; }
+        public virtual DbSet<tblOptionProperty> tblOptionProperties { get; set; }
+        public virtual DbSet<tblState> tblStates { get; set; }
+        public virtual DbSet<tblUserAddressMapping> tblUserAddressMappings { get; set; }
+        public virtual DbSet<tblUserLogo> tblUserLogoes { get; set; }
+        public virtual DbSet<tblUserItem> tblUserItems { get; set; }
+        public virtual DbSet<Vw_tblOpportunity> Vw_tblOpportunity { get; set; }
+        public virtual DbSet<tbloption> tbloptions { get; set; }
+        public virtual DbSet<tblProcess> tblProcesses { get; set; }
+        public virtual DbSet<tblOrderDetail> tblOrderDetails { get; set; }
+        public virtual DbSet<tblDraftOrderItem> tblDraftOrderItems { get; set; }
+        public virtual DbSet<tblDraftOrder> tblDraftOrders { get; set; }
     
         public virtual ObjectResult<Pro_DecorationExport_Result> Pro_DecorationExport()
         {
@@ -327,6 +338,31 @@ namespace KEN_DataAccess
                 new ObjectParameter("oppid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pro_QuoteCustomerData_Result>("Pro_QuoteCustomerData", oppidParameter);
+        }
+    
+        public virtual ObjectResult<Pro_FilterGarments_Result> Pro_FilterGarments(Nullable<int> itemId, Nullable<int> colorId, Nullable<int> fabricId, Nullable<int> gender, Nullable<int> order)
+        {
+            var itemIdParameter = itemId.HasValue ?
+                new ObjectParameter("ItemId", itemId) :
+                new ObjectParameter("ItemId", typeof(int));
+    
+            var colorIdParameter = colorId.HasValue ?
+                new ObjectParameter("ColorId", colorId) :
+                new ObjectParameter("ColorId", typeof(int));
+    
+            var fabricIdParameter = fabricId.HasValue ?
+                new ObjectParameter("FabricId", fabricId) :
+                new ObjectParameter("FabricId", typeof(int));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(int));
+    
+            var orderParameter = order.HasValue ?
+                new ObjectParameter("Order", order) :
+                new ObjectParameter("Order", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pro_FilterGarments_Result>("Pro_FilterGarments", itemIdParameter, colorIdParameter, fabricIdParameter, genderParameter, orderParameter);
         }
     }
 }

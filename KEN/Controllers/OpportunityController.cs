@@ -344,7 +344,7 @@ namespace KEN.Controllers
 
             // string[] Roles = new string[] { "Administrator", "Account Manager","Production Director"};
             var getData = Mapper.Map<List<AccountManagerDropdownViewModel>>(dbContext.tblusers
-                .Where(_ => _.UserRole == "Account Manager" && _.status == "Active").ToList().OrderBy(_ => _.title)).OrderBy(_ => _.AccountManagerFullName).ToList();
+                .Where(_ => _.UserRole == "Account Manager" && _.status == "Active" || _.firstname == "Online").ToList().OrderBy(_ => _.title)).OrderBy(_ => _.AccountManagerFullName).ToList();
             return getData;
         }
         public ActionResult GetDeletedManager()

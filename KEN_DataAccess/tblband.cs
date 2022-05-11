@@ -18,8 +18,8 @@ namespace KEN_DataAccess
         public tblband()
         {
             this.tblPurchaseDetails = new HashSet<tblPurchaseDetail>();
-            this.tbloptions = new HashSet<tbloption>();
             this.tblOptionCodes = new HashSet<tblOptionCode>();
+            this.tbloptions = new HashSet<tbloption>();
         }
     
         public int id { get; set; }
@@ -33,8 +33,8 @@ namespace KEN_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPurchaseDetail> tblPurchaseDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbloption> tbloptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOptionCode> tblOptionCodes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbloption> tbloptions { get; set; }
     }
 }

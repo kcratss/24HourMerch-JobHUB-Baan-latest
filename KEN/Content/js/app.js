@@ -338,7 +338,15 @@ $(function () {
                 $('#OppShipping').val(i.item.Shipping);
                 $('#txtshippingday').val(i.item.ShippingTo);
                 $('#txtshippingprice').val(i.item.Price);
-                $('#oppSource').val(i.item.Source);
+                //$('#oppSource').val(i.item.Source);
+                if ($('#StatCampaign').is(":visible")) {
+                    $('#oppSource1').val(i.item.Source);
+
+                }
+                if ($('#DivQuote').is(":visible")) {
+                    $('#oppSource2').val(i.item.Source);
+
+                }
                 $('#oppCampaign').val(i.item.Compaign);
                 //$('#txtConfirmedDate').val('');
                 $('#oppStage').val(i.item.Stage);
@@ -1291,7 +1299,7 @@ function changeImageNew(type, department) {
 //}
 
 
-function JobsGridList(type, department, tabType) {    
+function JobsGridList(type, department, tabType) {
     var dpmt = $(".headerBtn.active").attr('id');
     //alert($(".headerBtn.active").attr('id'));
     if (dpmt == "Current" || dpmt == "List") {
@@ -1597,7 +1605,7 @@ function JobsGridList(type, department, tabType) {
                 else if (Stage == "Order") {
                     return "<a href='/opportunity/OrderDetails/" + parseInt(id) + "'><label class='internalLnk'>" + id + "</label></a>"
                 }
-                else if (Stage == "Job" || Stage == "Order Confirmed") {        //15 Nov 2018 (N)
+                else if (Stage == "Job" || Stage == "Order Confirmed" || Stage == "Job Accepted" || Stage == "Art Ordered" || Stage == "Proof Created" || Stage == "Proof Sent" || Stage == "Proof Approved" || Stage == "Film/Digi Ready" || Stage == "Stock Order" || Stage == "Stock In" || Stage == "Stock Checked") {        //15 Nov 2018 (N)
                     return "<a href='/opportunity/JobDetails/" + parseInt(id) + "'><label class='internalLnk'>" + id + "</label></a>"
                 }
                 else if (Stage == "Stock Decorated") {         //15 Nov 2018 (N)
@@ -2320,6 +2328,39 @@ function ResetOppStagePopUp(stage, updateURL) {
 
         }
     });
+}
+
+function ChangeStage(UpdateURL, Stage) {
+    if (UpdateURL == '') {
+        $.ajax({
+            url: '/Opportunity/GetOppById',
+            data: { OppId: $('#lblOpportunityId').text() },
+            async: false,
+            success: function (response) {
+                CmfrmDate = DateFormat(response.ConfirmedDate);
+            },
+            error: function (response) {
+            },
+            type: 'post'
+
+        });
+    }
+    else {
+        $.ajax({
+            url: '/Opportunity/ChangeStageByOppoID',
+            data: { OppId: $('#lblOpportunityId').text(), Stage: Stage },
+            async: false,
+            success: function (response) {
+                var data = response.data;
+                if (data.response.Result == "Success") {
+                    location.href = "/Opportunity/" + UpdateURL + "/" + parseInt($('#lblOpportunityId').text());
+                }
+                else {
+                    CustomAlert(data.response);
+                }
+            }
+        });
+    }
 }
 
 

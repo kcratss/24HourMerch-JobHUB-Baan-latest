@@ -13,6 +13,7 @@ using KEN.Interfaces.Iservices;
 using System.Web.Mvc;
 using KEN.Filters;
 using System.Web;
+using Intuit.Ipp.Core.Configuration;
 
 namespace KEN.AppCode
 {
@@ -141,7 +142,7 @@ namespace KEN.AppCode
             Client.DeliveryMethod = SmtpDeliveryMethod.Network;
             Client.EnableSsl = true;
             Client.Host = "smtp.sendgrid.net";
-            Client.Port = 25;
+            Client.Port = 587;
             Client.UseDefaultCredentials = false;
             Client.Credentials = Credential;
             MailMessage MailMsg = new MailMessage();
@@ -161,8 +162,9 @@ namespace KEN.AppCode
                 Client.Send(MailMsg);
                 Status = true;
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 Status = false;
             }
             return Status;
@@ -181,6 +183,26 @@ namespace KEN.AppCode
             {
                 return "";
             }
+        }
+        public static string ActiveClient()
+        {
+            HttpContext.Current.Session.Timeout = 120;
+            if (!string.IsNullOrEmpty(HttpContext.Current.Session["ClientEmail"] as string))
+            {
+                return HttpContext.Current.Session["ClientEmail"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public static int ActiveClientId()
+        {
+            HttpContext.Current.Session.Timeout = 240;
+
+             return ((int)HttpContext.Current.Session["MyClientId"]);
+           /* return HttpContext.Current.Response.Redirect("");*/
+
         }
 
         //27 May 2019 (N) (Function Moved to MasterPdfController)

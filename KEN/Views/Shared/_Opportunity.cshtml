@@ -123,11 +123,11 @@
                 @*id*@
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                     @*@Html.DropDownList("oppCampaign", new SelectList(ViewBag.CampaignList, "id", "Campaign", ""), "--Select--", new { @id = "oppCampaign", @class = "txtOpprtDetails oppInnerleftCol" })*@
-                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails oppInnerleftCol" })
+                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "oppSource1 txtOpprtDetails oppInnerleftCol" })
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                     <label for="ddlDecline" class="lblForm Innerlbl" id="lblrepeatform">Status</label>        @*id change*@
-                    <select id="ddlDecline" class="txtOpprtDetails oppInnerRightCol" tabindex="-1">
+                    <select id="ddlDecline" class="ddlDecline1 txtOpprtDetails oppInnerRightCol" tabindex="-1">
                         <option value="No" selected="selected">Open</option>
                         <option value="Yes">Declined</option>
 
@@ -138,12 +138,12 @@
             <div class="row viewchange Event" id="DivQuote" style="display:none;">
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                     @*<input type="text" class="txtOpprtDetails oppInnerleftCol" readonly="readonly" id="txtrepeatfrom" />*@
-                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "txtOpprtDetails oppInnerleftCol" })
+                    @Html.DropDownList("oppSource", new SelectList(ViewBag.SourceList, "Name", "Name", ""), "--Select--", new { @id = "oppSource", @class = "oppSource2 txtOpprtDetails oppInnerleftCol" })
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 viewchange QuoteDetails" id="quotestatus" style="display:none;">
                     @*id*@
                     <label for="txtlost" class="lblForm Innerlbl">Status</label>
-                    <select id="txtlost" class="txtOpprtDetails oppInnerRightCol">
+                    <select id="txtlost" class="ddlDecline2 txtOpprtDetails oppInnerRightCol">
                         <option value="No" selected="selected">Open</option>
                         <option value="Yes">Lost</option>
 

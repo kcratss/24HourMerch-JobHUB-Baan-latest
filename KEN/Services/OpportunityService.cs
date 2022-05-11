@@ -461,6 +461,7 @@ namespace KEN.Services
                                 entity.code = Entity.code;
                                 entity.colour = Entity.colour;
                                 entity.comment = Entity.comment;
+                                entity.PaidBy = Entity.PaidBy;
                                 entity.Cost = Entity.Cost;
                                 entity.Declined = Entity.Declined;
                                 entity.Extra_decCost = Entity.Extra_decCost;
@@ -813,7 +814,7 @@ namespace KEN.Services
                             {
 
                                 OppData.ArtReadyDate = CurrentDate;
-                               IsstageUpdate = false;
+                                IsstageUpdate = false;
                                 break;
                             }
                         case "Stock Ordered":
@@ -882,7 +883,7 @@ namespace KEN.Services
                                 break;
                             }
                     }
-                    if(IsstageUpdate)
+                    if (IsstageUpdate) { }
                     OppData.Stage = Stage;
 
                     OppData.UpdatedBy = DataBaseCon.ActiveUser();
@@ -974,43 +975,69 @@ namespace KEN.Services
                                 OppData.ConfirmMailDate = null;
                                 break;
                             }
+                        case "Job Accepted":
+                            {
+                                OppData.JobAcceptedDate = null;
+                                OppData.Stage = "Order Confirmed";
+                                break;
+                            }
+
                         case "Art Ordered":
                             {
-
                                 OppData.ArtOrderedDate = null;
                                 OppData.Stage = "Job Accepted";
                                 break;
                             }
+                        case "Proof Created":
+                            {
+                                OppData.ProofCreatedDate = null;
+                                OppData.Stage = "Art Ordered";
+                                break;
+                            }
+
+                        case "Proof Sent":
+                            {
+                                OppData.ProofSentdate = null;
+                                OppData.Stage = "Proof Created";
+                                break;
+                            }
+
                         case "Proof Approved":
                             {
                                 OppData.ApprovedDate = null;
+                                OppData.Stage = "Proof Sent";
                                 break;
                             }
+                        
+
                         case "Film/Digi Ready":
                             {
-
+                                OppData.Stage = "Proof Approved";
                                 OppData.ArtReadyDate = null;
                                 break;
                             }
                         case "Stock Ordered":
                             {
                                 OppData.StockOrderedDate = null;
+                                OppData.Stage = "Film/Digi Ready";
                                 break;
                             }
                         case "Stock In":
                             {
+                                OppData.Stage = "Stock Ordered";
                                 OppData.ReceivedDate = null;
                                 break;
                             }
                         case "Stock Checked":
                             {
+                                OppData.Stage = "Stock In";
                                 OppData.Checkeddate = null;
                                 break;
                             }
                         case "Stock Decorated":
                             {
                                 OppData.DecoratedDate = null;
-                                OppData.Stage = "Proof Sent";
+                                OppData.Stage = "Stock Checked";
                                 break;
                             }
                         case "Order Packed":
@@ -1050,25 +1077,7 @@ namespace KEN.Services
                                 OppData.ConsigNoteNo = null;
                                 OppData.PacagingNotes = null;
                                 break;
-                            }
-                        case "Job Accepted":
-                            {
-                                OppData.JobAcceptedDate = null;
-                                OppData.Stage = "Order Confirmed";
-                                break;
-                            }
-                        case "Proof Created":
-                            {
-                                OppData.ProofCreatedDate = null;
-                                OppData.Stage = "Art Ordered";
-                                break;
-                            }
-                        case "Proof Sent":
-                            {
-                                OppData.ProofSentdate = null;
-                                OppData.Stage = "Proof Created";
-                                break;
-                            }
+                            }                                           
                     }
                     
                        

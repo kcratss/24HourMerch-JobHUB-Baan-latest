@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KEN.Filters;
+using KEN.AppCode;
 
 namespace KEN.Controllers
 {
@@ -31,5 +32,16 @@ namespace KEN.Controllers
             return Jsonresult;
         }
         //22 Nov 2018 (N)
+
+        [UserAuthorize("Online")]
+        public ActionResult ClientOrderList()
+        {
+            var activeClientId = DataBaseCon.ActiveClientId();
+
+            var optionList = _baseService.GetAllOrderList(activeClientId);
+
+            return View(optionList);
+
+        }
     }
 }

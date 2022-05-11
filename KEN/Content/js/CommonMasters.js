@@ -282,18 +282,32 @@ $(function () {
     })
 })
 
-function GetOptionCodeList() {
+function FilterStatus () {
+    filter = $(".filterCondition").val();
     $.ajax({
         url: '/CommonMasters/GetOptionCodeList',
-        data: {},
-        async: false,
-        success: function (response) {
+        data: { status:filter },
+        success: function (response) {          
             data = response;
+            InitializeGrid(data);
         },
-
         type: 'get',
-
     });
+}
+
+function GetOptionCodeList(filter) {
+    $.ajax({
+        url: '/CommonMasters/GetOptionCodeList',
+        data: { filter },
+        success: function (response) {           
+            data = response;
+            InitializeGrid(data);
+        },
+        type: 'get',
+    });
+}
+
+function InitializeGrid(data) {
     var obj = {
         selectionModel: { type: 'row' },
         scrollModel: { pace: 'consistent', horizontal: false },
@@ -307,44 +321,50 @@ function GetOptionCodeList() {
 
     obj.toolbar = {
         items: [
-            { type: 'button', label: 'Add New', listeners: [{ click: AddOptionCodeData }], align: 'right' },
+            {
+                type: 'select',
+                cls: "filterCondition",
+                options: [{ All: "All", Active: "Active", InActive: "InActive" }],
+                listeners: [{ change: FilterStatus }],
+            },
 
+            { type: 'button', label: 'Add New', listeners: [{ click: AddOptionCodeData }], /*align: 'right'*/ },
         ]
     };
 
     obj.colModel = [
-               {
-                   title: "Id", dataIndx: "id", hidden: true, width: 100, dataType: "int"
-               },
+        {
+            title: "Id", dataIndx: "id", hidden: true, width: 100, dataType: "int"
+        },
 
-               {
-                   title: "Code", dataIndx: "Code", width: "15%", editable: false, dataType: "string",
-                   render: function (ui) {
-                       var dataIndx = ui.rowIndx;
-                       var celldata = ui.cellData;
-                       return "<a onclick='EditOptionCodeData(" + dataIndx + ")'><label class='internalLnk'>" + celldata + "</label></a>"
-                   },
-               },
-              {
-                  title: "Item Id", dataIndx: "itemId", hidden: true, width: 100, dataType: "int"
-              },
-              {
-                  title: "Item Name", dataIndx: "ItemName", width: "15%", editable: false, dataType: "string",
-              },
-              { title: "Brand Id", dataIndx: "BrandId", hidden: true, width: 100, dataType: "int" },
-              {
-                  title: "Brand Name", dataIndx: "BrandName", width: "15%", editable: false, dataType: "int",
-              },
-              {
-                  title: "Link", dataIndx: "Link", width: "35%", editable: false, dataType: "string",
-              },
+        {
+            title: "Code", dataIndx: "Code", width: "15%", editable: false, dataType: "string",
+            render: function (ui) {
+                var dataIndx = ui.rowIndx;
+                var celldata = ui.cellData;
+                return "<a onclick='EditOptionCodeData(" + dataIndx + ")'><label class='internalLnk'>" + celldata + "</label></a>"
+            },
+        },
+        {
+            title: "Item Id", dataIndx: "itemId", hidden: true, width: 100, dataType: "int"
+        },
+        {
+            title: "Item Name", dataIndx: "ItemName", width: "15%", editable: false, dataType: "string",
+        },
+        { title: "Brand Id", dataIndx: "BrandId", hidden: true, width: 100, dataType: "int" },
+        {
+            title: "Brand Name", dataIndx: "BrandName", width: "15%", editable: false, dataType: "int",
+        },
+        {
+            title: "Link", dataIndx: "Link", width: "35%", editable: false, dataType: "string",
+        },
 
-              {
-                  title: "Cost", dataIndx: "cost", width: "10%", editable: false, dataType: "string", align: "center",
-              },
-              {
-                  title: "Status", dataIndx: "Status", width: "10%", editable: false, dataType: "string", align: "center",
-              },
+        {
+            title: "Cost", dataIndx: "cost", width: "10%", editable: false, dataType: "string", align: "center",
+        },
+        {
+            title: "Status", dataIndx: "Status", width: "10%", editable: false, dataType: "string", align: "center",
+        },
 
     ];
     obj.dataModel = { data: data };

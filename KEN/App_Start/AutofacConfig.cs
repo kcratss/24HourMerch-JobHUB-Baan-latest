@@ -29,7 +29,7 @@ namespace KEN.App_Start
                  .AsImplementedInterfaces().InstancePerDependency();
 
             builder.RegisterGeneric(typeof(GenericRepository<>))
-                .As(typeof(IRepository<>)).InstancePerDependency();
+                .As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
             builder.Register(c => new KENNEWEntities()).InstancePerDependency();
         }

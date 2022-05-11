@@ -29,24 +29,24 @@
         @*baans change 7th December*@
         <li class="AboveStages" style="display:block">
             <a>
-                <span class="rightsideText" id="spanOppDate">Received</span><span class="rowUpperHeaddate" id="lblOppDate"></span> <button type="button" id="btnOppoStage" onclick="ChangeStageByOppoID('Opportunity', 'OpportunityDetails', 1)" class="rightSideBtn">OPPORTUNITY</button>
+                <span class="rightsideText" id="spanOppDate" onclick="ChangeStage('OpportunityDetails','Opportunity')" >Received</span><span class="rowUpperHeaddate" id="lblOppDate"></span> <button type="button" id="btnOppoStage" onclick="ChangeStageByOppoID('Opportunity', 'OpportunityDetails', 1)" class="rightSideBtn">OPPORTUNITY</button>
             </a>
         </li>
         <li class="AboveStages" style="display:block">
             <a>
-                <span class="rightsideText" id="spanQuoteDate">Qualified</span><span class="rowUpperHeaddate" id="lblQuoteDate"></span> <button type="button" id="btnQuoteStage" onclick="ChangeStageByOppoID('Quote','QuoteDetails',2)" class="rightSideBtn">QUOTE</button>
-            </a>
-        </li>
-
-        <li class="AboveStages" style="display:block">
-            <a>
-                <span class="rightsideText" id="spanOrderDate">Quote Accepted</span><span class="rowUpperHeaddate" id="lblOrderDate"></span> <button type="button" id="btnOrderStage" onclick="ChangeStageByOppoID('Order', 'OrderDetails', 3)" class="rightSideBtn">ORDER</button>
+                <span class="rightsideText" id="spanQuoteDate" onclick="ChangeStage('QuoteDetails','Quote')">Qualified</span><span class="rowUpperHeaddate" id="lblQuoteDate"></span> <button type="button" id="btnQuoteStage" onclick="ChangeStageByOppoID('Quote','QuoteDetails',2)" class="rightSideBtn">QUOTE</button>
             </a>
         </li>
 
         <li class="AboveStages" style="display:block">
             <a>
-                <span class="rightsideText" id="spanJobDate">Deposit Made</span><span class="rowUpperHeaddate" id="lblJobDate"></span> <button type="button" id="btnJobStage" onclick="ChangeStageByOppoID('Job', 'JobDetails', 4)" class="rightSideBtn">JOB</button>
+                <span class="rightsideText" id="spanOrderDate" onclick="ChangeStage('OrderDetails','Order')">Quote Accepted</span><span class="rowUpperHeaddate" id="lblOrderDate"></span> <button type="button" id="btnOrderStage" onclick="ChangeStageByOppoID('Order', 'OrderDetails', 3)" class="rightSideBtn">ORDER</button>
+            </a>
+        </li>
+
+        <li class="AboveStages" style="display:block">
+            <a>
+                <span class="rightsideText" id="spanJobDate" onclick="ChangeStage('JobDetails','Job')">Deposit Made</span><span class="rowUpperHeaddate" id="lblJobDate"></span> <button type="button" id="btnJobStage" onclick="ChangeStageByOppoID('Job', 'JobDetails', 4)" class="rightSideBtn">JOB</button>
             </a>
         </li>
 

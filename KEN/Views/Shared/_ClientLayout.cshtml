@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>24 Hour Merch JobHUB</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/img/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../../../assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="../../../assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="../../../assets/js/config.js"></script>
+    <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+    <script src="../../../vendors/popper/popper.min.js"></script>
+    <script src="../../../vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../../../vendors/anchorjs/anchor.min.js"></script>
+    <script src="../../../vendors/is/is.min.js"></script>
+    <script src="../../../vendors/fontawesome/all.min.js"></script>
+    <script src="../../../vendors/lodash/lodash.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="../../../vendors/list.js/list.min.js"></script>
+    <script src="../../../assets/js/theme.js"></script>
+    <script src="../../assets/js/flatpickr.js"></script>
+
+    <script>
+        var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+        if (isRTL) {
+            var linkDefault = document.getElementById('style-default');
+            var userLinkDefault = document.getElementById('user-style-default');
+            linkDefault.setAttribute('disabled', true);
+            userLinkDefault.setAttribute('disabled', true);
+            document.querySelector('html').setAttribute('dir', 'rtl');
+        } else {
+            var linkRTL = document.getElementById('style-rtl');
+            var userLinkRTL = document.getElementById('user-style-rtl');
+           // linkRTL.setAttribute('disabled', true);
+           // userLinkRTL.setAttribute('disabled', true);
+        }
+    </script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="../../vendors/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="../../../vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+    <link href="../../../assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
+    <link href="../../../assets/css/theme.min.css" rel="stylesheet" id="style-default">
+    <link href="../../../assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+    <link href="../../../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+
+    <link href="~/Content/css/client.css" rel="stylesheet"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    @*jquery validation plugin file*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="~/Content/js/Client.js"></script>
+
+
+    @*jquery toaster plugin file*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+    <style>
+        .error {
+            color: red;
+        }
+
+        #forError {
+            text-align: initial;
+        }
+
+        #checkgroup {
+            position: relative;
+        }
+
+        #termsregister-error {
+            position: absolute;
+            top: 80%;
+        }
+
+        #toast-container {
+            position: absolute;
+            top: 2%;
+            left: 70%;
+            width: 100%;
+        }
+
+            #toast-container > div {
+                width: 500px;
+            }
+
+        li {
+            list-style-type: none;
+            margin-left: -36px !important;
+        }
+
+        .spanrequired {
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        @RenderBody()
+
+
+    </div>
+    @*@RenderSection("Scripts",false);*@
+</body>
+</html>

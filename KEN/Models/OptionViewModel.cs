@@ -59,6 +59,8 @@ namespace KEN.Models
         public string Extra_decQuantity { get; set; }
         public string Declined { get; set; }
 
+        public string PaidBy { get; set; }
+
         public string Front_decDesignName { get; set; }
         public string Back_decDesignName { get; set; }
         public string Left_decDesignName { get; set; }

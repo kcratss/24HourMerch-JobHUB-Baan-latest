@@ -14,6 +14,12 @@ namespace KEN_DataAccess
     
     public partial class tblAddress
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblAddress()
+        {
+            this.tblUserAddressMappings = new HashSet<tblUserAddressMapping>();
+        }
+    
         public int AddressId { get; set; }
         public string Attention { get; set; }
         public string DeliveryAddress { get; set; }
@@ -31,5 +37,7 @@ namespace KEN_DataAccess
         public string TradingName { get; set; }
     
         public virtual tblOrganisation tblOrganisation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserAddressMapping> tblUserAddressMappings { get; set; }
     }
 }

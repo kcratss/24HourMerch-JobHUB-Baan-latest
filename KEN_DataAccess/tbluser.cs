@@ -20,6 +20,16 @@ namespace KEN_DataAccess
             this.tblcontacts = new HashSet<tblcontact>();
             this.tblOrganisations = new HashSet<tblOrganisation>();
             this.TblApplications = new HashSet<TblApplication>();
+            this.tblColors = new HashSet<tblColor>();
+            this.tblFabrics = new HashSet<tblFabric>();
+            this.tblOptionProperties = new HashSet<tblOptionProperty>();
+            this.tblOptionProperties1 = new HashSet<tblOptionProperty>();
+            this.tblUserAddressMappings = new HashSet<tblUserAddressMapping>();
+            this.tblUserLogoes = new HashSet<tblUserLogo>();
+            this.tblUserItems = new HashSet<tblUserItem>();
+            this.tblProcesses = new HashSet<tblProcess>();
+            this.tblOrderDetails = new HashSet<tblOrderDetail>();
+            this.tblDraftOrders = new HashSet<tblDraftOrder>();
         }
     
         public int id { get; set; }
@@ -40,6 +50,9 @@ namespace KEN_DataAccess
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string UserRole { get; set; }
+        public Nullable<System.Guid> UserId { get; set; }
+        public Nullable<bool> IsVerified { get; set; }
+        public Nullable<bool> IsProfileCompleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblcontact> tblcontacts { get; set; }
@@ -47,5 +60,25 @@ namespace KEN_DataAccess
         public virtual ICollection<tblOrganisation> tblOrganisations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TblApplication> TblApplications { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblColor> tblColors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFabric> tblFabrics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOptionProperty> tblOptionProperties { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOptionProperty> tblOptionProperties1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserAddressMapping> tblUserAddressMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserLogo> tblUserLogoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserItem> tblUserItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProcess> tblProcesses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOrderDetail> tblOrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDraftOrder> tblDraftOrders { get; set; }
     }
 }

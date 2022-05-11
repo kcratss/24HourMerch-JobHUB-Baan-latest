@@ -581,7 +581,7 @@ function SaveOpportunity() {
 
     }
 
-    if ($("#oppSource").val() != "") {
+    if ($("#oppSource").val() != "" || $(".oppSource1").val() != "" || $(".oppSource2").val() != "") {
 
         $("#oppSource").removeClass('customAlertChange');
     } else {
@@ -651,7 +651,14 @@ function SaveOppo() {
         oppName = $("#oppName").val();
         oppQuantity = $("#oppQuantity").val();
         datepicker = GetDate($("#datepicker").val());
-        oppSource = $("#oppSource").val();
+        if ($('#StatCampaign').is(":visible")) {
+            oppSource = $(".oppSource1").val();
+
+        }
+        if ($('#DivQuote').is(":visible")) {
+            oppSource = $(".oppSource2").val();
+
+        }
         oppCampaign = $("#oppCampaign").val();
         depositreqdate = GetDate($("#depositreqdate").val());
         OppShipping = $("#OppShipping").val();
@@ -1273,7 +1280,7 @@ function OptionCopy() {
 }
 
 function OptionSave() {
-
+    
     var OptionAvail = $('#HiddenOptionID').val();
     UpdateOption($('#HiddenOptionID').val());
     if ($('#hdnBrandStatus').val() == "InActive") {
@@ -1545,7 +1552,7 @@ function UpdateOption(OptionID) {
             }
 
 
-            var txtOptionQty, txtCode, txtColor, txtLink, txtCost, txtMargin, ddlBrand, ddlItem, txtotherDesc, txtunitprcExgst, ddlinclude, txtothercost, txtComment, ddlservice, ddlSizeType, txtSizes, txtSizesPacked, ddlDecline, OptionStage, ProofSent;
+            var ddlpaidby, txtOptionQty, txtCode, txtColor, txtLink, txtCost, txtMargin, ddlBrand, ddlItem, txtotherDesc, txtunitprcExgst, ddlinclude, txtothercost, txtComment, ddlservice, ddlSizeType, txtSizes, txtSizesPacked, ddlDecline, OptionStage, ProofSent;
             if (OptionID != "" || ($('#PageName').val() != "ShippingDetails" && $('#PageName').val() != "InvoicingDetails" && $('#PageName').val() != "CompleteDetails" && $('#PageName').val() != "PackingDetails")) {
                 if ($("#txtCode").val() != "") {
                     txtCode = $("#txtCode").val();
@@ -1629,7 +1636,7 @@ function UpdateOption(OptionID) {
                 OptionStage = "Opp";
             else
                 OptionStage = "Order";
-
+            
             txtColor = $("#txtColor").val();
             txtLink = $("#txtLink").val();
             txtCost = $("#txtCost").val();
@@ -1641,6 +1648,7 @@ function UpdateOption(OptionID) {
             txtotherDesc = $("#txtotherdesc").val();
             txtothercost = $("#txtothercost").val();
             txtComment = $("#txtComment").val();
+            ddlpaidby = $("#ddlpaidby").val();
             ddlservice = $("#ddlservice").val();
             if ($("#ddlinclude").prop('checked')) {
                 ddlinclude = "Yes";
@@ -1751,7 +1759,7 @@ function UpdateOption(OptionID) {
 
                     if (DecorationValid) {
                         var model = {
-                            "model": { id: OptionID, quantity: txtOptionQty, code: txtCode, band_id: ddlBrand, item_id: ddlItem, colour: txtColor, comment: txtComment, SizeGrid: ddlSizeType, Link: txtLink, Cost: txtCost, Margin: txtMargin, InitialSizes: txtSizes, SizesPacked: txtSizesPacked, OtherDesc: txtotherDesc, OtherCost: txtothercost, Declined: ddlDecline, include: ddlinclude, Service: ddlservice, Front_decDesign: $('#txtDecorationFront').val(), Back_decDesign: $('#txtDecorationBack').val(), Left_decDesign: $('#txtDecorationLeft').val(), Right_decDesign: $('#txtDecorationRight').val(), Extra_decDesign: $('#txtDecorationOther').val(), Front_decQuantity: $('#txtRangeFront').val(), Back_decQuantity: $('#txtRangeBack').val(), Left_decQuantity: $('#txtRangeLeft').val(), Right_decQuantity: $('#txtRangeRight').val(), Extra_decQuantity: $('#txtRangeOther').val(), Front_decCost: FrontDecCost, Back_decCost: BackDecCost, Left_decCost: LeftDecCost, Right_decCost: RightDecCost, Extra_decCost: OtherDecCost, OpportunityId: $('#lblOpportunityId').text(), uni_price: txtunitprcExgst, front_decoration: $('#FrontDecorationID').val(), back_decoration: $('#BackDecorationID').val(), left_decoration: $('#LeftDecorationID').val(), right_decoration: $('#RightDecorationID').val(), extra_decoration: $('#OtherDecorationID').val(), OptionStage: OptionStage, ProofSent: ProofSent },
+                            "model": { id: OptionID, quantity: txtOptionQty, code: txtCode, band_id: ddlBrand, item_id: ddlItem, colour: txtColor, comment: txtComment, SizeGrid: ddlSizeType, Link: txtLink, Cost: txtCost, Margin: txtMargin, InitialSizes: txtSizes, SizesPacked: txtSizesPacked, OtherDesc: txtotherDesc, OtherCost: txtothercost, Declined: ddlDecline, include: ddlinclude, paidBy: ddlpaidby, Service: ddlservice, Front_decDesign: $('#txtDecorationFront').val(), Back_decDesign: $('#txtDecorationBack').val(), Left_decDesign: $('#txtDecorationLeft').val(), Right_decDesign: $('#txtDecorationRight').val(), Extra_decDesign: $('#txtDecorationOther').val(), Front_decQuantity: $('#txtRangeFront').val(), Back_decQuantity: $('#txtRangeBack').val(), Left_decQuantity: $('#txtRangeLeft').val(), Right_decQuantity: $('#txtRangeRight').val(), Extra_decQuantity: $('#txtRangeOther').val(), Front_decCost: FrontDecCost, Back_decCost: BackDecCost, Left_decCost: LeftDecCost, Right_decCost: RightDecCost, Extra_decCost: OtherDecCost, OpportunityId: $('#lblOpportunityId').text(), uni_price: txtunitprcExgst, front_decoration: $('#FrontDecorationID').val(), back_decoration: $('#BackDecorationID').val(), left_decoration: $('#LeftDecorationID').val(), right_decoration: $('#RightDecorationID').val(), extra_decoration: $('#OtherDecorationID').val(), OptionStage: OptionStage, ProofSent: ProofSent },
 
                             //P 10 Jan OptionCode
                             "OptionCodeModel": { id: $("#HiddenOptionCodeID").val(), Code: txtCode, itemId: ddlItem, BrandId: ddlBrand, Link: txtLink, cost: parseFloat(txtCost) }
@@ -1841,6 +1849,7 @@ function UpdateOption(OptionID) {
 
                                                     $('#txtothercost').val(data.OtherCost);
                                                     $('#txtComment').val(data.comment);
+                                                    $('#ddlpaidby').val(data.PaidBy);
                                                     $('#ddlservice').val(data.Service);
                                                     $('#ddlSizeType').val(data.SizeGrid);
                                                     $('#txtSizes').val(data.InitialSizes);
@@ -2227,6 +2236,7 @@ function GetOptionGrid(OpportunityID) {
 
                 $('#txtothercost').val(data.OtherCost);
                 $('#txtComment').val(data.comment);
+                $('#ddlpaidby').val(data.PaidBy);
                 $('#ddlservice').val(data.Service);
                 $('#ddlSizeType').val(data.SizeGrid);
                 $('#txtSizes').val(data.InitialSizes);
@@ -2867,7 +2877,14 @@ function GetOppById(OppId) {
                 //  $('#ddlOppAcctMgr').val(response.AcctManagerId);
                 $('#oppQuantity').val(response.Quantity);
                 $('#datepicker').val(DateFormat(response.ReqDate));
-                $('#oppSource').val(response.Source);
+                if ($('#StatCampaign').is(":visible")) {
+                    $('.oppSource1').val(response.Source);
+                    
+                }
+                if ($('#DivQuote').is(":visible")) {
+                    $('.oppSource2').val(response.Source);
+                   
+                }
                 $('#oppCampaign').val(response.Compaign);
                 $('#txtrepeatfrom').val(response.RepeatJobId);
                 $('#txtlost').val(response.Lost);
@@ -3443,7 +3460,7 @@ function Print() {
 }
 
 function OpenProofPdf() {
-   
+
     var OptionId = $('#HiddenOptionID').val();
     if (OptionId != "" && OptionId != null && OptionId != undefined) {
         var PdfType = "";
@@ -3615,7 +3632,7 @@ function ValidateOpportunity() {
         checkflag = false;
     }
 
-    if ($("#oppSource").val() != "") {
+    if ($("#oppSource").val() != "" || $(".oppSource1").val() != "" || $(".oppSource2").val() != "") {
         //$("#oppSource").css("border-color", "rgba(204, 204, 204, 1)");
         $("#oppSource").removeClass('customAlertChange');
     } else {
@@ -3719,6 +3736,7 @@ function OptionFormReset() {
     $('#txtothercost').val('');
     $('#txtComment').val('');
     //$('#ddlservice').val('');
+    $('#ddlpaidby').val('');
     $('#ddlservice').val("Standard - 2 weeks*");
     //baans change 11th January
     $('#ddlSizeType').val("Custom");

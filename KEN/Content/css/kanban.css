@@ -67,7 +67,7 @@
     width: 84px;
     position: absolute;
     left: 81px;
-    margin-top: -23px;
+    margin-top: -27px;
 }
 
 #loaddata .stkRow label {
@@ -315,8 +315,9 @@
 }*/
 
     .artRow {
-        width: 85px;
-        margin-top: -7px;
+        /*width: 85px;
+        margin-top: -7px;*/
+        display:flex;
     }
 
     .artRow label {
@@ -332,7 +333,7 @@
         width: 82px;
         position: absolute;
         left: 80px;
-        margin-top: -22px;
+        margin-top: -25px;
     }
 
     .stkRow label {

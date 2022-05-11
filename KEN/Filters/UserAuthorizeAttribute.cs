@@ -28,7 +28,7 @@ namespace KEN.Filters
             {
                 using (var context = new KENNEWEntities())
                 {
-                    var userRole = context.tblusers.Where(x => x.email == userEmail && x.admin==true).FirstOrDefault();
+                    var userRole = context.tblusers.Where(x => x.email == userEmail && x.UserRole == "Online").FirstOrDefault();
                     if (userRole != null)
                     {
                         var role = userRole.UserRole;

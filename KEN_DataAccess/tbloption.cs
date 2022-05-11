@@ -73,6 +73,7 @@ namespace KEN_DataAccess
         public Nullable<bool> ProofSent { get; set; }
         public Nullable<System.DateTime> ProofMailSent { get; set; }
         public Nullable<int> ProofVerion { get; set; }
+        public string PaidBy { get; set; }
     
         public virtual TblApplication TblApplication { get; set; }
         public virtual TblApplication TblApplication1 { get; set; }

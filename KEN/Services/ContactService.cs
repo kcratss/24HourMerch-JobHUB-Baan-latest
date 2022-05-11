@@ -21,9 +21,11 @@ namespace KEN.Services
         private readonly IRepository<tblOpportunity> _tblOpportunityRepository;
         private readonly IRepository<tblOppContactMapping> _tblOppContactMappingRepository;
         private readonly IRepository<Vw_tblOpportunity> _Vw_tblOpportunityRepository;
+        private readonly IRepository<tbluser> _tblUsersRepository;
+        private readonly IRepository<tblcontact> _tblContactRepository;
         ResponseViewModel response = new ResponseViewModel();
         KENNEWEntities DbContext = new KENNEWEntities();
-        public ContactService(IRepository<tblcontact> st_contactRepository, IRepository<tblOpportunity> tblOpportunityRepository, IRepository<tblOppContactMapping> tblOppContactMappingRepository, IRepository<tbloption> tblOptionRepository, IRepository<Vw_tblContact> VW_tblcontactRepository, IRepository<Vw_tblOpportunity> Vw_tblOpportunityRepository)
+        public ContactService(IRepository<tbluser> tblUsersRepository, IRepository<tblcontact> tblContactRepository, IRepository<tblcontact> st_contactRepository, IRepository<tblOpportunity> tblOpportunityRepository, IRepository<tblOppContactMapping> tblOppContactMappingRepository, IRepository<tbloption> tblOptionRepository, IRepository<Vw_tblContact> VW_tblcontactRepository, IRepository<Vw_tblOpportunity> Vw_tblOpportunityRepository)
         {
             _st_contactRepository = st_contactRepository;
             _tblOpportunityRepository = tblOpportunityRepository;
@@ -31,6 +33,8 @@ namespace KEN.Services
             _tblOptionRepository = tblOptionRepository;
             _VW_tblcontactRepository = VW_tblcontactRepository;
             _Vw_tblOpportunityRepository = Vw_tblOpportunityRepository;
+            _tblUsersRepository = tblUsersRepository;
+            _tblContactRepository = tblContactRepository;
         }
         // baans change 27th September for Autocomplete by Type
         public IEnumerable<DropDownViewModel> GetByFirstPrefix(string Prefix, string ContType)
@@ -601,5 +605,62 @@ namespace KEN.Services
             return response;
         }
 
+        public tbluser GetUserByEmail(string email)
+        {
+            var user = _tblUsersRepository.Get(x => x.email == email && x.IsProfileCompleted == false).FirstOrDefault();
+            return user;
+        }
+
+        public bool AddProfile(ClientContactViewModel model)
+        {
+            try
+            {
+                var userId = _tblUsersRepository.Get(x => x.email == model.Email).Select(x => x.id).FirstOrDefault();
+                if (userId != 0)
+                {
+                    var tblContactEntity = Mapper.Map<tblcontact>(model);
+                    tblContactEntity.CreatedBy = DataBaseCon.ActiveUser();
+                    tblContactEntity.CreatedOn = DateTime.Now;
+                    tblContactEntity.ContactType = "Online";
+                    tblContactEntity.acct_manager_id = userId;
+
+                    _tblContactRepository.Insert(tblContactEntity);
+                    _tblContactRepository.Save();
+                    return true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return false;
+        }
+
+        public bool UpdateProfile(ClientContactViewModel model)
+        {
+            try
+            {
+                var contactUser = _tblContactRepository.Get(x => x.email == model.Email).FirstOrDefault();
+                if (contactUser != null)
+                {
+                    contactUser.UpdatedBy = DataBaseCon.ActiveUser();
+                    contactUser.UpdatedOn = DateTime.Now;
+                    contactUser.first_name = model.FirstName;
+                    contactUser.last_name = model.LastName;
+                    contactUser.mobile = model.Contact;
+
+                    _tblContactRepository.Update(contactUser);
+                    _tblContactRepository.Save();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return false;
+
+        }
     }
 }

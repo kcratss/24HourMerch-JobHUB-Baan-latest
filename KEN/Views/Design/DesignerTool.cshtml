@@ -1,0 +1,333 @@
+﻿@{
+    Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+@{
+    var items = ViewBag.Items;
+    var colors = ViewBag.Colors;
+    var fabrics = ViewBag.Fabrics;
+    var process = ViewBag.Process;
+
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/js/jquery.magnify.min.js" integrity="sha512-YKxHqn7D0M5knQJO2xKHZpCfZ+/Ta7qpEHgADN+AkY2U2Y4JJtlCEHzKWV5ZE87vZR3ipdzNJ4U/sfjIaoHMfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="~/Content/js/Design.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Content/css/Design.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Design</title>
+</head>
+<body>
+    <div class="container-fluid container1">
+        <div class="col-2 leftsidebar container-fluid">
+            <h5 class="heading">Search Garments</h5>
+            <div class="dropdowns">
+
+                @Html.DropDownList("items", new SelectList(ViewBag.Items, "id", "name"), "Items - All ", new { @class = " filterGarments" })
+
+            </div>
+
+            <div class="dropdowns">
+
+                @Html.DropDownList("colors", new SelectList(ViewBag.Colors, "Id", "Name"), "Colors - All ", new { @class = " filterGarments" })
+
+            </div>
+
+            <div class="dropdowns">
+                <select class="filterGarments gender" name="gender">
+                    <option value="-1" selected>Genders - All</option>
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                </select>
+            </div>
+
+            <div class="dropdowns">
+
+                @Html.DropDownList("fabrics", new SelectList(ViewBag.Fabrics, "Id", "Name"), "Fabrics - All", new { @class = " filterGarments" })
+
+            </div>
+
+            <div class="dropdowns">
+                <select id="order" class="filterGarments" name="filter">
+                    <option value="-1" selected>Order By -  Low to High Price</option>
+                    <option value="0">Order By - High to Low Price</option>
+                </select>
+            </div>
+
+            <div class="d-flex flex-column mb-2 GarmentsImages">
+                <div id="myimage" class="p-2 bd-highlight">
+                </div>
+            </div>
+        </div>
+
+        <div id="" class="col maincontent d-flex container-fluid">
+            <div class="col-4">
+
+
+                <div class="uniformHeading"><i class="fa fa-users fa-lg" aria-hidden="true"></i><h5 style=" color:grey; padding-left: 6px; display: inline;">My Uniform Range</h5></div>
+                <div id="previewImage" class="previewImage">
+                </div>
+                <a href="#" id="image_link"></a>
+            </div>
+            <div class="col-lg-5 col-md-6 container">
+                <h5>24 Hour Merchandise - Uniform Suite</h5>
+                <h6>Uniform Design Tool / Order Window</h6>
+                <div id="imgdropper" class="heading2">
+                    <img class="designImage img-fluid" />
+                </div>
+                <div class="frontBackBtnDiv">
+                    <button id="frontbtn" data-toggle="modal" data-target="#FrontModal" class="btn btn-primary imgbtn">Front</button>
+                    <button id="backbtn" data-toggle="modal" data-target="#BackModal" class="btn btn-primary imgbtn">Back</button>
+                </div>
+
+                <div id="qtyPrice" class="">
+                    <div class="form-group" id="qty">
+                        <label for="quantity">Qty</label>
+                        <input class="inputs" type="number" id="quantity" />
+                    </div>
+
+                                           
+                <div class="dropdowns col-2">
+                    <label for="process" class="process">Process</label>
+                      @Html.DropDownList("process", new SelectList(ViewBag.process, "Id", "Name"), "Select-Process", new { @id = "process", @class = "process " })
+
+                </div>
+                   
+
+                    <div class="form-group price">
+                        <label for="price">Price-Ext GST</label>
+                        <input class="inputs" type="text" id="price" />
+                    </div>
+
+                </div>
+                <div class="container" id="bottomTools">
+                    <div class="col-6" id="designTools">
+                        <h6 class="bottomHeading">Design Tools</h6>
+                        <div class="designbtndiv">
+                            <div class="bottomBtn">
+                                <i class="fa fa-search-plus fa-lg" aria-hidden="true"></i>
+                                <button onclick="OpenPreviewModal()" class="btn btn-primary designbtn">Preview</button>
+                            </div>
+                            <div class="bottomBtn">
+                                @*<i class="fa fa-refresh" aria-hidden="true"></i>*@
+                                <i class="fa fa-retweet" aria-hidden="true"></i>
+                                <button onclick="OpenRefreshModal()" class="btn btn-primary designbtn">Refresh</button>
+                            </div>
+
+                            <div class="bottomBtn">
+                                <i class="fa fa-file" aria-hidden="true"></i>
+                                <button id="btn-Preview-Image" class="btn btn-primary designbtn" onclick="OpenSaveToRangeModal()">Save to Range</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="orderTools">
+                        <h6 class="bottomHeading">Order Tools</h6>
+                        <div class="orderbtndiv">
+                            <div class="bottomBtn">
+                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                <button class="btn btn-primary designbtn">Check Pricing</button>
+                            </div>
+                            <div class="bottomBtn">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                <button  id="myCartBtn" onclick="AddToCart()" class="btn btn-primary designbtn">Add to Cart</button>
+                            </div>
+                            <div class="bottomBtn">
+                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                <button class="btn btn-primary designbtn">Place Order</button>
+                            </div>
+                            <div class="bottomBtn">
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                <button onclick="OpenEmailModal()" class="btn btn-primary designbtn">Email to Colleague</button>
+                            </div>
+                            <div class="bottomBtn">
+                                <i class="fa fa-print" aria-hidden="true"></i>
+                                <button onclick="OpenPrintModal()" class="btn btn-primary designbtn">Print</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div>
+                    <div class="logoSection">
+                        <span id="h-mylogo">
+                            <img style="padding-left: 19px;" src="https://img.icons8.com/windows/32/000000/star--v1.png" />
+                            <label class="btn1">My Logos</label>
+                        </span>
+
+                        <span id="h-uploadlogo">
+                            <img src="https://img.icons8.com/material-outlined/24/000000/upload-to-cloud.png" />
+                            <label for="logos" id="btnUpload" class="btn1 btn btn-primary designbtn">Upload new Logo</label>
+                            <input id="logos" onchange="UploadLogo(this)" style="visibility:hidden;" type="file">
+                        </span>
+                    </div>
+                    <div class="logodropper">
+                        <div id="userlogos"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2 container rightsidebar">
+            <div class="brandprocess">
+                <h5 id="brandheading">Branding Processes</h5>
+                <button class="btn btn-primary brandbtn">Embroidery</button>
+                <button class="btn btn-primary brandbtn">Screen Printing</button>
+                <button class="btn btn-primary brandbtn">SupaColour Transfers</button>
+                <button class="btn btn-primary brandbtn">VinylCut Transfers</button>
+                <button class="btn btn-primary brandbtn">Digital Printing (DTG)</button>
+                <h5 id="brandheading">Order Processes</h5>
+                <button class="btn btn-primary brandbtn">How to Order</button>
+                <button class="btn btn-primary brandbtn">Delivery Times</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="BackModal" tabindex="-1" role="dialog" aria-labelledby="BackModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    Are you sure you want to change ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="ChangeImage('back')" class="btn btn-info">Discard</button>
+                    <button type="button" onclick="GetPosition('frontsave')" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="FrontModal" tabindex="-1" role="dialog" aria-labelledby="FrontModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Are you sure you want to change ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="ChangeImage('front')" class="btn btn-info">Discard</button>
+                    <button type="button" onclick="GetPosition('backsave')" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PrintModal" tabindex="-1" role="dialog" aria-labelledby="FrontModalLabel" aria-hidden="true">
+        <div class="modal-dialog print-modal-dialog" role="document">
+            <div class="modal-content print-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Print</h4>
+                    <button type="button" class="btn-close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div id="printSection" class="modal-body-wrapper">
+                    <div id="previewPrint" class="modal-body">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+                    <button type="button" onclick="PrintImage()" class="btn btn-primary">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PreviewModal" tabindex="-1" role="dialog" aria-labelledby="FrontModalLabel" aria-hidden="true">
+        <div class="modal-dialog print-modal-dialog" role="document">
+            <div class="modal-content print-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Preview</h4>
+                    <button type="button" class="btn-close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div id="printSection" class="modal-body-wrapper">
+                    <div id="preview" class="modal-body">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+                    @*<button type="button" onclick="PrintImage()" class="btn btn-primary">Print</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EmailModal" tabindex="-1" role="dialog" aria-labelledby="EmailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content print-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Email</h4>
+                    <button type="button" class="btn-close" onclick="closeModal()" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="EmailSection" class="modal-body-wrapper">
+                    <div class="modal-body">
+
+                        <span class="form-group">
+                            <label for="inputEmail">To : </label>
+                            <input type="email" name="inputEmail" class="form-control" id="inputEmail" placeholder="Enter email" required />
+                        </span>
+                        <span class="form-group">
+                            <label for="inputSubject">Subject : </label>
+                            <input type="text" name="inputSubject" class="form-control" id="inputSubject" placeholder="Subject" required />
+                        </span>
+                        <span class="form-group">
+                            <textarea rows="4" name="inputDescription" type="text" class="form-control" id="inputDescription" placeholder="Description"></textarea>
+                        </span>
+
+                        <div id="previewEmail"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+                    <button type="button" onclick="SendEmail()" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="RefreshModal" tabindex="-1" role="dialog" aria-labelledby="RefreshModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Are you sure you want to Refresh ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="RefreshAll()" class="btn btn-primary">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="SaveToRangeModal" tabindex="-1" role="dialog" aria-labelledby="RefreshModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Are you sure you want to Save ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="SaveImage()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>`
+
+</body>
+</html>

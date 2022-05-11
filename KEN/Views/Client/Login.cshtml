@@ -1,0 +1,64 @@
+﻿
+@model KEN.Models.ClientLoginViewModel
+@{ Layout = "~/Views/Shared/_ClientLayout.cshtml";}
+
+<body style="overflow:hidden;">
+    
+    <div class="row flex-center min-vh-100 py-6">
+        <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+
+            <div class="card">
+
+                <div class="row">
+
+                    <img src="~/Images/JobHUB_Logo_Sign_In.jpg" alt="image" class="img-responsive" />
+                </div>
+                <div class="card-body p-4 p-sm-5">
+                    @using (Html.BeginForm("Login", "Client", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", id = "loginForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row flex-between-center mb-2">
+                            <div class="col-auto">
+
+                                <h5>Login</h5>
+                            </div>
+                            <div class="col-auto fs--1 text-600"><span class="mb-0 undefined">or</span> <span><a href="@Url.Action("Register", "Client")">Create an account</a></span></div>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            @Html.TextBoxFor(model => model.Email, new { id = "UserEmail", @class = "form-control", placeholder = "Enter Your Email Address", @onchange = "CheckCookies()" })
+
+                        </div>
+                        <div class="mb-3">
+                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", @type = "password", @id = "txtpswrd" })
+
+                        </div>
+                        <div class="row flex-between-center">
+                            <div class="col-auto">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" id="chkRem" />
+                                    <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="col-auto"><a class="fs--1" href="@Url.Action("ForgotPassword", "Client")">Forgot Password?</a></div>
+                        </div>
+                        <div class="mb-3">
+
+                            <input class="submit btn btn-primary d-block w-100 mt-3" type="submit" value="Login">
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+
+

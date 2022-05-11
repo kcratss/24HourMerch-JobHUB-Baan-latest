@@ -208,10 +208,17 @@ namespace KEN.Controllers
             ViewBag.BrandList = getBrandList();
             return View();
         }
-        public ActionResult GetOptionCodeList()
+        public ActionResult GetOptionCodeList(string status)
         {
-            var data = _baseService.OptionCodeListMasters().OrderBy(_ => _.Code).OrderBy(_ => _.Status).ToList();
-
+            List<OptionCodeBrandItemViewModel> data;
+            if (status == "Active" || status == "InActive")
+            {
+               data = _baseService.OptionCodeListMasters().Where(x => x.Status == status).OrderBy(_ => _.Code).OrderBy(_ => _.Status).ToList();
+            }
+            else
+            {
+               data = _baseService.OptionCodeListMasters().OrderBy(_ => _.Code).OrderBy(_ => _.Status).ToList();
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public ActionResult SaveOptionCodeData(tblOptionCode model)

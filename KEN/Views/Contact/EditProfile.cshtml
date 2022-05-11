@@ -1,0 +1,56 @@
+﻿@model KEN.Models.ClientContactViewModel
+@{
+    Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+
+
+<div class="row g-0">
+    <div class="col-lg-8 pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Profile Settings</h5>
+            </div>
+            <div class="card-body bg-light">
+                @using (Html.BeginForm("EditProfile", "Contact", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", id = "contactForm", @class = "row g-3" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                    <div class="col-lg-6">
+                        <label class="form-label" for="first-name"><span class="me-1 spanrequired">*</span>First Name</label>
+                        @Html.TextBoxFor(model => model.FirstName, new { id = "txtfirstnm", @class = "form-control", placeholder = "First Name", @value = Model.FirstName })
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label" for="last-name"><span class="me-1 spanrequired">*</span>Last Name</label>
+                        @Html.TextBoxFor(model => model.LastName, new { id = "txtlastnm", @class = "form-control", placeholder = "Last Name", @value = Model.LastName })
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email1"><span class="me-1 spanrequired">*</span>Email</label>
+                        @Html.TextBoxFor(model => model.Email, new { id = "txtemail", @class = "form-control", placeholder = "Email", @value = Model.Email, @readonly = "readonly" })
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label" for="email2"><span class="me-1 spanrequired">*</span>Phone</label>
+                        @Html.TextBoxFor(model => model.Contact, new { id = "txtcontact", @class = "form-control", @value = Model.Contact, placeholder = "Contact Number" })
+
+                    </div>
+
+
+                    <div class="col-12 d-flex justify-content-end">
+
+                        <input class="submit btn btn-primary mt-3" type="submit" name="submit" value="Update">
+                    </div>
+
+
+                }
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+

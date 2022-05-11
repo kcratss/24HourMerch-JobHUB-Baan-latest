@@ -9,6 +9,8 @@ using AutoMapper;
 using KEN.Interfaces.Iservices;
 using KEN.Interfaces;
 using KEN.Filters;
+using KEN.AppCode;
+using KEN.Interfaces.Repository;
 
 namespace KEN.Controllers
 {
@@ -16,12 +18,19 @@ namespace KEN.Controllers
     public class ContactController : Controller
     {
         ResponseViewModel response = new ResponseViewModel();
+        ResponseMessageViewModel responsemsg = new ResponseMessageViewModel();
+
+
         // GET: Contact
         private readonly IContactService _baseService;
         KENNEWEntities dbContext = new KENNEWEntities();
-        public ContactController(IContactService baseService)
+        private readonly IRepository<tblcontact> _tblContactRepository;
+        private readonly IRepository<tbluser> _tblUsersRepository;
+        public ContactController(IContactService baseService, IRepository<tblcontact> tblContactRepository, IRepository<tbluser> tblUsersRepository)
         {
             _baseService = baseService;
+            _tblContactRepository = tblContactRepository;
+            _tblUsersRepository = tblUsersRepository;
         }
         public ActionResult ContactList()
         {
@@ -57,10 +66,10 @@ namespace KEN.Controllers
         }
 
 
-        public ActionResult AddContact(ContactViewModel model,OppContactMappingViewModel MappingModel)
+        public ActionResult AddContact(ContactViewModel model, OppContactMappingViewModel MappingModel)
         {
             //return null;
-           // bool Result = false;
+            // bool Result = false;
 
             var response = new ResponseViewModel();
             if (model != null)
@@ -68,17 +77,17 @@ namespace KEN.Controllers
                 var mappingflag = true;
                 if (model.PageSource != "ContactDetails")
                 {
-                    mappingflag= _baseService.ValidateMapping(MappingModel);
+                    mappingflag = _baseService.ValidateMapping(MappingModel);
                 }
                 if (mappingflag)
                 {
-                var Entity = Mapper.Map<tblcontact>(model);
-                response = _baseService.ValidateContact(Entity, MappingModel,model.PageSource);
-            }
+                    var Entity = Mapper.Map<tblcontact>(model);
+                    response = _baseService.ValidateContact(Entity, MappingModel, model.PageSource);
+                }
                 else
                 {
                     response.Message = "Primary contact already Exist for this opportunity";
-                     response.Result = ResponseType.Warning;
+                    response.Result = ResponseType.Warning;
                 }
             }
             return Json(response, JsonRequestBehavior.AllowGet);
@@ -90,7 +99,7 @@ namespace KEN.Controllers
                 var Entity = Mapper.Map<tblcontact>(model);
                 response = _baseService.Update(Entity);
             }
-           
+
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
@@ -104,8 +113,8 @@ namespace KEN.Controllers
         public ActionResult GetContactByOppId(int OppId)
         {
             var ContactList = _baseService.GetContactByOppId(OppId);
-          
-           return Json(ContactList, JsonRequestBehavior.AllowGet);
+
+            return Json(ContactList, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ContactDetails(int id)
         {
@@ -164,7 +173,7 @@ namespace KEN.Controllers
 
             // string[] Roles = new string[] { "Administrator", "Account Manager","Production Director"};
             var getData = Mapper.Map<List<AccountManagerDropdownViewModel>>(dbContext.tblusers
-                .Where(_ => _.UserRole == "Account Manager" && _.status == "Active").ToList().OrderBy(_ => _.title)).OrderBy(_ => _.AccountManagerFullName).ToList();
+                .Where(_ => _.UserRole == "Account Manager" && _.status == "Active" || _.firstname == "Online").ToList().OrderBy(_ => _.title)).OrderBy(_ => _.AccountManagerFullName).ToList();
             return getData;
         }
 
@@ -197,7 +206,7 @@ namespace KEN.Controllers
             var data = Mapper.Map<ContactViewModel>(_baseService.GetContactById(ContactId));
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetOppoListByContactOrOrganisation(string Stage, int ID,string PageSource)
+        public ActionResult GetOppoListByContactOrOrganisation(string Stage, int ID, string PageSource)
         {
             var GridContactDetails = _baseService.GetOppoListByContactOrOrganisation(Stage, ID, PageSource);
             // baans change 18th October for OpportunityList for new data
@@ -208,11 +217,11 @@ namespace KEN.Controllers
             // baans end 18th October
         }
 
-        public ActionResult GetContactDownList(int id,string Status)
+        public ActionResult GetContactDownList(int id, string Status)
         {
-            var GridData = _baseService.getContactGSTGrid(id,Status);
+            var GridData = _baseService.getContactGSTGrid(id, Status);
             // baans change 22nd October for include 
-            foreach(var item in GridData)
+            foreach (var item in GridData)
             {
                 item.include = item.include_job == true ? "Yes" : "No";
             }
@@ -222,7 +231,7 @@ namespace KEN.Controllers
 
         public ActionResult GetContactByOrgId(int OrgId)
         {
-            var data = Mapper.Map<List< ContactViewModel>>(_baseService.GetContactByOrgId(OrgId));
+            var data = Mapper.Map<List<ContactViewModel>>(_baseService.GetContactByOrgId(OrgId));
             // Baans change 18th October for ContactList for new data
             var Jsonresult = Json(data, JsonRequestBehavior.AllowGet);
             Jsonresult.MaxJsonLength = int.MaxValue;
@@ -240,11 +249,11 @@ namespace KEN.Controllers
             var OptionCount = 0;
             if (Stage == "Opp")
             {
-                 OptionCount = dbContext.tbloptions.Where(_ => _.OpportunityId == OpportunityID && _.include_job == true && _.OptionStage == "Opp").ToList().Count;
+                OptionCount = dbContext.tbloptions.Where(_ => _.OpportunityId == OpportunityID && _.include_job == true && _.OptionStage == "Opp").ToList().Count;
             }
             else
             {
-                 OptionCount = dbContext.tbloptions.Where(_ => _.OpportunityId == OpportunityID && _.include_job == true && _.OptionStage == "Order").ToList().Count;
+                OptionCount = dbContext.tbloptions.Where(_ => _.OpportunityId == OpportunityID && _.include_job == true && _.OptionStage == "Order").ToList().Count;
             }
 
             // baans end 30th November
@@ -274,7 +283,7 @@ namespace KEN.Controllers
         {
             var ContIsValid = true;
             var data = dbContext.tblOppContactMappings.Where(_ => _.ContactId == Id).FirstOrDefault();
-            if(data == null)
+            if (data == null)
             {
                 ContIsValid = false;
             }
@@ -297,5 +306,80 @@ namespace KEN.Controllers
         }
         // baans end 15th November
 
+        [UserAuthorize("Online")]
+        public ActionResult EditProfile()
+        {
+
+            var activeClient = DataBaseCon.ActiveUser();
+            var user = dbContext.tblusers.Where(_ => _.email == activeClient).FirstOrDefault();
+
+            var contactUser = _tblContactRepository.Get(x => x.email == user.email).FirstOrDefault();
+            if (contactUser != null)
+            {
+                var viewUser = Mapper.Map<ClientContactViewModel>(contactUser);
+                return View(viewUser);
+            }
+            else
+            {
+                var viewUser = Mapper.Map<ClientContactViewModel>(user);
+                return View(viewUser);
+            }
+
+        }
+
+        [HttpPost]
+        [UserAuthorize("Online")]
+        public JsonResult EditProfile(ClientContactViewModel model)
+        {
+            try
+            {
+                var user = _baseService.GetUserByEmail(model.Email);
+                if (user != null)
+                {
+                    user.IsProfileCompleted = true;
+                    user.firstname = model.FirstName;
+                    user.lastname = model.LastName;
+                    _tblUsersRepository.Update(user);
+                    _tblUsersRepository.Save();
+                }
+
+                var contactUser = _tblContactRepository.Get(x => x.email == model.Email).FirstOrDefault();
+                //var userId = _tblUsersRepository.Get(x => x.firstname == "Online").Select(x => x.id).FirstOrDefault();
+                bool result;
+                if (contactUser == null)
+                {
+                    result = _baseService.AddProfile(model);
+
+                }
+                else
+                {
+                    result = _baseService.UpdateProfile(model);
+
+                }
+                if (result)
+                {
+                    responsemsg.IsSuccess = true;
+                    responsemsg.Message = "Profile Updated success.";
+                }
+                else
+                {
+                    responsemsg.IsSuccess = false;
+                    responsemsg.Message = "Profile not Updated.";
+                }
+
+
+                return Json(responsemsg, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                responsemsg.IsSuccess = false;
+                responsemsg.Message = "Something Went Wrong.Profile not updated.";
+                return Json(responsemsg, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+        }
     }
 }

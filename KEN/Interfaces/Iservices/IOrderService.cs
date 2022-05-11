@@ -12,5 +12,6 @@ namespace KEN.Interfaces.Iservices
     public interface IOrderService:IServiceBase<tblOpportunity>
     {
         List<OrderViewModal> GetOrdersDetails(string type, string Department, string UserProfile, string StartDate, string EndDate);
+        List<ClientOptionViewModel> GetAllOrderList(int id);
     }
 }

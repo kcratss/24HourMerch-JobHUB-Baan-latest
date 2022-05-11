@@ -35,5 +35,10 @@ namespace KEN.Interfaces.Iservices
         // baans change 4th October for delete the contact
         ResponseViewModel DeleteContact(int Id);
         // baans end 4th October
+
+        tbluser GetUserByEmail(string email);
+
+        bool AddProfile(ClientContactViewModel model);
+        bool UpdateProfile(ClientContactViewModel model);
     }
 }

@@ -20,9 +20,9 @@ namespace KEN_DataAccess
             this.tblInquiries = new HashSet<tblInquiry>();
             this.tblkanbans = new HashSet<tblkanban>();
             this.tblOppContactMappings = new HashSet<tblOppContactMapping>();
-            this.tbloptions = new HashSet<tbloption>();
             this.tblPayments = new HashSet<tblPayment>();
             this.tblPurchaseDetails = new HashSet<tblPurchaseDetail>();
+            this.tbloptions = new HashSet<tbloption>();
         }
     
         public int OpportunityId { get; set; }
@@ -126,10 +126,10 @@ namespace KEN_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOppContactMapping> tblOppContactMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbloption> tbloptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPayment> tblPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPurchaseDetail> tblPurchaseDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbloption> tbloptions { get; set; }
     }
 }

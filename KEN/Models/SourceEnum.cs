@@ -15,8 +15,9 @@ namespace KEN.Models
         Repeat = 6,
         WebOrder = 7,
         // Baans change 13th October for Old Database
-        Z_OldData = 8
+        Z_OldData = 8,
         // baans end 13th October
+        Online = 9 //new added
     }
     public enum Stages
     {
@@ -50,7 +51,8 @@ namespace KEN.Models
         Influencer = 5,
         Friend = 6,
         Team = 7,
-        JobHub24Hour = 8  //tarun 26/09/2018
+        JobHub24Hour = 8,  //tarun 26/09/2018
+        Online = 9  //new added
     }
     public enum PurchaseStatus
     {

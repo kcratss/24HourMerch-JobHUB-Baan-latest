@@ -74,7 +74,7 @@ namespace KEN.Interfaces.Repository
         {
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
-        }
+            }
 
         public virtual bool Save()
         {

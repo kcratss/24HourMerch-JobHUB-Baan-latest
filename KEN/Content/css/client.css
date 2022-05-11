@@ -1,0 +1,75 @@
+﻿
+.error {
+    color: red;
+}
+
+
+.spanrequired {
+    color: red;
+}
+
+#toast-container {
+    position: absolute;
+    top: 2%;
+    left: 70%;
+    width: 100%;
+}
+
+    #toast-container > div {
+        width: 400px;
+    }
+
+.closebutton {
+    border: none;
+    background-color: white
+}
+
+svg {
+    cursor: pointer;
+}
+
+#addressbtn {
+    background-color: #f9fafd;
+    border: none;
+}
+
+#txtstate {
+    padding: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--falcon-input-border-color);
+}
+
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+
+.modalConfirm {
+    position: absolute;
+    top: 200px;
+}
+
+.modal-title {
+    text-align: center;
+    padding-top: 40px;
+}
+
+#confirmMessage{
+    text-align:center;
+}
+
+.imgpadding{
+    padding-left:0px !important;
+    padding-right:0px !important;
+}
+
+.card {
+    min-height: 465.578px !important;
+    min-width: 618.656px !important;
+}
+
+.card-body {
+    min-height: 232.219px !important;
+}

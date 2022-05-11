@@ -10,6 +10,12 @@ using AutoMapper;
 using KEN.AppCode;
 
 using KEN.Models;
+using System.Data.Entity.Core.EntityClient;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Text;
+using System.Data;
+using Newtonsoft.Json;
 
 namespace KEN.Services
 {
@@ -17,11 +23,14 @@ namespace KEN.Services
     {
         private readonly IRepository<tblOpportunity> _tblOpportunityList;
         private readonly IRepository<Vw_tblOpportunity> _VW_tblOpportunityRepository;
+        private readonly IRepository<tblcontact> _tblContactRepository;
         KENNEWEntities DbContext = new KENNEWEntities();
-        public OrderService(IRepository<tblOpportunity> tblOpportunityList, IRepository<Vw_tblOpportunity> VW_tblOpportunityRepository)
+        public OrderService(IRepository<tblOpportunity> tblOpportunityList, IRepository<Vw_tblOpportunity> VW_tblOpportunityRepository,
+             IRepository<tblcontact> tblContactRepository)
         {
             _tblOpportunityList = tblOpportunityList;
             _VW_tblOpportunityRepository = VW_tblOpportunityRepository;
+            _tblContactRepository = tblContactRepository;
         }
 
         public bool Add(tblOpportunity entity)
@@ -74,7 +83,7 @@ namespace KEN.Services
                 {
                     if (!IsAdmin)
                     {
-                        listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                        listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();                       
                     }
                     else
                     {
@@ -93,6 +102,471 @@ namespace KEN.Services
                         listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
                     }
                 }
+
+                else if (type != "All" && Department != "All")
+                {
+                    switch (Department)
+                    {
+                        case "Screen Print":
+                            {
+                                switch (type)
+                                {
+                                    case "Lost":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Lost == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Lost == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Declined":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Declined == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Declined == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Packing":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Stock Decorated" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Stock Decorated" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Invoiced":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Packed" || _.Stage == "Order Invoiced") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Packed" || _.Stage == "Order Invoiced") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Job":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Quote":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Quote" && _.Lost == "NO" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Quote" && _.Lost == "NO" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Order":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Order" && _.Cancelled == "No" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Order" && _.Cancelled == "No" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Opportunity":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Opportunity" && _.Declined == "No" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Opportunity" && _.Declined == "No" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Complete":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Complete" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Complete" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Cancelled":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Cancelled == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Cancelled == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Shipping":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Shipped" || _.Stage == "Paid") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Shipped" || _.Stage == "Paid") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == type && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == type && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                }
+                                
+                                break;
+                            }
+
+                        case "Digital":
+                            {
+                                switch (type)
+                                {
+                                    case "Lost":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Lost == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Lost == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Declined":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Declined == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Declined == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Packing":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Stock Decorated" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Stock Decorated" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Invoiced":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Packed" || _.Stage == "Order Invoiced") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Packed" || _.Stage == "Order Invoiced") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Job":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Quote":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Quote" && _.Lost == "NO" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Quote" && _.Lost == "NO" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Order":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Order" && _.Cancelled == "No" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Order" && _.Cancelled == "No" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Opportunity":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Opportunity" && _.Declined == "No" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Opportunity" && _.Declined == "No" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Complete":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Complete" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Complete" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Cancelled":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Cancelled == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Cancelled == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Shipping":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Shipped" || _.Stage == "Paid") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Shipped" || _.Stage == "Paid") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == type && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == type && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                }
+
+                                break;
+                            }
+
+                        case "Embroidery":
+                            {
+                                switch (type)
+                                {
+                                    case "Lost":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Lost == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Lost == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Declined":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Declined == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Declined == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Packing":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Stock Decorated" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Stock Decorated" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Invoiced":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Packed" || _.Stage == "Order Invoiced") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Packed" || _.Stage == "Order Invoiced") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Job":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Quote":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Quote" && _.Lost == "NO" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Quote" && _.Lost == "NO" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Order":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Order" && _.Cancelled == "No" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Order" && _.Cancelled == "No" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Opportunity":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Opportunity" && _.Declined == "No" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Opportunity" && _.Declined == "No" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Complete":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Complete" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == "Complete" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Cancelled":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Cancelled == "Yes" && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Cancelled == "Yes" && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    case "Shipping":
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Shipped" || _.Stage == "Paid") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && (_.Stage == "Order Shipped" || _.Stage == "Paid") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            if (!IsAdmin)
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == type && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            else
+                                            {
+                                                listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => _.DepartmentName.Contains(Department) && _.Stage == type && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderByDescending(_ => _.OpportunityId).ToList();
+                                            }
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                    }
+                }
+
                 else if (type != "All" && Department == "All")
                 {
                     switch (type)
@@ -149,11 +623,11 @@ namespace KEN.Services
                             {
                                 if (!IsAdmin)
                                 {
-                                    listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => (_.Stage == "Order Confirmed" || _.Stage == "Job") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                    listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.AcctManagerId == CurrentProfile && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
                                 }
                                 else
                                 {
-                                    listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => (_.Stage == "Order Confirmed" || _.Stage == "Job") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
+                                    listData = Mapper.Map<List<OrderViewModal>>(_VW_tblOpportunityRepository.Get(_ => (_.Stage == "Order Confirmed" || _.Stage == "Job" || _.Stage == "Job Accepted" || _.Stage == "Art Ordered" || _.Stage == "Proof Created" || _.Stage == "Proof Sent" || _.Stage == "Proof Approved" || _.Stage == "Film/Digi Ready" || _.Stage == "Stock Ordered" || _.Stage == "Stock In" || _.Stage == "Stock Checked") && _.StageWiseDate >= FromDate && _.StageWiseDate < ToDate)).OrderBy(_ => _.ConfirmedDate).ToList();
                                 }
                                 break;
                             }
@@ -408,6 +882,63 @@ namespace KEN.Services
         public ResponseViewModel Update(tblOpportunity entity)
         {
             throw new NotImplementedException();
+        }
+        public List<ClientOptionViewModel> GetAllOrderList(int id)
+        {
+            List<ClientOptionViewModel> dataList = new List<ClientOptionViewModel>();
+            var contactId = _tblContactRepository.Get(x => x.acct_manager_id == id).Select(x => x.id).FirstOrDefault();
+
+            string cnnString = ConfigurationManager.ConnectionStrings["KENNEWEntities"].ConnectionString;
+            EntityConnectionStringBuilder builder = new EntityConnectionStringBuilder(cnnString);
+            builder.Metadata = null;
+            cnnString = builder.ProviderConnectionString;
+
+            SqlConnection cnn = new SqlConnection(cnnString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "GetAllOrder";
+            cmd.Parameters.AddWithValue("@ContactId", 19875); //Give contactId instead 494  20144 20416
+
+            cnn.Open();
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            sb.Append(reader.GetValue(0).ToString());
+                        }
+                    }
+                    dataList = JsonConvert.DeserializeObject<List<ClientOptionViewModel>>(sb.ToString());
+                    dataList = dataList.OrderByDescending(x => x.Id).ToList();
+                }
+
+            }
+            catch (Exception e)
+            {
+                var msg = e.Message;
+
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            foreach (var item in dataList)
+            {
+                var ImagepathFront = @"~\Content\uploads\Application\" + item.FrontDesign;
+                item.ImageFilePath = ImagepathFront;
+                var ImagepathBack = @"~\Content\uploads\Application\" + item.BackDesign;
+                item.ImageFilePathBack = ImagepathBack;
+            }
+
+            return dataList;
+
+
         }
     }
 }

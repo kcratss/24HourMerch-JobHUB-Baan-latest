@@ -29,5 +29,7 @@ namespace KEN.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<KEN.Models.ClientOptionViewModel> ClientOptionViewModels { get; set; }
     }
 }

@@ -1,0 +1,563 @@
+﻿.logoImg {
+    height: inherit;
+    width: inherit;
+}
+
+.record {
+    color: white !important;
+}
+
+#container {
+    width: 300px;
+    height: 300px;
+}
+
+#container h3 {
+        text-align: center;
+        margin: 0;
+        margin-bottom: 10px;
+}
+
+label{
+    color:grey;
+}
+
+.previewImage:nth-child(4n + 1){
+    padding-right:0;
+}
+
+.bottomHeading {
+    color: grey;
+    text-align: start;
+    font-size: 16px;
+}
+
+.bottomBtn {
+    margin-top: 12px;
+}
+
+.designbtn {
+    font-size: 12px;
+    background-color: white;
+    color: grey;
+    border: none;
+    text-align: left;
+    display: inline-block;
+    /*width: max-content;*/
+}
+
+.designbtn:hover{
+        color:white;
+        background-color:grey;
+        
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+}
+
+.designbtn:target {
+        color: white;
+        background-color: grey;
+}
+
+.logoSection {
+    display: flex;
+    height: 45px;
+    margin-top: 30px;
+}
+
+#resizable {
+        background-position: top left;
+        width: 150px;
+        height: 150px;
+}
+
+#resizable, #container {
+    padding: 0.5em;
+}
+
+.previewImage {
+    padding-top: 5px;
+    background-color: lightgrey;
+    overflow: scroll;
+    height: 94%;
+    overflow-x: hidden;
+}
+
+.myItemdiv {
+    padding:7px;
+}
+
+#previewImage:nth-child(odd) {
+    padding-right: 0;
+}
+
+#logodrop {
+    z-index: 1;
+}
+
+.uniformHeading {
+    padding-bottom: 14px;
+    padding-top: 34px;
+    text-align:center;
+}
+
+.logodrag {
+    padding: 0;
+}
+
+.imgheading {
+    color: white;
+}
+
+.designImage {
+    margin: auto;
+    display: block;
+}
+
+#resizeContainer {
+/*    border: 2px dashed white;*/
+    display: inline-block;
+    height: 100px;
+}
+
+.printclose {
+    font-size: 28px;
+    padding: 0;
+    float:right;
+}
+
+.back {
+    display: none;
+}
+
+.filterGarments {
+    padding: 0.3125rem 0.5rem;
+    margin-top: 5px;
+    padding: 1px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.container1 {
+    display: flex;
+    font-family: arial, sans-serif;
+    overflow: hidden;
+    position: absolute;
+    height: 92%;
+    padding:0;
+   /* padding-right: 5em;*/
+}
+
+#canvas-container {
+    position: fixed;
+    border: solid transparent;
+    width: 15%;
+    height: 40%;
+    margin-left: 6%;
+    margin-top: 3%;
+}
+
+.inputs{
+    width:50%;
+}
+
+#canvas {
+    position: fixed;
+    width: inherit;
+    height: inherit;
+}
+
+.frontBackBtnDiv {
+    border: 1px solid grey;
+    border-top: none;
+    padding: 10px;
+}
+
+#imgdropper {
+    height: 45%;
+    position: relative;
+    border: 1px solid grey;
+    border-bottom: none;
+}
+
+.logoimage {
+    padding: 6px;
+    height: 160px;
+}
+
+.btn-primary {
+    -webkit-box-shadow: none;
+    box-shadow:none;
+}
+
+.card-img-top {
+    height: 250px;
+}
+
+.card-text {
+    color: black;
+}
+
+.image {
+    padding-bottom: 2px;
+}
+
+#qtyPrice {
+    display: inline-flex;
+    padding-top:5px;
+}
+
+#bottomTools{
+    display:flex;
+    padding-top:12px;
+}
+
+.leftsidebar {
+    height: 100%;
+    z-index: 1; /* Stay on top */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden;
+    padding-top: 20px;
+    align-content: flex-start;
+    width: 12.6%;
+    padding: 6px;
+    background-color: #b5b5b5;
+}
+
+.maincontent {
+    height: 100% !important;
+    padding: 1em;
+    background-color: white;
+    height: inherit;
+}
+
+.dropdowns {
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.rightsidebar {
+    width: 12.6%;
+    align-content: flex-end;
+    height: 100%;
+    background-color: #b5b5b5;
+}
+
+.heading {
+    text-align: left;
+    color: white;
+    padding-left: 5px;
+}
+
+.GarmentsImages {
+    overflow: scroll;
+    height: 77%;
+    overflow-x: hidden;
+}
+
+#userlogos {
+    height: 790px;
+}
+
+.btn1 {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.logodropper {
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color:lightgrey;
+}
+
+#h-mylogo {
+    width: 50%;
+}
+
+#h-uploadlogo {
+    width: 50%;
+    padding-top: 3px;
+}
+
+h6 {
+    text-align: center;
+    color:grey;
+}
+
+svg{
+    color:grey;
+}
+
+h5 {
+    text-align: center;
+    color:grey;
+}
+
+#backbtn {
+    float: right;
+}
+
+.imgbtn {
+    margin-top: 5px;
+}
+
+.brandprocess {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn{
+    overflow:auto;
+}
+
+.brandbtn {
+    margin-bottom: 15px;
+    color: black;
+    background-color: white;
+    font-size: 15px;
+    border: none;
+}
+
+#backbtn{
+    color:grey;
+    border:1px solid grey;
+    background-color:white;
+    font-size:14px;
+}
+
+#backbtn:hover {
+    color:white;
+    background-color: grey;
+}
+
+#frontbtn:disabled{
+    color:grey;
+    background-color:lightgray;
+}
+
+#backbtn:disabled {
+    color: grey;
+    background-color: lightgray;
+}
+
+#frontbtn {
+    color: grey;
+    background-color: white;
+    border: 1px solid grey;
+    font-size: 14px;
+}
+
+    #backbtn:hover {
+        color: white;
+        background-color: grey;
+    }
+
+.brandbtn:hover {
+    background-color: grey;
+    color: white;
+}
+
+.navbar{
+    z-index:auto !important;
+}
+#brandheading {
+    color: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#inner-droppable {
+    position: absolute;
+    width: 45%;
+    height: 78%;
+    top: 16%;
+    left: 27%;
+    overflow: hidden;
+}
+
+.ui-widget-header {
+    background: none;
+}
+
+.ui-resizable-handle {
+    width: 8px;
+    height: 8px;
+    background: orange;
+    position: absolute;
+    z-index: 1000;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
+
+.ui-resizable-n {
+    top: 0px;
+}
+
+.ui-resizable-e {
+    right: 0px;
+}
+
+.ui-resizable-sw {
+    bottom: 0px;
+    left: 0px;
+    cursor:sw-resize;
+}
+
+.ui-resizable-nw {
+    top: 0px;
+    left: 0px;
+    cursor:nw-resize;
+}
+
+.ui-resizable-s {
+    bottom: 0px;
+}
+
+.ui-resizable-w {
+    left: 0px;
+}
+
+.navbar-glass{
+    position:static !important;
+}
+
+.card-notification{
+    right:260px;
+}
+
+.ui-resizable-ne {
+    top: 0px;
+    right: 0px;
+    cursor: ne-resize;
+}
+
+.ui-resizable-se {
+    bottom: 0px;
+    right: 0px;
+    cursor:se-resize;
+}
+
+#savebtn {
+    margin-top: 5px !important;
+}
+
+.modal-backdrop {
+    position: absolute !important;
+    width: auto !important;
+}
+
+.modal-title {
+    text-align: center;
+    padding-top: 0; 
+}
+
+/*@media only screen and (max-width: 1796) {
+    .logoimage {
+        padding: 15px;
+        width: 100px;
+    }
+}*/
+#inputEmail {
+    margin-bottom: 10px;
+    margin-left: 60px;
+    width: 81%;
+    display: inline;
+}
+
+#inputSubject {
+    margin-bottom: 10px;
+    width: 81%;
+    display: inline;
+    margin-left: 25px;
+}
+
+#inputDescription {
+    display: inline;
+    width: 98%;
+    margin-bottom: 10px;
+}
+
+.print-modal-dialog {
+    width: 524px;
+    height: 422px;
+}
+
+.print-modal-content {
+    width: 545px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printSection, #printSection * {
+        visibility: visible;
+    }
+
+    #printSection {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+.navbar {
+    z-index: 2 !important;
+}
+body{
+    cursor:default !important;
+}
+
+#glass {
+    /*z-index:auto;*/
+    cursor: none;
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    display: none;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,.6);
+}
+
+
+#qty
+{
+    width:117px;
+}
+
+.process {
+    width : 49px;
+}
+#process{
+    width:69px;
+}
+
+.price {
+    width: 619px;
+    margin-left: 9px;
+}
+#price{
+    width :20%;
+}
+
