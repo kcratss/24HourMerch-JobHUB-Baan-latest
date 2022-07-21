@@ -12,21 +12,28 @@ namespace KEN_DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProcess
+    public partial class tblDraftQuote
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblProcess()
+        public tblDraftQuote()
         {
-            this.tblOrderDetails = new HashSet<tblOrderDetail>();
+            this.tblDraftQuoteItems = new HashSet<tblDraftQuoteItem>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public Nullable<System.DateTime> createdOn { get; set; }
-        public Nullable<int> createdBy { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<System.DateTime> updatedOn { get; set; }
+        public Nullable<bool> isdeleted { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
     
+        public virtual tblStatu tblStatu { get; set; }
         public virtual tbluser tbluser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblOrderDetail> tblOrderDetails { get; set; }
+        public virtual ICollection<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }
     }
 }

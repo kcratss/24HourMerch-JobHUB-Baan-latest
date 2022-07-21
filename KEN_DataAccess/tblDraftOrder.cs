@@ -17,11 +17,12 @@ namespace KEN_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblDraftOrder()
         {
+            this.OrderAddresses = new HashSet<OrderAddress>();
             this.tblDraftOrderItems = new HashSet<tblDraftOrderItem>();
         }
     
         public int Id { get; set; }
-        public Nullable<double> Total { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<double> ShippingCharge { get; set; }
         public Nullable<int> CreatedBy { get; set; }
@@ -29,9 +30,14 @@ namespace KEN_DataAccess
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> UserId { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDraftOrderItem> tblDraftOrderItems { get; set; }
+        public virtual ICollection<OrderAddress> OrderAddresses { get; set; }
         public virtual tbluser tbluser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDraftOrderItem> tblDraftOrderItems { get; set; }
     }
 }

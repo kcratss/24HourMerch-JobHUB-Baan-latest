@@ -28,6 +28,18 @@ namespace KEN.App_Start
             .ForMember(_ => _.AccountManagerLastName, e => e.MapFrom(_ => _.tblOppContactMappings.Where(x => x.IsPrimary == true).FirstOrDefault().tblcontact.tbluser.lastname))
             .ForMember(_ => _.EventName, e => e.MapFrom(_ => _.tblEvent.EventName));
             CreateMap<Vw_tblOpportunity, opportunityViewModel>();
+            CreateMap<tblUserItem, UserItemsViewModel>();
+                
+            CreateMap<tblDraftQuoteItem, UserItemsViewModel>()
+                 .ForMember(_ => _.FrontImageSource, e => e.MapFrom(_ => _.tblUserItem.FrontImageSource))
+                .ForMember(_ => _.BackImageSource, e => e.MapFrom(_ => _.tblUserItem.BackImageSource))
+                .ForMember(_ => _.Process_Id, e => e.MapFrom(_ => _.tblUserItem.tblUserLogoProcess.Process_Id))
+                .ForMember(_ => _.Colour_Id, e => e.MapFrom(_ => _.tblUserItem.tblUserLogoProcess.Colour_Id))
+                .ForMember(_ => _.Size_Id, e => e.MapFrom(_ => _.tblUserItem.tblUserLogoProcess.Stitches_Id));
+            CreateMap<tblDraftQuoteItem, DraftOrdersItemViewModel>()
+                 .ForMember(_ => _.FrontImage, e => e.MapFrom(_ => _.tblUserItem.FrontImageSource));
+            CreateMap<tblDraftQuote, QuotesViewModel>()
+                /*.ForMember(_ => _.StatusName, e => e.MapFrom(_ => _.tblStatus.Name))*/;
             CreateMap<Vw_tblContact, ContactViewModel>();
             CreateMap<tblcontact, ContactViewModel>()
                .ForMember(_ => _.AccountManagerFirstName, e => e.MapFrom(_ => _.tbluser.firstname))
@@ -90,7 +102,25 @@ namespace KEN.App_Start
             CreateMap<tblitem, ItemViewModel>();
             CreateMap<tblDecorationCost, DecorationCostMasterViewModel>();
             //13 Sep 2018 (N)
+            CreateMap<tblUserAddressMapping, ClientAddressViewModel > ()
+                .ForMember(_ => _.Name, e => e.MapFrom(_ => _.tblAddress.TradingName))
+                .ForMember(_ => _.AddressId, e => e.MapFrom(_ => _.tblAddress.AddressId))
+                .ForMember(_ => _.AddressLine1, e => e.MapFrom(_ => _.tblAddress.Address1))
+                .ForMember(_ => _.AddressLine2, e => e.MapFrom(_ => _.tblAddress.Address2))
+                .ForMember(_ => _.AddressNote, e => e.MapFrom(_ => _.tblAddress.AddNotes))
+                .ForMember(_ => _.Attention, e => e.MapFrom(_ => _.tblAddress.Attention))
+                .ForMember(_ => _.State, e => e.MapFrom(_ => _.tblAddress.State))
+                .ForMember(_ => _.PostCode, e => e.MapFrom(_ => _.tblAddress.Postcode));
+            CreateMap<tblApplicationColorsMapping, PrintColorViewModel>()
+                 .ForMember(_ => _.ColorId, e => e.MapFrom(_ => _.tblPrintColor.Id))
+                .ForMember(_ => _.Name, e => e.MapFrom(_ => _.tblPrintColor.Name));
+            CreateMap<tblApplicationProcess, ProcessViewModel>()
+                 .ForMember(_ => _.ProcessId, e => e.MapFrom(_ => _.Id))
+                .ForMember(_ => _.Name, e => e.MapFrom(_ => _.Name));
 
+            CreateMap<TblSizeApplicationMapping, SizeViewModel>()
+                 .ForMember(_ => _.SizeId, e => e.MapFrom(_ => _.tblSizeMaster.Id))
+                .ForMember(_ => _.Name, e => e.MapFrom(_ => _.tblSizeMaster.Size));
             CreateMap<TblApplication, ApplicationViewModel>();
             CreateMap<TblApplicationColour, ApplicationColourViewModel>()
                 .ForMember(_ => _.PantoneName, e => e.MapFrom(_ => _.tblPantoneMaster.Pantone))
@@ -119,12 +149,12 @@ namespace KEN.App_Start
                      .ForMember(des => des.first_name, src => src.MapFrom(x => x.FirstName))
                      .ForMember(des => des.last_name, src => src.MapFrom(x => x.LastName))
                        .ForMember(des => des.mobile, src => src.MapFrom(x => x.Contact));
-            CreateMap<tbloption, ClientOptionViewModel>()
+           /* CreateMap<tbloption, ClientOptionViewModel>()
                      .ForMember(des => des.BackDesign, src => src.MapFrom(x => x.back_decoration))
                      .ForMember(des => des.FrontDesign, src => src.MapFrom(x => x.front_decoration))
                      .ForMember(des => des.TotalWithGst, src => src.MapFrom(x => x.ExtInclGST))
                        .ForMember(des => des.Total, src => src.MapFrom(x => x.ExtExGST))
-                       .ForMember(des => des.Color, src => src.MapFrom(x => x.colour));
+                       .ForMember(des => des.Color, src => src.MapFrom(x => x.colour));*/
             CreateMap<ClientAddressViewModel, tblAddress>()
                     .ForMember(des => des.Address1, src => src.MapFrom(x => x.AddressLine1))
                      .ForMember(des => des.Address2, src => src.MapFrom(x => x.AddressLine2))
@@ -144,8 +174,26 @@ namespace KEN.App_Start
             CreateMap<opportunityViewModel, tblOpportunity>();
             CreateMap<opportunityViewModel, Vw_tblOpportunity>();
             CreateMap<ContactViewModel, tblcontact>();
-            CreateMap<tblUserLogo, DesignViewModel>();
-            CreateMap<tblDraftOrder, DraftOrdersViewModel>();
+            CreateMap<tblUserLogo, DesignViewModel>()
+                .ForMember(_ => _.StatusValue, e => e.MapFrom(_ => _.tblStatu.Name))
+                .ForMember(_ => _.UserId, e => e.MapFrom(_ => _.tbluser.id))
+                .ForMember(_ => _.FirstName, e => e.MapFrom(_ => _.tbluser.firstname))
+                .ForMember(_ => _.LastName, e => e.MapFrom(_ => _.tbluser.lastname))
+                .ForMember(_ => _.UserEmail, e => e.MapFrom(_ => _.tbluser.email));
+                CreateMap<tblUserLogoProcess, DesignViewModel>()
+                .ForMember(_ => _.Process_Id, e => e.MapFrom(_ => _.Process_Id))
+                .ForMember(_ => _.Color_Id, e => e.MapFrom(_ => _.Colour_Id))
+                .ForMember(_ => _.LogoUrl, e => e.MapFrom(_ => _.tblUserLogo.LogoUrl))
+                .ForMember(_ => _.Height, e => e.MapFrom(_ => _.tblUserLogo.Height))
+                .ForMember(_ => _.Width, e => e.MapFrom(_ => _.tblUserLogo.Width))
+                .ForMember(_ => _.FirstName, e => e.MapFrom(_ => _.tblUserLogo.tbluser.firstname))
+                .ForMember(_ => _.UserEmail, e => e.MapFrom(_ => _.tblUserLogo.tbluser.email))
+                .ForMember(_ => _.LastName, e => e.MapFrom(_ => _.tblUserLogo.tbluser.lastname))
+                .ForMember(_ => _.StatusValue, e => e.MapFrom(_ => _.tblUserLogo.tblStatu.Name))
+                .ForMember(_ => _.LogoId, e => e.MapFrom(_ => _.tblUserLogo.Id))
+                .ForMember(_ => _.Size_Id, e => e.MapFrom(_ => _.Stitches_Id));
+                CreateMap<tblDraftOrderItem, DraftOrdersItemViewModel>();              
+            CreateMap<tblDraftOrder, ClientOptionViewModel>();
             CreateMap<tblUserItem, UserItemsViewModel>();
             CreateMap<tblOptionProperty, OptionPropertiesViewModel>();
             CreateMap<ContactViewModel, Vw_tblContact>();

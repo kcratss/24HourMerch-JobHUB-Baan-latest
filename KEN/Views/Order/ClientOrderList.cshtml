@@ -5,126 +5,185 @@
 @{
     Layout = Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
 }
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/js/jquery.magnify.min.js" integrity="sha512-YKxHqn7D0M5knQJO2xKHZpCfZ+/Ta7qpEHgADN+AkY2U2Y4JJtlCEHzKWV5ZE87vZR3ipdzNJ4U/sfjIaoHMfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
-<div class="row g-0">
+<link href="~/Content/css/OrderList.css" rel="stylesheet" />
+<script src="~/Content/js/ClientOrderList.js"></script>
+<div>
+    <h3 id="orders">Your Order List</h3>
+</div>
+<div class="col-4 mb-3 mt-3 offset-3 ">
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 7px 2px 0; width: 896px;" />
+    <span class="col-1" style="font-size: 18px; font-weight: 900;">Order:</span>
+    <span>
+        <select class="col-3" id="orderfilter" onchange="orderListFilter()">
+            <option value="all">All</option>
+            <option value="oneweek">Last 7 days</option>
+            <option value="month">Last 30 days</option>
+            <option value="2021">2021</option>
+        </select>
+    </span>
+    <img src="~/Content/images/hrImg.png" class="hrimg" style= "width: 896px;" />
+</div>
+@*<div class="row col-10 g-0">
     <div class=" pe-lg-2">
         <div class="card mb-3">
             <div class="card-header">
                 <h5 class="mb-0">Order List</h5>
-            </div>
-            <div class="card-body bg-light">
-                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
-                    <div class="table-responsive scrollbar">
-                        <table class="table table-bordered table-striped fs--1 mb-0">
-                            <thead class="bg-200 text-900">
-                                <tr>
-                                    <th class="sort" data-sort="id">Option Code</th>
-                                    <th class="sort" data-sort="quantity">Quantity</th>
-                                    <th class="sort" data-sort="code">Code</th>
-                                    <th class="sort" data-sort="brandname">BrandName</th>
-                                    <th class="sort" data-sort="item">Item</th>
-                                    <th class="sort" data-sort="sizegrid">SizeGrid</th>
-                                    <th class="sort" data-sort="color">Color</th>
-                                    <th class="sort" data-sort="frontimage">FrontDesign</th>
-                                    <th class="sort" data-sort="backimage">BackDesign</th>
-                                    <th class="sort" data-sort="gst">Gst</th>
-                                    <th class="sort" data-sort="cost">Cost</th>
-                                    <th class="sort" data-sort="total">Total</th>
-                                    <th class="sort" data-sort="totalwithgst">TotalWithGst</th>
-                                </tr>
-                            </thead>
-                            <tbody class="list">
-                                @if (Model == null)
-                                {
-                                    <tr><td colspan="8">No Opportunity found.</td></tr>
-                                }
-                                else
-                                {
-                                    foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td class="id">@Html.DisplayFor(modelItem => item.Id)</td>
+            </div>*@
 
-                                            <td class="quantity">@Html.DisplayFor(modelItem => item.Quantity)</td>
-                                            <td class="code"> @Html.DisplayFor(modelItem => item.Code) </td>
-                                            <td class="brandname"> @Html.DisplayFor(modelItem => item.BrandName) </td>
+@* <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
+    <div class="table-responsive scrollbar">
+        <table class="table table-bordered table-striped fs--1 mb-0">
+            <thead class="bg-200 text-900">
+                <tr>
 
-                                            <td class="item">@Html.DisplayFor(modelItem => item.Item)</td>
-                                            <td class="sizegrid">@Html.DisplayFor(modelItem => item.SizeGrid)</td>
-                                            <td class="color">@Html.DisplayFor(modelItem => item.Color)</td>
-
-                                            @*<td class="name"><a href="#" data-toggle="modal" data-target="#imageModal">@Html.DisplayFor(modelItem => item.FrontDesign)</a></td>*@
-                                            <td class="frontimage"><a href="#" data-toggle="modal" data-target="#imageFrontModal"> @Html.DisplayFor(modelItem => item.FrontDesign)</a></td>
-
-                                            <td class="backimage"><a href="#" data-toggle="modal" data-target="#imageBackModal">@Html.DisplayFor(modelItem => item.BackDesign)</a></td>
-                                            <td class="gst">@Html.DisplayFor(modelItem => item.Gst)</td>
-                                            <td class="cost">@Html.DisplayFor(modelItem => item.Cost)</td>
-                                            <td class="total">@Html.DisplayFor(modelItem => item.Total)</td>
-                                            <td class="totalwithgst">@Html.DisplayFor(modelItem => item.TotalWithGst)</td>
-                                            <td><a href="#"><i class="fab fa-rev"></i></a></td>
-                                        </tr>
-
-                                        <div class="modal fade" id="imageFrontModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Front Image</h5>
-                                                        <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body row">
-                                                        <img src="@Url.Content(item.ImageFilePath)" class="img-responsive" />
-                                                        @*<img src="~/Content/uploads/Application/back_21965637733041522096313.jpeg" />*@
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="modal fade" id="imageBackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Back Image</h5>
-                                                        <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body row">
-                                                        <img src="@Url.Content(item.ImageFilePathBack)" class="img-responsive" />
-                                                        @*<img src="~/Content/uploads/Application/back_21965637733041522096313.jpeg" />*@
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="d-flex justify-content-center mt-3">
-                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
-                    </div>
-                </div>
-
-
+                    <th class="sort" data-sort="quantity">TotalItem</th>
+                    <th class="sort" data-sort="">Status</th>
+                    <th class="sort" data-sort="">ShippingCharge</th>
+                    <th class="sort" data-sort="item">OrderDate</th>
+                    <th class="sort" data-sort="total">Total</th>
+                </tr>
+            </thead>*@
+@* <tbody class="list">*@
+@*@if (Model == null)
+    {
+        <h5 colspan="8">No Opportunity found.</h5>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {*@
+@*<div>
+    <div id="header">
+        <div id="itemlist">
             </div>
         </div>
 
-
-    </div>
-
+        </div>*@
+@*<div class="card col-10 mb-3" id="itemlist">*@
+<div class="cardlist" id="itemlist">
 </div>
 
+@*<div cla
+        <ss="card col-10 mb-3">
+        <div class="card-header" id="header">
+
+        </div>
+        <div class="card-body mb-3" id="itemlist">
+        </div>
+    </div>*@
 
 
+
+@*
+    <td class="quantity">@Html.DisplayFor(modelItem => item.Quantity)</td>
+    <td class="brandname"> @item.status</td>
+    <td class="">@Html.DisplayFor(modelItem => item.shippingCharge)</td>
+    <td class="createon">@Html.DisplayFor(modelItem => item.CreateOn)</td>
+    <td class="gst">@Html.DisplayFor(modelItem => item.TotalPrice)</td>*@
+@* <td class="sizegrid">@Html.DisplayFor(modelItem => item.SizeGrid)</td>
+    <td class="color">@Html.DisplayFor(modelItem => item.Color)</td>*@
+
+@*<td class="name"><a href="#" data-toggle="modal" data-target="#imageModal">@Html.DisplayFor(modelItem => item.FrontDesign)</a></td>*@
+@*                                            <td class="frontimage"><a href="#" data-toggle="modal" data-target="#imageFrontModal"> @Html.DisplayFor(modelItem => item.FrontDesign)</a></td>
+*@
+@*                                            <td class="backimage"><a href="#" data-toggle="modal" data-target="#imageBackModal">@Html.DisplayFor(modelItem => item.BackDesign)</a></td>
+*@
+@*                                            <td class="cost">@Html.DisplayFor(modelItem => item.Cost)</td>
+*@ @*<td class="total">@Html.DisplayFor(modelItem => item.Total)</td>*@
+@*                                            <td class="totalwithgst">@Html.DisplayFor(modelItem => item.TotalWithGst)</td>
+*@
+@*     <td><a href="#" onclick="orderList(@item.Id)"><i class="fab fa-rev"></i></a></td>
+    </tr>*@
+
+<!--<div class="modal fade" id="imageFrontModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Front Image</h5>
+            <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body row">
+            <img src="" class="img-responsive" />-->
+@*<img src="~/Content/uploads/Application/back_21965637733041522096313.jpeg" />*@
+<!--</div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageBackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Back Image</h5>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <img src="" class="img-responsive" />-->
+@*<img src="~/Content/uploads/Application/back_21965637733041522096313.jpeg" />*@
+<!--</div>
+
+        </div>
+    </div>
+</div>-->
+@*   }
+    }*@
+@*                            </tbody>
+    </table>*@
+@*  </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+    </div>
+    <div class="modal" id="exampleModalLabel" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:1500px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:800px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">OrderDetail</h5>
+                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row ">
+                    <div class="card-body bg-light">
+                        <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
+                            <div class="table-responsive scrollbar">
+                                <table class="table table-bordered table-striped fs--1 mb-0">
+                                    <thead class="bg-200 text-900">
+                                        <tr>
+                                            <th class="sort" data-sort="image">FrontImage</th>
+                                            <th class="sort" data-sort="price">Price</th>
+                                            <th class="sort" data-sort="quantity">Quantity</th>
+                                            <th class="sort" data-sort="brandname">Process</th>
+                                            <th class="sort" data-sort="totalprice">TotalPrice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list" id="itemlist">
+                                    </tbody>
+                                </table>
+                                <h5 id="price" style="float:right"></h5>
+                                <h5 style="float:right">Total : $</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>*@
+</div>
+@*   </div>
+    </div>
+    </div>*@
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 

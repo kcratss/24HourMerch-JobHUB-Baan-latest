@@ -37,6 +37,8 @@
     <link href="../../assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="../../assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="../../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+
+
     <script>
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {
@@ -62,9 +64,11 @@
     <script src="../../vendors/is/is.min.js"></script>
     <script src="../../assets/js/flatpickr.js"></script>
     <script src="../../vendors/fontawesome/all.min.js"></script>
+    <script src="../../vendors/list.js/list.min.js"></script>
     <script src="../../vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="../../vendors/list.js/list.min.js"></script>
+
+    @* <script src="~/src/js/list.js"></script>*@
     <script src="../../assets/js/theme.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @*jquery validation plugin file*@
@@ -90,11 +94,7 @@
     @*Css file*@
     <link rel="stylesheet" href="~/Content/css/client.css" />
 
-
-
 </head>
-
-
 <body>
     <main class="main" id="top">
         <div class="container-fluid">
@@ -284,7 +284,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a id="myCart" class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="@Url.Action("Cart", "Design")"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number" id="icon"></span></a>
+                            <a id="myCart" class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="@Url.Action("Cart", "Design")"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number" id="icon">0</span></a>
 
                         </li>
                         <li class="nav-item dropdown">
@@ -320,13 +320,14 @@
                                             </div>
                                             <div class="list-group-item">
                                                 <a class="notification notification-flush notification-unread" href="#!">
-                                                    <div class="notification-avatar">
+                                                   <div class="notification-avatar">
                                                         <div class="avatar avatar-2xl me-3">
-                                                            <div class="avatar-name rounded-circle"><span>AB</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="notification-body">
                                                         <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
+                                                        <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
+                                                         <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
                                                         <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
 
                                                     </div>

@@ -178,6 +178,9 @@
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -235,6 +238,9 @@
     <Reference Include="Spire.Pdf, Version=6.9.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\Spire.PDF.6.9.0\lib\net40\Spire.Pdf.dll</HintPath>
     </Reference>
+    <Reference Include="Stripe.net, Version=39.111.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.39.111.0\lib\net461\Stripe.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -245,8 +251,14 @@
     <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -438,17 +450,21 @@
     <Compile Include="Models\OptionCodeBrandItemViewModel.cs" />
     <Compile Include="Models\OptionPropertiesViewModel.cs" />
     <Compile Include="Models\OptionViewModel.cs" />
+    <Compile Include="Models\OrderAddressViewModel.cs" />
     <Compile Include="Models\OrderViewModal.cs" />
     <Compile Include="Models\OrganisationViewModel.cs" />
     <Compile Include="Models\PantoneMasterViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
+    <Compile Include="Models\PrintColorViewModel.cs" />
     <Compile Include="Models\ProofApplication.cs" />
     <Compile Include="Models\PurchaseDetailViewModel.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
     <Compile Include="Models\QuickBooksAuthViewModel.cs" />
+    <Compile Include="Models\QuotesViewModel.cs" />
     <Compile Include="Models\ResponseViewModel.cs" />
     <Compile Include="Models\SizeViewModel.cs" />
     <Compile Include="Models\SourceEnum.cs" />
+    <Compile Include="Models\UploadLogoViewModal.cs" />
     <Compile Include="Models\UserItemsViewModel.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Models\VW_GetHolidaysViewModel.cs" />
@@ -557,6 +573,8 @@
     <Content Include="Content\css\libraries\SecStyle.css" />
     <Content Include="Content\css\libraries\theme.css" />
     <Content Include="Content\css\libraries\w3.css" />
+    <Content Include="Content\css\OrderList.css" />
+    <Content Include="Content\css\QuoteStatus.css" />
     <Content Include="Content\images\Adddress.PNG" />
     <Content Include="Content\images\Admin.png" />
     <Content Include="Content\images\APPLICATION.png" />
@@ -645,9 +663,10 @@
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\Application.js" />
     <Content Include="Content\js\Cart.js" />
-    <Content Include="Content\js\cart1.js" />
     <Content Include="Content\js\CheckOut.js" />
     <Content Include="Content\js\Client.js" />
+    <Content Include="Content\js\ClientOrderList.js" />
+    <Content Include="Content\js\ClientQuotes.js" />
     <Content Include="Content\js\CommonMasters.js" />
     <Content Include="Content\js\Contact.js" />
     <Content Include="Content\js\DecorationCostMaster.js" />
@@ -667,9 +686,11 @@
     <Content Include="Content\js\libraries\magicsuggest.js" />
     <Content Include="Content\js\libraries\pcsFormatNumber.jquery.js" />
     <Content Include="Content\js\libraries\theme.js" />
+    <Content Include="Content\js\LogoStatus.js" />
     <Content Include="Content\js\opportunity.js" />
     <Content Include="Content\js\Organization.js" />
     <Content Include="Content\js\Purchase.js" />
+    <Content Include="Content\js\QuoteStatus.js" />
     <Content Include="Content\js\User.js" />
     <Content Include="Content\pqGrid\bootstrap-pqgrid.css" />
     <Content Include="Content\pqGrid\Images\horiz-bg.png" />
@@ -678,6 +699,44 @@
     <Content Include="Content\pqGrid\pqgrid.min.css" />
     <Content Include="Content\pqGrid\pqgrid.min.js" />
     <Content Include="Content\pqGrid\pqgrid.ui.min.css" />
+    <Content Include="Content\uploads\ItemsSaved\black-back.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\black-front.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\green-back.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\green-front.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\grey-back.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\grey-front.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\red-back.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\red-front.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\white-back.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\white-front.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\yellow-back.jpg" />
+    <Content Include="Content\uploads\ItemsSaved\yellow-front.jpg" />
+    <Content Include="Content\uploads\Items\000f19cd-001a-4d17-8e47-8b6ed1e76d52.jpg" />
+    <Content Include="Content\uploads\Items\00228b05-e647-4e41-b9bf-df06fbaa976f.jpg" />
+    <Content Include="Content\uploads\logos\8808c02afbf4f2f174662ea646631513.jpg" />
+    <Content Include="Content\uploads\logos\Admin.png" />
+    <Content Include="Content\uploads\logos\avatar5.png" />
+    <Content Include="Content\uploads\logos\delete2.png" />
+    <Content Include="Content\uploads\logos\DeleteContact.png" />
+    <Content Include="Content\uploads\logos\devil-knight-horn-mascot-logo-concept-illustration-suitable-for-wallpaper-banner-background-card-book-illustration-logo-t-shirt-design-sticker-cover-etc-vector.jpg" />
+    <Content Include="Content\uploads\logos\download %281%29.jpg" />
+    <Content Include="Content\uploads\logos\download.jpg" />
+    <Content Include="Content\uploads\logos\expand.png" />
+    <Content Include="Content\uploads\logos\group.png" />
+    <Content Include="Content\uploads\logos\hyperlink-icons.jpg" />
+    <Content Include="Content\uploads\logos\images.jpg" />
+    <Content Include="Content\uploads\logos\images.png" />
+    <Content Include="Content\uploads\logos\istockphoto-1015820818-612x612.jpg" />
+    <Content Include="Content\uploads\logos\istockphoto-1328049157-170667a.jpg" />
+    <Content Include="Content\uploads\logos\logo-organization-t-shirt-png-favpng-TrVUju3gVwKGsWfaDxPVFMuUY.jpg" />
+    <Content Include="Content\uploads\logos\logo.jpg" />
+    <Content Include="Content\uploads\logos\logoImage.jpg" />
+    <Content Include="Content\uploads\logos\media_1a6d8cb623950c5d70db34d458b581f386c65cf8b.png" />
+    <Content Include="Content\uploads\logos\shirts.jpeg" />
+    <Content Include="Content\uploads\logos\star-img.png" />
+    <Content Include="Content\uploads\logos\typography-design-for-logo-and-t-shirt-printing-free-vector.jpg" />
+    <Content Include="Content\uploads\logos\wolf-mascot-logo-design-with-modern-illustration-concept-style-for-badge-emblem-and-t-shirt-printing-angry-wolf-illustration-for-sport-and-e-sport-team-vector.jpg" />
+    <Content Include="Content\uploads\logos\X.png" />
     <Content Include="Content\uploads\Opportunity\NoImage.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -736,6 +795,7 @@
     <Content Include="assets\js\theme.js.map" />
     <Content Include="assets\js\theme.min.js.map" />
     <Content Include="assets\js\config.navbar-vertical.js" />
+    <Content Include="Content\uploads\logos\attachment_75982257-e1528674410112.avif" />
     <None Include="Properties\PublishProfiles\24hourtest - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\24hourtest - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\24hourtest - ReadOnly - FTP.pubxml" />
@@ -1268,14 +1328,14 @@
     <Content Include="Views\Design\DesignerTool.cshtml" />
     <Content Include="Views\Design\Cart.cshtml" />
     <Content Include="Views\Design\CheckOut.cshtml" />
+    <Content Include="Views\Design\Quote.cshtml" />
+    <Content Include="Views\Opportunity\QuoteStatus.cshtml" />
+    <Content Include="Views\Opportunity\LogoStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\uploads\Confirm\" />
     <Folder Include="Content\uploads\Invoice\" />
-    <Folder Include="Content\uploads\ItemsSaved\" />
-    <Folder Include="Content\uploads\Items\" />
-    <Folder Include="Content\uploads\logos\" />
     <Folder Include="Content\uploads\Order\" />
     <Folder Include="Content\uploads\Proof\" />
     <Folder Include="Content\uploads\PurchaseOrder\" />

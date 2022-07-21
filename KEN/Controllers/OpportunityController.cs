@@ -27,6 +27,7 @@ using Intuit.Ipp.Security;
 using System.Collections;
 using System.Net;
 using System.Data.Entity;
+using System.Globalization;
 
 namespace KEN.Controllers
 {
@@ -40,6 +41,7 @@ namespace KEN.Controllers
         public static String OAUTH_URL = ConfigurationManager.AppSettings["OauthLink"];
         public String consumerKey = ConfigurationManager.AppSettings["ConsumerKey"];
         public String consumerSecret = ConfigurationManager.AppSettings["ConsumerSecret"];
+        ResponseMessageViewModel responses = new ResponseMessageViewModel();
         //public static String DomaimURL = ConfigurationManager.AppSettings["DomaimURL"];
 
 
@@ -1732,5 +1734,377 @@ namespace KEN.Controllers
             dbContext.SaveChanges();
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult QuoteStatus()
+        {
+            var process = dbContext.tblApplicationProcesses.ToList();          
+            ViewBag.Process = process;
+            ViewBag.ProfileList = getProfileList();
+            ViewBag.ActiveUserRole = GetActiveUserData();
+           
+            var status = dbContext.tblStatus.ToList();
+            var checkQuotes = dbContext.tblDraftQuotes.Where(x=>x.Status != 1).ToList().OrderByDescending(x=>x.Id);
+            var cartList = Mapper.Map<List<QuotesViewModel>>(checkQuotes);
+           
+            foreach (var items in cartList)
+            {
+                var quotes = dbContext.tblDraftQuoteItems.Where(x => x.Quotes_Id == items.Id).ToList();
+                items.TotalItems = quotes.Count;
+                var statu = dbContext.tblStatus.Where(x => x.Id == items.Status).FirstOrDefault();
+                items.StatusName = statu.Name;
+            }
+            return View(cartList);
+        }
+
+        public ActionResult QuoteStatusList()
+        {
+            var process = dbContext.tblApplicationProcesses.ToList();
+            ViewBag.Process = process;
+            ViewBag.ProfileList = getProfileList();
+            ViewBag.ActiveUserRole = GetActiveUserData();
+
+            var status = dbContext.tblStatus.ToList();
+            var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Status != 1).ToList().OrderByDescending(x => x.Id);
+            var cartList = Mapper.Map<List<QuotesViewModel>>(checkQuotes);
+
+            foreach (var items in cartList)
+            {
+                var quotes = dbContext.tblDraftQuoteItems.Where(x => x.Quotes_Id == items.Id).ToList();
+                items.TotalItems = quotes.Count;
+                var statu = dbContext.tblStatus.Where(x => x.Id == items.Status).FirstOrDefault();
+                items.StatusName = statu.Name;
+            }
+            return Json(cartList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public ActionResult GetQuotes()
+        {
+            var status = dbContext.tblStatus.Where(x => x.Name == "Pending").FirstOrDefault();
+            var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Status == status.Id).ToList();
+            var cartList = Mapper.Map<List<QuotesViewModel>>(checkQuotes);
+
+            foreach (var items in cartList)
+            {
+                var statu = dbContext.tblStatus.Where(x => x.Id == items.Status).FirstOrDefault();
+                items.StatusName = statu.Name;
+            }
+            return Json(cartList,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult QuoteList(int id)
+        {
+            var quotes = dbContext.tblDraftQuoteItems.Include(x => x.tblUserItem).Include(x => x.tblUserItem.tblUserLogoProcess).Where(x =>x.Quotes_Id == id).ToList();
+            var cartList = Mapper.Map<List<UserItemsViewModel>>(quotes);
+            foreach (var items in cartList)
+            {
+                var proces = dbContext.tblApplicationProcesses.FirstOrDefault(x => x.Id == items.Process_Id);
+                items.ProcessValue = proces.Name;
+            }
+            foreach (var items in cartList)
+            {
+                var process = dbContext.tblPrintColors.FirstOrDefault(x => x.Id == items.Colour_Id);
+                items.ColorValue = process.Name;
+            }
+
+            foreach (var item in cartList)
+            {
+                var selectedProcess = dbContext.tblSizeMasters.FirstOrDefault(x => x.Id == item.Size_Id);
+                item.SizeValue = selectedProcess.Size;
+            }
+            return Json(cartList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateQuotes(int id,string status)
+        {
+            if (status == "Approved")
+            {
+                var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();
+                var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Id == id).FirstOrDefault();
+                checkQuotes.Status = Status.Id;
+                dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                responses.IsSuccess = true;
+                responses.Message = "Quote approved";
+                return Json(responses, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();
+                var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Id == id).FirstOrDefault();
+                checkQuotes.Status = Status.Id;
+                dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                responses.IsSuccess = true;
+                responses.Message = "Quote rejected ";
+                return Json(responses, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
+        public ActionResult QuotesFilter(string status)
+        {
+            
+                var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();               
+                var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Status == Status.Id).ToList();
+                var cartList = Mapper.Map<List<QuotesViewModel>>(checkQuotes);
+
+                foreach (var items in cartList)
+                {
+                    var statu = dbContext.tblStatus.Where(x => x.Id == items.Status).FirstOrDefault();
+                    items.StatusName = statu.Name;
+                    var quotes = dbContext.tblDraftQuoteItems.Where(x => x.Quotes_Id == items.Id).ToList();
+                    items.TotalItems = quotes.Count;
+                }
+                return Json(cartList, JsonRequestBehavior.AllowGet);                   
+        }
+
+       public ActionResult ProcessList()
+        {
+            var process = dbContext.tblApplicationProcesses.ToList();
+            return Json(Mapper.Map<List<ProcessViewModel>>(process), JsonRequestBehavior.AllowGet);
+            
+        }
+        public ActionResult ColorList(int processid)
+        {
+            var color = dbContext.tblApplicationColorsMappings.Include(x => x.tblPrintColor).Where(_ => _.Process_Id == processid).ToList();
+            return Json(Mapper.Map<List<PrintColorViewModel>>(color), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SizeList(int processid)
+        {
+            var size = dbContext.TblSizeApplicationMappings.Include(x => x.tblSizeMaster).Where(_ => _.Process_Id == processid).ToList();
+            return Json(Mapper.Map<List<SizeViewModel>>(size), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CalculatePriceQuotesItem(int id,int processId,int colorId,int sizeId,int quantity)
+        {
+            
+           var price = dbContext.tblPriceLists.Include(x => x.tblApplicationProcess).Include(x => x.tblPrintColor).Include(x => x.tblSizeMaster).Where(_ => _.Process_Id == processId && _.Size_Id == sizeId && _.Colour_Id == colorId && _.MinQty <= quantity && _.MaxQty >= quantity).FirstOrDefault();
+            if (price != null)
+            {                
+                CalculateViewModel calculate = new CalculateViewModel();
+                calculate.Print_Price = price.Price.Value;
+                calculate.quantity = quantity;
+                return Json(calculate, JsonRequestBehavior.AllowGet);
+            }
+            responses.IsSuccess = false;
+            responses.Message = "Price not  found";
+            return Json(responses, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateQuotesitem(List<UserItemsViewModel> cartDataList)
+        {
+            
+            for (int i = 0; i < cartDataList.Count; i++)
+            {
+                var unitPrice = cartDataList[i].Print_Price + cartDataList[i].Tshirt_Price;               
+                var item = dbContext.tblDraftQuoteItems.Find(cartDataList[i].Id);               
+                item.Print_Price = cartDataList[i].Print_Price;
+                item.Unit_Price = cartDataList[i].Unit_Price;
+                item.Totalprice = cartDataList[i].TotalPrice;                
+                    dbContext.Entry(item).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                var userItem = dbContext.tblUserItems.Where(x => x.Id == item.UserItemId).FirstOrDefault();
+                var process = dbContext.tblUserLogoProcesses.Where(x=>x.Id ==userItem.UserLogoProcess_id).FirstOrDefault();
+                process.Process_Id = cartDataList[i].Process_Id;
+                process.Colour_Id = cartDataList[i].Colour_Id;
+                process.Stitches_Id = cartDataList[i].Size_Id;
+                dbContext.Entry(process).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
+            for (var j = 0; j < cartDataList.Count; j++)
+            {
+                var cartdata = cartDataList[j].Quotes_Id;
+                var items = dbContext.tblDraftQuoteItems.Where(x=>x.Quotes_Id == cartdata).ToList();
+                var price = items.Select(x => x.Totalprice).ToList().Sum();
+                var quotesItem = dbContext.tblDraftQuotes.Where(x => x.Id == cartdata).FirstOrDefault();
+                quotesItem.TotalPrice = price;
+                dbContext.Entry(quotesItem).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                break;
+            }
+            responses.IsSuccess = true;
+            responses.Message = "Price updated ";
+            return Json(responses, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult PreviewImage(int id)
+        {
+            var quotesItem = dbContext.tblDraftQuoteItems.Include(x=>x.tblUserItem).Where(x => x.Id == id).FirstOrDefault();            
+            return Json(Mapper.Map<UserItemsViewModel>(quotesItem), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LogoStatus()
+        {
+            
+            var process = dbContext.tblApplicationProcesses.ToList();
+            ViewBag.Process = process;
+            ViewBag.ProfileList = getProfileList();
+            ViewBag.ActiveUserRole = GetActiveUserData();
+           
+            var status = dbContext.tblStatus.ToList();
+            var imagesrc = dbContext.tblUserLogoes.Include(x => x.tblStatu).Include(x => x.tbluser).Where(x =>x.Status != null).OrderByDescending(x => x.Id).ToList();
+            var cartList = Mapper.Map<List<DesignViewModel>>(imagesrc);
+            foreach (var items in cartList)
+            {  
+               
+                items.UserName = items.FirstName +" "+ items.LastName;
+                var userid = dbContext.tblusers.Where(x => x.id == items.ApprovedLogo_UserId).FirstOrDefault();
+                var rejectLogoId = dbContext.tblusers.Where(x => x.id == items.RejectedLogo_UserId).FirstOrDefault();
+
+                if (userid != null)
+                {
+                    items.ApprovedLogo_UserName = userid.firstname + " " + userid.lastname;
+                    
+                }
+                else
+                {
+                    items.ApprovedLogo_UserName = null;
+                }
+                if (rejectLogoId != null)
+                {
+                    items.RejectedLogo_UserName = rejectLogoId.firstname + " " + rejectLogoId.lastname;
+
+                }
+                else
+                {
+                    items.RejectedLogo_UserName = null;
+                }
+
+            }         
+            return View(cartList);
+        }
+
+        public ActionResult LogoStatusList()
+        {
+
+            var process = dbContext.tblApplicationProcesses.ToList();
+            ViewBag.Process = process;
+            ViewBag.ProfileList = getProfileList();
+            ViewBag.ActiveUserRole = GetActiveUserData();
+
+            var status = dbContext.tblStatus.ToList();
+            var imagesrc = dbContext.tblUserLogoes.Include(x => x.tblStatu).Include(x => x.tbluser).Where(x => x.Status != null).OrderByDescending(x => x.Id).ToList();
+            var cartList = Mapper.Map<List<DesignViewModel>>(imagesrc);
+            foreach (var items in cartList)
+            {
+
+                items.UserName = items.FirstName + " " + items.LastName;
+                var userid = dbContext.tblusers.Where(x => x.id == items.ApprovedLogo_UserId).FirstOrDefault();
+                var rejectLogoId = dbContext.tblusers.Where(x => x.id == items.RejectedLogo_UserId).FirstOrDefault();
+
+                if (userid != null)
+                {
+                    items.ApprovedLogo_UserName = userid.firstname + " " + userid.lastname;
+
+                }
+                else
+                {
+                    items.ApprovedLogo_UserName = null;
+                }
+                if (rejectLogoId != null)
+                {
+                    items.RejectedLogo_UserName = rejectLogoId.firstname + " " + rejectLogoId.lastname;
+
+                }
+                else
+                {
+                    items.RejectedLogo_UserName = null;
+                }
+
+            }
+            return Json(cartList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LogoFilter(string status)
+        {
+            var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();
+            var imagesrc = dbContext.tblUserLogoes.Include(x => x.tblStatu).Include(x => x.tbluser).Where(x => x.Status == Status.Id).ToList().OrderByDescending(x => x.Id);
+            var cartList = Mapper.Map<List<DesignViewModel>>(imagesrc);
+            foreach (var items in cartList)
+            {
+                items.UserName = items.FirstName + " " + items.LastName;
+                var userid = dbContext.tblusers.Where(x => x.id == items.ApprovedLogo_UserId).FirstOrDefault();
+                var rejectLogoId = dbContext.tblusers.Where(x => x.id == items.RejectedLogo_UserId).FirstOrDefault();
+
+                if (userid != null)
+                {
+                    items.ApprovedLogo_UserName = userid.firstname + " " + userid.lastname;
+                }
+                else
+                {
+                    items.ApprovedLogo_UserName = null;
+                }
+                if (rejectLogoId != null)
+                {
+                    items.RejectedLogo_UserName = rejectLogoId.firstname + " " + rejectLogoId.lastname;
+
+                }
+                else
+                {
+                    items.RejectedLogo_UserName = null;
+                }
+
+            }
+            return Json(cartList,JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateLogo(int id, string status)
+        {
+            var userIDemail = DataBaseCon.ActiveUser();
+            var userId = dbContext.tblusers.Where(x => x.email == userIDemail).FirstOrDefault();
+            if (status == "Approved")
+            {                
+                var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();
+                var checkQuotes = dbContext.tblUserLogoes.Where(x => x.Id == id).FirstOrDefault();
+                checkQuotes.Status = Status.Id;
+                checkQuotes.ApprovedLogo_UserId = userId.id;
+                checkQuotes.ApprovedLogo_Date = DateTime.UtcNow;
+                dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                responses.IsSuccess = true;
+                responses.Message = "Logo approved";
+                return Json(responses, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();
+                var checkQuotes = dbContext.tblUserLogoes.Where(x => x.Id == id).FirstOrDefault();
+                checkQuotes.Status = Status.Id;
+                checkQuotes.RejectedLogo_UserId = userId.id;
+                checkQuotes.RejectedLogo_Date = DateTime.UtcNow;
+                dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                responses.IsSuccess = true;
+                responses.Message = "Logo rejected ";
+                return Json(responses, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult LogoPreview(int id)
+        {
+            var preview = dbContext.tblUserLogoes.Where(x => x.Id == id).FirstOrDefault();
+            return Json(Mapper.Map<DesignViewModel>(preview),JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LogoProcessDetails(int id)
+        {
+            var img = dbContext.tblUserLogoProcesses.Where(x => x.UserLogo_Id == id).ToList().OrderByDescending(x => x.Id);
+            var userlogo = Mapper.Map<List<DesignViewModel>>(img);
+            foreach (var items in userlogo)
+            {               
+                var proces = dbContext.tblApplicationProcesses.FirstOrDefault(x => x.Id == items.Process_Id);
+                items.ProcessValue = proces.Name;
+                var color = dbContext.tblPrintColors.FirstOrDefault(x => x.Id == items.Color_Id);
+                items.ColorValue = color.Name;
+                var selectedProcess = dbContext.tblSizeMasters.FirstOrDefault(x => x.Id == items.Size_Id);
+                items.SizeValue = selectedProcess.Size;
+            }
+            return Json(userlogo, JsonRequestBehavior.AllowGet);
+        }
     }
 }
+

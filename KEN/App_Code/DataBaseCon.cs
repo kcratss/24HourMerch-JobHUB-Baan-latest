@@ -183,7 +183,8 @@ namespace KEN.AppCode
             {
                 return "";
             }
-        }
+           
+        }      
         public static string ActiveClient()
         {
             HttpContext.Current.Session.Timeout = 120;
@@ -199,11 +200,18 @@ namespace KEN.AppCode
         public static int ActiveClientId()
         {
             HttpContext.Current.Session.Timeout = 240;
-
-             return ((int)HttpContext.Current.Session["MyClientId"]);
-           /* return HttpContext.Current.Response.Redirect("");*/
-
+            var a = (HttpContext.Current.Session["MyClientId"]);
+            if (a != null)
+            {
+                return ((int)HttpContext.Current.Session["MyClientId"]);
+            }
+            else
+            {
+               HttpContext.Current.Response.Redirect("/Client/Login", true);
+            }
+            return 0;
         }
+
 
         //27 May 2019 (N) (Function Moved to MasterPdfController)
         //public static bool SendEmail(string To, string Sub, AlternateView Av, string path, string PathPdf, string AcctEmail)
@@ -267,12 +275,6 @@ namespace KEN.AppCode
         //    return Status;
         //}
         //27 May 2019 (N)
-
-
-
-
-
-
 
     }
 }

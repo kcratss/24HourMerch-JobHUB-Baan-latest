@@ -14,6 +14,12 @@ namespace KEN_DataAccess
     
     public partial class tblOrderDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblOrderDetail()
+        {
+            this.OrderAddresses = new HashSet<OrderAddress>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> Process { get; set; }
@@ -22,8 +28,9 @@ namespace KEN_DataAccess
         public Nullable<int> createdBY { get; set; }
         public Nullable<System.DateTime> createdOn { get; set; }
     
-        public virtual tblProcess tblProcess { get; set; }
         public virtual tbluser tbluser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderAddress> OrderAddresses { get; set; }
         public virtual tblUserItem tblUserItem { get; set; }
     }
 }

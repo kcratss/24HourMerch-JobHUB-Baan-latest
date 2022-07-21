@@ -57,6 +57,7 @@ label{
     width: 10px;
 }
 
+
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
@@ -156,14 +157,15 @@ label{
     font-size: 14px;
 }
 
+
 .container1 {
     display: flex;
     font-family: arial, sans-serif;
     overflow: hidden;
     position: absolute;
     height: 92%;
-    padding:0;
-   /* padding-right: 5em;*/
+    padding: 0;
+    /* padding-right: 5em;*/
 }
 
 #canvas-container {
@@ -177,6 +179,7 @@ label{
 
 .inputs{
     width:50%;
+    margin-left:7px;
 }
 
 #canvas {
@@ -223,6 +226,7 @@ label{
 #qtyPrice {
     display: inline-flex;
     padding-top:5px;
+    width:100%;
 }
 
 #bottomTools{
@@ -345,11 +349,11 @@ h5 {
     background-color:white;
     font-size:14px;
 }
+    #backbtn:hover {
+        color: white;
+        background-color: grey;
+    }
 
-#backbtn:hover {
-    color:white;
-    background-color: grey;
-}
 
 #frontbtn:disabled{
     color:grey;
@@ -367,11 +371,25 @@ h5 {
     border: 1px solid grey;
     font-size: 14px;
 }
-
-    #backbtn:hover {
+#logoRemove {
+    color: grey;
+    background-color: white;
+    border: 1px solid grey;
+    font-size: 14px;
+    margin-left:120px;
+}
+    #logoRemove:hover {
         color: white;
         background-color: grey;
     }
+    #logoRemove:disabled {
+        color: grey;
+        background-color: lightgray;
+    }
+#backbtn:hover {
+    color: white;
+    background-color: grey;
+}
 
 .brandbtn:hover {
     background-color: grey;
@@ -430,7 +448,7 @@ h5 {
 }
 
 .ui-resizable-s {
-    bottom: 0px;
+    bottom: 0px;    
 }
 
 .ui-resizable-w {
@@ -470,23 +488,26 @@ h5 {
     text-align: center;
     padding-top: 0; 
 }
-
-/*@media only screen and (max-width: 1796) {
-    .logoimage {
-        padding: 15px;
-        width: 100px;
+@media only screen and (min-width: 1500px) {
+    #btnUpload{
+        margin-right : -19px;
     }
-}*/
+}
+@media only screen and (max-width: 1790px) {
+    #btnUpload {
+        margin-right: -19px;
+    }
+}
 #inputEmail {
     margin-bottom: 10px;
     margin-left: 60px;
-    width: 81%;
+    width: 79%;
     display: inline;
 }
 
 #inputSubject {
     margin-bottom: 10px;
-    width: 81%;
+    width: 79%;
     display: inline;
     margin-left: 25px;
 }
@@ -497,14 +518,14 @@ h5 {
     margin-bottom: 10px;
 }
 
-.print-modal-dialog {
+/*.print-modal-dialog {
     width: 524px;
     height: 422px;
 }
 
 .print-modal-content {
     width: 545px;
-}
+}*/
 
 @media print {
     body * {
@@ -541,23 +562,167 @@ body{
 }
 
 
-#qty
+#qty {
+    width: 35%;
+    margin-left: 15px;
+    margin-top: 14px;
+}
+
+#process {
+    margin-top: 2px;
+    width: 70%;
+    text-align: center;
+}
+
+.pricediv {
+    width: 42%;
+}
+
+#price {
+    width: 50%;
+}
+
+#stitches{
+    margin-left : -17px;
+}
+.sizeQuantity {
+    margin-top: 15px;
+}
+
+#myCartBtn {
+    border-width: 0px;
+    font-size: 12px !important;
+    color: grey !important;
+    background-color: white;
+}
+#placeOrderBtn {
+    border-width: 0px;
+    font-size: 12px !important;
+    color: #666666 !important;
+    background-color: white;
+    color: grey !important;
+    margin-left: 4px;
+}
+
+.nav-pills .nav-link {
+    background-color: #e6e6e6;
+    border: 1px solid #b6b2b2;
+    width: 133px;
+    color: grey;
+    height: 82px;
+    border-radius: 0px;
+    font-weight: 400;
+    font-size: 15px;
+}
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: grey;
+        background-color: #fff;
+        /*box-shadow: 0 1rem 2rem hsl(0deg 1% 2% / 20%);*/
+        border-radius: 5px;
+        /*box-shadow: 0 -5px 3px -3px #43d3f7, 0 5px 3px -3px #43d3f7;*/
+        /*box-shadow: 0 0 5px 5px #43d3f7;*/
+        /*box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);*/
+        /* box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);*/
+        box-shadow: 10px 5px 5px grey;
+    }
+
+.logocontent {
+    width: 1217px;
+    margin-left: -264px;
+}
+
+
+
+
+.btn2 {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 10% !important;
+    width: 103px;
+    height: 34px;
+    font-size: 13px;
+    margin-left: -101px;
+    border-radius: 5px !important;
+}
+.md-textarea
 {
-    width:117px;
+    width:93%;
+}
+#form7 {
+    font-size: 13px;
+    font-weight: 500;
+}
+#logoimg {
+    margin-left: -101px;
+    height: 451px;
+    width: 400px;
+    border: 1px solid;
 }
 
-.process {
-    width : 49px;
-}
-#process{
-    width:69px;
+.dropdown-submenu {
+    position: relative;
 }
 
-.price {
-    width: 619px;
-    margin-left: 9px;
-}
-#price{
-    width :20%;
+.dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -1px;
+ }
+.application {
+    background-image: linear-gradient(45deg, transparent 50%, black 50%), linear-gradient(135deg, black 50%, transparent 50%), linear-gradient(to right, #e6e6e6, #e6e6e6);
+    background-position: calc(100% - 20px) calc(1em + -3px), calc(100% - 15px) calc(1em + -3px), 100% 0;
+    background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 3px;
+    border: 2px outset;
 }
 
+#Logoprocess {
+    margin-left: 10px;
+    width: 195px;
+}
+#width {
+    width: 60%;
+    margin-left: 37px;
+}
+#length {
+    width: 60%;
+    margin-left: 8px;
+}
+#logocolor {
+    width: 58%;
+    margin-left: 27px;
+}
+#logosize {
+    width: 58%;
+    margin: 2px;
+}
+#logoProces {
+    width: 75%;
+    Margin-left: 2px;
+}
+#createdby {
+    width: 75%;
+    Margin-left: 4px;
+}
+#setDefault {
+    width: 42%;
+    margin-right: 235px;
+    margin-top: 105px;
+    float: right;
+}
+#setdefault {
+    width: 28%;
+    margin-right: 88px;
+    margin-top: -30px;
+    float: right;
+}
+#complexity {
+    width: 75%;
+    Margin-left: 2px;
+}
+h4{
+    color:gray;
+}

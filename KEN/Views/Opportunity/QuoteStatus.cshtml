@@ -1,0 +1,286 @@
+﻿@model IEnumerable<KEN.Models.QuotesViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+    var process = ViewBag.Process;
+}
+
+
+<style>
+    #confirmMessage {
+        text-align: center;
+        font-size: 19px;
+        font-style: oblique;
+        font-weight: 600;
+    }
+    .page {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+        padding: 0.1875rem 0.75rem;
+        font-size: 0.875rem;
+        border-radius: 0.2rem;
+        color: var(--falcon-btn-falcon-default-color);
+        background-color: var(--falcon-btn-falcon-background);
+        border-color: var(--falcon-btn-falcon-background);
+        -webkit-box-shadow: var(--falcon-btn-falcon-box-shadow);
+        box-shadow: var(--falcon-btn-falcon-box-shadow);
+        font-size: 17px;
+    }
+
+        .page.active {
+            background-color: transparent;
+            color: #2c7be5 !important;
+        }
+
+    .total {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 24px;
+    }
+
+    .tab button.tablinks.active {
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px !important;
+        color: #FF0000 !important;
+    }
+
+    #glass {
+        position: absolute;
+        border-radius: 50%;
+        box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        display: none;
+        background-repeat: no-repeat;
+        background-color: rgba(0,0,0,.6);
+        z-Index: 7777777,
+    }
+</style>
+<script src="~/Content/js/QuoteStatus.js"></script>
+<div class="row g-0">
+    <div class=" pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+            </div>
+            <div class="row showCurrenttab" style="margin-top: 10px;">
+                <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 7px 2px 0;" />
+                <div class="tab" style="margin: -2px 0 0px 0;">
+                    <button class="tabheading">Quotes</button>
+                    <button id="All" class="tablinks active" onclick="QuotesGrid(this),QuotesListGrid('All');">All</button>
+                    <button id="pending" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Pending');">Pending</button>
+                    <button id="approved" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Approved')">Approved</button>
+                    <button id="rejected" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Rejected');">Rejected</button>
+                </div>
+                <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -15px 0 2px 0;" />
+            </div>
+            <div class="card-body bg-light">
+                <div class="d-flex justify-content-end">
+
+                </div>
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="name">Quote</th>
+                                    <th class="sort" data-sort="name">No. Of Items</th>
+                                    <th class="sort" data-sort="name">Status</th>
+                                    <th class="sort" data-sort="name">TotalPrice</th>
+                                    <th class="sort" data-sort="name">Quote Details</th>
+                                    <th class="sort" data-sort="name">Action</th>
+                                    <th></th>
+                                </tr>
+                            <tbody id="item">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3" style="text-align: center;">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" id="prev" onclick="Prevbtn()" data-list-pagination="prev" style=" color: var(--falcon-btn-falcon-default-color); background-color: var(--falcon-btn-falcon-background); border: 2px solid; margin-right: 5px; margin-top: -5px;"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" id="next" onclick="Nextbtn()" title="Next" data-list-pagination="next" style="color: var(--falcon-btn-falcon-default-color); background-color: var(--falcon-btn-falcon-background); border: 2px solid; margin-left: 5px; margin-top: -5px; "><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-xl" id="quotesModal" tabindex="-1" role="dialog" aria-labelledby="quotesModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Quote Detail</h5>
+                <button type="button" class="close closebutton" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable1">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="name">FrontImage</th>
+                                    <th class="sort" data-sort="attention">Process</th>
+                                    <th class="sort" data-sort="attention">Quantity</th>
+                                    <th class="sort" data-sort="address1">Color</th>
+                                    <th class="sort" data-sort="address1">Stitches</th>
+                                    <th class="sort" data-sort="address2">Size</th>
+                                    <th class="sort" data-sort="address2">Print Price</th>
+                                    <th class="sort" data-sort="address2">Tshirt Price</th>
+                                    <th class="sort" data-sort="address2">Unit Price</th>
+                                    <th class="sort" data-sort="address2">Total Price</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="list1">
+                            </tbody>
+
+                        </table>
+                        <div class="col-12 total">
+                            <div class="col-4">
+                                Total: $<span class="col-4" id="price">
+
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" style="float:right;margin-top:10px;" onclick="closeModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-xl" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="priceModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:890px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Quote Details</h5>
+                <button type="button" class="close closebutton" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable1">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="name">FrontImage</th>
+                                    <th class="sort" data-sort="attention">Process</th>
+                                    <th class="sort" data-sort="attention">Quantity</th>
+                                    <th class="sort" data-sort="address1">Color</th>
+                                    <th class="sort" data-sort="address1">Stitches</th>
+                                    <th class="sort" data-sort="address2">Size</th>
+                                    <th class="sort" data-sort="address2">Print Price</th>
+                                    <th class="sort" data-sort="address2">Tshirt Price</th>
+                                    <th class="sort" data-sort="address2">Unit Price</th>
+                                    <th class="sort" data-sort="address2">Total Price</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="list2">
+                            </tbody>
+
+                        </table>
+                        <div class="col-12 total">
+                            <div class="col-4">
+                                Total: $<span class="col-4" id="prices">
+
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" style="float:right;margin-top:10px;" onclick="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary" style="float:right;margin-top:10px;margin-right:10px;" data-dismiss="modal" onclick="updateQuotesItem()">Save</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="approvedModal" tabindex="-1" role="dialog" aria-labelledby="approvedModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Approve Quote</h4>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <p id="confirmMessage">Are you sure you want to approve this quote ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmCancel" onclick="ApprovedQuotes()">Approve Quote</button>
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rejectedModal" tabindex="-1" role="dialog" aria-labelledby="rejectedModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Reject Quote</h4>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <p id="confirmMessage">Are you sure you want to  reject this quote ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmCancel" onclick="RejectedQuotes()">Reject Quote</button>
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PreviewModal" tabindex="-1" role="dialog" aria-labelledby="FrontModalLabel" aria-hidden="true">
+    <div class="modal-dialog print-modal-dialog" role="document">
+        <div class="modal-content print-modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Preview Image</h4>
+                <button type="button" class="close closebutton" aria-label="Close">
+                    <span aria-hidden="true" onclick="closePreviewModal()">&times;</span>
+                </button>
+            </div>
+            <div id="printSection" class="modal-body-wrapper">
+                <div id="preview" class="modal-body">
+
+                </div>
+                <div id="pre">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closePreviewModal()">Close</button>
+                @*<button type="button" onclick="PrintImage()" class="btn btn-primary">Print</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+                            </section>
+                            </aside>
+<aside class="right-sidebar"></aside>
+
+
+
+
+

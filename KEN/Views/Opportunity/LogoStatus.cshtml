@@ -1,0 +1,186 @@
+﻿@model IEnumerable<KEN.Models.DesignViewModel>
+
+@{
+    ViewBag.Title = "LogoStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #confirmMessage {
+        text-align: center;
+        font-size: 19px;
+        font-style: oblique;
+        font-weight: 600;
+    }
+
+    .tab button.tablinks.active {
+        font-family: 'Arial';
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px !important;
+        color: #FF0000 !important;
+    }
+
+    .page {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+        padding: 0.1875rem 0.75rem;
+        font-size: 0.875rem;
+        border-radius: 0.2rem;
+        color: var(--falcon-btn-falcon-default-color);
+        background-color: var(--falcon-btn-falcon-background);
+        border-color: var(--falcon-btn-falcon-background);
+        -webkit-box-shadow: var(--falcon-btn-falcon-box-shadow);
+        box-shadow: var(--falcon-btn-falcon-box-shadow);
+        font-size: 17px;
+    }
+
+        .page.active {
+            background-color: transparent;
+            color: #2c7be5 !important;
+        }
+</style>
+<script src="~/Content/js/LogoStatus.js"></script>
+<div class="row g-0">
+    <div class=" pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+            </div>
+            <div class="row showCurrenttab" style="margin-top: 10px;">
+                <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 7px 2px 0;" />
+                <div class="tab" style="margin: -2px 0 0px 0;">
+                    <button class="tabheading">Logo</button>
+                    <button id="All" class="tablinks active" onclick="LogoGrid(this),LogoListGrid('All');">All</button>
+                    <button id="pending" class="tablinks" onclick="LogoGrid(this),LogoListGrid('Pending');">Pending</button>
+                    <button id="approved" class="tablinks" onclick="LogoGrid(this), LogoListGrid('Approved');">Approved</button>
+                    <button id="rejected" class="tablinks" onclick="LogoGrid(this),LogoListGrid('Rejected');">Rejected</button>
+                </div>
+                <img src="~/Content/images/hrImg.png" class="hrimg" />
+            </div>
+            <div class="card-body bg-light">
+                <div class="d-flex justify-content-end">
+
+                </div>
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="name">Image</th>
+                                    <th class="sort" data-sort="name">User Name</th>
+                                    <th class="sort" data-sort="name">Email</th>
+                                    <th class="sort" data-sort="address1">Status</th>
+                                    <th class="sort" data-sort="address1">Height</th>
+                                    <th class="sort" data-sort="address1">Width</th>
+                                    <th class="sort" data-sort="address1">Logo Detail</th>
+                                    <th class="sort" data-sort="address1">Upload Date</th>
+                                    <th class="sort" data-sort="address1">Approve_Date</th>
+                                    <th class="sort" data-sort="address1">Approve_UserName</th>
+                                    <th class="sort" data-sort="address1">Reject_Date</th>
+                                    <th class="sort" data-sort="address1">Reject_UserName</th>
+                                    <th class="sort" data-sort="address2">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="list1" id="list">                          
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3" style="text-align: center;">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" id="prev" onclick="Prevbtn()" data-list-pagination="prev" style=" color: var(--falcon-btn-falcon-default-color); background-color: var(--falcon-btn-falcon-background); border: 2px solid; margin-right: 5px; margin-top: -5px;"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" id="next" onclick="Nextbtn()" title="Next" data-list-pagination="next" style="color: var(--falcon-btn-falcon-default-color); background-color: var(--falcon-btn-falcon-background); border: 2px solid; margin-left: 5px; margin-top: -5px; "><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Approve Logo</h4>
+            </div>
+            <div class="modal-body row m-1">
+                <p id="confirmMessage">Are you sure you want to  approve this logo ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmCancel" onclick="ApproveLogo()">Approve Logo</button>
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectedModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Reject Logo</h4>
+            </div>
+            <div class="modal-body row m-1">
+                <p id="confirmMessage">Are you sure you want to  reject this logo ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmCancel" onclick="RejectLogo()">Reject Logo</button>
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="LogoPreviewModal" tabindex="-1" role="dialog" aria-labelledby="LogoPreviewModal" aria-hidden="true">
+    <div class="modal-dialog print-modal-dialog" role="document">
+        <div class="modal-content print-modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Preview Logo</h4>
+            </div>
+            <div id="printSection" class="modal-body-wrapper">
+                <div id="logoPreview" class="modal-body">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-xl" id="logoDetailModal" tabindex="-1" role="dialog" aria-labelledby="logoDetailModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Logo Detail</h5>
+                <button type="button" class="close closebutton" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable1">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="name">Process</th>
+                                    <th class="sort" data-sort="attention">Color</th>
+                                    <th class="sort" data-sort="attention">Stitches</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logolist">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" style="float:right;margin-top:10px;" onclick="closeModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+</aside>
+<aside class="right-sidebar"></aside>

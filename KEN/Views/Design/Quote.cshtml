@@ -1,0 +1,244 @@
+﻿@model IEnumerable<KEN.Models.QuotesViewModel>
+
+@{
+    Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+
+@*<script>
+    $(document).ready(function () {
+        debugger;
+        var totalRecords = @Model.Count();
+        const pageSize = 3;
+        var currentPage = 1;
+        let pageQuantity = Math.ceil(totalRecords / pageSize);
+        for (let i = 1; i <= pageQuantity; i++) {
+            $('#page').append('<li><button class="page" type="button">' +i+ '</button></li>')
+        }
+    });
+</script>*@
+<link href="~/Content/css/QuoteStatus.css" rel="stylesheet" />
+<script src="~/Content/js/ClientQuotes.js"></script>
+@*<script src="~/vendors/list.js/list.min.js"></script>*@
+
+<div class="row g-0">
+    <div class=" pe-lg-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Quote list</h5>
+            </div>
+            <div class="row showCurrenttab" style="margin-top: 10px;">
+                <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 7px 2px 0;" />
+                <div class="tab" style="margin: -2px 0 0px 0;">
+                    <button class="tabheading">Quotes</button>
+                    <button id="All" class="tablinks active" onclick="QuotesGrid(this),QuotesListGrid('All');">All</button>
+                    <button id="pending" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Draft');">Draft</button>
+                    <button id="pending" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Pending');">Pending</button>
+                    <button id="approved" class="tablinks" onclick="QuotesGrid(this), QuotesListGrid('Approved');">Approved</button>
+                    <button id="rejected" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Rejected');">Rejected</button>
+                </div>
+                <img src="~/Content/images/hrImg.png" class="hrimg" />
+            </div>
+            <div class="card-body bg-light" id="quotedetaillist">
+                <div id="tableExample2" data-list='{"valueNames":["quote","item","status"],"page":5,"pagination":true}'>
+                    <div id="tst-page" class="table-responsive scrollbar">
+                        <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable">
+                            <thead class="bg-200 text-900">
+                                <tr>
+                                    <th class="sort" data-sort="quote">QuoteId</th>
+                                    <th class="sort" data-sort="item">No. of Items</th>
+                                    <th class="sort" data-sort="status">Status</th>
+                                    <th class="sort" data-sort="attention">Estimate Price</th>
+                                    <th class="sort" data-sort="address1">Quote details</th>
+                                    <th class="sort" data-sort="address2">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="list" id="list1">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        if (@item.StatusName == "Draft")
+                                        {
+                                            <tr>
+                                                <td>
+                                                    #@Html.DisplayFor(modelItem => item.Id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TotalItems)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.StatusName)
+                                                </td>
+                                                <td>
+                                                    $@Html.DisplayFor(modelItem => item.TotalPrice)
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-secondary" onclick="ModalQuotes(@item.Id)">Quote Details</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" onclick="GetRequestModal(@item.Id)">Request Quote</button>
+
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        else if (@item.StatusName == "Approved")
+                                        {
+                                            <tr>
+                                                <td>
+                                                    #@Html.DisplayFor(modelItem => item.Id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TotalItems)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.StatusName)
+                                                </td>
+                                                <td>
+                                                    $@Html.DisplayFor(modelItem => item.TotalPrice)
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-secondary" onclick="ModalQuotes(@item.Id)">Quote Details</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" id="@item.Id btn" onclick="AddItemToCart(@item.Id)">Place Order</button>
+
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>
+                                                    #@Html.DisplayFor(modelItem => item.Id)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TotalItems)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.StatusName)
+                                                </td>
+                                                <td>
+                                                    $@Html.DisplayFor(modelItem => item.TotalPrice)
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-secondary" onclick="ModalQuotes(@item.Id)">Quote Details</button>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <tr class="text-center"><td colspan="8">No Quote Found.</td></tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+               <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                        <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*get Request Modal*@
+<div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 590px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request quote</h5>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <p id="confirmMessage">Request is ready to be submitted, Please confirm.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmCancel" onclick="UpdateQuotes()">Get Quote</button>
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 590px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request quote</h5>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <p id="confirmMessage">Are you sure should you want to place order to  this quote ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmCancel" onclick="UpdateQuotes()">Get Request</button>
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Quotes Detail Modal*@
+
+<div class="modal fade" id="quotesModal" tabindex="-1" role="dialog" aria-labelledby="quotesModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 1021px; margin-left: -250px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Quote Details</h5>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <div class="table-responsive scrollbar">
+                    <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable1">
+                        <thead class="bg-200 text-900">
+                            <tr>
+                                <th class="sort" data-sort="name">FrontImage</th>
+                                <th class="sort" data-sort="attention">Process</th>
+                                <th class="sort" data-sort="attention">Quantity</th>
+                                <th class="sort" data-sort="color">Color</th>
+                                <th class="sort" data-sort="stitches">Stitches</th>
+                                <th class="sort" data-sort="size">Size</th>
+                                <th class="sort" data-sort="print">Print Price</th>
+                                <th class="sort" data-sort="tshirt">Tshirt Price</th>
+                                <th class="sort" data-sort="unit">Unit Price</th>
+                                <th class="sort" data-sort="total">Total Price</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="listdetail">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 total">
+                    <div class="col-4">
+                        Total: <span class="col-4" id="price">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

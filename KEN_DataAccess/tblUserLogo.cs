@@ -17,6 +17,7 @@ namespace KEN_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUserLogo()
         {
+            this.tblUserLogoProcesses = new HashSet<tblUserLogoProcess>();
             this.tblUserItems = new HashSet<tblUserItem>();
             this.tblUserItems1 = new HashSet<tblUserItem>();
         }
@@ -26,8 +27,18 @@ namespace KEN_DataAccess
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<int> UserId { get; set; }
+        public Nullable<int> Status { get; set; }
+        public string Height { get; set; }
+        public string Width { get; set; }
+        public Nullable<int> ApprovedLogo_UserId { get; set; }
+        public Nullable<System.DateTime> ApprovedLogo_Date { get; set; }
+        public Nullable<System.DateTime> RejectedLogo_Date { get; set; }
+        public Nullable<int> RejectedLogo_UserId { get; set; }
     
+        public virtual tblStatu tblStatu { get; set; }
         public virtual tbluser tbluser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserLogoProcess> tblUserLogoProcesses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserItem> tblUserItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

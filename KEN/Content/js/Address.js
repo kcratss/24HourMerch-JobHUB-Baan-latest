@@ -2,6 +2,7 @@
 
     formValidation();
     ShowMessage(response);
+    MyCart();
 });
 
 function formValidation() {    
@@ -138,8 +139,8 @@ function AddUpdateAddress() {
                 success: function (response) {                    
                     ShowMessage(response);                   
                     setTimeout(function () {
-                        RedirectPage();
-                    }, 500)                    
+                        window.location.href = '/Address/AddressList';
+                    }, 1000)                    
                 },
                 error: function (response) {
                    
@@ -223,8 +224,7 @@ function ShowMessage(response) {
     {
         "closeButton": true,
         "debug": false,
-        "positionClass": "toaster-top-width",
-        
+        "positionClass": "toaster-top-width",        
         "preventDuplicates": false,
         "onclick": null,
         "showDuration": "400",
@@ -252,4 +252,22 @@ function clearForm() {
     var validator = $("#addAddressModal").validate();
     $("#txtstate").css("color", "black");
     validator.resetForm();
+}
+
+function CartCount(ex) {
+    $("#icon").text(ex);
+}
+
+function MyCart() {
+
+    $.ajax({
+        url: '/Design/MyCart',
+        type: "GET",
+        data: {},
+        success: function (data) {
+            debugger;
+            var ex = data.length;
+            CartCount(ex);
+        }
+    });
 }

@@ -6,10 +6,7 @@
     var colors = ViewBag.Colors;
     var fabrics = ViewBag.Fabrics;
     var process = ViewBag.Process;
-
 }
-
-
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +16,7 @@
     <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="~/Content/js/Design.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="~/Content/css/Design.css" />
@@ -85,31 +83,45 @@
                 </div>
                 <div class="frontBackBtnDiv">
                     <button id="frontbtn" data-toggle="modal" data-target="#FrontModal" class="btn btn-primary imgbtn">Front</button>
+                    <button id="logoRemove" class ="btn btn-primary imgbtn" onclick="LogoRemove()" disabled>Remove logo</button>
+
                     <button id="backbtn" data-toggle="modal" data-target="#BackModal" class="btn btn-primary imgbtn">Back</button>
                 </div>
 
                 <div id="qtyPrice" class="">
-                    <div class="form-group" id="qty">
+                     <div class="form-group" id="qty">
+                            <label for="quantity">Qty</label>
+                            <input class="inputs" type="number" id="quantity" min="0" required />
+                        </div>
+
+
+                @*    <div class="dropdowns col-6">
+                        <label for="process" class="process">Process</label>
+                        @Html.DropDownList("process", new SelectList(ViewBag.process, "Id", "Name"), "---Select---", new { @id = "process", @class = "process ", onchange = "ColorsDropDown(this.value)", required = "required" })
+
+                    </div>
+                    <div class="dropdowns col-6">
+                        <label for="Colors" class="Colors">Colors</label>
+                        <select name="colors" id="Colors" style="margin-left:10px;width:100px;"></select>
+                    </div>
+                    <br />*@
+
+                </div>
+               @* <div class="col-12 container d-flex">
+                    <div class="dropdowns col-6" id="stitches">
+                        <label for="Size" class="Size">Stitches</label>
+                        <select name="Size" id="Size" style="width:100px;"></select>
+                    </div>
+                    <div class="form-group col-6" id="qty">
                         <label for="quantity">Qty</label>
-                        <input class="inputs" type="number" id="quantity" />
+                        <input class="inputs" type="number" id="quantity" min="0" required />
                     </div>
+                </div>*@
 
-                                           
-                <div class="dropdowns col-2">
-                    <label for="process" class="process">Process</label>
-                      @Html.DropDownList("process", new SelectList(ViewBag.process, "Id", "Name"), "Select-Process", new { @id = "process", @class = "process " })
 
-                </div>
-                   
-
-                    <div class="form-group price">
-                        <label for="price">Price-Ext GST</label>
-                        <input class="inputs" type="text" id="price" />
-                    </div>
-
-                </div>
                 <div class="container" id="bottomTools">
                     <div class="col-6" id="designTools">
+
                         <h6 class="bottomHeading">Design Tools</h6>
                         <div class="designbtndiv">
                             <div class="bottomBtn">
@@ -126,10 +138,15 @@
                                 <i class="fa fa-file" aria-hidden="true"></i>
                                 <button id="btn-Preview-Image" class="btn btn-primary designbtn" onclick="OpenSaveToRangeModal()">Save to Range</button>
                             </div>
+                            <div class="bottomBtn">
+                                <i class="fa fa-file" aria-hidden="true"></i>
+                                <button id="btn-Preview-Image" class="btn btn-primary designbtn" onclick="checkvalidation()">Add Item to Quote</button>
+                            </div>
                         </div>
                     </div>
 
                     <div id="orderTools">
+
                         <h6 class="bottomHeading">Order Tools</h6>
                         <div class="orderbtndiv">
                             <div class="bottomBtn">
@@ -138,11 +155,11 @@
                             </div>
                             <div class="bottomBtn">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                <button  id="myCartBtn" onclick="AddToCart()" class="btn btn-primary designbtn">Add to Cart</button>
+                                <button id="myCartBtn" onclick="AddToCart()" class="btn btn-primary designbtn" disabled>Add to Cart</button>
                             </div>
                             <div class="bottomBtn">
                                 <i class="fa fa-clipboard" aria-hidden="true"></i>
-                                <button class="btn btn-primary designbtn">Place Order</button>
+                                <button id="placeOrderBtn" class="btn btn-primary designbtn" disabled>Place Order</button>
                             </div>
                             <div class="bottomBtn">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
@@ -190,6 +207,14 @@
                 <h5 id="brandheading">Order Processes</h5>
                 <button class="btn btn-primary brandbtn">How to Order</button>
                 <button class="btn btn-primary brandbtn">Delivery Times</button>
+                <button class="btn btn-primary brandbtn" onclick="logo()">Logo Model</button>
+                <button class="btn btn-primary brandbtn" onclick="PopUpModel()">Price Calculation</button>
+                <button class="btn btn-primary brandbtn">
+                    <a href="@Url.Action("Quote","Design")" style="text-decoration:none;color:black;">
+                        Get Quote
+                    </a>
+                </button>
+
             </div>
         </div>
     </div>
@@ -204,7 +229,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" onclick="ChangeImage('back')" class="btn btn-info">Discard</button>
-                    <button type="button" onclick="GetPosition('frontsave')" class="btn btn-primary">Save</button>
+                    <button type="button" onclick="GetPosition('frontsave');" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -220,7 +245,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" onclick="ChangeImage('front')" class="btn btn-info">Discard</button>
-                    <button type="button" onclick="GetPosition('backsave')" class="btn btn-primary">Save</button>
+                    <button type="button" onclick="GetPosition('backsave');" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -323,11 +348,532 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="closeModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" onclick="SaveImage()" class="btn btn-primary">Save</button>
+                    <button type="button" onclick="SaveImage(-1)" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>`
+    <div class="modal fade" id="priceCalculationModal" tabindex="-1" role="dialog" aria-labelledby="priceCalculationModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Price Calculation</h5>
+                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row m-1">
+                    <div class="dropdowns">
+                        <label for="process" class="process">Process</label>
+                        @Html.DropDownList("process", new SelectList(ViewBag.process, "Id", "Name"), "---Select---", new { @id = "process1", @class = "process ", @onchange = "ColorsDropDown(this.value)" })
+
+                    </div>
+
+                    <div class="dropdowns">
+                        <label for="Color" class="Color">Colors</label>
+                        <select name="colors" id="Color" style="margin-left:10px;width:100px;"></select>
+                    </div>
+                    <div class="dropdowns">
+                        <label for="Sizes" class="Sizes">Size</label>
+                        <select name="Size" id="Sizes" style="margin-left:27px;width:100px;"></select>
+                    </div>
+                    <div>
+                        <label for="quantity" style="margin-left:-9px;">Qty</label>
+                        <input class="inputs" type="number" id="quantity1" min="0" style="width: 62px; margin-left: 26px;" />
+                    </div>
+                    <br />
+                    <div>
+                        <label for="price1" style="margin-left:-9px;">Price:</label>
+                        <span id="price1" style=" margin-left: 26px;font-size:22px;"></span>
+                    </div>
+                    <div>
+                        <label for="Totalprice" style="margin-left:-9px;">Total Price:</label>
+                        <span id="Totalprice" style=" margin-left:15px;font-size:22px;"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="TestPriceList()" class="btn btn-primary">Calculate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="itemQuote" tabindex="-1" role="dialog" aria-labelledby="itemQuote" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Choose Size</h5>
+                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                    </button>
+                </div>
+                <div id="SizeModel" class="w3-modal">
+                    <div class="w3-modal-content w3-animate-zoom w3-card-8" style="height: auto; width: 540px;padding-bottom: 20px;">
+
+                        <div class="row" id="validrow" style="display:none;padding-bottom: 10px;">
+                            <span id="validcheck" style="font-size: 13px;color: red;float: right;margin: 0 30px 0 0;">frejgfbvjherkrebhj</span>
+                        </div>
+                        <div class="modal-body row m-1">
+                            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <p class="lblOpprtDetail1 tablbl">Total Quantity</p>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label id="txttotalQuan" style="width:55%;margin: 0px 0px 0px 272px; float:right">11</label>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row" style="padding-bottom: 20px;margin: 25px 0 0 0px;">
+
+
+                                <label for="ddlsize">Select Size</label>
+
+                                <div id="ddlsize"><div class="row"><div class="row sizeRow"><div class="col-lg-6">XS</div><div class="col-lg-6"><input id="XS" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">S</div><div class="col-lg-6"><input id="S" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">M</div><div class="col-lg-6"><input id="M" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">L</div><div class="col-lg-6"><input id="L" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">XL</div><div class="col-lg-6"><input id="XL" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">2XL</div><div class="col-lg-6"><input id="2XL" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">3XL</div><div class="col-lg-6"><input id="3XL" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">4XL</div><div class="col-lg-6"><input id="4XL" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">5XL</div><div class="col-lg-6"><input id="5XL" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div><div class="row sizeRow"><div class="col-lg-6">TBC</div><div class="col-lg-6"><input id="TBC" onkeyup="calculatequantity();" class="sizeQuantity" type="number"></div></div></div></div>
+                            </div>
+
+                            <div class="row" id="totalQptQuan" style="padding-bottom: 5px;margin: 20px 0 0 20px;">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <p class="lblOpprtDetail" style="margin: 0 0 0 -21px;">Total</p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <input id="txtTotalSize" disabled="disabled" style="margin: 0px 0px 0px -36px;" autocomplete="Off" class="customAlertGreen">
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:21px;padding-bottom:20px;">
+                                <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4"></div>
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+
+                                    <button type="button" id="SizesPacked" onclick="submitSize()" class="btnFormbtn btn btn-primary">Submit</button>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                                    <button type="button" style="float: none;margin: 0 0px 0 -24px;" id="cancel" class="btnFormbtn btn btn-primary" onclick="closeModal()">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <input id="txtSizesPacked" type="hidden" class="customAlertGreen">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="uploadLogoModal" tabindex="-1" role="dialog" aria-labelledby="uploadLogoModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Logo Process</h5>
+                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row m-1">
+                    <div class="dropdowns" id="logoProcess">
+                    </div>
+                    <div class="dropdowns" id="logoColorProcess">
+                    </div>
+                    <div class="dropdowns" id="logoSizeProcess">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="AddLogoItemProcess()" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="modal fade .modal-xl" id="logoModal" tabindex="-1" role="dialog" aria-labelledby="logoModal" aria-hidden="true" style="width: 1838px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content logocontent">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>Uniform Suite Application Details</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" id="processList">
+                                    </div>
+                                </div>
+                               <div class="row mt-3">
+                                    <div class="col-6">
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" value="Embroidery" placeholder="Name" style="width: 281Px;Margin-left:12px;">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="createdby">Created By</label>&nbsp;
+                                        <input type="email" id="createdby" placeholder="Name" style="width:207Px;" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6" id="color">
+                                        <label for="logocolor">Colours</label>&nbsp;
+                                        <select class="color" name="color" id="logocolor" style="width:93px;">
+                                            <option value="1" selected>1-3 Color</option>
+                                            <option value="2">4-6 Color</option>
+                                            <option value="3">9-7 Color</option>
+                                        </select>
+                                        <label for="logowidth" style="margin-left:11px;">Logo Width</label>&nbsp;&nbsp;
+                                        <select class="logo" name="logo" id="logowidth" style="width:80px;">
+                                            <option value="1" selected>4cm</option>
+                                            <option value="2">5cm</option>
+                                            <option value="3">6cm</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-6" id="Stitches">
+                                         <label for="logosize">Stitches</label>
+                                        <select class="logosizes" name="logo" id="logosize" style="width:206Px;Margin-left:26px;">
+                                            <option value="1" selected>5k</option>
+                                            <option value="2">10k</option>
+                                            <option value="3">15k</option>
+                                            <option value="4">20k</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item" role="presentation" id="digital">
+                                                <button onclick="logoindex();logoProcess('5')" class="nav-link" id="pills-digital-tab" data-bs-toggle="pill" data-bs-target="#pills-digital" type="button" role="tab" aria-controls="pills-digital" aria-selected="false">DTG Digital Print</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation" id="embroidery">
+                                                <button onclick="logoindex();logoProcess('1')" class="nav-link" id="pills-embroidory-tab" data-bs-toggle="pill" data-bs-target="#pills-embroidory" type="button" role="tab" aria-controls="pills-embroidory" aria-selected="true">Embroidery</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation" id="screenPrint">
+                                                <button onclick="logoindex();logoProcess('2')" class="nav-link" id="pills-screenPrint-tab" data-bs-toggle="pill" data-bs-target="#pills-screenPrint" type="button" role="tab" aria-controls="pills-screenPrint" aria-selected="false">ScreenPrint</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation" id="supacolor">
+                                                <button onclick="logoindex();logoProcess('3')" class="nav-link" id="pills-supaColour-tab" data-bs-toggle="pill" data-bs-target="#pills-supaColour" type="button" role="tab" aria-controls="pills-supaColour" aria-selected="false">SupaColour Transfer Print</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation" id="vinyl">
+                                                <button onclick="logoindex();logoProcess('4')" class="nav-link" id="pills-vinyl-tab" data-bs-toggle="pill" data-bs-target="#pills-vinyl" type="button" role="tab" aria-controls="pills-vinyl" aria-selected="false">Vinyl Transfer Print</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade" id="pills-digital" role="tabpanel" aria-labelledby="pills-digital-tab">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Explation</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">digtial</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Best Suited to</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Limitations</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">HelpFul Tips</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-embroidory" role="tabpanel" aria-labelledby="pills-embroidory-tab">
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Explation</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">embroidory</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Best Suited to</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">Embroidery is best suited to Work Clothing, Uniforms, Work Wear and Outer Wear such as Jackets & Hoodies</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Limitations</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">Embroidery is fine detail is difficult to re-produce</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">HelpFulTips</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">Helpful tips goes here</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-screenPrint" role="tabpanel" aria-labelledby="pills-screenPrint-tab">
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Explation</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">screenPrint</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Best Suited to</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Limitations</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">HelpFulTips</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-supaColour" role="tabpanel" aria-labelledby="pills-supaColour-tab">
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Explation</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">supaColour</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Best Suited to</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Limitations</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">HelpFulTips</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-vinyl" role="tabpanel" aria-labelledby="pills-vinyl-tab">
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Explation</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2">Vinly Transfer</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Best Suited to</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Limitations</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">HelpFulTips</label>
+                                                    <textarea id="form7" class="md-textarea form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12" style="margin-left:-33px;" id="imglogo">-->-->
+                                      <img id ="logoimg" src="https://img.freepik.com/free-vector/t-shirt-logo-vector-graphic-design_94353-26.jpg?w=826">
+                                      
+                                  </div>
+                                    <div class="row">
+                                        <div class="col-4 mt-4">
+                                            <button type="button" class="btn btn2" style="width:126px;" onclick="RefreshModal()">CREATE NEW</button>
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <button type="button" class="btn btn2" style="margin-left:-51px;">COPY</button>
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <button type="button" onclick="SaveLogo()" class="btn btn2" style="margin-left:-14px;">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>*@
+      
+
+
+
+        <div class="modal fade .modal-xl" id="logoModal" tabindex="-1" role="dialog" aria-labelledby="logoModal" aria-hidden="true" style="width: 1315px;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width: 928px;">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Uniform Suite Application Details</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" value="Embroidery" style="width: 75%;Margin-left:38px;">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <label for="application" id="applicationProcess">Application</label>
+                                            @Html.DropDownList("application", new SelectList(ViewBag.process, "Id", "Name"), new { @id = "logoProces", @class = "application ", @onchange = "logoProcess(this.value)" })
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-6" id="color">
+                                            <label for="logocolor">Colours</label>
+                                            <select class="application" name="color" id="logocolor">
+                                                <option value="1" selected>1-3 color</option>
+                                                <option value="2">4-6 color</option>
+                                                <option value="3">7-9 color</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6" id="Stitches">
+                                            <label for="logosize">Stitches</label>
+                                            <select class="application" name="stitch" id="logosize">
+                                                <option value="1" selected>5k</option>
+                                                <option value="2">10k</option>
+                                                <option value="3">15k</option>
+                                                <option value="4">20k</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            <label for="width">Width</label>
+                                            <input type="text" id="width">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="length">Length</label>
+                                            <input type="text" id="length">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <label for="createdby">Created by</label>
+                                            <input type="text" id="createdby" placeholder="Created by">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <label for="complexity">Complexity</label>
+                                            <select class="application" name="comp" id="complexity">
+                                                <option value="1" selected>Simple</option>
+                                                <option value="2">Difficult</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+
+                                        <div class="col-12 ">
+                                            <select class="application" name="process" id="setDefault">
+                                            </select>
+                                            <button type="button" id="setdefault" class="btn btn-sm btn-primary" onclick="SetDefaultSeeting()">Set As Default</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12" id="imglogo">                                         
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 mt-3">
+                                            <button type="button" onclick="RefreshModal()" class="btn btn2">CLONE</button>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                            <button type="button"  class="btn btn2" style="margin-left:-33px;" onclick="closeModal()">CLOSE</button>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                            <button type="button" id="save" class="btn btn2" style="margin-left:33px;" onclick="SaveLogo()">SAVE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 </body>
 </html>

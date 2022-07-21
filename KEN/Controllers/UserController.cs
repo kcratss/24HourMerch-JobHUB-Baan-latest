@@ -58,6 +58,7 @@ namespace KEN.Controllers
                         Response.Cookies[model.Password].Expires = Convert.ToDateTime(DataBaseCon.ToTimeZoneTime(DateTime.Now.ToUniversalTime())).AddDays(-1);
                     }
                    Session["UserEmail"] = GetData.email;
+
                     // baans change 16th November for saving the user profile
                     var CurrentUser = 100000;
                     var ActiveUser = DataBaseCon.ActiveUser();

@@ -35,6 +35,7 @@ namespace KEN.Models
 
     public class ResponseMessageViewModel
     {
+        public int Id { get; set; }
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
     }
@@ -124,20 +125,15 @@ namespace KEN.Models
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
-        public string Code { get; set; }
-        public string BrandName { get; set; }
-        public string Item { get; set; }
-        public string SizeGrid { get; set; }
-        public string Color { get; set; }
+        public Boolean status { get; set; }
+      
         public string FrontDesign { get; set; }
+        public string ImageFilePath { get; set; }
         public string BackDesign { get; set; }
-        public double Gst { get; set; }
-        public double Cost { get; set; }
-        public double Total { get; set; }
-        public double TotalWithGst { get; set; }
-       public string ImageFilePath { get; set; }
         public string ImageFilePathBack { get; set; }
-
+        public double shippingCharge { get; set; }
+        public DateTime OrderDate { get; set; }
+        public double TotalPrice { get; set; }
 
     }
 

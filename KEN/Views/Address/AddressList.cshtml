@@ -3,8 +3,12 @@
     Layout = Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
 }
 
-
-
+<style>
+    .card-notification {
+        right: 260px;
+    }
+</style>
+   
 <div class="row g-0">
     <div class=" pe-lg-2">
         <div class="card mb-3">
@@ -16,7 +20,7 @@
 
                     <input class="submit btn btn-primary mb-3" type="submit" name="submit" value="Add New Address" data-toggle="modal" data-target="#addAddressModal">
                 </div>
-                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":12,"pagination":true}'>
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":3,"pagination":true}'>
                     <div class="table-responsive scrollbar">
                         <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable">
                             <thead class="bg-200 text-900">
@@ -121,7 +125,7 @@
                                             <div class="col">
 
                                                 <label for="state">State<span class="me-1 spanrequired">*</span></label>
-                                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--Select--", new { @id = "txtstate", @class = "col-12" })
+                                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--select--", new { @id = "txtstate", @class = "col-12" })
 
 
                                             </div>
@@ -156,7 +160,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content modalConfirm">
                                 <h4 class="modal-title w-100">Are you sure?</h4>
-                                <div class="modal-body row m-1" >
+                                <div class="modal-body row m-1">
                                     <p id="confirmMessage"></p>
                                 </div>
                                 <div class="modal-footer">
@@ -167,21 +171,16 @@
                         </div>
                     </div>
 
-                  
+
 
                     <div class="d-flex justify-content-center mt-3">
                         <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
                         <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"> </span></button>
                     </div>
                 </div>
-
-
             </div>
         </div>
-
-
     </div>
-
 </div>
 
 

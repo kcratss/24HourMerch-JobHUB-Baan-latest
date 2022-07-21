@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
+using iTextSharp.text;
+using iTextSharp.text.html;
+using iTextSharp.text.pdf;
+using KEN.AppCode;
+using KEN.Filters;
+using KEN.Interfaces.Iservices;
 using KEN.Models;
 using KEN_DataAccess;
-using AutoMapper;
-using KEN.AppCode;
-using KEN.Interfaces.Iservices;
-using KEN.Interfaces;
-using System.IO;
-using System.Net.Mail;
-using System.Net.Mime;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using KEN.Filters;
 using PostmarkDotNet;
 using PostmarkDotNet.Model;
-using System.Text.RegularExpressions;
+using Stripe;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using iTextSharp.text.html;
+using System.IO;
+using System.Linq;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+using System.Web.Mvc;
 
 namespace KEN.Controllers
 {
@@ -1732,7 +1730,7 @@ namespace KEN.Controllers
                 cell.PaddingTop = 24f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
-               
+
                 phrase = new Phrase();
                 /*phrase.Add(new Chunk("Custom Merchandise Quote", Heading2));*/
                 phrase.Add(new Chunk("CUSTOM MERCHANDISE ", Heading1));
@@ -2194,23 +2192,23 @@ namespace KEN.Controllers
                 //string TTabImagePath = System.Web.HttpContext.Current.Server.MapPath("~/Content/images/JobStageIndicators-Quote-V2.png");
                 //cell = new PdfPCell(iTextSharp.text.Image.GetInstance(TTabImagePath), true);
                 //cell.Border = 0;
-                
+
                 //headertable1.AddCell(cell);
 
 
-               
+
                 //phrase = new Phrase();
-              
+
                 //cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                
+
                 //cell.Border = 0;
-               
+
 
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
                 phrase = new Phrase();
                 phrase.Add(new Chunk("[ QUOTE ]", Heading9));
                 phrase.Add(new Chunk("        >>>        ", Heading8));
-                phrase.Add(new Chunk("INVOICE        >>>        ", Heading8));                
+                phrase.Add(new Chunk("INVOICE        >>>        ", Heading8));
                 phrase.Add(new Chunk("DEPOSIT        >>>        ", Heading8));
                 phrase.Add(new Chunk("PROOF        >>>        ", Heading8));
                 phrase.Add(new Chunk("PRODUCTION        >>>        ", Heading8));
@@ -2640,6 +2638,7 @@ namespace KEN.Controllers
         // Order Pdf
         public ActionResult OrderPdf(int id, string PathPdf, string OptionStatus, string QuoteType)
         {
+            CreateProduct();
             var CustomerDetail = dbContext.Pro_QuoteCustomerData(id).FirstOrDefault();
             var OptionData = dbContext.Pro_QuoteOptionsDetail(id, OptionStatus).ToList();
 
@@ -3386,7 +3385,7 @@ namespace KEN.Controllers
                 phrase.Add(new Chunk(string.Format("{0:C}", Math.Round(Convert.ToDecimal((CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice) / 11), 2)), Heading4));
             }
             else
-            {     
+            {
                 phrase.Add(new Chunk("$0.00", Heading4));
             }
             cell = new PdfPCell(phrase);
@@ -3484,7 +3483,7 @@ namespace KEN.Controllers
             headertable3.AddCell(cell);
 
 
-            phrase = new Phrase();          
+            phrase = new Phrase();
             if (CustomerDetail.FinalTotal != null)
             {
                 decimal? FinalTotal = Math.Round(Convert.ToDecimal(CustomerDetail.QuoteTotal + CustomerDetail.ShippingPrice), 2);
@@ -3656,7 +3655,7 @@ namespace KEN.Controllers
                 Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2) - Math.Round(Convert.ToDecimal(CustomerDetail.AmtReceived.ToString()), 2);
             }
             else
-            {      
+            {
                 Balance = Math.Round(Convert.ToDecimal(CustomerDetail.FinalTotal + CustomerDetail.ShippingPrice), 2);
             }
             phrase = new Phrase();
@@ -3868,7 +3867,7 @@ namespace KEN.Controllers
                 cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
-              
+
                 phrase = new Phrase();
                 // baans change 2nd November for the JobHub Number
                 phrase.Add(new Chunk("Order/Invoice No:", Heading4));
@@ -3947,7 +3946,7 @@ namespace KEN.Controllers
                 cell.PaddingTop = -15;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
-              
+
                 phrase = new Phrase();
                 phrase.Add(new Chunk("Terms:", Heading4));
                 cell = new PdfPCell(phrase);
@@ -4057,7 +4056,7 @@ namespace KEN.Controllers
 
                 BaseColor BackgroundColor = WebColors.GetRGBColor("#AAE0F6");
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
-                
+
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("QUOTE        >>>        ", Heading8));
@@ -5553,7 +5552,7 @@ namespace KEN.Controllers
 
                 Rectangle pageSize = doc.PageSize;
 
-                var FColor = new BaseColor(38, 171, 227); 
+                var FColor = new BaseColor(38, 171, 227);
                 var RColor = new BaseColor(230, 230, 230);
                 var FColor2 = new BaseColor(51, 51, 51);
                 var FColor3 = new BaseColor(38, 38, 38);
@@ -5629,7 +5628,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 cell.Colspan = 9;
-                cell.PaddingBottom = 5f;                
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable1.AddCell(cell);
 
@@ -5902,7 +5901,7 @@ namespace KEN.Controllers
                 //headertable1.AddCell(cell);
 
                 BaseColor TopBarColor = WebColors.GetRGBColor("#28ABE1");
-                
+
 
                 phrase = new Phrase();
                 phrase.Add(new Chunk("QUOTE        >>>        ", Heading8));
@@ -7363,12 +7362,12 @@ namespace KEN.Controllers
 
                 var Heading1 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 15, iTextSharp.text.Font.NORMAL, FColor);
                 var Heading2 = FontFactory.GetFont((Server.MapPath("~/fonts/compactaboldbt.ttf")), BaseFont.CP1252, true, 28, iTextSharp.text.Font.NORMAL, FColor);
-                var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);  
-                var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);  
+                var Heading3 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 8, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading4 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1250, true, 9, iTextSharp.text.Font.NORMAL, FColor2);
                 var contentfontCheck = FontFactory.GetFont((Server.MapPath("~/fonts/WINGDING.TTF")), BaseFont.CP1252, true, 4);
-                var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor2);  
-                var Heading6 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor3);  
-              
+                var Heading5 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor2);
+                var Heading6 = FontFactory.GetFont((Server.MapPath("~/fonts/roboto-condensed.regular.ttf")), BaseFont.CP1252, true, 10, iTextSharp.text.Font.NORMAL, FColor3);
+
                 Phrase phrase;
                 PdfPCell cell;
 
@@ -7998,7 +7997,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.Colspan = 2;
                 cell.PaddingLeft = 25f;
-                cell.PaddingBottom = 5f;            
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 headertable3.AddCell(cell);
 
@@ -8394,10 +8393,10 @@ namespace KEN.Controllers
                 Phrase phrase;
                 PdfPCell cell;
 
-                 PdfPTable headertable1 = new PdfPTable(15);
-                 headertable1.SetWidths(new int[] { 6, 4, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
-                 PdfPTable headertable2 = new PdfPTable(19);
-                 headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
+                PdfPTable headertable1 = new PdfPTable(15);
+                headertable1.SetWidths(new int[] { 6, 4, 5, 5, 7, 1, 6, 7, 7, 7, 7, 3, 5, 5, 5 });
+                PdfPTable headertable2 = new PdfPTable(19);
+                headertable2.SetWidths(new int[] { 7, 4, 6, 6, 8, 6, 7, 19, 6, 6, 6, 6, 6, 6, 9, 8, 8, 9, 9 });
                 headertable2.SpacingAfter = 2f;
                 PdfPTable headertable3 = new PdfPTable(16);
                 //Row 
@@ -8564,7 +8563,7 @@ namespace KEN.Controllers
                 cell = new PdfPCell(phrase);
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.Colspan = 1;
-                cell.PaddingBottom = 5f;                
+                cell.PaddingBottom = 5f;
                 cell.Border = 0;
                 cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
@@ -8722,7 +8721,7 @@ namespace KEN.Controllers
                 cell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 cell.Colspan = 6;
                 cell.PaddingBottom = 1f;
-                cell.Border = 0;               
+                cell.Border = 0;
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 cell.PaddingRight = -1;
                 headertable1.AddCell(cell);
@@ -11758,5 +11757,145 @@ namespace KEN.Controllers
 
             }
         }
+        public ActionResult CreateProduct()
+        {
+            StripeConfiguration.ApiKey = "sk_test_gICZSDid8ALUNHSgqHVFSp7z00jCUbd8LD";
+            var options = new ProductCreateOptions
+            {
+                Name = "Job Name",
+                Description = "Bhavna Developer",
+                PackageDimensions = new ProductPackageDimensionsOptions { Length=10,Width=10,Weight=15,Height=5 },
+                Metadata = new Dictionary<string, string>
+                 {
+                    { "OrderId", "6735" },
+                 },
+                Images = new List<string> { "https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg" },
+                DefaultPriceData = new ProductDefaultPriceDataOptions
+                {
+                    
+                    UnitAmount = 1725,
+                    Currency = "usd",                   
+                },
+                Expand = new List<string> { "default_price" },
+            };
+            var option = new ProductCreateOptions
+            {
+                Name = "Job Name",
+                Description = "Bhavna Developer",
+                PackageDimensions = new ProductPackageDimensionsOptions { Length = 10, Width = 10, Weight = 15, Height = 5 },
+                Metadata = new Dictionary<string, string>
+                 {
+                    { "OrderId", "6735" },
+                 },
+                Images = new List<string> { "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg" },
+
+                DefaultPriceData = new ProductDefaultPriceDataOptions
+                {
+
+                    UnitAmount = 2325,
+                    Currency = "usd",
+/*                    Recurring = new ProductDefaultPriceDataRecurringOptions
+                    {
+                        Interval = "month",
+                    }*/
+                },
+                
+                Expand = new List<string> { "default_price" },
+            };
+            var service = new ProductService();
+            var a = service.Create(options);
+            var c = service.Create(option);
+            var shipoptions = new ShippingRateCreateOptions
+            {
+                DisplayName = "Ground shipping",
+                Type = "fixed_amount",
+                FixedAmount = new ShippingRateFixedAmountOptions
+                {
+                    Amount = 500,
+                    Currency = "usd",
+                },
+            };
+            var services = new ShippingRateService();
+            var s = services.Create(shipoptions);
+            CreateLink(a,c,s);
+            return Content("OK");
+        }
+
+        public ActionResult CreateLink(Stripe.Product a, Stripe.Product c, Stripe.ShippingRate s)
+        {
+            StripeConfiguration.ApiKey = "sk_test_gICZSDid8ALUNHSgqHVFSp7z00jCUbd8LD";
+            var options = new PaymentLinkCreateOptions
+            {
+                /*ShippingAddressCollection = new PaymentLinkShippingAddressCollectionOptions
+                {
+                    AllowedCountries = new List<string>
+                    {
+                      "US",
+                      "CA",
+                      "IN"
+                    },
+                },*/
+                //SubscriptionData = new PaymentLinkSubscriptionDataOptions
+                //{
+                //    TrialPeriodDays = 7,
+                //},
+                //AutomaticTax = new PaymentLinkAutomaticTaxOptions { Enabled = true },
+                LineItems = new List<PaymentLinkLineItemOptions>
+                {
+                    new PaymentLinkLineItemOptions
+                    {
+                        Price = a.DefaultPrice.Id,
+                        Quantity = 3,
+                        /*AdjustableQuantity = new PaymentLinkLineItemAdjustableQuantityOptions
+                        {
+                            Enabled = true
+                        }*/
+
+                    },
+                    new PaymentLinkLineItemOptions
+                    {
+                        Price = c.DefaultPrice.Id,
+                        Quantity = 5,
+                        /*AdjustableQuantity = new PaymentLinkLineItemAdjustableQuantityOptions
+                        {
+                            Enabled = true
+                        }*/
+                    },
+                },
+                //OnBehalfOf = "Karan",                
+
+                AfterCompletion = new PaymentLinkAfterCompletionOptions
+                {
+                    Type = "hosted_confirmation",
+                    /*Redirect = new PaymentLinkAfterCompletionRedirectOptions
+                    {
+                        Url = "https://google.com",
+                    },*/
+                    HostedConfirmation = new PaymentLinkAfterCompletionHostedConfirmationOptions
+                    {
+                        CustomMessage = "Payment Done Successfully"
+                    }
+                },
+                ShippingOptions = new List<PaymentLinkShippingOptionOptions>
+            {
+               new PaymentLinkShippingOptionOptions {
+               ShippingRate = s.Id ,
+              }
+            },
+            };
+            var service = new PaymentLinkService();
+            var b = service.Create(options);
+            return Redirect(b.Url);
+        }
     }
 }
+//  Name = "Shipping Name",
+//  Phone = "52363636",
+//  Address = new AddressOptions
+//  {
+//      City = "Mohali",
+//      Country = "India",
+//      State = "Punjab",
+//      PostalCode = "11214",
+//  },
+//},

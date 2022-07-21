@@ -1,0 +1,84 @@
+﻿.card-title1 {
+   font-weight:900;  
+}
+
+.card-quantity {
+    font-weight: 900;
+}
+
+.card-total {
+    font-weight: 900;
+}
+
+
+.price{
+    margin-left:12%;
+}
+.invoice {
+    float: right;
+}
+
+.invoice :hover
+{
+    color:red;
+   
+}
+.total {
+    margin-left: 85px;
+    color: gray;
+    font-weight: 700;
+}
+
+.card-notification {
+    right: 280px;
+}
+.card-header {
+    color: gray;
+    background-color: #e5e6e691;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+#orders {
+    margin-left: 25%;
+    color: #565959 !important;
+}
+.card {
+   /* margin-left: 431px;*/
+    min-height: 0px !important;
+    min-width: 618.656px !important;
+}
+#cart {
+    /* margin-left: 431px;*/
+    min-height: 180px !important;
+    min-width: 618.656px !important;
+    text-align: center;
+}
+.card-body {
+    font-size: 14px;
+    min-height: 0px !important;
+}
+.date
+{
+    margin-left:124px;
+}
+.a-button-text {
+    background-color: transparent;
+    border: 2px solid ghostwhite;
+    display: block;
+    font-size: 13px;
+    line-height: 29px;
+    margin: 0;
+    outline: 0;
+    padding: 0 10px 0 11px;
+    text-align: center;
+    white-space: nowrap;
+    color: #0F1111;
+    margin-left: 115px;
+    margin-top: 31px;
+}
+.process
+{
+    margin-left:3%;
+    width:130px;
+}

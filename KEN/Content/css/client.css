@@ -66,8 +66,9 @@ svg {
 }
 
 .card {
-    min-height: 465.578px !important;
+    min-height: 293.578px !important;
     min-width: 618.656px !important;
+ 
 }
 
 .card-body {

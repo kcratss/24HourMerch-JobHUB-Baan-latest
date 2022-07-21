@@ -16,15 +16,22 @@ namespace KEN_DataAccess
     {
         public int Id { get; set; }
         public Nullable<int> Process { get; set; }
-        public Nullable<double> Price { get; set; }
-        public Nullable<double> TotalPrice { get; set; }
+        public Nullable<decimal> LogoPrice { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> OrderId { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<int> Color { get; set; }
+        public Nullable<int> Stitches { get; set; }
+        public Nullable<int> QuotesItem_Id { get; set; }
+        public Nullable<decimal> Tshirt_Price { get; set; }
+        public Nullable<decimal> Unit_Price { get; set; }
+        public Nullable<decimal> Total_Price { get; set; }
     
         public virtual tblDraftOrder tblDraftOrder { get; set; }
+        public virtual tblDraftQuoteItem tblDraftQuoteItem { get; set; }
     }
 }

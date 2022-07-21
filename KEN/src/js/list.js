@@ -68,7 +68,7 @@ const listInit = () => {
             list.fuzzySearch('');
           });
 
-        const updateListControls = () => {
+          const updateListControls = () => {             
           listInfo &&
             (listInfo.innerHTML = `${list.i} to ${numberOfcurrentItems} of ${totalItem}`);
           paginationButtonPrev &&
@@ -142,8 +142,8 @@ const listInit = () => {
             toggleViewBtn();
           });
         }
-        // numbering pagination
-        if (options.pagination) {
+          // numbering pagination
+          if (options.pagination) {              
           el.querySelector('.pagination').addEventListener('click', e => {
             if (e.target.classList[0] === 'page') {
               pageCount = Number(e.target.innerText);

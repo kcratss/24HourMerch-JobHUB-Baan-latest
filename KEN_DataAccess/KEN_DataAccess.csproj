@@ -66,6 +66,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KENNEWEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="OrderAddress.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pro_AppplicationJobsDetail_Result.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
@@ -133,6 +136,9 @@
     <Compile Include="tblApplicationArtSuppplier.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblApplicationColorsMapping.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="TblApplicationColour.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
@@ -146,6 +152,9 @@
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblApplicationDesigner.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationProcess.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblApplicationStatu.cs">
@@ -206,6 +215,12 @@
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblDraftOrderItem.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDraftQuote.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDraftQuoteItem.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblEmailContent.cs">
@@ -292,10 +307,13 @@
     <Compile Include="tblPayment.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblprivatemessagesToBeDeleted.cs">
+    <Compile Include="tblPriceList.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblProcess.cs">
+    <Compile Include="tblPrintColor.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblprivatemessagesToBeDeleted.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblProductionCopy.cs">
@@ -331,7 +349,16 @@
     <Compile Include="tblquotationsToBeDeleted.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="TblSizeApplicationMapping.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSizeMaster.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblState.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStatu.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblsubscriptionsToBeDeleted.cs">
@@ -368,6 +395,15 @@
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUserLogo.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserLogoProcess.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVendor.cs">
+      <DependentUpon>KENNEWEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVendorApplicationMapping.cs">
       <DependentUpon>KENNEWEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_GetHolidays.cs">

@@ -897,7 +897,6 @@ function SaveOppo() {
 }
 
 function submitSize() {
-
     var sizeFlag = false;
     var SizeString = "";
     // baans change 6th July for option total quantity of size
@@ -986,7 +985,7 @@ function submitSize() {
 //    }
 //}
 function ShowModal(SizesPacked, txtPackedandOrderId) {
- 
+   
     $('#hiddenforsizes').val(SizesPacked);
     var ddlSize = $("#ddlSizeType").val();
     if ($("#ddlSizeType").val() != "") {
