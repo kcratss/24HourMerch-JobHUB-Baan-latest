@@ -692,6 +692,7 @@
     <Content Include="Content\js\Purchase.js" />
     <Content Include="Content\js\QuoteStatus.js" />
     <Content Include="Content\js\User.js" />
+    <Content Include="Content\js\ViewAllNotification.js" />
     <Content Include="Content\pqGrid\bootstrap-pqgrid.css" />
     <Content Include="Content\pqGrid\Images\horiz-bg.png" />
     <Content Include="Content\pqGrid\Images\vert-bg.png" />
@@ -726,18 +727,11 @@
     <Content Include="Content\uploads\logos\hyperlink-icons.jpg" />
     <Content Include="Content\uploads\logos\images.jpg" />
     <Content Include="Content\uploads\logos\images.png" />
-    <Content Include="Content\uploads\logos\istockphoto-1015820818-612x612.jpg" />
-    <Content Include="Content\uploads\logos\istockphoto-1328049157-170667a.jpg" />
     <Content Include="Content\uploads\logos\logo-organization-t-shirt-png-favpng-TrVUju3gVwKGsWfaDxPVFMuUY.jpg" />
-    <Content Include="Content\uploads\logos\logo.jpg" />
-    <Content Include="Content\uploads\logos\logoImage.jpg" />
     <Content Include="Content\uploads\logos\media_1a6d8cb623950c5d70db34d458b581f386c65cf8b.png" />
-    <Content Include="Content\uploads\logos\shirts.jpeg" />
-    <Content Include="Content\uploads\logos\star-img.png" />
-    <Content Include="Content\uploads\logos\typography-design-for-logo-and-t-shirt-printing-free-vector.jpg" />
     <Content Include="Content\uploads\logos\wolf-mascot-logo-design-with-modern-illustration-concept-style-for-badge-emblem-and-t-shirt-printing-angry-wolf-illustration-for-sport-and-e-sport-team-vector.jpg" />
-    <Content Include="Content\uploads\logos\X.png" />
     <Content Include="Content\uploads\Opportunity\NoImage.png" />
+    <Content Include="Content\css\ViewAllNotification.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1331,6 +1325,7 @@
     <Content Include="Views\Design\Quote.cshtml" />
     <Content Include="Views\Opportunity\QuoteStatus.cshtml" />
     <Content Include="Views\Opportunity\LogoStatus.cshtml" />
+    <Content Include="Views\Design\ViewAllNotification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
