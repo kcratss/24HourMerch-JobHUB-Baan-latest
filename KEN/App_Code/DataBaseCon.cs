@@ -199,7 +199,8 @@ namespace KEN.AppCode
         }
         public static int ActiveClientId()
         {
-            HttpContext.Current.Session.Timeout = 240;
+            HttpContext.Current.Session.Timeout = 120;
+
             var a = (HttpContext.Current.Session["MyClientId"]);
             if (a != null)
             {
@@ -207,7 +208,7 @@ namespace KEN.AppCode
             }
             else
             {
-               HttpContext.Current.Response.Redirect("/Client/Login", true);
+                HttpContext.Current.Response.Redirect("/Client/Login", false);
             }
             return 0;
         }

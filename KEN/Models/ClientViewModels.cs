@@ -143,8 +143,6 @@ namespace KEN.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Attention { get; set; }
-        [Required]
         public string AddressLine1 { get; set; }
         [Required]
         public string AddressLine2 { get; set; }

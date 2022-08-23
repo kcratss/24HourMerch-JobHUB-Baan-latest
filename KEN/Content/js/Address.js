@@ -1,11 +1,12 @@
 ﻿$(document).ready(function () {
 
     formValidation();
-    ShowMessage(response);
     MyCart();
 });
 
-function formValidation() {    
+function formValidation() {
+    debugger
+    
     $("#addressForm").validate({
         rules: {
             txtname: {
@@ -39,9 +40,6 @@ function formValidation() {
             txtname: {
                 required: "Please Enter Name",
             },
-            txtattention: {
-                required: "Please Enter Attention"
-            },
             txtaddress1: {
                 required: "Please Enter Address",
 
@@ -69,16 +67,19 @@ function formValidation() {
     });
 }
 
+
 function closeModal() {
+    debugger;
    
-    $('.modal-backdrop').remove();
-    $('.modal-body').removeClass('modal-open');
+    /*$('.modal-backdrop').remove();
+    $('.modal-body').removeClass('modal-open');*/
     $('#updateAddressModal').modal('hide');
+    $("#quotesModal").modal('hide');
 
 }
 
 function UpdateAddress(id) {
-    
+    debugger;
     alert(id);
     if ($("#txtAddressId").val() !== "" && $("#txtaddress").val() !== "" && $("#txtstate").val() !== "" && $("#txtpostcode").val() !== "") {
         var addressData = {
@@ -115,13 +116,13 @@ function UpdateAddress(id) {
 
 
 function AddUpdateAddress() {
-   
+    debugger;
     if ($("#addressForm").valid()) {
        
             var addressData = {
                 addressId: $("#txtaddressId").val(),
                 name: $("#txtname").val(),
-                attention: $("#txtattention").val(),
+               /* attention: $("#txtattention").val(),*/
                 addressLine1: $("#txtaddress1").val(),
                 addressLine2: $("#txtaddress2").val(),
                 addressNote: $("#addressnote").val(),
@@ -156,7 +157,7 @@ function RedirectPage() {
 }
 
 function GetAddressById(addressId) {
-    
+    debugger;
     $.ajax({
         url: '/Address/GetAddressById?addressId=' + addressId,
        
@@ -196,11 +197,7 @@ function DeleteAddress(addressId) {
                 ShowMessage(response);
             }
         });
-    });
-
- 
-
-   
+    });  
 }
 
 function confirmDialog(message, onConfirm) {

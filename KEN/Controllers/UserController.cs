@@ -64,28 +64,30 @@ namespace KEN.Controllers
                     var ActiveUser = DataBaseCon.ActiveUser();
                     var User = dbcontext.tblusers.Where(_ => _.email == ActiveUser && _.UserRole == "Account Manager").FirstOrDefault();
                     var IsAdmin = dbcontext.tblusers.Where(_ => _.email == ActiveUser && _.admin == true).FirstOrDefault();
-                    if (User != null)
+                    if (User != null && IsAdmin != null)
                     {
                         CurrentUser = User.id;
+                        Session.Add("MyUser", CurrentUser);
+                        Session.Add("EventType", "LoadEvent");
+
+                        // baans end 16th November
+                        return RedirectToAction("OpportunityList", "Opportunity", new { id = UrlParameter.Optional });
                     }
-                    if(User == null && IsAdmin != null)
+                    else if(User == null && IsAdmin != null)
                     {
                         CurrentUser = 0;
+                        Session.Add("MyUser", CurrentUser);
+                        Session.Add("EventType", "LoadEvent");
+                        // baans end 16th November
+                        return RedirectToAction("OpportunityList", "Opportunity", new { id = UrlParameter.Optional });
                     }
-
-                    
-                    Session.Add("MyUser", CurrentUser);
-                    Session.Add("EventType", "LoadEvent");
-                    
-                    // baans end 16th November
-                    return RedirectToAction("OpportunityList", "Opportunity", new {  id = UrlParameter.Optional });
-                   
+                    else {
+                        ModelState.AddModelError("Username", "Invalid username or password.");
+                    }
                 }
                 else
                 {
-
                     ModelState.AddModelError("Username", "Invalid username or password.");
-
                 }
             }
             return View(model);

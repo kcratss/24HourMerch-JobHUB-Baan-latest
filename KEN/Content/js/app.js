@@ -3343,6 +3343,7 @@ function ChangeStageByOppoID(Stage, UpdateURL, StageID) {
 
 // baans change 15th November for ShowFilterDataByProfile
 function ShowFilterDataByProfile() {
+    debugger;
     var UserProfile = $('#profileOfUser').val();
     //window.location = '/opportunity/OpportunityList/';
     //$("#hiddenUserProfile").val(UserProfile);

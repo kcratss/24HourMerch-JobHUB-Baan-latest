@@ -1,7 +1,23 @@
-﻿#process {
-    margin-left: 113px;
-    margin-top: -54px;
+﻿
+
+#logoimg {
+    margin-left: -77px;
+    height: 451px;
+    width: 400px;
+    border: 1px solid;
 }
-#remove {
-    font-size: 21px;
+
+.btn2 {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 10% !important;
+    width: 103px;
+    height: 34px;
+    font-size: 13px;
+    margin-left: -77px;
+    border-radius: 5px !important;
+}
+
+#closemodelbtn {
+    margin-left: -16px;
 }

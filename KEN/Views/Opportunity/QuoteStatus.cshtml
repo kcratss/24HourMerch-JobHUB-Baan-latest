@@ -70,9 +70,9 @@
                 <div class="tab" style="margin: -2px 0 0px 0;">
                     <button class="tabheading">Quotes</button>
                     <button id="All" class="tablinks active" onclick="QuotesGrid(this),QuotesListGrid('All');">All</button>
-                    <button id="pending" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Pending');">Pending</button>
-                    <button id="approved" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Approved')">Approved</button>
-                    <button id="rejected" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Rejected');">Rejected</button>
+                    <button id="Pending" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Pending');">Pending</button>
+                    <button id="Approved" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Approved')">Approved</button>
+                    <button id="Rejected" class="tablinks" onclick="QuotesGrid(this),QuotesListGrid('Rejected');">Rejected</button>
                 </div>
                 <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: -15px 0 2px 0;" />
             </div>
@@ -262,10 +262,10 @@
                 </button>
             </div>
             <div id="printSection" class="modal-body-wrapper">
-                <div id="preview" class="modal-body">
+                <div id="preview" class="modal-body" style="text-align:center;">
 
                 </div>
-                <div id="pre">
+                <div id="previewbtn" style="text-align:center;">
 
                 </div>
             </div>

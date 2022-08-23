@@ -13,7 +13,55 @@
     document.getElementById("frontbtn").disabled = true;   
     document.getElementById("backbtn").disabled = true;
     document.getElementById('logoRemove').disabled = true;
+    Notification();
+
+    $('.panel-collapse').on('show.bs.collapse', function () {
+        $(this).siblings('.panel-heading').addClass('active');
+    });
+
+    $('.panel-collapse').on('hide.bs.collapse', function () {
+        $(this).siblings('.panel-heading').removeClass('active');
+    });
 });
+
+/*
+function ClientQuotesList(id) {
+    debugger;
+    $.ajax({
+        url: '/Design/QuoteList',
+        type: 'Post',
+        data: { id: id },
+        async: false,
+        success: function (data) {
+            debugger;
+
+            price = 0;
+            if (data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    var length = data.length;
+                    $("#code1").text(length);
+                    var printPrice = parseFloat(data[i].Print_Price).toFixed(2);
+                    var pricetotal = parseFloat(data[i].Unit_Price).toFixed(2);
+                    var subTotal = parseFloat(data[i].TotalPrice).toFixed(2);
+
+                    price = parseFloat((+subTotal) + (+price)).toFixed(2);
+                    $("#listdetail").append('<tr><td><img  width="139px" src =' + data[i].FrontImageSource + ' ><td>' + data[i].ProcessValue + '</td><td>' + data[i].Quantity + '</td><td>' + data[i].ColorValue + '</td><td>' + data[i].SizeValue + '</td><td>' + data[i].Size + '</td><td>$' + printPrice + '</td><td>$' + data[i].Tshirt_Price + '</td><td>$' + pricetotal + '</td><td>$' + subTotal + '</td></tr>');
+                    $("#price").text("$" + price);
+                }
+            }
+            else {
+                $("#list1").append('<tr class="text-center"><td colspan="8">No Quotes Found.</td></tr>');
+            }
+        }
+    })
+}
+
+function ModalQuotes(id) {
+    debugger;
+    document.getElementById('listdetail').innerHTML = '';
+    $("#quotesModal").modal('show');
+    ClientQuotesList(id);
+}*/
 
 /*document.querySelectorAll(".example.example2")*/
 /*function formValidation() {
@@ -72,6 +120,10 @@ function closeModal() {
     $('#itemQuote').modal('hide');
     $('#uploadLogoModal').modal('hide');
     $('#logoModal').modal('hide');
+    $("#quotesModal").modal('hide');
+    $("#removeUniformItemModal").modal('hide');
+    $('#copyUniformItemModal').modal('hide');
+    $("#ActiveUniformItemModal").modal('hide');
 }
 
 function Preview() {
@@ -164,12 +216,18 @@ function MyItems() {
         data: {},
         success: function (data) {
             debugger;
-            document.getElementById('previewImage').innerHTML = "";
+            document.getElementById('previewImage').innerHTML = "";            
             for (let i = 0; i < data.length; i++) {
-                $('.previewImage').append('<div id= ' + data[i].Id + '  class="myItemdiv container col-6" style="display:inline-block"><a ondblclick="GetUserItemId(' + data[i].Id + ')"><img id = ' + data[i].Id + '  class="MyItems img-fluid" src="' + data[i].FrontImageSource + '"></a></div>');
-                if (i == 0) {
-                    imgId = data[i].Id;
+                if (data[i].IsDeleted == true) {
+                    $('.previewImage').append('<div id= ' + data[i].Id + '  class=" container col-6" style="display:inline-block"><a><img id = ' + data[i].Id + '  class="MyItems img-fluid" src="' + data[i].FrontImageSource + '"><button type="button" onclick="ActiveUniformItemModal(' + data[i].Id + ')" style="border:none;margin-bottom: 9px;">InActive</button><button type="button" onclick="CopyUniformItemModal(' + data[i].Id + ')" style="border:none;margin-bottom: 9px;float:right">Clone</button></a></div>');
                 }
+                else {
+                    $('.previewImage').append('<div id= ' + data[i].Id + '  class="myItemdiv container col-6" style="display:inline-block"><a ondblclick="GetUserItemId(' + data[i].Id + ')"><img id = ' + data[i].Id + '  class="MyItems img-fluid" src="' + data[i].FrontImageSource + '"><button type="button" onclick="UniformItemModal(' + data[i].Id + ')" style="border:none;">Active</button> <button type="button" onclick="CopyUniformItemModal(' + data[i].Id + ')" style="border:none;float:right">Clone</button></a></div>');
+                    if (i == 0) {
+                        imgId = data[i].Id;
+                    }
+                }
+
             }
             localStorage.removeItem("FrontImage");
             localStorage.removeItem("BackImage");
@@ -177,6 +235,141 @@ function MyItems() {
             Draggable();
         }
     });
+}
+
+function RangeGrid(evt) {
+    debugger;
+    var i, tablinks;
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    evt.className += " active";
+
+}
+
+function RangeListGrid(element) {
+    debugger;
+    if (element == "All") {
+        MyItems();
+    }
+    else if (element == "Active") {
+        MyItemsfilter(element);
+    }
+    else if (element == "InActive") {
+        MyItemsfilter(element);
+    }
+}
+
+function MyItemsfilter(element) {
+    var status = element;
+    $.ajax({
+        url: '/Design/MyItemsFilters',
+        type: "GET",
+        data: { status: status },
+        async: false,
+        success: function (data) {
+            document.getElementById('previewImage').innerHTML = "";
+            if (data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+               
+                    if (data[i].IsDeleted == false) {
+                        $('.previewImage').append('<div id= ' + data[i].Id + '  class="myItemdiv container col-6" style="display:inline-block"><a ondblclick="GetUserItemId(' + data[i].Id + ')"><img id = ' + data[i].Id + '  class="MyItems img-fluid" src="' + data[i].FrontImageSource + '"><button type="button" onclick="UniformItemModal(' + data[i].Id + ')" style="border:none;">Active</button> <button type="button" onclick="CopyUniformItemModal(' + data[i].Id + ')" style="border:none;float:right">Clone</button></a></div>');
+                    }
+                    else {
+                        $('.previewImage').append('<div id= ' + data[i].Id + '  class=" container col-6" style="display:inline-block"><a><img id = ' + data[i].Id + '  class="MyItems img-fluid" src="' + data[i].FrontImageSource + '"><button type="button" onclick="ActiveUniformItemModal(' + data[i].Id + ')" style="border:none;margin-bottom: 9px;">InActive</button><button type="button" onclick="CopyUniformItemModal(' + data[i].Id + ')" style="border:none;margin-bottom: 9px;float:right">Clone</button></a></div>');
+                    }              
+                }
+            }
+            else {
+                $('.previewImage').append('<p style="text-align:center">No item found</p>')
+            }
+            localStorage.removeItem("FrontImage");
+            localStorage.removeItem("BackImage");
+            Droppable();
+            Draggable();
+        }
+    })
+}
+
+var uniformRangeId;
+function UniformItemModal(id) {
+    $('#removeUniformItemModal').modal('show');
+    uniformRangeId = id;
+}
+
+function DeleteItem() {
+    debugger;
+    let id = uniformRangeId;
+    $.ajax({
+        url: '/Design/DeleteUniFormItem',
+        type: "GET",
+        data: {id:id},
+        async: false,
+        success: function (response) {
+            ShowMessage(response);
+            $("#removeUniformItemModal").modal('hide');
+            UniformitemFilter();
+        }
+    })
+
+}
+var activeUniformRangeId;
+function ActiveUniformItemModal(id) {
+    $('#ActiveUniformItemModal').modal('show');
+    activeUniformRangeId = id;
+}
+
+function ActiveItem() {
+    debugger;
+    let id = activeUniformRangeId;
+    $.ajax({
+        url: '/Design/ActiveUniFormItem',
+        type: "GET",
+        data: { id: id },
+        async: false,
+        success: function (response) {
+            ShowMessage(response);
+            $("#ActiveUniformItemModal").modal('hide');
+            UniformitemFilter();
+        }
+    })
+
+}
+
+var copyUniformRangeId;
+function CopyUniformItemModal(id) {
+    $('#copyUniformItemModal').modal('show');
+    copyUniformRangeId = id;
+}
+
+function CopyUniformItem() {
+    debugger;
+    let id = copyUniformRangeId;
+    $.ajax({
+        url: '/Design/CopyUniformItem',
+        type: "GET",
+        data: { id: id },
+        async: false,
+        success: function (response) {
+            ShowMessage(response);
+            $("#copyUniformItemModal").modal('hide');
+            UniformitemFilter();
+        }
+    })
+
+}
+function UniformitemFilter() {
+    var filterId = $(".tablinks.active").attr('id');
+    if (filterId == "All") {
+        RangeListGrid(filterId);
+    }
+    else if (filterId == "Active") {
+        RangeListGrid(filterId);
+    }
+    else if (filterId == "InActive") {
+        RangeListGrid(filterId);
+    }
 }
 
 function GetSelectedItem(Id) {
@@ -477,7 +670,7 @@ function SaveImage(id) {
    
         }
         element = document.querySelector('.heading2');      
-    $(".ui-resizable-handle").removeClass("ui-resizable-handle");
+        $(".ui-resizable-handle").removeClass("ui-resizable-handle");
         $(".ui-widget-header").removeClass("ui-widget-header");
         $('#imgdropper').css('border', 'none');
 
@@ -635,6 +828,7 @@ function SaveRange(obj) {
             url: '/Design/SaveToRange',
             data: obj,
             success: function (response) {
+                cartItemId = -1;
                 if (response.IsSuccess == true) {
                     MyItems();
                     if (response.Id > 0) {
@@ -648,7 +842,7 @@ function SaveRange(obj) {
                     $("#imgdropper").css("border-bottom", "none");
                 }
                 else if (obj.isBack != true) {
-                    $('#resizeContainer').text('');
+                    /*$('#resizeContainer').text('');*/
                     GetSelected(obj.Id);
                     $("#imgdropper").css("border-bottom", "none");
                 }
@@ -1280,6 +1474,7 @@ function GetPosition(side) {
             $(".front").css("display", "block")
             $('.back').hide();
             $('#FrontModal').hide();
+            $('#inner-droppable').addClass("ui-widget-header");
             document.getElementById("frontbtn").disabled = true;
             document.getElementById("backbtn").disabled = false;
             if (localStorage.getItem('FrontImage') != null) {
@@ -1343,13 +1538,14 @@ function ChangeImage(side) {
         }
         $(".front").css("display", "block")
         $('.back').hide();
+
         if (document.getElementById('resizeContainer')) {
             document.getElementById('resizeContainer').innerHTML = "";
         }
         if (imgId == 0 && cartItemId == -1) {
             Edit('backsave');
             imgId = 0;
-        } else if (cartItemId > 0 ) {
+        } else if (cartItemId > 0 && imgId == 0) {
             /*GetSelected(cartItemId);*/
             GetSelectedItem(cartItemId);
             imgId = 0;
@@ -1376,13 +1572,7 @@ function ChangeImage(side) {
                 GetSelected(imgId);
             }
         }
-        $(".back").css("display", "block")
-        $('.front').hide();
-        if (document.getElementById('resizeContainer')) {
-            document.getElementById('resizeContainer').innerHTML = "";
-        }
-        $('#BackModal').hide();
-        if (imgId == 0 && cartItemId == -1) {
+      else if (imgId == 0 && cartItemId == -1) {
             Edit('backsave');
             imgId = 0;
         } else if (cartItemId > 0) {
@@ -1392,6 +1582,13 @@ function ChangeImage(side) {
         else {
             GetSelected(imgId);
         }
+        $(".back").css("display", "block")
+        $('.front').hide();
+        /*if (document.getElementById('resizeContainer')) {
+            document.getElementById('resizeContainer').innerHTML = "";
+        }*/
+        $('#BackModal').hide();
+        
         document.getElementById("backbtn").disabled = true;
         document.getElementById("frontbtn").disabled = false;
     }  
@@ -1631,6 +1828,7 @@ function checkvalidation() {
             });
         }
         else {
+            $("#quantity").css('border-color', 'red');
             response.IsSuccess = false;
             response.Message = "Item quantity is required";
             ShowMessage(response);
@@ -1640,6 +1838,16 @@ function checkvalidation() {
         response.IsSuccess = false;
         response.Message = "Your design is empty!, please add object";
         ShowMessage(response);
+    }
+}
+function ItemQuantity() {
+    debugger;
+    var quantity = parseInt($("#quantity").val());
+    if (quantity <= 0) {
+        $("#quantity").css('border-color', 'red');
+    }
+    else {
+        $("#quantity").css('border-color', 'black');
     }
 }
 
@@ -1809,6 +2017,7 @@ function LogoDetails(id) {
     $('#logosize').text('');
     $('#logocolor').text('');
     $('#imglogo').text('');
+    $('#logoModal').modal('show');
     document.getElementById('setdefault').disabled = false;   
     $.ajax({
         url: '/Design/LogoDetails',

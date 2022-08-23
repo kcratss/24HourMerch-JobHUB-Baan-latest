@@ -24,7 +24,7 @@
             <option value="2021">2021</option>
         </select>
     </span>
-    <img src="~/Content/images/hrImg.png" class="hrimg" style= "width: 896px;" />
+    <img src="~/Content/images/hrImg.png" class="hrimg" style="width: 896px;" />
 </div>
 @*<div class="row col-10 g-0">
     <div class=" pe-lg-2">
@@ -184,6 +184,51 @@
     </div>
     </div>*@
 
+<div class="modal fade" id="quotesModal" tabindex="-1" role="dialog" aria-labelledby="quotesModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 1021px; margin-left: -250px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModal">Quote Details</h5>
+                <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row m-1">
+                <div class="table-responsive scrollbar">
+                    <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable1">
+                        <thead class="bg-200 text-900">
+                            <tr>
+                                <th class="sort" data-sort="name">FrontImage</th>
+                                <th class="sort" data-sort="attention">Process</th>
+                                <th class="sort" data-sort="attention">Quantity</th>
+                                <th class="sort" data-sort="color">Color</th>
+                                <th class="sort" data-sort="stitches">Stitches</th>
+                                <th class="sort" data-sort="size">Size</th>
+                                <th class="sort" data-sort="print">Print Price</th>
+                                <th class="sort" data-sort="tshirt">Tshirt Price</th>
+                                <th class="sort" data-sort="unit">Unit Price</th>
+                                <th class="sort" data-sort="total">Total Price</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="listdetail">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 total1">
+                    <div class="col-4">
+                        Total: <span class="col-4" id="price">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmOk" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 

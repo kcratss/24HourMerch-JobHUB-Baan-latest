@@ -35,10 +35,10 @@ namespace KEN_DataAccess
         public Nullable<System.DateTime> RejectedLogo_Date { get; set; }
         public Nullable<int> RejectedLogo_UserId { get; set; }
     
-        public virtual tblStatu tblStatu { get; set; }
         public virtual tbluser tbluser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserLogoProcess> tblUserLogoProcesses { get; set; }
+        public virtual tblStatu tblStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserItem> tblUserItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

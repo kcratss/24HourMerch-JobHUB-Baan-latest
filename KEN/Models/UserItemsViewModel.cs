@@ -38,6 +38,7 @@ namespace KEN.Models
         public decimal Print_Price { get; set; }
         public decimal TotalPrice { get; set; }
         public bool isBack { get; set; }
+        public bool IsDeleted { get; set; }
 
         //public tblOptionProperty TblOptionProperty { get; set; }
 

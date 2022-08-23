@@ -69,10 +69,10 @@
                     </div>
                     <div class="card-body">
                         <div class="row " id="address">
-                            </div>
-
                         </div>
+
                     </div>
+                </div>
             </div>
 
         </div>
@@ -152,13 +152,30 @@
 
 
 
-    <div class="modal " id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
+    <div class="modal fade" id="updateAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Address Details</h5>
                     <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" onclick="FormClear()">&times;</span>
+                        <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row m-1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Address Details</h5>
+                    <button type="button" class="close closebutton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" onclick="clearForm()">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body row m-1">
@@ -170,10 +187,10 @@
                             <input type="text" class="form-control" id="txtname" name="txtname" placeholder="Enter Name">
 
                         </div>
-                        <div class="form-group mb-3">
+                       @* <div class="form-group mb-3">
                             <label for="attention">Attention<span class="me-1 spanrequired">*</span></label>
                             <input type="text" class="form-control" id="txtattention" name="txtattention" placeholder="Enter Attention">
-                        </div>
+                        </div>*@
                         <div class="form-group mb-3">
                             <label for="address1">Address Line 1<span class="me-1 spanrequired">*</span></label>
                             <input type="text" class="form-control" id="txtaddress1" name="txtaddress1" placeholder="Enter Address">
@@ -186,7 +203,7 @@
                             <div class="col">
 
                                 <label for="state">State<span class="me-1 spanrequired">*</span></label>
-                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--select--", new { @id = "txtstate", @class = "col-12" })
+                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--Select--", new { @id = "txtstate", @class = "col-12" })
 
 
                             </div>
@@ -205,7 +222,7 @@
                         <div class="form-group d-flex justify-content-end">
 
                             <input type="submit" class="btn btn-primary me-1" name="submit" value="Save">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="FormClear()">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearForm()">Close</button>
 
                         </div>
 
@@ -216,6 +233,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="~/Content/js/libraries/jquery-ui.min.js"></script>
     <script src="~/Content/js/libraries/bootstrap.min.js"></script>

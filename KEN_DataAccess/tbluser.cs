@@ -28,8 +28,8 @@ namespace KEN_DataAccess
             this.tblOrderDetails = new HashSet<tblOrderDetail>();
             this.tblDraftQuotes = new HashSet<tblDraftQuote>();
             this.tblDraftOrders = new HashSet<tblDraftOrder>();
-            this.tblDraftQuoteItems = new HashSet<tblDraftQuoteItem>();
             this.tblUserLogoes = new HashSet<tblUserLogo>();
+            this.tblDraftQuoteItems = new HashSet<tblDraftQuoteItem>();
             this.tblUserItems = new HashSet<tblUserItem>();
         }
     
@@ -78,9 +78,9 @@ namespace KEN_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDraftOrder> tblDraftOrders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserLogo> tblUserLogoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserItem> tblUserItems { get; set; }
     }

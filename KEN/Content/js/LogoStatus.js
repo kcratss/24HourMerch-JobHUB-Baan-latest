@@ -2,7 +2,7 @@
     LogoStatusList();
 })
 
-const pageSize = 15;
+const pageSize = 10;
 var currentPage = 1;
 var allDataList;
 function LogoStatusList() {
@@ -13,10 +13,12 @@ function LogoStatusList() {
         success: function (data) {
             debugger;
             if (data.length != 0) {
-                if (data.length == 1) {
+                if (data.length <= pageSize) {
                     document.getElementById('prev').disabled = true;
                     document.getElementById('next').disabled = true;
-
+                }
+                else {
+                    document.getElementById('next').disabled = false;
                 }
                 allDataList = data;
                 var totalRecords = data.length;
@@ -154,13 +156,13 @@ function ShowLogoData(data) {
     if (data.length != 0) {
         for (i = 0; i < data.length; i++) {
             if (data[i].StatusValue == "Pending") {
-                $("#list").append('<tr><td><img onclick=LogoPreview(' + data[i].Id + ') src=' + data[i].LogoUrl + ' style="height:121px; width:108px; " /></td><td>' + data[i].UserName + '</td><td>' + data[i].UserEmail + '</td><td>' + data[i].StatusValue + '</td><td>' + data[i].Height + '</td><td>' + data[i].Width + '</td><td><button type="button" class="btn btn-primary" onclick="LogoProcessDetails(' + data[i].Id + ')">Logo Detail</button></td><td>' + data[i].LogoCreateDateString + '</td><td>' + data[i].ApprovedLogoDateString + '</td><td>' + data[i].ApprovedLogo_UserName + '</td><td>' + data[i].RejectedLogoDateString + '</td><td>' + data[i].RejectedLogo_UserName + '</td><td><button type="button" class="btn btn-primary" onclick= ApproveModel(' + data[i].Id + ')>Approve</button>' + " " + '<button type="button" class="btn btn-danger" onclick= RejectModel(' + data[i].Id + ')>Reject</button></td></tr>');
+                $("#list").append('<tr><td><img onclick=LogoPreview(' + data[i].Id + ') src=' + data[i].LogoUrl + ' style="height:100px; width:108px; " /></td><td>' + data[i].UserName + '</td><td>' + data[i].UserEmail + '</td><td>' + data[i].StatusValue + '</td><td>' + data[i].Height + '</td><td>' + data[i].Width + '</td><td><button type="button" class="btn btn-primary" onclick="LogoProcessDetails(' + data[i].Id + ')">Logo Detail</button></td><td>' + data[i].LogoCreateDateString + '</td><td>' + data[i].ApprovedLogoDateString + '</td><td>' + data[i].ApprovedLogo_UserName + '</td><td>' + data[i].RejectedLogoDateString + '</td><td>' + data[i].RejectedLogo_UserName + '</td><td><button type="button" class="btn btn-primary" onclick= ApproveModel(' + data[i].Id + ')>Approve</button>' + " " + '<button type="button" class="btn btn-danger" onclick= RejectModel(' + data[i].Id + ')>Reject</button></td></tr>');
             }
             else if (data[i].StatusValue == "Approved") {
-                $("#list").append('<tr><td><img  onclick=LogoPreview(' + data[i].Id + ') src=' + data[i].LogoUrl + ' style="height:121px; width:108px; "/></td><td>' + data[i].UserName + '</td><td>' + data[i].UserEmail + '</td><td>' + data[i].StatusValue + '</td><td>' + data[i].Height + '</td><td>' + data[i].Width + '</td><td><button type="button" class="btn btn-primary" onclick="LogoProcessDetails(' + data[i].Id + ')">Logo Detail</button></td><td>' + data[i].LogoCreateDateString + '</td><td>' + data[i].ApprovedLogoDateString + '</td><td>' + data[i].ApprovedLogo_UserName + '</td><td></td><td></td><td></td></tr>');
+                $("#list").append('<tr><td><img  onclick=LogoPreview(' + data[i].Id + ') src=' + data[i].LogoUrl + ' style="height:100px; width:108px; "/></td><td>' + data[i].UserName + '</td><td>' + data[i].UserEmail + '</td><td>' + data[i].StatusValue + '</td><td>' + data[i].Height + '</td><td>' + data[i].Width + '</td><td><button type="button" class="btn btn-primary" onclick="LogoProcessDetails(' + data[i].Id + ')">Logo Detail</button></td><td>' + data[i].LogoCreateDateString + '</td><td>' + data[i].ApprovedLogoDateString + '</td><td>' + data[i].ApprovedLogo_UserName + '</td><td></td><td></td><td></td></tr>');
             }
             else if (data[i].StatusValue == "Rejected") {
-                $("#list").append('<tr><td><img onclick=LogoPreview(' + data[i].Id + ')  src=' + data[i].LogoUrl + ' style="height:121px; width:108px; " /></td><td>' + data[i].UserName + '</td><td>' + data[i].UserEmail + '</td><td>' + data[i].StatusValue + '</td><td>' + data[i].Height + '</td><td>' + data[i].Width + '</td><td><button type="button" class="btn btn-primary" onclick="LogoProcessDetails(' + data[i].Id + ')">Logo Detail</button></td><td>' + data[i].LogoCreateDateString + '</td><td></td><td></td><td>' + data[i].RejectedLogoDateString + '</td><td>' + data[i].RejectedLogo_UserName + '</td><td></tr>');
+                $("#list").append('<tr><td><img onclick=LogoPreview(' + data[i].Id + ')  src=' + data[i].LogoUrl + ' style="height:100px; width:108px; " /></td><td>' + data[i].UserName + '</td><td>' + data[i].UserEmail + '</td><td>' + data[i].StatusValue + '</td><td>' + data[i].Height + '</td><td>' + data[i].Width + '</td><td><button type="button" class="btn btn-primary" onclick="LogoProcessDetails(' + data[i].Id + ')">Logo Detail</button></td><td>' + data[i].LogoCreateDateString + '</td><td></td><td></td><td>' + data[i].RejectedLogoDateString + '</td><td>' + data[i].RejectedLogo_UserName + '</td><td></tr>');
             }
 
         }
@@ -182,7 +184,7 @@ function LogoGrid(evt) {
 function LogoListGrid(element) {
     debugger;
     if (element == "All") {
-        location.href = "/Opportunity/LogoStatus";
+        LogoStatusList();
     }
     else if (element == "Pending") {
         Logofilter(element);
@@ -196,6 +198,22 @@ function LogoListGrid(element) {
 
 }
 
+
+function RedirectLogoItem() {
+    var logoListId = $(".tablinks.active").attr('id');
+    if (logoListId == "All") {
+        LogoListGrid(logoListId);
+    }
+    else if (logoListId == "Pending") {
+        LogoListGrid(logoListId);
+    }
+    else if (logoListId == "Approved") {
+        LogoListGrid(logoListId);
+    }
+    else if (logoListId == "Rejected") {
+        LogoListGrid(logoListId);
+    }
+}
 function Logofilter(element) {
     debugger
     var status = element;
@@ -208,10 +226,12 @@ function Logofilter(element) {
             document.getElementById('list').innerHTML = '';
             $('.pagination').text('');
             if (data.length != 0) {
-                if (data.length == 1) {
+                if (data.length <= pageSize) {
                     document.getElementById('prev').disabled = true;
                     document.getElementById('next').disabled = true;
-
+                }
+                else {
+                    document.getElementById('next').disabled = false;
                 }
                 allDataList = data;
                 var totalRecords = data.length;
@@ -268,8 +288,10 @@ function ApproveLogo() {
             $("#approveModal").modal('hide');
             ShowMessage(responses);
             setTimeout(function () {
-                RedirectPage();
             }, 2000)
+            RedirectLogoItem();
+            $("#rejectModal").modal('hide');
+            $("#approveModal").modal('hide');
         }
     })
 }
@@ -285,9 +307,11 @@ function RejectLogo() {
             debugger;
             $("#rejectModal").modal('hide');
             ShowMessage(responses);
-            setTimeout(function () {
-                RedirectPage();
-            }, 2000)
+            setTimeout(function () {              
+            }, 2000)           
+            $("#rejectModal").modal('hide');
+            $("#approveModal").modal('hide');
+            RedirectLogoItem();
         }
     })
 }

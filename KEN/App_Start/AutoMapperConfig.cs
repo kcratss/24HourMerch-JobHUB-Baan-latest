@@ -35,6 +35,7 @@ namespace KEN.App_Start
                 .ForMember(_ => _.BackImageSource, e => e.MapFrom(_ => _.tblUserItem.BackImageSource))
                 .ForMember(_ => _.Process_Id, e => e.MapFrom(_ => _.tblUserItem.tblUserLogoProcess.Process_Id))
                 .ForMember(_ => _.Colour_Id, e => e.MapFrom(_ => _.tblUserItem.tblUserLogoProcess.Colour_Id))
+                .ForMember(_ => _.Status, e => e.MapFrom(_ => _.tblDraftQuote.tblStatu.Name))
                 .ForMember(_ => _.Size_Id, e => e.MapFrom(_ => _.tblUserItem.tblUserLogoProcess.Stitches_Id));
             CreateMap<tblDraftQuoteItem, DraftOrdersItemViewModel>()
                  .ForMember(_ => _.FrontImage, e => e.MapFrom(_ => _.tblUserItem.FrontImageSource));
@@ -108,7 +109,6 @@ namespace KEN.App_Start
                 .ForMember(_ => _.AddressLine1, e => e.MapFrom(_ => _.tblAddress.Address1))
                 .ForMember(_ => _.AddressLine2, e => e.MapFrom(_ => _.tblAddress.Address2))
                 .ForMember(_ => _.AddressNote, e => e.MapFrom(_ => _.tblAddress.AddNotes))
-                .ForMember(_ => _.Attention, e => e.MapFrom(_ => _.tblAddress.Attention))
                 .ForMember(_ => _.State, e => e.MapFrom(_ => _.tblAddress.State))
                 .ForMember(_ => _.PostCode, e => e.MapFrom(_ => _.tblAddress.Postcode));
             CreateMap<tblApplicationColorsMapping, PrintColorViewModel>()

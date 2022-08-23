@@ -31,9 +31,9 @@ namespace KEN_DataAccess
         public Nullable<int> Status { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
     
-        public virtual tblStatu tblStatu { get; set; }
         public virtual tbluser tbluser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }
+        public virtual tblStatu tblStatu { get; set; }
     }
 }

@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_ClientLayoutTheme.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/js/jquery.magnify.min.js" integrity="sha512-YKxHqn7D0M5knQJO2xKHZpCfZ+/Ta7qpEHgADN+AkY2U2Y4JJtlCEHzKWV5ZE87vZR3ipdzNJ4U/sfjIaoHMfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<link href="~/assets/css/perfect-scrollbar.css" rel="stylesheet" />
+<link href="~/Content/css/libraries/theme.css" rel="stylesheet" />
+<link href="~/Content/css/ViewAllNotification.css" rel="stylesheet" />
+<script src="~/Content/js/ViewAllNotification.js"></script>
+
+
+
+<div class="card overflow-hidden mb-3">
+    <div class="card-header bg-light">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-sm-auto">
+                <h5 class="mb-1 mb-md-0">Your Notifications</h5>
+            </div>
+            <div class="col-sm-auto fs--1"><a class="text-sans-serif" href="#!" onclick="ReadAllNotification()">Mark all as read</a></div>
+        </div>
+    </div>
+    <div class="row showCurrenttab" style="margin-top: 10px;" >
+        <img src="~/Content/images/hrImg.png" class="hrimg" style="margin: 11px 7px 2px 0;" />
+        <div class="tab" style="margin: -2px 0 0px 0;" id="notificationtab">
+            <button class="tabheading">Notification</button>
+            <button id="All" class="tablinks active" onclick="NotificationGrid(this),NotificationListGrid('All');">All</button>
+            <button id="Read" class="tablinks" onclick="NotificationGrid(this),NotificationListGrid('Read');">Read</button>
+            <button id="Unread" class="tablinks" onclick="NotificationGrid(this),NotificationListGrid('Unread');">Unread</button>
+        </div>
+        <img src="~/Content/images/hrImg.png" class="hrimg" />
+    </div>
+    <div class="card-body fs--1 p-0 mt-3">
+        <div id="notificationitem">
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" id="prev" onclick="Prevbtn()" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+    <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" id="next" onclick="Nextbtn()" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+</div>
+</div>
+
+
+

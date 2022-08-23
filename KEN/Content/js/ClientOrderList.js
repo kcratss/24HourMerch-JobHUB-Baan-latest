@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
     ClientOrder();
+    Notification();
 });
+
+
 
 function orderList(id)
 {
@@ -56,8 +59,12 @@ function closeModal()
 {
     debugger;
     $("#exampleModalLabel").modal('hide');
-    $("#itemlist").text('');
+    $('#logoModal').modal('hide');
+    $("#quotesModal").modal('hide');
+
 }
+
+
 
 function RedirectPage() {
     debugger;

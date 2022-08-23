@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
     <link href="~/assets/css/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/Content/css/libraries/theme.css" rel="stylesheet" />
+    <link href="~/Content/css/Cart.css" rel="stylesheet" />
     <script src="~/Content/js/Cart.js"></script>
 </head>
 <body>
@@ -29,12 +30,12 @@
         </div>
         <div class="card-body p-0">
             <div class="row bg-200 text-900 no-gutters px-1 fs--1 font-weight-semi-bold">
-                <div class="col-6 col-md-4 p-2 px-md-3">ProductItem</div>
+                <div class="col-6 col-md-4 p-2 px-md-3">Product Item</div>
                 <div class="col-4 col-md-4 px-3">
                     <div class="row">
-                        <div class="col-md-5 py-2 d-none d-md-block text-center">Printed Price</div>
-                        <div class="col-4 col-md-3 text-right p-2 px-md-3">Tshirt Price</div>
-                        <div class="col-4 col-md-4 text-right p-2 px-md-3">Unit Price</div>
+                        <div class="col-md-5 py-2 d-none d-md-block text-center" style="margin-left:-22px;">Print Price</div>
+                        <div class="col-4 col-md-3 text-right p-2 px-md-3">TShirt Price</div>
+                        <div class="col-4 col-md-4 text-right p-2 px-md-3">Total Unit Price</div>
                     </div>
                 </div>
                 <div class="col-4 col-md-4 px-3">
@@ -67,7 +68,36 @@
             </form><button class="btn btn-sm btn-primary" id="checkoutButton" onclick="orderdetail()">Checkout</button>
         </div>
     </div>
- <script src="~/Content/js/libraries/jquery-ui.min.js"></script>
+
+    <div class="modal fade" id="PreviewModal" tabindex="-1" role="dialog" aria-labelledby="FrontModalLabel" aria-hidden="true">
+        <div class="modal-dialog print-modal-dialog" role="document">
+            <div class="modal-content print-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="padding-top:0px;" id="exampleModalLabel">Preview Image</h4>
+                    <button type="button" class="close closebutton" aria-label="Close">
+                        <span aria-hidden="true" onclick="closeModal()">&times;</span>
+                    </button>
+                </div>
+                <div id="printSection" class="modal-body-wrapper">
+                    <div id="preview" class="modal-body" style="text-align:center;">
+
+                    </div>
+                    @*<div id="pre" style="text-align:center;">
+
+                    </div>*@
+                    <div id="previewbtn" style="text-align:center;">
+                      
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                    @*<button type="button" onclick="PrintImage()" class="btn btn-primary">Print</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/js/libraries/jquery-ui.min.js"></script>
     <script src="~/Content/js/libraries/bootstrap.min.js"></script>
 </body>
 </html>

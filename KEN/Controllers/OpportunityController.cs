@@ -1632,6 +1632,7 @@ namespace KEN.Controllers
         // baans change 16th November for change the user by dropdown
         public ActionResult SetNewUser(int UserProfile)
         {
+
             var OldSession = this.Session["MyUser"];
             this.Session["EventType"] = "ChangeEvent";
             this.Session["MyUser"] = UserProfile;
@@ -1764,12 +1765,12 @@ namespace KEN.Controllers
             ViewBag.ActiveUserRole = GetActiveUserData();
 
             var status = dbContext.tblStatus.ToList();
-            var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Status != 1).ToList().OrderByDescending(x => x.Id);
+            var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Status != 1 && x.Status != 6).ToList().OrderByDescending(x => x.Id);
             var cartList = Mapper.Map<List<QuotesViewModel>>(checkQuotes);
 
             foreach (var items in cartList)
             {
-                var quotes = dbContext.tblDraftQuoteItems.Where(x => x.Quotes_Id == items.Id).ToList();
+                var quotes = dbContext.tblDraftQuoteItems.Where(x => x.Quotes_Id == items.Id && x.IsDeleted == false).ToList();
                 items.TotalItems = quotes.Count;
                 var statu = dbContext.tblStatus.Where(x => x.Id == items.Status).FirstOrDefault();
                 items.StatusName = statu.Name;
@@ -1794,7 +1795,7 @@ namespace KEN.Controllers
         }
         public ActionResult QuoteList(int id)
         {
-            var quotes = dbContext.tblDraftQuoteItems.Include(x => x.tblUserItem).Include(x => x.tblUserItem.tblUserLogoProcess).Where(x =>x.Quotes_Id == id).ToList();
+            var quotes = dbContext.tblDraftQuoteItems.Include(x => x.tblUserItem).Include(x => x.tblUserItem.tblUserLogoProcess).Where(x =>x.Quotes_Id == id && x.IsDeleted == false).ToList();
             var cartList = Mapper.Map<List<UserItemsViewModel>>(quotes);
             foreach (var items in cartList)
             {
@@ -1817,12 +1818,25 @@ namespace KEN.Controllers
 
         public ActionResult UpdateQuotes(int id,string status)
         {
+            var userIDemail = DataBaseCon.ActiveUser();
+            var userId = dbContext.tblusers.Where(x => x.email == userIDemail).FirstOrDefault();
             if (status == "Approved")
             {
                 var Status = dbContext.tblStatus.Where(x => x.Name == status).FirstOrDefault();
                 var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Id == id).FirstOrDefault();
                 checkQuotes.Status = Status.Id;
                 dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                tblNotification notification = new tblNotification()
+                {
+                    Quotes_Id = id,
+                    Message = "Your quote is approved",
+                    CreatedBy = userId.id,
+                    CreatedOn = DateTime.UtcNow,
+                   User_Id = checkQuotes.UserId,
+                    Status = false
+                };
+                dbContext.tblNotifications.Add(notification);
                 dbContext.SaveChanges();
                 responses.IsSuccess = true;
                 responses.Message = "Quote approved";
@@ -1834,6 +1848,17 @@ namespace KEN.Controllers
                 var checkQuotes = dbContext.tblDraftQuotes.Where(x => x.Id == id).FirstOrDefault();
                 checkQuotes.Status = Status.Id;
                 dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                tblNotification notification = new tblNotification()
+                {
+                    Quotes_Id = id,
+                    Message = "Your quote is rejected",
+                    CreatedBy = userId.id,
+                    CreatedOn = DateTime.UtcNow,
+                    User_Id = checkQuotes.UserId,
+                    Status = false
+                };
+                dbContext.tblNotifications.Add(notification);
                 dbContext.SaveChanges();
                 responses.IsSuccess = true;
                 responses.Message = "Quote rejected ";
@@ -2064,6 +2089,17 @@ namespace KEN.Controllers
                 checkQuotes.ApprovedLogo_Date = DateTime.UtcNow;
                 dbContext.Entry(checkQuotes).State = EntityState.Modified;
                 dbContext.SaveChanges();
+                tblNotification notification = new tblNotification()
+                {
+                    Logo_Id = id,
+                    Message = "Your logo is approved",
+                    CreatedBy = userId.id,
+                    CreatedOn = DateTime.UtcNow,
+                   User_Id = checkQuotes.UserId,
+                    Status = false
+                };
+                dbContext.tblNotifications.Add(notification);
+                dbContext.SaveChanges();
                 responses.IsSuccess = true;
                 responses.Message = "Logo approved";
                 return Json(responses, JsonRequestBehavior.AllowGet);
@@ -2076,6 +2112,17 @@ namespace KEN.Controllers
                 checkQuotes.RejectedLogo_UserId = userId.id;
                 checkQuotes.RejectedLogo_Date = DateTime.UtcNow;
                 dbContext.Entry(checkQuotes).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                tblNotification notification = new tblNotification()
+                {
+                    Logo_Id = id,
+                    Message = "Your logo is rejected",
+                    CreatedBy = userId.id,
+                    CreatedOn = DateTime.UtcNow,
+                   User_Id = checkQuotes.UserId,
+                   Status = false
+                };
+                dbContext.tblNotifications.Add(notification);
                 dbContext.SaveChanges();
                 responses.IsSuccess = true;
                 responses.Message = "Logo rejected ";

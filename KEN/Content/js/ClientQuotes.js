@@ -1,12 +1,73 @@
-﻿$(document).ready(function () {
-  
+﻿$(document).ready(function () {   
+        Quotes();         
 });
+
+function Quotes() {
+    debugger;
+    $.ajax({
+        url: '/Design/Quotes',
+        type: 'GET',
+        data: {},
+        async: false,
+        success: function (data) {
+            $("#quotesModal").modal('hide');
+            $("#removeModal").modal('hide');
+            if (data.length != 0) {
+                allDataList = data;
+                $('#quotedetaillist').text('');
+                $('#quotedetaillist').append('<div id="tableExample2"><div class="table-responsive scrollbar"><table class="table table-bordered table-striped fs--1 mb-0" id="addresstable"><thead class="bg-200 text-900"><tr><th class="sort" data-sort="quote">QuoteId</th><th class="sort" data-sort="item">No. of Items</th><th class="sort" data-sort="status">Status</th><th class="sort" data-sort="attention">Estimated Price</th><th class="sort" data-sort="address1">Quote details</th><th class="sort" data-sort="quote">Quote_Date</th><th class="sort" data-sort="address2">Action</th></tr></thead><tbody class="list" id="list1"></tbody></table></div><div class="d-flex justify-content-center mt-3"><button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" id ="prev" onclick="Prevbtn()" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button><ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" id ="next" onclick="Nextbtn()" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button></div></div>')
+                var totalRecords = data.length;
+                currentPage = 1;
+                if (data.length <= pageSize) {
+                    document.getElementById('prev').disabled = true;
+                    document.getElementById('next').disabled = true;
+                }
+                else {
+                    document.getElementById('next').disabled = false;
+                }
+                let pageQuantity = Math.ceil(totalRecords / pageSize);
+                for (let i = 1; i <= pageQuantity; i++) {
+                    if (i == 1) {
+                        $('.pagination').append('<li><button class="page active" onclick ="pagbutton(this)" type="button">' + i + '</button></li>')
+                    }
+                    else {
+                        $('.pagination').append('<li><button class="page" onclick ="pagbutton(this)" type="button">' + i + '</button></li>')
+
+                    }
+                    document.getElementById('prev').disabled = true;
+                    var showData = parseInt(pageSize * currentPage);
+                    if (currentPage > 1) {
+                        var paging = parseInt(pageSize * (currentPage - 1));
+                    }
+                    else {
+                        var paging = parseInt(0);
+                    }
+                    var data = allDataList.slice(paging, showData);
+                    dataPagination(data);
+                }
+
+
+            }
+            else {
+                $('#list1').text('');
+                $('.pagination').text('');
+                document.getElementById('prev').disabled = true;
+                document.getElementById('next').disabled = true;
+
+                $("#list1").append('<tr class="text-center"><td colspan="8">No Quotes Found.</td></tr>');
+            }
+        }
+        })
+}
+
+
+
+
 var price;
 const pageSize = 5;
 var currentPage = 1;
 var allDataList;
-function ClientQuotesList(id) {
-    
+function ClientQuotesList(id) {   
     debugger;
     $.ajax({
         url: '/Design/QuoteList',
@@ -15,45 +76,75 @@ function ClientQuotesList(id) {
         async: false,
         success: function (data) {
             debugger;
-
             price = 0;
+            $("#price").text('');
             if (data.length > 0) {
                 for (let i = 0; i < data.length; i++) {
                     var length = data.length;
                     $("#code1").text(length);
                     var printPrice = parseFloat(data[i].Print_Price).toFixed(2);
                     var pricetotal = parseFloat(data[i].Unit_Price).toFixed(2);
-                    var subTotal = parseFloat(data[i].TotalPrice).toFixed(2);
-
+                    var subTotal = parseFloat(data[i].TotalPrice).toFixed(2);                    
                     price = parseFloat((+subTotal) + (+price)).toFixed(2);
-                    $("#listdetail").append('<tr><td><img  width="139px" src =' + data[i].FrontImageSource + ' ><td>' + data[i].ProcessValue + '</td><td>' + data[i].Quantity + '</td><td>' + data[i].ColorValue + '</td><td>' + data[i].SizeValue + '</td><td>' + data[i].Size + '</td><td>$' + printPrice + '</td><td>$' + data[i].Tshirt_Price + '</td><td>$' + pricetotal + '</td><td>$' + subTotal + '</td></tr>');
-                    $("#price").text("$" + price);
+                    if (data[i].Status == "Draft" || data[i].Status == "Approved") {
+                        $("#listdetail").append('<tr><td><img  width="139px" src =' + data[i].FrontImageSource + ' ><td>' + data[i].ProcessValue + '</td><td>' + data[i].Quantity + '</td><td>' + data[i].ColorValue + '</td><td>' + data[i].SizeValue + '</td><td>' + data[i].Size + '</td><td>$' + printPrice + '</td><td>$' + data[i].Tshirt_Price + '</td><td>$' + pricetotal + '</td><td>$' + subTotal + '</td><td> <button type="button" id="addressbtn" onclick="RemoveQuoteItem(' + data[i].Id + ')"><i class="fas fa-trash-alt" style="color:red; font-size:24px;"></i></button></td></tr>');
+                        $("#price").text("$" + price);
+                    }
+                    else {
+                        $("#listdetail").append('<tr><td><img  width="139px" src =' + data[i].FrontImageSource + ' ><td>' + data[i].ProcessValue + '</td><td>' + data[i].Quantity + '</td><td>' + data[i].ColorValue + '</td><td>' + data[i].SizeValue + '</td><td>' + data[i].Size + '</td><td>$' + printPrice + '</td><td>$' + data[i].Tshirt_Price + '</td><td>$' + pricetotal + '</td><td>$' + subTotal + '</td><td></td></tr>');
+                        $("#price").text("$" + price);
+                    }
                 }
             }
             else {
-                $("#list1").append('<tr class="text-center"><td colspan="8">No Quotes Found.</td></tr>');
+                $('#total').text('');
+                $("#listdetail").append('<tr class="text-center"><td colspan="8">No Quotes Found.</td></tr>');
             }
         }
     })
 }
 
-
-/*function GetQuotes() {
-    debugger;
+function RemoveQuoteItem(id) {
     $.ajax({
-        url: '/Design/GetQuotes',
-        type: 'Get',
-        data: {},
-        success: function (data) {
-            debugger;
-                $("#itemlist").append('<div class="card col-6 mb-3 offset-3"><div class="card-header"><span class="col-2">Quotes :#</span><span>' + data.Id+'</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="col-2 total">No Of Items : </span><span id="items"></span><span class="date">Status : </span><span>' + data.StatusName + '</span> <a href="#" aria-expanded="false" aria-controls=' + data.Id + 'multiCollapseExample2 class="invoice" data-target=.' + data.Id + 'multi-collapse data-toggle="collapse">Quotes Details</a></div><div id ='+ data.Id +'item></div></div>');
-            ClientQuotesList(data.Id);
-          
+        url: '/Design/RemoveQuoteItem',
+        type: 'Post',
+        data: { id: id },
+        async: false,
+        success: function (response) {
+            ShowMessage(response);
+            setTimeout(function () {             
+            }, 2000)
+            $("#quotesModal").modal('hide');
+            RedirectQuoteItem();
+           
+        }
+    })
+}
+var removeQuoteModelId;
+
+/*unction RemoveQuotesModel(id) {
+    $("#removeModal").modal('show');
+    removeQuoteModelId = id;
+}
+
+function RemoveQuote() {
+    var id = removeQuoteModelId;
+    $.ajax({
+        url: '/Design/RemoveQuote',
+        type: 'Post',
+        data: { id: id },
+        async: false,
+        success: function (response) {
+            ShowMessage(response);
+            setTimeout(function () {               
+            }, 2000)
+            RedirectQuoteItem();
         }
     })
 }*/
 
 function ModalQuotes(id) {
+    debugger;
     document.getElementById('listdetail').innerHTML = '';
     $("#quotesModal").modal('show');
     ClientQuotesList(id);
@@ -63,7 +154,11 @@ function ModalQuotes(id) {
 function closeModal() {
     $("#quotesModal").modal('hide');
     $("#requestModal").modal('hide');
-     
+    $('#logoModal').modal('hide');
+    $('#removeModal').modal('hide');
+    $('#placeOrderModal').modal('hide');
+
+        
 }
 var getRequestId;
 function UpdateQuotes()
@@ -76,9 +171,9 @@ function UpdateQuotes()
         success: function (response) {
             $("#requestModal").modal('hide');
             ShowMessage(response);
-            setTimeout(function () {
-                RedirectPage();
-            }, 2000)            
+            setTimeout(function () {               
+            }, 2000)
+            RedirectQuoteItem();
         }
     })
 }
@@ -134,7 +229,7 @@ function QuotesGrid(evt) {
 function QuotesListGrid(element) {
     debugger;
     if (element == "All") {
-        location.href = '/Design/Quote';
+        Quotes();
     }
     else if (element == "Draft") {
         Quotesfilter(element);
@@ -183,22 +278,31 @@ function pagbutton(evt) {
     var data = allDataList.slice(paging, showData);
     dataPagination(data);
 }
+
+
 function dataPagination(data) {
+    debugger;
     $('#list1').text('');
+    $("#removeModal").modal('hide');
     if (data.length != 0) {
         for (i = 0; i < data.length; i++) {
+            debugger
+            var dateString = data[i].CreatedOn;
+            var num = parseInt(dateString.replace(/[^0-9]/g, ""));
+            var date1 = new Date(num);
+            var date = new Date(date1.getTime() - (date1.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
             var subTotal = parseFloat(data[i].TotalPrice).toFixed(2);
             if (data[i].StatusName == "Draft") {
-                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td><button type="button" class="btn btn-primary" onclick=UpdateQuotes(' + data[i].Id + ')>Request Quote</button></td></tr>');
+                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td>' + date + '</td><td><button type="button" class="btn btn-primary" onclick=GetRequestModal(' + data[i].Id + ')>Request Quote</button></td></tr>');
             }
             else if (data[i].StatusName == "Pending") {
-                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td></tr>');
+                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td>' + date +'</td></tr>');
             }
             else if (data[i].StatusName == "Approved") {
-                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td><button type="button" class="btn btn-primary" onclick =AddItemToCart(' + data[i].Id + ')>Place Order</button></td></tr>');
+                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td>' + date + '</td><td><button type="button" class="btn btn-primary" onclick =PlaceOrderModal(' + data[i].Id + ')>Place Order</button></td></tr>');
             }
             else if (data[i].StatusName == "Rejected") {
-                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td></td></tr>');
+                $("#list1").append('<tr><td>#' + data[i].Id + '</td><td>' + data[i].TotalItems + '</td><td>' + data[i].StatusName + '</td><td>$' + subTotal + '</td><td> <button type="button" class="btn btn-secondary" onclick="ModalQuotes(' + data[i].Id + ')">Quote Details</button></td><td>' + date +'</td><td></td></tr>');
             }
         }
     }
@@ -221,12 +325,15 @@ function Quotesfilter(element) {
             if (data.length != 0) {               
                 allDataList = data;
                 $('#quotedetaillist').text('');
-                $('#quotedetaillist').append('<div id="tableExample2"><div class="table-responsive scrollbar"><table class="table table-bordered table-striped fs--1 mb-0" id="addresstable"><thead class="bg-200 text-900"><tr><th class="sort" data-sort="quote">QuoteId</th><th class="sort" data-sort="item">No. of Items</th><th class="sort" data-sort="status">Status</th> <th class="sort" data-sort="attention">Estimate Price</th><th class="sort" data-sort="address1">Quote details</th><th class="sort" data-sort="address2">Action</th></tr></thead><tbody class="list" id="list1"></tbody></table></div><div class="d-flex justify-content-center mt-3"><button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" id ="prev" onclick="Prevbtn()" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button><ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" id ="next" onclick="Nextbtn()" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button></div></div>')
+                $('#quotedetaillist').append('<div id="tableExample2"><div class="table-responsive scrollbar"><table class="table table-bordered table-striped fs--1 mb-0" id="addresstable"><thead class="bg-200 text-900"><tr><th class="sort" data-sort="quote">QuoteId</th><th class="sort" data-sort="item">No. of Items</th><th class="sort" data-sort="status">Status</th><th class="sort" data-sort="attention">Estimated Price</th><th class="sort" data-sort="address1">Quote details</th><th class="sort" data-sort="quote">Quote_Date</th><th class="sort" data-sort="address2">Action</th></tr></thead><tbody class="list" id="list1"></tbody></table></div><div class="d-flex justify-content-center mt-3"><button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" id ="prev" onclick="Prevbtn()" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button><ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" id ="next" onclick="Nextbtn()" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button></div></div>')
                 var totalRecords = data.length;
                 currentPage = 1;
-                if (data.length == 1) {
+                if (data.length <= pageSize) {
                     document.getElementById('prev').disabled = true;
                     document.getElementById('next').disabled = true;
+                }
+                else {
+                    document.getElementById('next').disabled = false;
                 }
                 let pageQuantity = Math.ceil(totalRecords / pageSize);
                 for (let i = 1; i <= pageQuantity; i++) {
@@ -321,7 +428,14 @@ function Prevbtn() {
     dataPagination(data);
 }
 
-function AddItemToCart(id) {
+var placeOrderId;
+function PlaceOrderModal(id) {
+    $('#placeOrderModal').modal('show');
+    placeOrderId = id;
+}
+
+function AddItemToCart() {
+    var id = placeOrderId;
     debugger;
     $.ajax({
         url: '/Design/AddToCart',
@@ -330,10 +444,30 @@ function AddItemToCart(id) {
         async: false,
         success: function (response) {           
             ShowMessage(response);
-            setTimeout(function () {
-                RedirectPage();
+            setTimeout(function () {             
             }, 2000)
+            $('#placeOrderModal').modal('hide');
+            RedirectQuoteItem();
         }
     })
+}
+
+function RedirectQuoteItem() {
+    var quoteListId = $(".tablinks.active").attr('id');
+    if (quoteListId == "All") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Draft") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Pending") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Approved") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Rejected") {
+        QuotesListGrid(quoteListId);
+    }    
 }
 

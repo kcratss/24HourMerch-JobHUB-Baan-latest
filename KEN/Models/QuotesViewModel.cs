@@ -12,6 +12,7 @@ namespace KEN.Models
         public string StatusName { get; set; }
         public int TotalItems { get; set; }
         public Decimal TotalPrice { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
     public class CalculateViewModel
     {        

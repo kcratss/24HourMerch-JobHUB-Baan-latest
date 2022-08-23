@@ -4582,6 +4582,7 @@ function GetDecorationImageGrid(keyword) {
         }
     }
     // $("#gridContainer").pqGrid("setSelection", null);
+
     pq.grid("#DecImageGrid", obj);
     pq.grid("#DecImageGrid", "refreshDataAndView");
 }

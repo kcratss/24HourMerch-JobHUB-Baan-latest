@@ -74,8 +74,7 @@ namespace KEN.Services
                     tblAddressEntity.Address2 = model.AddressLine2;
                     tblAddressEntity.State = model.State;
                     tblAddressEntity.Postcode = model.PostCode;
-                    tblAddressEntity.TradingName = model.Name;
-                    tblAddressEntity.Attention = model.Attention;
+                    tblAddressEntity.TradingName = model.Name;                   
                     tblAddressEntity.AddNotes = model.AddressNote;
                     tblAddressEntity.UpdatedBy = DataBaseCon.ActiveUser();//DataBaseCon.ActiveClient();
                     tblAddressEntity.UpdatedOn = DateTime.Now;

@@ -1414,3 +1414,7 @@ function DeletelinkwithOpportunity() {
         }
     }
 }
+
+function closeModal() {
+    $("#quotesModal").modal('hide');
+}

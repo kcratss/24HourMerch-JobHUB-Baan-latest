@@ -346,7 +346,7 @@
           <Property Name="oldacctMgrId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblContactCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblContactCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblContactCopy">
           <Key>
             <PropertyRef Name="id" />
@@ -433,7 +433,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblContactCopy' does not 
           <Property Name="ticket_config_imap" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblDaylightShift' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblDaylightShift' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblDaylightShift">
           <Key>
             <PropertyRef Name="id" />
@@ -602,6 +602,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblDaylightShift' does no
           <Property Name="Tshirt_Price" Type="int" />
           <Property Name="Unit_Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="UserItemId" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="tblEmailContent">
           <Key>
@@ -645,7 +646,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblDaylightShift' does no
           <Property Name="CreatedBy" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblHoliday_dates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblHoliday_dates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblHoliday_dates">
           <Key>
             <PropertyRef Name="id" />
@@ -754,7 +755,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblHoliday_dates' does no
           <Property Name="quantity" Type="varchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblJobCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblJobCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblJobCopy">
           <Key>
             <PropertyRef Name="id" />
@@ -808,7 +809,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblJobCopy' does not have
           <Property Name="datetime" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblmigrationsToBeDeleted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblmigrationsToBeDeleted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblmigrationsToBeDeleted">
           <Key>
             <PropertyRef Name="version" />
@@ -825,6 +826,22 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblmigrationsToBeDeleted'
           <Property Name="type" Type="varchar" MaxLength="250" />
           <Property Name="icon" Type="varchar" MaxLength="150" />
           <Property Name="sort" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quotes_Id" Type="int" />
+          <Property Name="Logo_Id" Type="int" />
+          <Property Name="Message" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="tbloperatorToBeDeleted">
           <Key>
@@ -1027,7 +1044,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblmigrationsToBeDeleted'
           <Property Name="FabricId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblOptionCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblOptionCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblOptionCopy">
           <Key>
             <PropertyRef Name="id" />
@@ -1110,7 +1127,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblOptionCopy' does not h
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblOptionSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblOptionSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblOptionSize">
           <Key>
             <PropertyRef Name="SizeId" />
@@ -1242,7 +1259,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblOptionSize' does not h
           <Property Name="conversation" Type="varchar" MaxLength="32" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblProductionCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.tblProductionCopy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblProductionCopy">
           <Key>
             <PropertyRef Name="id" />
@@ -1636,6 +1653,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblProductionCopy' does n
           <Property Name="Status" Type="varchar" MaxLength="30" />
           <Property Name="BackImageSource" Type="varchar(max)" />
           <Property Name="UserLogoProcess_id" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="tblUserLogo">
           <Key>
@@ -1724,7 +1742,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.tblProductionCopy' does n
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.VW_GetHolidays' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.VW_GetHolidays' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VW_GetHolidays">
           <Key>
             <PropertyRef Name="id" />
@@ -1739,7 +1757,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.VW_GetHolidays' does not 
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.Vw_tblContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblContact">
           <Key>
             <PropertyRef Name="id" />
@@ -1771,7 +1789,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblContact' does not h
           <Property Name="OrgName" Type="varchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.vw_tblKanban' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.vw_tblKanban' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_tblKanban">
           <Key>
             <PropertyRef Name="KanbanId" />
@@ -1813,7 +1831,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.vw_tblKanban' does not ha
           <Property Name="DecoratedDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.vw_tblopp1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.vw_tblopp1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_tblopp1">
           <Key>
             <PropertyRef Name="OpportunityId" />
@@ -1823,7 +1841,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.vw_tblopp1' does not have
           <Property Name="Totalpayment" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOpportunity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.Vw_tblOpportunity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblOpportunity">
           <Key>
             <PropertyRef Name="OpportunityId" />
@@ -1941,7 +1959,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOpportunity' does n
           <Property Name="Totalpayment" Type="decimal" Precision="38" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOptionForOpp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.Vw_tblOptionForOpp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblOptionForOpp">
           <Key>
             <PropertyRef Name="id" />
@@ -2009,10 +2027,9 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOptionForOpp' does 
           <Property Name="ProofSent" Type="bit" />
           <Property Name="ProofMailSent" Type="datetime" />
           <Property Name="ProofVerion" Type="int" />
-          <Property Name="PaidBy" Type="varchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOptionForOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.Vw_tblOptionForOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblOptionForOrder">
           <Key>
             <PropertyRef Name="id" />
@@ -2080,10 +2097,9 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOptionForOrder' doe
           <Property Name="ProofSent" Type="bit" />
           <Property Name="ProofMailSent" Type="datetime" />
           <Property Name="ProofVerion" Type="int" />
-          <Property Name="PaidBy" Type="varchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOrganisation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.Vw_tblOrganisation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblOrganisation">
           <Key>
             <PropertyRef Name="OrgId" />
@@ -2110,7 +2126,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblOrganisation' does 
           <Property Name="AccountManagerLastName" Type="varchar" MaxLength="120" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '24hrtest_V11_11_03.dbo.Vw_tblPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Vw_tblPurchase">
           <Key>
             <PropertyRef Name="PurchaseId" />
@@ -2144,7 +2160,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <Property Name="AmountTotal" Type="decimal" Precision="38" Scale="2" />
           <Property Name="AccountManagerFullName" Type="varchar" MaxLength="241" />
         </EntityType>
-        <Association Name="FK__OrderAddr__Order__6F1576F7">
+        <Association Name="FK__OrderAddr__Order__17236851">
           <End Role="tblDraftOrder" Type="Self.tblDraftOrder" Multiplicity="0..1" />
           <End Role="OrderAddress" Type="Self.OrderAddress" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2156,7 +2172,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TblApplic__Panto__60FC61CA">
+        <Association Name="FK__TblApplic__Panto__3BCADD1B">
           <End Role="tblPantoneMaster" Type="Self.tblPantoneMaster" Multiplicity="0..1" />
           <End Role="TblApplicationColour" Type="Self.TblApplicationColour" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2168,7 +2184,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblApplic__Print__70099B30">
+        <Association Name="FK__tblApplic__Print__420DC656">
           <End Role="tblPrintColor" Type="Self.tblPrintColor" Multiplicity="0..1" />
           <End Role="tblApplicationColorsMapping" Type="Self.tblApplicationColorsMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2180,7 +2196,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblApplic__Proce__70FDBF69">
+        <Association Name="FK__tblApplic__Proce__4301EA8F">
           <End Role="tblApplicationProcess" Type="Self.tblApplicationProcess" Multiplicity="0..1" />
           <End Role="tblApplicationColorsMapping" Type="Self.tblApplicationColorsMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2192,7 +2208,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblApplic__Vendo__71F1E3A2">
+        <Association Name="FK__tblApplic__Vendo__31D75E8D">
           <End Role="tblVendor" Type="Self.tblVendor" Multiplicity="0..1" />
           <End Role="tblApplicationProcess" Type="Self.tblApplicationProcess" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2204,7 +2220,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblColor__Create__0F824689">
+        <Association Name="FK__tblColor__Create__703EA55A">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblColor" Type="Self.tblColor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2216,7 +2232,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblDraftO__Order__73DA2C14">
+        <Association Name="FK__tblDraftO__Order__02284B6B">
           <End Role="tblDraftOrder" Type="Self.tblDraftOrder" Multiplicity="0..1" />
           <End Role="tblDraftOrderItems" Type="Self.tblDraftOrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2228,7 +2244,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblDraftO__Quote__74CE504D">
+        <Association Name="FK__tblDraftO__Quote__6C040022">
           <End Role="tblDraftQuoteItem" Type="Self.tblDraftQuoteItem" Multiplicity="0..1" />
           <End Role="tblDraftOrderItems" Type="Self.tblDraftOrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2240,7 +2256,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblDraftO__UserI__72E607DB">
+        <Association Name="FK__tblDraftO__UserI__7F4BDEC0">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblDraftOrder" Type="Self.tblDraftOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2252,19 +2268,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblDraftQ__Quote__789EE131">
-          <End Role="tblDraftQuote" Type="Self.tblDraftQuote" Multiplicity="0..1" />
-          <End Role="tblDraftQuoteItem" Type="Self.tblDraftQuoteItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDraftQuote">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblDraftQuoteItem">
-              <PropertyRef Name="Quotes_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblDraftQ__Statu__76B698BF">
+        <Association Name="FK__tblDraftQ__Statu__6A1BB7B0">
           <End Role="tblStatus" Type="Self.tblStatus" Multiplicity="0..1" />
           <End Role="tblDraftQuote" Type="Self.tblDraftQuote" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2276,7 +2280,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblDraftQ__UserI__75C27486">
+        <Association Name="FK__tblDraftQ__UserI__673F4B05">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblDraftQuote" Type="Self.tblDraftQuote" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2288,19 +2292,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblDraftQ__UserI__77AABCF8">
-          <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
-          <End Role="tblDraftQuoteItem" Type="Self.tblDraftQuoteItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblusers">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tblDraftQuoteItem">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblDraftQ__UserI__7993056A">
+        <Association Name="FK__tblDraftQ__UserI__76818E95">
           <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="0..1" />
           <End Role="tblDraftQuoteItem" Type="Self.tblDraftQuoteItem" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2312,7 +2304,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblFabric__Creat__116A8EFB">
+        <Association Name="FK__tblFabric__Creat__6D6238AF">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblFabric" Type="Self.tblFabric" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2324,7 +2316,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOption__Color__10766AC2">
+        <Association Name="FK__tblOption__Color__731B1205">
           <End Role="tblColor" Type="Self.tblColor" Multiplicity="0..1" />
           <End Role="tblOptionProperties" Type="Self.tblOptionProperties" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2336,7 +2328,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOption__Creat__1446FBA6">
+        <Association Name="FK__tblOption__Creat__740F363E">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblOptionProperties" Type="Self.tblOptionProperties" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2348,7 +2340,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOption__Fabri__125EB334">
+        <Association Name="FK__tblOption__Fabri__79C80F94">
           <End Role="tblFabric" Type="Self.tblFabric" Multiplicity="0..1" />
           <End Role="tblOptionCode" Type="Self.tblOptionCode" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2360,7 +2352,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOption__Optio__1352D76D">
+        <Association Name="FK__tblOption__Optio__75F77EB0">
           <End Role="tblOptionCode" Type="Self.tblOptionCode" Multiplicity="0..1" />
           <End Role="tblOptionProperties" Type="Self.tblOptionProperties" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2372,7 +2364,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOption__Updat__153B1FDF">
+        <Association Name="FK__tblOption__Updat__75035A77">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblOptionProperties" Type="Self.tblOptionProperties" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2384,7 +2376,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOrderD__UserI__7B7B4DDC">
+        <Association Name="FK__tblOrderD__UserI__73DA2C14">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblOrderDetail" Type="Self.tblOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2396,7 +2388,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblOrderD__UserI__7C6F7215">
+        <Association Name="FK__tblOrderD__UserI__74CE504D">
           <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="0..1" />
           <End Role="tblOrderDetail" Type="Self.tblOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2408,7 +2400,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblPriceL__Colou__7E57BA87">
+        <Association Name="FK__tblPriceL__Colou__49AEE81E">
           <End Role="tblPrintColor" Type="Self.tblPrintColor" Multiplicity="0..1" />
           <End Role="tblPriceList" Type="Self.tblPriceList" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2420,7 +2412,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblPriceL__Proce__7D63964E">
+        <Association Name="FK__tblPriceL__Proce__3B60C8C7">
           <End Role="tblApplicationProcess" Type="Self.tblApplicationProcess" Multiplicity="0..1" />
           <End Role="tblPriceList" Type="Self.tblPriceList" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2432,7 +2424,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblPriceL__Size___7F4BDEC0">
+        <Association Name="FK__tblPriceL__Size___4AA30C57">
           <End Role="tblSizeMaster" Type="Self.tblSizeMaster" Multiplicity="0..1" />
           <End Role="tblPriceList" Type="Self.tblPriceList" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2444,7 +2436,31 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TblSizeAp__Proce__02284B6B">
+        <Association Name="FK__tblQuotes__Quote__65570293">
+          <End Role="tblDraftQuote" Type="Self.tblDraftQuote" Multiplicity="0..1" />
+          <End Role="tblDraftQuoteItem" Type="Self.tblDraftQuoteItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDraftQuote">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDraftQuoteItem">
+              <PropertyRef Name="Quotes_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuotes__UserI__542C7691">
+          <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
+          <End Role="tblDraftQuoteItem" Type="Self.tblDraftQuoteItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblusers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblDraftQuoteItem">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TblSizeAp__Proce__48BAC3E5">
           <End Role="tblApplicationProcess" Type="Self.tblApplicationProcess" Multiplicity="0..1" />
           <End Role="TblSizeApplicationMapping" Type="Self.TblSizeApplicationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2456,7 +2472,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TblSizeAp__Size___01342732">
+        <Association Name="FK__TblSizeAp__Size___47C69FAC">
           <End Role="tblSizeMaster" Type="Self.tblSizeMaster" Multiplicity="0..1" />
           <End Role="TblSizeApplicationMapping" Type="Self.TblSizeApplicationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2468,7 +2484,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserAd__Addre__031C6FA4">
+        <Association Name="FK__tblUserAd__Addre__00750D23">
           <End Role="tblAddress" Type="Self.tblAddress" Multiplicity="0..1" />
           <End Role="tblUserAddressMapping" Type="Self.tblUserAddressMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2480,7 +2496,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserAd__UserI__041093DD">
+        <Association Name="FK__tblUserAd__UserI__7F80E8EA">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblUserAddressMapping" Type="Self.tblUserAddressMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2492,19 +2508,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserIt__BackL__1FEDB87C">
-          <End Role="tblUserLogo" Type="Self.tblUserLogo" Multiplicity="0..1" />
-          <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUserLogo">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblUserItems">
-              <PropertyRef Name="BackLogoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserIt__Front__1E05700A">
+        <Association Name="FK__tblUserIt__Front__3C89F72A">
           <End Role="tblUserLogo" Type="Self.tblUserLogo" Multiplicity="0..1" />
           <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2516,7 +2520,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserIt__Image__162F4418">
+        <Association Name="FK__tblUserIt__Image__39AD8A7F">
           <End Role="tblOptionProperties" Type="Self.tblOptionProperties" Multiplicity="0..1" />
           <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2528,7 +2532,19 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserIt__UserI__20E1DCB5">
+        <Association Name="FK__tblUserIt__LogoI__3B95D2F1">
+          <End Role="tblUserLogo" Type="Self.tblUserLogo" Multiplicity="0..1" />
+          <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserLogo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserItems">
+              <PropertyRef Name="BackLogoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblUserIt__UserI__3AA1AEB8">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2540,7 +2556,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserIt__UserL__07E124C1">
+        <Association Name="FK__tblUserIt__UserL__09946309">
           <End Role="tblUserLogoProcess" Type="Self.tblUserLogoProcess" Multiplicity="0..1" />
           <End Role="tblUserItems" Type="Self.tblUserItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2552,7 +2568,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserLo__Statu__08D548FA">
+        <Association Name="FK__tblUserLo__Statu__01F34141">
           <End Role="tblStatus" Type="Self.tblStatus" Multiplicity="0..1" />
           <End Role="tblUserLogo" Type="Self.tblUserLogo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2564,7 +2580,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserLo__UserI__21D600EE">
+        <Association Name="FK__tblUserLo__UserI__269AB60B">
           <End Role="tblusers" Type="Self.tblusers" Multiplicity="0..1" />
           <End Role="tblUserLogo" Type="Self.tblUserLogo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2576,7 +2592,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserLo__UserL__0504B816">
+        <Association Name="FK__tblUserLo__UserL__04CFADEC">
           <End Role="tblUserLogo" Type="Self.tblUserLogo" Multiplicity="0..1" />
           <End Role="tblUserLogoProcess" Type="Self.tblUserLogoProcess" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2588,7 +2604,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblVendor__Proce__06ED0088">
+        <Association Name="FK__tblVendor__Proce__3F3159AB">
           <End Role="tblApplicationProcess" Type="Self.tblApplicationProcess" Multiplicity="0..1" />
           <End Role="tblVendorApplicationMapping" Type="Self.tblVendorApplicationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2600,7 +2616,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblVendor__Vendo__05F8DC4F">
+        <Association Name="FK__tblVendor__Vendo__3E3D3572">
           <End Role="tblVendor" Type="Self.tblVendor" Multiplicity="0..1" />
           <End Role="tblVendorApplicationMapping" Type="Self.tblVendorApplicationMapping" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3105,6 +3121,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <EntitySet Name="tblkanban" EntityType="Self.tblkanban" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblmessagesToBeDeleted" EntityType="Self.tblmessagesToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblmodulesToBeDeleted" EntityType="Self.tblmodulesToBeDeleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNotification" EntityType="Self.tblNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbloperatorToBeDeleted" EntityType="Self.tbloperatorToBeDeleted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOppContactMapping" EntityType="Self.tblOppContactMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOpportunity" EntityType="Self.tblOpportunity" Schema="dbo" store:Type="Tables" />
@@ -3565,8 +3582,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
     [Vw_tblOptionForOpp].[SizesPacked] AS [SizesPacked], 
     [Vw_tblOptionForOpp].[ProofSent] AS [ProofSent], 
     [Vw_tblOptionForOpp].[ProofMailSent] AS [ProofMailSent], 
-    [Vw_tblOptionForOpp].[ProofVerion] AS [ProofVerion], 
-    [Vw_tblOptionForOpp].[PaidBy] AS [PaidBy]
+    [Vw_tblOptionForOpp].[ProofVerion] AS [ProofVerion]
     FROM [dbo].[Vw_tblOptionForOpp] AS [Vw_tblOptionForOpp]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_tblOptionForOrder" EntityType="Self.Vw_tblOptionForOrder" store:Type="Views" store:Schema="dbo">
@@ -3629,8 +3645,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
     [Vw_tblOptionForOrder].[SizesPacked] AS [SizesPacked], 
     [Vw_tblOptionForOrder].[ProofSent] AS [ProofSent], 
     [Vw_tblOptionForOrder].[ProofMailSent] AS [ProofMailSent], 
-    [Vw_tblOptionForOrder].[ProofVerion] AS [ProofVerion], 
-    [Vw_tblOptionForOrder].[PaidBy] AS [PaidBy]
+    [Vw_tblOptionForOrder].[ProofVerion] AS [ProofVerion]
     FROM [dbo].[Vw_tblOptionForOrder] AS [Vw_tblOptionForOrder]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Vw_tblOrganisation" EntityType="Self.Vw_tblOrganisation" store:Type="Views" store:Schema="dbo">
@@ -3689,159 +3704,159 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
     [Vw_tblPurchase].[AccountManagerFullName] AS [AccountManagerFullName]
     FROM [dbo].[Vw_tblPurchase] AS [Vw_tblPurchase]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__OrderAddr__Order__6F1576F7" Association="Self.FK__OrderAddr__Order__6F1576F7">
+          <AssociationSet Name="FK__OrderAddr__Order__17236851" Association="Self.FK__OrderAddr__Order__17236851">
             <End Role="tblDraftOrder" EntitySet="tblDraftOrder" />
             <End Role="OrderAddress" EntitySet="OrderAddress" />
           </AssociationSet>
-          <AssociationSet Name="FK__TblApplic__Panto__60FC61CA" Association="Self.FK__TblApplic__Panto__60FC61CA">
+          <AssociationSet Name="FK__TblApplic__Panto__3BCADD1B" Association="Self.FK__TblApplic__Panto__3BCADD1B">
             <End Role="tblPantoneMaster" EntitySet="tblPantoneMaster" />
             <End Role="TblApplicationColour" EntitySet="TblApplicationColour" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblApplic__Print__70099B30" Association="Self.FK__tblApplic__Print__70099B30">
+          <AssociationSet Name="FK__tblApplic__Print__420DC656" Association="Self.FK__tblApplic__Print__420DC656">
             <End Role="tblPrintColor" EntitySet="tblPrintColor" />
             <End Role="tblApplicationColorsMapping" EntitySet="tblApplicationColorsMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblApplic__Proce__70FDBF69" Association="Self.FK__tblApplic__Proce__70FDBF69">
+          <AssociationSet Name="FK__tblApplic__Proce__4301EA8F" Association="Self.FK__tblApplic__Proce__4301EA8F">
             <End Role="tblApplicationProcess" EntitySet="tblApplicationProcess" />
             <End Role="tblApplicationColorsMapping" EntitySet="tblApplicationColorsMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblApplic__Vendo__71F1E3A2" Association="Self.FK__tblApplic__Vendo__71F1E3A2">
+          <AssociationSet Name="FK__tblApplic__Vendo__31D75E8D" Association="Self.FK__tblApplic__Vendo__31D75E8D">
             <End Role="tblVendor" EntitySet="tblVendor" />
             <End Role="tblApplicationProcess" EntitySet="tblApplicationProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblColor__Create__0F824689" Association="Self.FK__tblColor__Create__0F824689">
+          <AssociationSet Name="FK__tblColor__Create__703EA55A" Association="Self.FK__tblColor__Create__703EA55A">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblColor" EntitySet="tblColor" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftO__Order__73DA2C14" Association="Self.FK__tblDraftO__Order__73DA2C14">
+          <AssociationSet Name="FK__tblDraftO__Order__02284B6B" Association="Self.FK__tblDraftO__Order__02284B6B">
             <End Role="tblDraftOrder" EntitySet="tblDraftOrder" />
             <End Role="tblDraftOrderItems" EntitySet="tblDraftOrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftO__Quote__74CE504D" Association="Self.FK__tblDraftO__Quote__74CE504D">
+          <AssociationSet Name="FK__tblDraftO__Quote__6C040022" Association="Self.FK__tblDraftO__Quote__6C040022">
             <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItem" />
             <End Role="tblDraftOrderItems" EntitySet="tblDraftOrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftO__UserI__72E607DB" Association="Self.FK__tblDraftO__UserI__72E607DB">
+          <AssociationSet Name="FK__tblDraftO__UserI__7F4BDEC0" Association="Self.FK__tblDraftO__UserI__7F4BDEC0">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblDraftOrder" EntitySet="tblDraftOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftQ__Quote__789EE131" Association="Self.FK__tblDraftQ__Quote__789EE131">
-            <End Role="tblDraftQuote" EntitySet="tblDraftQuote" />
-            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblDraftQ__Statu__76B698BF" Association="Self.FK__tblDraftQ__Statu__76B698BF">
+          <AssociationSet Name="FK__tblDraftQ__Statu__6A1BB7B0" Association="Self.FK__tblDraftQ__Statu__6A1BB7B0">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblDraftQuote" EntitySet="tblDraftQuote" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftQ__UserI__75C27486" Association="Self.FK__tblDraftQ__UserI__75C27486">
+          <AssociationSet Name="FK__tblDraftQ__UserI__673F4B05" Association="Self.FK__tblDraftQ__UserI__673F4B05">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblDraftQuote" EntitySet="tblDraftQuote" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftQ__UserI__77AABCF8" Association="Self.FK__tblDraftQ__UserI__77AABCF8">
-            <End Role="tblusers" EntitySet="tblusers" />
-            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblDraftQ__UserI__7993056A" Association="Self.FK__tblDraftQ__UserI__7993056A">
+          <AssociationSet Name="FK__tblDraftQ__UserI__76818E95" Association="Self.FK__tblDraftQ__UserI__76818E95">
             <End Role="tblUserItems" EntitySet="tblUserItems" />
             <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblFabric__Creat__116A8EFB" Association="Self.FK__tblFabric__Creat__116A8EFB">
+          <AssociationSet Name="FK__tblFabric__Creat__6D6238AF" Association="Self.FK__tblFabric__Creat__6D6238AF">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblFabric" EntitySet="tblFabric" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOption__Color__10766AC2" Association="Self.FK__tblOption__Color__10766AC2">
+          <AssociationSet Name="FK__tblOption__Color__731B1205" Association="Self.FK__tblOption__Color__731B1205">
             <End Role="tblColor" EntitySet="tblColor" />
             <End Role="tblOptionProperties" EntitySet="tblOptionProperties" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOption__Creat__1446FBA6" Association="Self.FK__tblOption__Creat__1446FBA6">
+          <AssociationSet Name="FK__tblOption__Creat__740F363E" Association="Self.FK__tblOption__Creat__740F363E">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblOptionProperties" EntitySet="tblOptionProperties" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOption__Fabri__125EB334" Association="Self.FK__tblOption__Fabri__125EB334">
+          <AssociationSet Name="FK__tblOption__Fabri__79C80F94" Association="Self.FK__tblOption__Fabri__79C80F94">
             <End Role="tblFabric" EntitySet="tblFabric" />
             <End Role="tblOptionCode" EntitySet="tblOptionCode" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOption__Optio__1352D76D" Association="Self.FK__tblOption__Optio__1352D76D">
+          <AssociationSet Name="FK__tblOption__Optio__75F77EB0" Association="Self.FK__tblOption__Optio__75F77EB0">
             <End Role="tblOptionCode" EntitySet="tblOptionCode" />
             <End Role="tblOptionProperties" EntitySet="tblOptionProperties" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOption__Updat__153B1FDF" Association="Self.FK__tblOption__Updat__153B1FDF">
+          <AssociationSet Name="FK__tblOption__Updat__75035A77" Association="Self.FK__tblOption__Updat__75035A77">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblOptionProperties" EntitySet="tblOptionProperties" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOrderD__UserI__7B7B4DDC" Association="Self.FK__tblOrderD__UserI__7B7B4DDC">
+          <AssociationSet Name="FK__tblOrderD__UserI__73DA2C14" Association="Self.FK__tblOrderD__UserI__73DA2C14">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblOrderDetail" EntitySet="tblOrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblOrderD__UserI__7C6F7215" Association="Self.FK__tblOrderD__UserI__7C6F7215">
+          <AssociationSet Name="FK__tblOrderD__UserI__74CE504D" Association="Self.FK__tblOrderD__UserI__74CE504D">
             <End Role="tblUserItems" EntitySet="tblUserItems" />
             <End Role="tblOrderDetail" EntitySet="tblOrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblPriceL__Colou__7E57BA87" Association="Self.FK__tblPriceL__Colou__7E57BA87">
+          <AssociationSet Name="FK__tblPriceL__Colou__49AEE81E" Association="Self.FK__tblPriceL__Colou__49AEE81E">
             <End Role="tblPrintColor" EntitySet="tblPrintColor" />
             <End Role="tblPriceList" EntitySet="tblPriceList" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblPriceL__Proce__7D63964E" Association="Self.FK__tblPriceL__Proce__7D63964E">
+          <AssociationSet Name="FK__tblPriceL__Proce__3B60C8C7" Association="Self.FK__tblPriceL__Proce__3B60C8C7">
             <End Role="tblApplicationProcess" EntitySet="tblApplicationProcess" />
             <End Role="tblPriceList" EntitySet="tblPriceList" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblPriceL__Size___7F4BDEC0" Association="Self.FK__tblPriceL__Size___7F4BDEC0">
+          <AssociationSet Name="FK__tblPriceL__Size___4AA30C57" Association="Self.FK__tblPriceL__Size___4AA30C57">
             <End Role="tblSizeMaster" EntitySet="tblSizeMaster" />
             <End Role="tblPriceList" EntitySet="tblPriceList" />
           </AssociationSet>
-          <AssociationSet Name="FK__TblSizeAp__Proce__02284B6B" Association="Self.FK__TblSizeAp__Proce__02284B6B">
+          <AssociationSet Name="FK__tblQuotes__Quote__65570293" Association="Self.FK__tblQuotes__Quote__65570293">
+            <End Role="tblDraftQuote" EntitySet="tblDraftQuote" />
+            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuotes__UserI__542C7691" Association="Self.FK__tblQuotes__UserI__542C7691">
+            <End Role="tblusers" EntitySet="tblusers" />
+            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TblSizeAp__Proce__48BAC3E5" Association="Self.FK__TblSizeAp__Proce__48BAC3E5">
             <End Role="tblApplicationProcess" EntitySet="tblApplicationProcess" />
             <End Role="TblSizeApplicationMapping" EntitySet="TblSizeApplicationMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__TblSizeAp__Size___01342732" Association="Self.FK__TblSizeAp__Size___01342732">
+          <AssociationSet Name="FK__TblSizeAp__Size___47C69FAC" Association="Self.FK__TblSizeAp__Size___47C69FAC">
             <End Role="tblSizeMaster" EntitySet="tblSizeMaster" />
             <End Role="TblSizeApplicationMapping" EntitySet="TblSizeApplicationMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserAd__Addre__031C6FA4" Association="Self.FK__tblUserAd__Addre__031C6FA4">
+          <AssociationSet Name="FK__tblUserAd__Addre__00750D23" Association="Self.FK__tblUserAd__Addre__00750D23">
             <End Role="tblAddress" EntitySet="tblAddress" />
             <End Role="tblUserAddressMapping" EntitySet="tblUserAddressMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserAd__UserI__041093DD" Association="Self.FK__tblUserAd__UserI__041093DD">
+          <AssociationSet Name="FK__tblUserAd__UserI__7F80E8EA" Association="Self.FK__tblUserAd__UserI__7F80E8EA">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblUserAddressMapping" EntitySet="tblUserAddressMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserIt__BackL__1FEDB87C" Association="Self.FK__tblUserIt__BackL__1FEDB87C">
+          <AssociationSet Name="FK__tblUserIt__Front__3C89F72A" Association="Self.FK__tblUserIt__Front__3C89F72A">
             <End Role="tblUserLogo" EntitySet="tblUserLogo" />
             <End Role="tblUserItems" EntitySet="tblUserItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserIt__Front__1E05700A" Association="Self.FK__tblUserIt__Front__1E05700A">
-            <End Role="tblUserLogo" EntitySet="tblUserLogo" />
-            <End Role="tblUserItems" EntitySet="tblUserItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserIt__Image__162F4418" Association="Self.FK__tblUserIt__Image__162F4418">
+          <AssociationSet Name="FK__tblUserIt__Image__39AD8A7F" Association="Self.FK__tblUserIt__Image__39AD8A7F">
             <End Role="tblOptionProperties" EntitySet="tblOptionProperties" />
             <End Role="tblUserItems" EntitySet="tblUserItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserIt__UserI__20E1DCB5" Association="Self.FK__tblUserIt__UserI__20E1DCB5">
+          <AssociationSet Name="FK__tblUserIt__LogoI__3B95D2F1" Association="Self.FK__tblUserIt__LogoI__3B95D2F1">
+            <End Role="tblUserLogo" EntitySet="tblUserLogo" />
+            <End Role="tblUserItems" EntitySet="tblUserItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblUserIt__UserI__3AA1AEB8" Association="Self.FK__tblUserIt__UserI__3AA1AEB8">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblUserItems" EntitySet="tblUserItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserIt__UserL__07E124C1" Association="Self.FK__tblUserIt__UserL__07E124C1">
+          <AssociationSet Name="FK__tblUserIt__UserL__09946309" Association="Self.FK__tblUserIt__UserL__09946309">
             <End Role="tblUserLogoProcess" EntitySet="tblUserLogoProcess" />
             <End Role="tblUserItems" EntitySet="tblUserItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserLo__Statu__08D548FA" Association="Self.FK__tblUserLo__Statu__08D548FA">
+          <AssociationSet Name="FK__tblUserLo__Statu__01F34141" Association="Self.FK__tblUserLo__Statu__01F34141">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblUserLogo" EntitySet="tblUserLogo" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserLo__UserI__21D600EE" Association="Self.FK__tblUserLo__UserI__21D600EE">
+          <AssociationSet Name="FK__tblUserLo__UserI__269AB60B" Association="Self.FK__tblUserLo__UserI__269AB60B">
             <End Role="tblusers" EntitySet="tblusers" />
             <End Role="tblUserLogo" EntitySet="tblUserLogo" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserLo__UserL__0504B816" Association="Self.FK__tblUserLo__UserL__0504B816">
+          <AssociationSet Name="FK__tblUserLo__UserL__04CFADEC" Association="Self.FK__tblUserLo__UserL__04CFADEC">
             <End Role="tblUserLogo" EntitySet="tblUserLogo" />
             <End Role="tblUserLogoProcess" EntitySet="tblUserLogoProcess" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblVendor__Proce__06ED0088" Association="Self.FK__tblVendor__Proce__06ED0088">
+          <AssociationSet Name="FK__tblVendor__Proce__3F3159AB" Association="Self.FK__tblVendor__Proce__3F3159AB">
             <End Role="tblApplicationProcess" EntitySet="tblApplicationProcess" />
             <End Role="tblVendorApplicationMapping" EntitySet="tblVendorApplicationMapping" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblVendor__Vendo__05F8DC4F" Association="Self.FK__tblVendor__Vendo__05F8DC4F">
+          <AssociationSet Name="FK__tblVendor__Vendo__3E3D3572" Association="Self.FK__tblVendor__Vendo__3E3D3572">
             <End Role="tblVendor" EntitySet="tblVendor" />
             <End Role="tblVendorApplicationMapping" EntitySet="tblVendorApplicationMapping" />
           </AssociationSet>
@@ -4215,8 +4230,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <FunctionImport Name="Pro_QuoteCustomerData" ReturnType="Collection(hrModel.Pro_QuoteCustomerData_Result)">
           <Parameter Name="oppid" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Vw_tblOptionForOpp" EntityType="hrModel.Vw_tblOptionForOpp" />
-          <EntitySet Name="Vw_tblOptionForOrder" EntityType="hrModel.Vw_tblOptionForOrder" />
           <EntitySet Name="tblacct_managerToBeDeleted" EntityType="hrModel.tblacct_managerToBeDeleted" />
           <EntitySet Name="tblarticle_has_attachmentsToBeDeleted" EntityType="hrModel.tblarticle_has_attachmentsToBeDeleted" />
           <EntitySet Name="tblclientsToBeDeleteds" EntityType="hrModel.tblclientsToBeDeleted" />
@@ -4376,12 +4389,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             <End Role="tblVendor" EntitySet="tblVendors" />
             <End Role="tblVendorApplicationMapping" EntitySet="tblVendorApplicationMappings" />
           </AssociationSet>
-          <EntitySet Name="tblStatus" EntityType="hrModel.tblStatu" />
           <EntitySet Name="tblDraftQuotes" EntityType="hrModel.tblDraftQuote" />
-          <AssociationSet Name="FK__tblDraftQ__Statu__6A1BB7B0" Association="hrModel.FK__tblDraftQ__Statu__6A1BB7B0">
-            <End Role="tblStatu" EntitySet="tblStatus" />
-            <End Role="tblDraftQuote" EntitySet="tblDraftQuotes" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblDraftQ__UserI__673F4B05" Association="hrModel.FK__tblDraftQ__UserI__673F4B05">
             <End Role="tbluser" EntitySet="tblusers" />
             <End Role="tblDraftQuote" EntitySet="tblDraftQuotes" />
@@ -4395,30 +4403,13 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             <End Role="tbluser" EntitySet="tblusers" />
             <End Role="tblDraftOrder" EntitySet="tblDraftOrders" />
           </AssociationSet>
-          <EntitySet Name="tblDraftQuoteItems" EntityType="hrModel.tblDraftQuoteItem" />
-          <AssociationSet Name="FK__tblQuotes__Quote__65570293" Association="hrModel.FK__tblQuotes__Quote__65570293">
-            <End Role="tblDraftQuote" EntitySet="tblDraftQuotes" />
-            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblQuotes__UserI__542C7691" Association="hrModel.FK__tblQuotes__UserI__542C7691">
-            <End Role="tbluser" EntitySet="tblusers" />
-            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItems" />
-          </AssociationSet>
           <EntitySet Name="tblDraftOrderItems" EntityType="hrModel.tblDraftOrderItem" />
           <AssociationSet Name="FK__tblDraftO__Order__02284B6B" Association="hrModel.FK__tblDraftO__Order__02284B6B">
             <End Role="tblDraftOrder" EntitySet="tblDraftOrders" />
             <End Role="tblDraftOrderItem" EntitySet="tblDraftOrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblDraftO__Quote__6C040022" Association="hrModel.FK__tblDraftO__Quote__6C040022">
-            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItems" />
-            <End Role="tblDraftOrderItem" EntitySet="tblDraftOrderItems" />
-          </AssociationSet>
           <EntitySet Name="tblUserLogoProcesses" EntityType="hrModel.tblUserLogoProcess" />
           <EntitySet Name="tblUserLogoes" EntityType="hrModel.tblUserLogo" />
-          <AssociationSet Name="FK__tblUserLo__Statu__01F34141" Association="hrModel.FK__tblUserLo__Statu__01F34141">
-            <End Role="tblStatu" EntitySet="tblStatus" />
-            <End Role="tblUserLogo" EntitySet="tblUserLogoes" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblUserLo__UserI__269AB60B" Association="hrModel.FK__tblUserLo__UserI__269AB60B">
             <End Role="tbluser" EntitySet="tblusers" />
             <End Role="tblUserLogo" EntitySet="tblUserLogoes" />
@@ -4427,6 +4418,47 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             <End Role="tblUserLogo" EntitySet="tblUserLogoes" />
             <End Role="tblUserLogoProcess" EntitySet="tblUserLogoProcesses" />
           </AssociationSet>
+          <EntitySet Name="tblPrintColors" EntityType="hrModel.tblPrintColor" />
+          <AssociationSet Name="FK__tblApplic__Print__420DC656" Association="hrModel.FK__tblApplic__Print__420DC656">
+            <End Role="tblPrintColor" EntitySet="tblPrintColors" />
+            <End Role="tblApplicationColorsMapping" EntitySet="tblApplicationColorsMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPriceL__Colou__49AEE81E" Association="hrModel.FK__tblPriceL__Colou__49AEE81E">
+            <End Role="tblPrintColor" EntitySet="tblPrintColors" />
+            <End Role="tblPriceList" EntitySet="tblPriceLists" />
+          </AssociationSet>
+          <FunctionImport Name="Pro_FilterGarments" ReturnType="Collection(hrModel.Pro_FilterGarments_Result)">
+            <Parameter Name="ItemId" Mode="In" Type="Int32" />
+            <Parameter Name="ColorId" Mode="In" Type="Int32" />
+            <Parameter Name="FabricId" Mode="In" Type="Int32" />
+            <Parameter Name="Gender" Mode="In" Type="Int32" />
+            <Parameter Name="Order" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Vw_tblOptionForOpp" EntityType="hrModel.Vw_tblOptionForOpp" />
+          <EntitySet Name="Vw_tblOptionForOrder" EntityType="hrModel.Vw_tblOptionForOrder" />
+          <EntitySet Name="tblDraftQuoteItems" EntityType="hrModel.tblDraftQuoteItem" />
+          <AssociationSet Name="FK__tblDraftO__Quote__6C040022" Association="hrModel.FK__tblDraftO__Quote__6C040022">
+            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItems" />
+            <End Role="tblDraftOrderItem" EntitySet="tblDraftOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuotes__Quote__65570293" Association="hrModel.FK__tblQuotes__Quote__65570293">
+            <End Role="tblDraftQuote" EntitySet="tblDraftQuotes" />
+            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuotes__UserI__542C7691" Association="hrModel.FK__tblQuotes__UserI__542C7691">
+            <End Role="tbluser" EntitySet="tblusers" />
+            <End Role="tblDraftQuoteItem" EntitySet="tblDraftQuoteItems" />
+          </AssociationSet>
+          <EntitySet Name="tblStatus" EntityType="hrModel.tblStatu" />
+          <AssociationSet Name="FK__tblDraftQ__Statu__6A1BB7B0" Association="hrModel.FK__tblDraftQ__Statu__6A1BB7B0">
+            <End Role="tblStatu" EntitySet="tblStatus" />
+            <End Role="tblDraftQuote" EntitySet="tblDraftQuotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblUserLo__Statu__01F34141" Association="hrModel.FK__tblUserLo__Statu__01F34141">
+            <End Role="tblStatu" EntitySet="tblStatus" />
+            <End Role="tblUserLogo" EntitySet="tblUserLogoes" />
+          </AssociationSet>
+          <EntitySet Name="tblNotifications" EntityType="hrModel.tblNotification" />
           <EntitySet Name="tblUserItems" EntityType="hrModel.tblUserItem" />
           <AssociationSet Name="FK__tblDraftQ__UserI__76818E95" Association="hrModel.FK__tblDraftQ__UserI__76818E95">
             <End Role="tblUserItem" EntitySet="tblUserItems" />
@@ -4456,22 +4488,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             <End Role="tblUserLogoProcess" EntitySet="tblUserLogoProcesses" />
             <End Role="tblUserItem" EntitySet="tblUserItems" />
           </AssociationSet>
-          <EntitySet Name="tblPrintColors" EntityType="hrModel.tblPrintColor" />
-          <AssociationSet Name="FK__tblApplic__Print__420DC656" Association="hrModel.FK__tblApplic__Print__420DC656">
-            <End Role="tblPrintColor" EntitySet="tblPrintColors" />
-            <End Role="tblApplicationColorsMapping" EntitySet="tblApplicationColorsMappings" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblPriceL__Colou__49AEE81E" Association="hrModel.FK__tblPriceL__Colou__49AEE81E">
-            <End Role="tblPrintColor" EntitySet="tblPrintColors" />
-            <End Role="tblPriceList" EntitySet="tblPriceLists" />
-          </AssociationSet>
-          <FunctionImport Name="Pro_FilterGarments" ReturnType="Collection(hrModel.Pro_FilterGarments_Result)">
-            <Parameter Name="ItemId" Mode="In" Type="Int32" />
-            <Parameter Name="ColorId" Mode="In" Type="Int32" />
-            <Parameter Name="FabricId" Mode="In" Type="Int32" />
-            <Parameter Name="Gender" Mode="In" Type="Int32" />
-            <Parameter Name="Order" Mode="In" Type="Int32" />
-          </FunctionImport>
           </EntityContainer>
         <EntityType Name="tblDecorationColour">
           <Key>
@@ -4677,8 +4693,8 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <NavigationProperty Name="tblOrderDetails" Relationship="hrModel.FK__tblOrderD__UserI__73DA2C14" FromRole="tbluser" ToRole="tblOrderDetail" />
           <NavigationProperty Name="tblDraftQuotes" Relationship="hrModel.FK__tblDraftQ__UserI__673F4B05" FromRole="tbluser" ToRole="tblDraftQuote" />
           <NavigationProperty Name="tblDraftOrders" Relationship="hrModel.FK__tblDraftO__UserI__7F4BDEC0" FromRole="tbluser" ToRole="tblDraftOrder" />
-          <NavigationProperty Name="tblDraftQuoteItems" Relationship="hrModel.FK__tblQuotes__UserI__542C7691" FromRole="tbluser" ToRole="tblDraftQuoteItem" />
           <NavigationProperty Name="tblUserLogoes" Relationship="hrModel.FK__tblUserLo__UserI__269AB60B" FromRole="tbluser" ToRole="tblUserLogo" />
+          <NavigationProperty Name="tblDraftQuoteItems" Relationship="hrModel.FK__tblQuotes__UserI__542C7691" FromRole="tbluser" ToRole="tblDraftQuoteItem" />
           <NavigationProperty Name="tblUserItems" Relationship="hrModel.FK__tblUserIt__UserI__3AA1AEB8" FromRole="tbluser" ToRole="tblUserItem" />
         </EntityType>
         <Association Name="FK_AcctMgr">
@@ -5924,144 +5940,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <Property Type="Decimal" Name="QuoteGST" Nullable="true" Precision="38" Scale="2" />
           <Property Type="String" Name="AccountManager" Nullable="true" MaxLength="241" />
         </ComplexType>
-        <EntityType Name="Vw_tblOptionForOpp">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="quantity" />
-            <PropertyRef Name="code" />
-            <PropertyRef Name="band_id" />
-            <PropertyRef Name="item_id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="quantity" Type="Int32" Nullable="false" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="band_id" Type="Int32" Nullable="false" />
-          <Property Name="item_id" Type="Int32" Nullable="false" />
-          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="front_decoration" Type="Int32" />
-          <Property Name="back_decoration" Type="Int32" />
-          <Property Name="left_decoration" Type="Int32" />
-          <Property Name="right_decoration" Type="Int32" />
-          <Property Name="extra_decoration" Type="Int32" />
-          <Property Name="uni_price" Type="Double" />
-          <Property Name="total" Type="Double" />
-          <Property Name="include_job" Type="Boolean" />
-          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="OpportunityId" Type="Int32" />
-          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="oldFront_decoration" Type="Int32" />
-          <Property Name="oldBack_decoration" Type="Int32" />
-          <Property Name="oldLeft_decoration" Type="Int32" />
-          <Property Name="oldRight_decoration" Type="Int32" />
-          <Property Name="oldExtra_decoration" Type="Int32" />
-          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ProofSent" Type="Boolean" />
-          <Property Name="ProofMailSent" Type="DateTime" Precision="3" />
-          <Property Name="ProofVerion" Type="Int32" />
-          <Property Name="PaidBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Vw_tblOptionForOrder">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="quantity" />
-            <PropertyRef Name="code" />
-            <PropertyRef Name="band_id" />
-            <PropertyRef Name="item_id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="quantity" Type="Int32" Nullable="false" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="band_id" Type="Int32" Nullable="false" />
-          <Property Name="item_id" Type="Int32" Nullable="false" />
-          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="front_decoration" Type="Int32" />
-          <Property Name="back_decoration" Type="Int32" />
-          <Property Name="left_decoration" Type="Int32" />
-          <Property Name="right_decoration" Type="Int32" />
-          <Property Name="extra_decoration" Type="Int32" />
-          <Property Name="uni_price" Type="Double" />
-          <Property Name="total" Type="Double" />
-          <Property Name="include_job" Type="Boolean" />
-          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="OpportunityId" Type="Int32" />
-          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="oldFront_decoration" Type="Int32" />
-          <Property Name="oldBack_decoration" Type="Int32" />
-          <Property Name="oldLeft_decoration" Type="Int32" />
-          <Property Name="oldRight_decoration" Type="Int32" />
-          <Property Name="oldExtra_decoration" Type="Int32" />
-          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ProofSent" Type="Boolean" />
-          <Property Name="ProofMailSent" Type="DateTime" Precision="3" />
-          <Property Name="ProofVerion" Type="Int32" />
-          <Property Name="PaidBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tblacct_managerToBeDeleted">
           <Key>
             <PropertyRef Name="id" />
@@ -7378,20 +7256,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblStatu">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedON" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblDraftQuotes" Relationship="hrModel.FK__tblDraftQ__Statu__6A1BB7B0" FromRole="tblStatu" ToRole="tblDraftQuote" />
-          <NavigationProperty Name="tblUserLogoes" Relationship="hrModel.FK__tblUserLo__Statu__01F34141" FromRole="tblStatu" ToRole="tblUserLogo" />
-        </EntityType>
         <EntityType Name="tblDraftQuote">
           <Key>
             <PropertyRef Name="Id" />
@@ -7406,22 +7270,10 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <Property Name="UserId" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="TotalPrice" Type="Decimal" Precision="10" Scale="2" />
-          <NavigationProperty Name="tblStatu" Relationship="hrModel.FK__tblDraftQ__Statu__6A1BB7B0" FromRole="tblDraftQuote" ToRole="tblStatu" />
           <NavigationProperty Name="tbluser" Relationship="hrModel.FK__tblDraftQ__UserI__673F4B05" FromRole="tblDraftQuote" ToRole="tbluser" />
           <NavigationProperty Name="tblDraftQuoteItems" Relationship="hrModel.FK__tblQuotes__Quote__65570293" FromRole="tblDraftQuote" ToRole="tblDraftQuoteItem" />
+          <NavigationProperty Name="tblStatu" Relationship="hrModel.FK__tblDraftQ__Statu__6A1BB7B0" FromRole="tblDraftQuote" ToRole="tblStatu" />
         </EntityType>
-        <Association Name="FK__tblDraftQ__Statu__6A1BB7B0">
-          <End Type="hrModel.tblStatu" Role="tblStatu" Multiplicity="0..1" />
-          <End Type="hrModel.tblDraftQuote" Role="tblDraftQuote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblDraftQuote">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblDraftQ__UserI__673F4B05">
           <End Type="hrModel.tbluser" Role="tbluser" Multiplicity="0..1" />
           <End Type="hrModel.tblDraftQuote" Role="tblDraftQuote" Multiplicity="*" />
@@ -7478,57 +7330,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblDraftQuoteItem">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Process_Id" Type="Int32" />
-          <Property Name="Colour_Id" Type="Int32" />
-          <Property Name="Size_Id" Type="Int32" />
-          <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="ImageId" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="Quotes_Id" Type="Int32" />
-          <Property Name="Print_Price" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Totalprice" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Tshirt_Price" Type="Int32" />
-          <Property Name="Unit_Price" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="UserItemId" Type="Int32" />
-          <NavigationProperty Name="tblDraftQuote" Relationship="hrModel.FK__tblQuotes__Quote__65570293" FromRole="tblDraftQuoteItem" ToRole="tblDraftQuote" />
-          <NavigationProperty Name="tbluser" Relationship="hrModel.FK__tblQuotes__UserI__542C7691" FromRole="tblDraftQuoteItem" ToRole="tbluser" />
-          <NavigationProperty Name="tblDraftOrderItems" Relationship="hrModel.FK__tblDraftO__Quote__6C040022" FromRole="tblDraftQuoteItem" ToRole="tblDraftOrderItem" />
-          <NavigationProperty Name="tblUserItem" Relationship="hrModel.FK__tblDraftQ__UserI__76818E95" FromRole="tblDraftQuoteItem" ToRole="tblUserItem" />
-        </EntityType>
-        <Association Name="FK__tblQuotes__Quote__65570293">
-          <End Type="hrModel.tblDraftQuote" Role="tblDraftQuote" Multiplicity="0..1" />
-          <End Type="hrModel.tblDraftQuoteItem" Role="tblDraftQuoteItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDraftQuote">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblDraftQuoteItem">
-              <PropertyRef Name="Quotes_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblQuotes__UserI__542C7691">
-          <End Type="hrModel.tbluser" Role="tbluser" Multiplicity="0..1" />
-          <End Type="hrModel.tblDraftQuoteItem" Role="tblDraftQuoteItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbluser">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tblDraftQuoteItem">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblDraftOrderItem">
           <Key>
             <PropertyRef Name="Id" />
@@ -7561,18 +7362,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Principal>
             <Dependent Role="tblDraftOrderItem">
               <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblDraftO__Quote__6C040022">
-          <End Type="hrModel.tblDraftQuoteItem" Role="tblDraftQuoteItem" Multiplicity="0..1" />
-          <End Type="hrModel.tblDraftOrderItem" Role="tblDraftOrderItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDraftQuoteItem">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblDraftOrderItem">
-              <PropertyRef Name="QuotesItem_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7612,24 +7401,12 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <Property Name="ApprovedLogo_Date" Type="DateTime" Precision="3" />
           <Property Name="RejectedLogo_Date" Type="DateTime" Precision="3" />
           <Property Name="RejectedLogo_UserId" Type="Int32" />
-          <NavigationProperty Name="tblStatu" Relationship="hrModel.FK__tblUserLo__Statu__01F34141" FromRole="tblUserLogo" ToRole="tblStatu" />
           <NavigationProperty Name="tbluser" Relationship="hrModel.FK__tblUserLo__UserI__269AB60B" FromRole="tblUserLogo" ToRole="tbluser" />
           <NavigationProperty Name="tblUserLogoProcesses" Relationship="hrModel.FK__tblUserLo__UserL__04CFADEC" FromRole="tblUserLogo" ToRole="tblUserLogoProcess" />
+          <NavigationProperty Name="tblStatu" Relationship="hrModel.FK__tblUserLo__Statu__01F34141" FromRole="tblUserLogo" ToRole="tblStatu" />
           <NavigationProperty Name="tblUserItems" Relationship="hrModel.FK__tblUserIt__Front__3C89F72A" FromRole="tblUserLogo" ToRole="tblUserItem" />
           <NavigationProperty Name="tblUserItems1" Relationship="hrModel.FK__tblUserIt__LogoI__3B95D2F1" FromRole="tblUserLogo" ToRole="tblUserItem" />
         </EntityType>
-        <Association Name="FK__tblUserLo__Statu__01F34141">
-          <End Type="hrModel.tblStatu" Role="tblStatu" Multiplicity="0..1" />
-          <End Type="hrModel.tblUserLogo" Role="tblUserLogo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblUserLogo">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblUserLo__UserI__269AB60B">
           <End Type="hrModel.tbluser" Role="tbluser" Multiplicity="0..1" />
           <End Type="hrModel.tblUserLogo" Role="tblUserLogo" Multiplicity="*" />
@@ -7654,6 +7431,306 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblPrintColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblApplicationColorsMappings" Relationship="hrModel.FK__tblApplic__Print__420DC656" FromRole="tblPrintColor" ToRole="tblApplicationColorsMapping" />
+          <NavigationProperty Name="tblPriceLists" Relationship="hrModel.FK__tblPriceL__Colou__49AEE81E" FromRole="tblPrintColor" ToRole="tblPriceList" />
+        </EntityType>
+        <Association Name="FK__tblApplic__Print__420DC656">
+          <End Type="hrModel.tblPrintColor" Role="tblPrintColor" Multiplicity="0..1" />
+          <End Type="hrModel.tblApplicationColorsMapping" Role="tblApplicationColorsMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPrintColor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblApplicationColorsMapping">
+              <PropertyRef Name="PrintColor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPriceL__Colou__49AEE81E">
+          <End Type="hrModel.tblPrintColor" Role="tblPrintColor" Multiplicity="0..1" />
+          <End Type="hrModel.tblPriceList" Role="tblPriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPrintColor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPriceList">
+              <PropertyRef Name="Colour_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Pro_FilterGarments_Result">
+          <Property Type="String" Name="Item" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Fabric" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Gender" Nullable="true" />
+          <Property Type="String" Name="Color" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FrontImage" Nullable="true" />
+          <Property Type="Int32" Name="ImageId" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Vw_tblOptionForOpp">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="band_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="front_decoration" Type="Int32" />
+          <Property Name="back_decoration" Type="Int32" />
+          <Property Name="left_decoration" Type="Int32" />
+          <Property Name="right_decoration" Type="Int32" />
+          <Property Name="extra_decoration" Type="Int32" />
+          <Property Name="uni_price" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="include_job" Type="Boolean" />
+          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="OpportunityId" Type="Int32" />
+          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="oldFront_decoration" Type="Int32" />
+          <Property Name="oldBack_decoration" Type="Int32" />
+          <Property Name="oldLeft_decoration" Type="Int32" />
+          <Property Name="oldRight_decoration" Type="Int32" />
+          <Property Name="oldExtra_decoration" Type="Int32" />
+          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ProofSent" Type="Boolean" />
+          <Property Name="ProofMailSent" Type="DateTime" Precision="3" />
+          <Property Name="ProofVerion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Vw_tblOptionForOrder">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="band_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="band_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="colour" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="private_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="front_decoration" Type="Int32" />
+          <Property Name="back_decoration" Type="Int32" />
+          <Property Name="left_decoration" Type="Int32" />
+          <Property Name="right_decoration" Type="Int32" />
+          <Property Name="extra_decoration" Type="Int32" />
+          <Property Name="uni_price" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="include_job" Type="Boolean" />
+          <Property Name="job_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="OpportunityId" Type="Int32" />
+          <Property Name="SizeGrid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Margin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InitialSizes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OtherDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OtherCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Front_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decDesign" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Back_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Left_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Right_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extra_decQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Declined" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Front_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Back_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Left_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Right_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Extra_decCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OptionStage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="oldFront_decoration" Type="Int32" />
+          <Property Name="oldBack_decoration" Type="Int32" />
+          <Property Name="oldLeft_decoration" Type="Int32" />
+          <Property Name="oldRight_decoration" Type="Int32" />
+          <Property Name="oldExtra_decoration" Type="Int32" />
+          <Property Name="UnitInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtExGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExtInclGST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SizesPacked" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ProofSent" Type="Boolean" />
+          <Property Name="ProofMailSent" Type="DateTime" Precision="3" />
+          <Property Name="ProofVerion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblDraftQuoteItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Process_Id" Type="Int32" />
+          <Property Name="Colour_Id" Type="Int32" />
+          <Property Name="Size_Id" Type="Int32" />
+          <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Quotes_Id" Type="Int32" />
+          <Property Name="Print_Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Totalprice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Tshirt_Price" Type="Int32" />
+          <Property Name="Unit_Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UserItemId" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblDraftOrderItems" Relationship="hrModel.FK__tblDraftO__Quote__6C040022" FromRole="tblDraftQuoteItem" ToRole="tblDraftOrderItem" />
+          <NavigationProperty Name="tblDraftQuote" Relationship="hrModel.FK__tblQuotes__Quote__65570293" FromRole="tblDraftQuoteItem" ToRole="tblDraftQuote" />
+          <NavigationProperty Name="tbluser" Relationship="hrModel.FK__tblQuotes__UserI__542C7691" FromRole="tblDraftQuoteItem" ToRole="tbluser" />
+          <NavigationProperty Name="tblUserItem" Relationship="hrModel.FK__tblDraftQ__UserI__76818E95" FromRole="tblDraftQuoteItem" ToRole="tblUserItem" />
+        </EntityType>
+        <Association Name="FK__tblDraftO__Quote__6C040022">
+          <End Type="hrModel.tblDraftQuoteItem" Role="tblDraftQuoteItem" Multiplicity="0..1" />
+          <End Type="hrModel.tblDraftOrderItem" Role="tblDraftOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDraftQuoteItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDraftOrderItem">
+              <PropertyRef Name="QuotesItem_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuotes__Quote__65570293">
+          <End Type="hrModel.tblDraftQuote" Role="tblDraftQuote" Multiplicity="0..1" />
+          <End Type="hrModel.tblDraftQuoteItem" Role="tblDraftQuoteItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDraftQuote">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDraftQuoteItem">
+              <PropertyRef Name="Quotes_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuotes__UserI__542C7691">
+          <End Type="hrModel.tbluser" Role="tbluser" Multiplicity="0..1" />
+          <End Type="hrModel.tblDraftQuoteItem" Role="tblDraftQuoteItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbluser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblDraftQuoteItem">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedON" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblDraftQuotes" Relationship="hrModel.FK__tblDraftQ__Statu__6A1BB7B0" FromRole="tblStatu" ToRole="tblDraftQuote" />
+          <NavigationProperty Name="tblUserLogoes" Relationship="hrModel.FK__tblUserLo__Statu__01F34141" FromRole="tblStatu" ToRole="tblUserLogo" />
+        </EntityType>
+        <Association Name="FK__tblDraftQ__Statu__6A1BB7B0">
+          <End Type="hrModel.tblStatu" Role="tblStatu" Multiplicity="0..1" />
+          <End Type="hrModel.tblDraftQuote" Role="tblDraftQuote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDraftQuote">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblUserLo__Statu__01F34141">
+          <End Type="hrModel.tblStatu" Role="tblStatu" Multiplicity="0..1" />
+          <End Type="hrModel.tblUserLogo" Role="tblUserLogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserLogo">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quotes_Id" Type="Int32" />
+          <Property Name="Logo_Id" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
         <EntityType Name="tblUserItem">
           <Key>
             <PropertyRef Name="Id" />
@@ -7676,6 +7753,7 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
           <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="BackImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UserLogoProcess_id" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="tblDraftQuoteItems" Relationship="hrModel.FK__tblDraftQ__UserI__76818E95" FromRole="tblUserItem" ToRole="tblDraftQuoteItem" />
           <NavigationProperty Name="tblOptionProperty" Relationship="hrModel.FK__tblUserIt__Image__39AD8A7F" FromRole="tblUserItem" ToRole="tblOptionProperty" />
           <NavigationProperty Name="tblOrderDetails" Relationship="hrModel.FK__tblOrderD__UserI__74CE504D" FromRole="tblUserItem" ToRole="tblOrderDetail" />
@@ -7768,52 +7846,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblPrintColor">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblApplicationColorsMappings" Relationship="hrModel.FK__tblApplic__Print__420DC656" FromRole="tblPrintColor" ToRole="tblApplicationColorsMapping" />
-          <NavigationProperty Name="tblPriceLists" Relationship="hrModel.FK__tblPriceL__Colou__49AEE81E" FromRole="tblPrintColor" ToRole="tblPriceList" />
-        </EntityType>
-        <Association Name="FK__tblApplic__Print__420DC656">
-          <End Type="hrModel.tblPrintColor" Role="tblPrintColor" Multiplicity="0..1" />
-          <End Type="hrModel.tblApplicationColorsMapping" Role="tblApplicationColorsMapping" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblPrintColor">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblApplicationColorsMapping">
-              <PropertyRef Name="PrintColor_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblPriceL__Colou__49AEE81E">
-          <End Type="hrModel.tblPrintColor" Role="tblPrintColor" Multiplicity="0..1" />
-          <End Type="hrModel.tblPriceList" Role="tblPriceList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblPrintColor">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblPriceList">
-              <PropertyRef Name="Colour_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="Pro_FilterGarments_Result">
-          <Property Type="String" Name="Item" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="Fabric" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="Gender" Nullable="true" />
-          <Property Type="String" Name="Color" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="FrontImage" Nullable="true" />
-          <Property Type="Int32" Name="ImageId" Nullable="false" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9050,138 +9082,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Vw_tblOptionForOpp">
-            <EntityTypeMapping TypeName="hrModel.Vw_tblOptionForOpp">
-              <MappingFragment StoreEntitySet="Vw_tblOptionForOpp">
-                <ScalarProperty Name="PaidBy" ColumnName="PaidBy" />
-                <ScalarProperty Name="ProofVerion" ColumnName="ProofVerion" />
-                <ScalarProperty Name="ProofMailSent" ColumnName="ProofMailSent" />
-                <ScalarProperty Name="ProofSent" ColumnName="ProofSent" />
-                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
-                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
-                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
-                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
-                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
-                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
-                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
-                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
-                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
-                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
-                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
-                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
-                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
-                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
-                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
-                <ScalarProperty Name="Service" ColumnName="Service" />
-                <ScalarProperty Name="Declined" ColumnName="Declined" />
-                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
-                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
-                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
-                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
-                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
-                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
-                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
-                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
-                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
-                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
-                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
-                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
-                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
-                <ScalarProperty Name="Margin" ColumnName="Margin" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
-                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="job_id" ColumnName="job_id" />
-                <ScalarProperty Name="include_job" ColumnName="include_job" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
-                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
-                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
-                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
-                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
-                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
-                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="colour" ColumnName="colour" />
-                <ScalarProperty Name="item_id" ColumnName="item_id" />
-                <ScalarProperty Name="band_id" ColumnName="band_id" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vw_tblOptionForOrder">
-            <EntityTypeMapping TypeName="hrModel.Vw_tblOptionForOrder">
-              <MappingFragment StoreEntitySet="Vw_tblOptionForOrder">
-                <ScalarProperty Name="PaidBy" ColumnName="PaidBy" />
-                <ScalarProperty Name="ProofVerion" ColumnName="ProofVerion" />
-                <ScalarProperty Name="ProofMailSent" ColumnName="ProofMailSent" />
-                <ScalarProperty Name="ProofSent" ColumnName="ProofSent" />
-                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
-                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
-                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
-                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
-                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
-                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
-                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
-                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
-                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
-                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
-                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
-                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
-                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
-                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
-                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
-                <ScalarProperty Name="Service" ColumnName="Service" />
-                <ScalarProperty Name="Declined" ColumnName="Declined" />
-                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
-                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
-                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
-                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
-                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
-                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
-                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
-                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
-                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
-                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
-                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
-                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
-                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
-                <ScalarProperty Name="Margin" ColumnName="Margin" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
-                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="job_id" ColumnName="job_id" />
-                <ScalarProperty Name="include_job" ColumnName="include_job" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
-                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
-                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
-                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
-                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
-                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
-                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="colour" ColumnName="colour" />
-                <ScalarProperty Name="item_id" ColumnName="item_id" />
-                <ScalarProperty Name="band_id" ColumnName="band_id" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblacct_managerToBeDeleted">
             <EntityTypeMapping TypeName="hrModel.tblacct_managerToBeDeleted">
               <MappingFragment StoreEntitySet="tblacct_managerToBeDeleted">
@@ -10163,19 +10063,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblStatus">
-            <EntityTypeMapping TypeName="hrModel.tblStatu">
-              <MappingFragment StoreEntitySet="tblStatus">
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedON" ColumnName="CreatedON" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblDraftQuotes">
             <EntityTypeMapping TypeName="hrModel.tblDraftQuote">
               <MappingFragment StoreEntitySet="tblDraftQuote">
@@ -10206,30 +10093,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
                 <ScalarProperty Name="ShippingCharge" ColumnName="ShippingCharge" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblDraftQuoteItems">
-            <EntityTypeMapping TypeName="hrModel.tblDraftQuoteItem">
-              <MappingFragment StoreEntitySet="tblDraftQuoteItem">
-                <ScalarProperty Name="UserItemId" ColumnName="UserItemId" />
-                <ScalarProperty Name="Unit_Price" ColumnName="Unit_Price" />
-                <ScalarProperty Name="Tshirt_Price" ColumnName="Tshirt_Price" />
-                <ScalarProperty Name="Totalprice" ColumnName="Totalprice" />
-                <ScalarProperty Name="Print_Price" ColumnName="Print_Price" />
-                <ScalarProperty Name="Quotes_Id" ColumnName="Quotes_Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="Size_Id" ColumnName="Size_Id" />
-                <ScalarProperty Name="Colour_Id" ColumnName="Colour_Id" />
-                <ScalarProperty Name="Process_Id" ColumnName="Process_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10293,30 +10156,6 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUserItems">
-            <EntityTypeMapping TypeName="hrModel.tblUserItem">
-              <MappingFragment StoreEntitySet="tblUserItems">
-                <ScalarProperty Name="UserLogoProcess_id" ColumnName="UserLogoProcess_id" />
-                <ScalarProperty Name="BackImageSource" ColumnName="BackImageSource" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="FrontLogoId" ColumnName="FrontLogoId" />
-                <ScalarProperty Name="FrontImageSource" ColumnName="FrontImageSource" />
-                <ScalarProperty Name="BackLogoPositionLeft" ColumnName="BackLogoPositionLeft" />
-                <ScalarProperty Name="BackLogoPositionTop" ColumnName="BackLogoPositionTop" />
-                <ScalarProperty Name="BackLogoheight" ColumnName="BackLogoheight" />
-                <ScalarProperty Name="BackLogoWidth" ColumnName="BackLogoWidth" />
-                <ScalarProperty Name="FrontLogoPositionLeft" ColumnName="FrontLogoPositionLeft" />
-                <ScalarProperty Name="FrontLogoPositionTop" ColumnName="FrontLogoPositionTop" />
-                <ScalarProperty Name="FrontLogoheight" ColumnName="FrontLogoheight" />
-                <ScalarProperty Name="FrontLogoWidth" ColumnName="FrontLogoWidth" />
-                <ScalarProperty Name="BackLogoId" ColumnName="BackLogoId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblPrintColors">
             <EntityTypeMapping TypeName="hrModel.tblPrintColor">
               <MappingFragment StoreEntitySet="tblPrintColor">
@@ -10342,6 +10181,216 @@ warning 6002: The table/view 'SQLDB_Prodv10_Backup.dbo.Vw_tblPurchase' does not 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Vw_tblOptionForOpp">
+            <EntityTypeMapping TypeName="hrModel.Vw_tblOptionForOpp">
+              <MappingFragment StoreEntitySet="Vw_tblOptionForOpp">
+                <ScalarProperty Name="ProofVerion" ColumnName="ProofVerion" />
+                <ScalarProperty Name="ProofMailSent" ColumnName="ProofMailSent" />
+                <ScalarProperty Name="ProofSent" ColumnName="ProofSent" />
+                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
+                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
+                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
+                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
+                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
+                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
+                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
+                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
+                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
+                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
+                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
+                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
+                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
+                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
+                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Declined" ColumnName="Declined" />
+                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
+                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
+                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
+                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
+                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
+                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
+                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
+                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
+                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
+                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
+                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
+                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
+                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
+                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="include_job" ColumnName="include_job" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
+                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
+                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
+                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
+                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
+                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
+                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="band_id" ColumnName="band_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_tblOptionForOrder">
+            <EntityTypeMapping TypeName="hrModel.Vw_tblOptionForOrder">
+              <MappingFragment StoreEntitySet="Vw_tblOptionForOrder">
+                <ScalarProperty Name="ProofVerion" ColumnName="ProofVerion" />
+                <ScalarProperty Name="ProofMailSent" ColumnName="ProofMailSent" />
+                <ScalarProperty Name="ProofSent" ColumnName="ProofSent" />
+                <ScalarProperty Name="SizesPacked" ColumnName="SizesPacked" />
+                <ScalarProperty Name="ExtInclGST" ColumnName="ExtInclGST" />
+                <ScalarProperty Name="ExtExGST" ColumnName="ExtExGST" />
+                <ScalarProperty Name="UnitInclGST" ColumnName="UnitInclGST" />
+                <ScalarProperty Name="oldExtra_decoration" ColumnName="oldExtra_decoration" />
+                <ScalarProperty Name="oldRight_decoration" ColumnName="oldRight_decoration" />
+                <ScalarProperty Name="oldLeft_decoration" ColumnName="oldLeft_decoration" />
+                <ScalarProperty Name="oldBack_decoration" ColumnName="oldBack_decoration" />
+                <ScalarProperty Name="oldFront_decoration" ColumnName="oldFront_decoration" />
+                <ScalarProperty Name="OptionStage" ColumnName="OptionStage" />
+                <ScalarProperty Name="Extra_decCost" ColumnName="Extra_decCost" />
+                <ScalarProperty Name="Right_decCost" ColumnName="Right_decCost" />
+                <ScalarProperty Name="Left_decCost" ColumnName="Left_decCost" />
+                <ScalarProperty Name="Back_decCost" ColumnName="Back_decCost" />
+                <ScalarProperty Name="Front_decCost" ColumnName="Front_decCost" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Declined" ColumnName="Declined" />
+                <ScalarProperty Name="Extra_decQuantity" ColumnName="Extra_decQuantity" />
+                <ScalarProperty Name="Right_decQuantity" ColumnName="Right_decQuantity" />
+                <ScalarProperty Name="Left_decQuantity" ColumnName="Left_decQuantity" />
+                <ScalarProperty Name="Back_decQuantity" ColumnName="Back_decQuantity" />
+                <ScalarProperty Name="Front_decQuantity" ColumnName="Front_decQuantity" />
+                <ScalarProperty Name="Extra_decDesign" ColumnName="Extra_decDesign" />
+                <ScalarProperty Name="Right_decDesign" ColumnName="Right_decDesign" />
+                <ScalarProperty Name="Left_decDesign" ColumnName="Left_decDesign" />
+                <ScalarProperty Name="Back_decDesign" ColumnName="Back_decDesign" />
+                <ScalarProperty Name="Front_decDesign" ColumnName="Front_decDesign" />
+                <ScalarProperty Name="OtherCost" ColumnName="OtherCost" />
+                <ScalarProperty Name="OtherDesc" ColumnName="OtherDesc" />
+                <ScalarProperty Name="InitialSizes" ColumnName="InitialSizes" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="SizeGrid" ColumnName="SizeGrid" />
+                <ScalarProperty Name="OpportunityId" ColumnName="OpportunityId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="include_job" ColumnName="include_job" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="uni_price" ColumnName="uni_price" />
+                <ScalarProperty Name="extra_decoration" ColumnName="extra_decoration" />
+                <ScalarProperty Name="right_decoration" ColumnName="right_decoration" />
+                <ScalarProperty Name="left_decoration" ColumnName="left_decoration" />
+                <ScalarProperty Name="back_decoration" ColumnName="back_decoration" />
+                <ScalarProperty Name="front_decoration" ColumnName="front_decoration" />
+                <ScalarProperty Name="private_comment" ColumnName="private_comment" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="band_id" ColumnName="band_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDraftQuoteItems">
+            <EntityTypeMapping TypeName="hrModel.tblDraftQuoteItem">
+              <MappingFragment StoreEntitySet="tblDraftQuoteItem">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UserItemId" ColumnName="UserItemId" />
+                <ScalarProperty Name="Unit_Price" ColumnName="Unit_Price" />
+                <ScalarProperty Name="Tshirt_Price" ColumnName="Tshirt_Price" />
+                <ScalarProperty Name="Totalprice" ColumnName="Totalprice" />
+                <ScalarProperty Name="Print_Price" ColumnName="Print_Price" />
+                <ScalarProperty Name="Quotes_Id" ColumnName="Quotes_Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Size_Id" ColumnName="Size_Id" />
+                <ScalarProperty Name="Colour_Id" ColumnName="Colour_Id" />
+                <ScalarProperty Name="Process_Id" ColumnName="Process_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStatus">
+            <EntityTypeMapping TypeName="hrModel.tblStatu">
+              <MappingFragment StoreEntitySet="tblStatus">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedON" ColumnName="CreatedON" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNotifications">
+            <EntityTypeMapping TypeName="hrModel.tblNotification">
+              <MappingFragment StoreEntitySet="tblNotification">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Logo_Id" ColumnName="Logo_Id" />
+                <ScalarProperty Name="Quotes_Id" ColumnName="Quotes_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserItems">
+            <EntityTypeMapping TypeName="hrModel.tblUserItem">
+              <MappingFragment StoreEntitySet="tblUserItems">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UserLogoProcess_id" ColumnName="UserLogoProcess_id" />
+                <ScalarProperty Name="BackImageSource" ColumnName="BackImageSource" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="FrontLogoId" ColumnName="FrontLogoId" />
+                <ScalarProperty Name="FrontImageSource" ColumnName="FrontImageSource" />
+                <ScalarProperty Name="BackLogoPositionLeft" ColumnName="BackLogoPositionLeft" />
+                <ScalarProperty Name="BackLogoPositionTop" ColumnName="BackLogoPositionTop" />
+                <ScalarProperty Name="BackLogoheight" ColumnName="BackLogoheight" />
+                <ScalarProperty Name="BackLogoWidth" ColumnName="BackLogoWidth" />
+                <ScalarProperty Name="FrontLogoPositionLeft" ColumnName="FrontLogoPositionLeft" />
+                <ScalarProperty Name="FrontLogoPositionTop" ColumnName="FrontLogoPositionTop" />
+                <ScalarProperty Name="FrontLogoheight" ColumnName="FrontLogoheight" />
+                <ScalarProperty Name="FrontLogoWidth" ColumnName="FrontLogoWidth" />
+                <ScalarProperty Name="BackLogoId" ColumnName="BackLogoId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

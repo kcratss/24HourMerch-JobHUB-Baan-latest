@@ -20,13 +20,13 @@
 
                     <input class="submit btn btn-primary mb-3" type="submit" name="submit" value="Add New Address" data-toggle="modal" data-target="#addAddressModal">
                 </div>
-                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":3,"pagination":true}'>
+                <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
                     <div class="table-responsive scrollbar">
                         <table class="table table-bordered table-striped fs--1 mb-0" id="addresstable">
                             <thead class="bg-200 text-900">
                                 <tr>
                                     <th class="sort" data-sort="name">Name</th>
-                                    <th class="sort" data-sort="attention">Attention</th>
+                                    @*<th class="sort" data-sort="attention">Attention</th>*@
                                     <th class="sort" data-sort="address1">Address Line 1</th>
                                     <th class="sort" data-sort="address2">Address Line 2</th>
                                     <th class="sort" data-sort="state">State</th>
@@ -48,7 +48,7 @@
                                             @Html.HiddenFor(x => item.AddressId, new { id = "txtAdddressId" })
                                             <td class="id">@Html.DisplayFor(modelItem => item.Name)</td>
 
-                                            <td class="quantity">@Html.DisplayFor(modelItem => item.Attention)</td>
+                                            @*<td class="quantity">@Html.DisplayFor(modelItem => item.Attention)</td>*@
                                             <td class="code"> @Html.DisplayFor(modelItem => item.AddressLine1) </td>
                                             <td class="brandname"> @Html.DisplayFor(modelItem => item.AddressLine2) </td>
 
@@ -109,10 +109,10 @@
                                             <input type="text" class="form-control" id="txtname" name="txtname" placeholder="Enter Name">
 
                                         </div>
-                                        <div class="form-group mb-3">
+                                       @* <div class="form-group mb-3">
                                             <label for="attention">Attention<span class="me-1 spanrequired">*</span></label>
                                             <input type="text" class="form-control" id="txtattention" name="txtattention" placeholder="Enter Attention">
-                                        </div>
+                                        </div>*@
                                         <div class="form-group mb-3">
                                             <label for="address1">Address Line 1<span class="me-1 spanrequired">*</span></label>
                                             <input type="text" class="form-control" id="txtaddress1" name="txtaddress1" placeholder="Enter Address">
@@ -125,7 +125,7 @@
                                             <div class="col">
 
                                                 <label for="state">State<span class="me-1 spanrequired">*</span></label>
-                                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--select--", new { @id = "txtstate", @class = "col-12" })
+                                                @Html.DropDownList("states", new SelectList(ViewBag.state, "Name", "Name"), "--Select--", new { @id = "txtstate", @class = "col-12" })
 
 
                                             </div>
@@ -182,6 +182,7 @@
         </div>
     </div>
 </div>
+
 
 
 

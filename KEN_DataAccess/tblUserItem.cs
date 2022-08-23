@@ -39,6 +39,7 @@ namespace KEN_DataAccess
         public string Status { get; set; }
         public string BackImageSource { get; set; }
         public Nullable<int> UserLogoProcess_id { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }

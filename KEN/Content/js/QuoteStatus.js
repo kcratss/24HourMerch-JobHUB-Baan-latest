@@ -13,15 +13,18 @@ function QuoteStatusList() {
         async: false,
         success: function (data) {
             if (data.length != 0) {
-                if (data.length == 1) {
+                if (data.length <= pageSize) {
                     document.getElementById('prev').disabled = true;
                     document.getElementById('next').disabled = true;
-
+                }
+                else {
+                    document.getElementById('next').disabled = false;
                 }
                 allDataList = data;
                 var totalRecords = data.length;
                 currentPage = 1;
                 let pageQuantity = Math.ceil(totalRecords / pageSize);
+                $('.pagination').text('');
                 for (let i = 1; i <= pageQuantity; i++) {
                     if (i == 1) {
                         $('.pagination').append('<li><button class="page active" onclick ="pagbutton(this)" type="button">' + i + '</button></li>')
@@ -56,6 +59,8 @@ function QuoteStatusList() {
 
 function ShowQuoteData(data) {
     document.getElementById('item').innerHTML = '';
+    $("#approvedModal").modal('hide');
+    $("#rejectedModal").modal('hide');
     if (data.length != 0) {
         for (i = 0; i < data.length; i++) {
             var subTotal = parseFloat(data[i].TotalPrice).toFixed(2);
@@ -247,9 +252,11 @@ function ApprovedQuotes() {
         data: { id: id, status: status },
         success: function (responses) {          
             ShowMessage(responses)
-            setTimeout(function () {
-                RedirectPage();
+            setTimeout(function () {                
             }, 2000)
+            RedirectQuoteItem();
+            $("#approvedModal").modal('hide');
+            $("#rejectedModal").modal('hide');
         }
     })
 }
@@ -264,12 +271,15 @@ function RejectedQuotes() {
         data: { id: id, status: status },
         success: function (responses) {
             ShowMessage(responses)
-            setTimeout(function () {
-                RedirectPage();
+            setTimeout(function () {              
             }, 2000)
+            RedirectQuoteItem();
+            $("#approvedModal").modal('hide');
+            $("#rejectedModal").modal('hide');
         }
     })
 }
+    
 
 function QuotesGrid(evt) {
     var i, tablinks;
@@ -284,7 +294,7 @@ function QuotesListGrid(element)
 {
     debugger;
     if (element == "All") {
-        location.href = "/Opportunity/QuoteStatus";
+        QuoteStatusList();
     }
     else if (element == "Pending") {
         Quotesfilter(element);
@@ -296,6 +306,22 @@ function QuotesListGrid(element)
         Quotesfilter(element);
     }
 
+}
+
+function RedirectQuoteItem() {
+    var quoteListId = $(".tablinks.active").attr('id');
+    if (quoteListId == "All") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Pending") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Approved") {
+        QuotesListGrid(quoteListId);
+    }
+    else if (quoteListId == "Rejected") {
+        QuotesListGrid(quoteListId);
+    }
 }
 
 function Quotesfilter(element)
@@ -310,9 +336,13 @@ function Quotesfilter(element)
             document.getElementById('item').innerHTML = '';
             $('.pagination').text('');
             if (data.length != 0) {
-                if (data.length == 1) {
+                if (data.length <= pageSize) {
                     document.getElementById('prev').disabled = true;
                     document.getElementById('next').disabled = true;
+
+                }
+                else {
+                    document.getElementById('next').disabled = false;
 
                 }
                 allDataList = data;
@@ -630,11 +660,10 @@ function RejectedModel(id) {
 
 }
 
-function PreviewModal(id)
-{
+function PreviewModal(id) {
     debugger;
     document.getElementById('preview').innerHTML = '';
-    document.getElementById('pre').innerHTML = '';
+    document.getElementById('previewbtn').innerHTML = '';
     $("#PreviewModal").modal('show');
     $.ajax({
         url: '/Opportunity/PreviewImage',
@@ -643,9 +672,44 @@ function PreviewModal(id)
         async: false,
         success: function (data) {
             debugger;
-            $("#preview").append('<img  class="light-zoom" width="340" src=' + data.FrontImageSource + '>');
-            $("#pre").append('<img  width="340" src=' + data.BackImageSource + '>');
+            $("#preview").append('<img  width="450" height="350" src=' + data.FrontImageSource + '>');
+            $("#previewbtn").append('<button type ="button" id="frontpreview" class="btn btn-primary" onclick = "FrontPreview(' + id + ')" disabled>Front</button >  <button type="button" id="backpreview" onclick="BackPreview(' + id + ')" class="btn btn-primary">Back</button>');
+        }
+    })
+}
 
+function BackPreview(id) {
+    debugger;
+    document.getElementById('preview').innerHTML = '';
+    document.getElementById('backpreview').disabled = true;
+    document.getElementById('frontpreview').disabled = false;
+    $.ajax({
+        url: '/Opportunity/PreviewImage',
+        type: 'GET',
+        data: { id: id },
+        async: false,
+        success: function (data) {
+            debugger;
+            $("preview").text('');
+            $("#preview").append('<img  width="450" height="350" src=' + data.BackImageSource + '>');
+        }
+    })
+}
+
+function FrontPreview(id) {
+    debugger;
+    document.getElementById('preview').innerHTML = '';
+    document.getElementById('backpreview').disabled = false;
+    document.getElementById('frontpreview').disabled = true;
+    $.ajax({
+        url: '/Opportunity/PreviewImage',
+        type: 'GET',
+        data: { id: id },
+        async: false,
+        success: function (data) {
+            debugger;
+            $("preview").text('');
+            $("#preview").append('<img  width="450" height="350" src=' + data.FrontImageSource + '>');
         }
     })
 }

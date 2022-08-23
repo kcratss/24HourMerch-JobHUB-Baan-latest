@@ -70,8 +70,6 @@ namespace KEN_DataAccess
         public virtual DbSet<tblOptionCode> tblOptionCodes { get; set; }
         public virtual DbSet<tblOpportunity> tblOpportunities { get; set; }
         public virtual DbSet<vw_tblopp1> vw_tblopp1 { get; set; }
-        public virtual DbSet<Vw_tblOptionForOpp> Vw_tblOptionForOpp { get; set; }
-        public virtual DbSet<Vw_tblOptionForOrder> Vw_tblOptionForOrder { get; set; }
         public virtual DbSet<tblacct_managerToBeDeleted> tblacct_managerToBeDeleted { get; set; }
         public virtual DbSet<tblarticle_has_attachmentsToBeDeleted> tblarticle_has_attachmentsToBeDeleted { get; set; }
         public virtual DbSet<tblclientsToBeDeleted> tblclientsToBeDeleteds { get; set; }
@@ -123,15 +121,18 @@ namespace KEN_DataAccess
         public virtual DbSet<TblSizeApplicationMapping> TblSizeApplicationMappings { get; set; }
         public virtual DbSet<tblSizeMaster> tblSizeMasters { get; set; }
         public virtual DbSet<tblVendorApplicationMapping> tblVendorApplicationMappings { get; set; }
-        public virtual DbSet<tblStatu> tblStatus { get; set; }
         public virtual DbSet<tblDraftQuote> tblDraftQuotes { get; set; }
         public virtual DbSet<tblDraftOrder> tblDraftOrders { get; set; }
-        public virtual DbSet<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }
         public virtual DbSet<tblDraftOrderItem> tblDraftOrderItems { get; set; }
         public virtual DbSet<tblUserLogoProcess> tblUserLogoProcesses { get; set; }
         public virtual DbSet<tblUserLogo> tblUserLogoes { get; set; }
-        public virtual DbSet<tblUserItem> tblUserItems { get; set; }
         public virtual DbSet<tblPrintColor> tblPrintColors { get; set; }
+        public virtual DbSet<Vw_tblOptionForOpp> Vw_tblOptionForOpp { get; set; }
+        public virtual DbSet<Vw_tblOptionForOrder> Vw_tblOptionForOrder { get; set; }
+        public virtual DbSet<tblDraftQuoteItem> tblDraftQuoteItems { get; set; }
+        public virtual DbSet<tblStatu> tblStatus { get; set; }
+        public virtual DbSet<tblNotification> tblNotifications { get; set; }
+        public virtual DbSet<tblUserItem> tblUserItems { get; set; }
     
         public virtual ObjectResult<Pro_DecorationExport_Result> Pro_DecorationExport()
         {

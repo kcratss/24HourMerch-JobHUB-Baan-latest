@@ -322,6 +322,7 @@ namespace KEN.Controllers
                         userItems.BackLogoPositionTop = userItem.BackLogoPositionTop;
                         userItems.BackLogoPositionLeft = userItem.BackLogoPositionLeft;
                         userItems.BackImageSource = userItem.BackImageSource;
+                        userItem.IsDeleted = false;
                         if (items.logoProcess_Id == 0)
                         {
                             userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;
@@ -353,6 +354,7 @@ namespace KEN.Controllers
                         userItems.FrontLogoPositionTop = userItem.FrontLogoPositionTop;
                         userItems.FrontLogoPositionLeft = userItem.FrontLogoPositionLeft;
                         userItems.FrontImageSource = userItem.FrontImageSource;
+                        userItem.IsDeleted = false;
                         if (items.logoProcess_Id == 0)
                         {
                             userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;
@@ -380,6 +382,7 @@ namespace KEN.Controllers
                         userItems.BackLogoPositionTop = userItem.BackLogoPositionTop;
                         userItems.BackLogoPositionLeft = userItem.BackLogoPositionLeft;
                         userItems.BackImageSource = userItem.BackImageSource;
+                        userItem.IsDeleted = false;
                         dbcontext.tblUserItems.Add(userItems);
                         dbcontext.SaveChanges();                        
                         response.IsSuccess = true;
@@ -399,6 +402,7 @@ namespace KEN.Controllers
                         userItems.FrontLogoPositionLeft = userItem.FrontLogoPositionLeft;
                         userItems.FrontImageSource = userItem.FrontImageSource;
                         userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;
+                        userItem.IsDeleted = false;
                         dbcontext.tblUserItems.Add(userItems);
                         dbcontext.SaveChanges();                       
                         response.IsSuccess = true;
@@ -424,6 +428,7 @@ namespace KEN.Controllers
                     userItem.UserLogoProcess_id = items.logoProcess_Id;
                     userItem.FrontImageSource = ImagePath;
                     userItem.BackImageSource = backimage.BackImage;
+                    userItem.IsDeleted = false;
                     dbcontext.tblUserItems.Add(userItem);
                     dbcontext.SaveChanges();
                     response.IsSuccess = true;
@@ -468,6 +473,7 @@ namespace KEN.Controllers
                         userItems.BackLogoPositionTop = userItem.BackLogoPositionTop;
                         userItems.BackLogoPositionLeft = userItem.BackLogoPositionLeft;
                         userItems.BackImageSource = userItem.BackImageSource;
+                        userItem.IsDeleted = false;
                         if (items.logoProcess_Id == 0)
                         {
                             userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;
@@ -500,6 +506,7 @@ namespace KEN.Controllers
                         userItems.FrontLogoPositionTop = userItem.FrontLogoPositionTop;
                         userItems.FrontLogoPositionLeft = userItem.FrontLogoPositionLeft;
                         userItems.FrontImageSource = userItem.FrontImageSource;
+                        userItem.IsDeleted = false;
                         if (items.logoProcess_Id == 0)
                         {
                             userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;
@@ -515,7 +522,7 @@ namespace KEN.Controllers
                         response.Message = " Item Successfully added";
                         return Json(response, JsonRequestBehavior.AllowGet);
                     }
-                    else if(items.FrontLogoId == 0 && userItem.FrontLogoId != 0)
+                    else if(items.FrontLogoId == 0 && userItem.FrontLogoId == 0 && items.BackLogoId !=0)
                     {
                         tblUserItem userItems = new tblUserItem();
                         userItems.UserId = DataBaseCon.ActiveClientId();
@@ -527,7 +534,8 @@ namespace KEN.Controllers
                         userItems.BackLogoWidth = userItem.BackLogoWidth;
                         userItems.BackLogoPositionTop = userItem.BackLogoPositionTop;
                         userItems.BackLogoPositionLeft = userItem.BackLogoPositionLeft;
-                        userItems.BackImageSource = userItem.BackImageSource;                       
+                        userItems.BackImageSource = userItem.BackImageSource;
+                        userItem.IsDeleted = false;
                         dbcontext.tblUserItems.Add(userItems);
                         dbcontext.SaveChanges();
                         response.Id = userItems.Id;
@@ -547,7 +555,8 @@ namespace KEN.Controllers
                         userItems.FrontLogoPositionTop = userItem.FrontLogoPositionTop;
                         userItems.FrontLogoPositionLeft = userItem.FrontLogoPositionLeft;
                         userItems.FrontImageSource = userItem.FrontImageSource;
-                        userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;                                           
+                        userItems.UserLogoProcess_id = userItem.UserLogoProcess_id;
+                        userItem.IsDeleted = false;
                         dbcontext.tblUserItems.Add(userItems);
                         dbcontext.SaveChanges();
                         response.Id = userItems.Id;
@@ -593,6 +602,7 @@ namespace KEN.Controllers
                         userItem.FrontImageSource = ImagePath;
                         userItem.BackImageSource = backFrontImage.BackImage;
                     }
+                    userItem.IsDeleted = false;
                     dbcontext.tblUserItems.Add(userItem);
                     dbcontext.SaveChanges();
                     response.IsSuccess = true;
@@ -665,8 +675,10 @@ namespace KEN.Controllers
                 var ImagePath = "/Content/uploads/Items/" + items.BackImageSource;
                 var ImagePathFront = "/Content/uploads/Items/" + items.FrontImageSource;
                 var userItem = dbcontext.tblUserItems.Include(x=>x.tblOptionProperty).Where(x => x.Id == items.Id).FirstOrDefault();
+
                 if (items.isBack == false)
                 {
+
                     if (userItem.FrontLogoId != 0 && items.FrontLogoId != 0)
                     {
                         userItem.FrontLogoId = items.FrontLogoId;
@@ -690,7 +702,9 @@ namespace KEN.Controllers
                         userItem.FrontLogoheight = null;
                         userItem.FrontLogoWidth = null;
                     }
-                }
+
+                }             
+
                     if (items.logoProcess_Id == 0)
                     {
                         userItem.UserLogoProcess_id = userItem.UserLogoProcess_id;
@@ -700,28 +714,29 @@ namespace KEN.Controllers
                         userItem.UserLogoProcess_id = items.logoProcess_Id;
                     }
 
-                if (items.isBack == true)
+              if (items.isBack == true)
                 {
-                    if (items.BackLogoId != 0)
-                    {
-                        userItem.BackLogoId = items.BackLogoId;
-                        userItem.BackLogoheight = items.BackLogoheight;
-                        userItem.BackLogoWidth = items.BackLogoWidth;
-                        userItem.BackLogoPositionTop = items.BackLogoPositionTop;
-                        userItem.BackLogoPositionLeft = items.BackLogoPositionLeft;
-                        userItem.BackImageSource = ImagePath;
-                    }
-                     else 
-                     {
-                         userItem.BackImageSource = userItem.tblOptionProperty.BackImage;
-                         userItem.BackLogoId = null;
-                         userItem.BackLogoPositionLeft = null;
-                         userItem.BackLogoPositionTop = null;
-                         userItem.BackLogoheight = null;
-                         userItem.BackLogoWidth = null;
-                     }
+                                    
+                        if (items.BackLogoId != 0)
+                        {
+                            userItem.BackLogoId = items.BackLogoId;
+                            userItem.BackLogoheight = items.BackLogoheight;
+                            userItem.BackLogoWidth = items.BackLogoWidth;
+                            userItem.BackLogoPositionTop = items.BackLogoPositionTop;
+                            userItem.BackLogoPositionLeft = items.BackLogoPositionLeft;
+                            userItem.BackImageSource = ImagePath;
+                        }
+                        else
+                        {
+                            userItem.BackImageSource = userItem.tblOptionProperty.BackImage;
+                            userItem.BackLogoId = null;
+                            userItem.BackLogoPositionLeft = null;
+                            userItem.BackLogoPositionTop = null;
+                            userItem.BackLogoheight = null;
+                            userItem.BackLogoWidth = null;
+                        }
+                                                                                 
                 }
-               
                 dbcontext.Entry(userItem).State = EntityState.Modified;
                 dbcontext.SaveChanges();
                 response.IsSuccess = true;
@@ -783,6 +798,7 @@ namespace KEN.Controllers
                         userItem.BackLogoPositionLeft = backimage.BackLogoPositionLeft;
                         userItem.BackImageSource = backimage.BackImageSource;
                     }
+                    userItem.IsDeleted = false;
                     dbcontext.tblUserItems.Add(userItem);
                     dbcontext.SaveChanges();
                     response.Id = userItem.Id;
@@ -817,14 +833,15 @@ namespace KEN.Controllers
         {
             var UserId = DataBaseCon.ActiveClientId();
             var cartPrice = dbcontext.tblUserItems.Include(x=>x.tblOptionProperty).Include(x => x.tblUserLogoProcess).Where(x => x.Id == items.UserItemId).FirstOrDefault();
-            var price = dbcontext.tblPriceLists.Where(_ => _.Process_Id == cartPrice.tblUserLogoProcess.Process_Id && _.Size_Id == cartPrice.tblUserLogoProcess.Stitches_Id && _.Colour_Id == cartPrice.tblUserLogoProcess.Colour_Id && _.MinQty <= items.Quantity && _.MaxQty >=items.Quantity).FirstOrDefault();
+            var price = dbcontext.tblPriceLists.Where(_ => _.Process_Id == cartPrice.tblUserLogoProcess.Process_Id && _.Size_Id == cartPrice.tblUserLogoProcess.Stitches_Id && _.Colour_Id == cartPrice.tblUserLogoProcess.Colour_Id && _.MinQty <= items.Quantity && ((_.MaxQty.HasValue && _.MaxQty >= items.Quantity) || !_.MaxQty.HasValue)).FirstOrDefault();
+
             if (price != null)
             {
                 var uniPrice = Convert.ToDecimal(cartPrice.tblOptionProperty.CostPrice);
                 var pricetshirt = uniPrice + price.Price;
                 var totalPrice = pricetshirt * items.Quantity;
                 var status = dbcontext.tblStatus.Where(x => x.Name == "Draft").FirstOrDefault();
-                var checkQuotes = dbcontext.tblDraftQuotes.Where(x => x.UserId == UserId && x.Status == status.Id).FirstOrDefault();
+                var checkQuotes = dbcontext.tblDraftQuotes.Where(x => x.UserId == UserId && x.Status == status.Id ).FirstOrDefault();
                 if (checkQuotes == null)
                 {
                     var order = dbcontext.tblDraftQuotes.Add(new tblDraftQuote
@@ -851,7 +868,8 @@ namespace KEN.Controllers
                     quotes.Print_Price = price.Price;
                     quotes.Tshirt_Price = Convert.ToInt32(cartPrice.tblOptionProperty.CostPrice);
                     quotes.Unit_Price = pricetshirt;
-                    quotes.Totalprice = totalPrice;                   
+                    quotes.Totalprice = totalPrice;
+                    quotes.IsDeleted = false;
 
                     dbcontext.tblDraftQuoteItems.Add(quotes);
                     dbcontext.SaveChanges();
@@ -883,6 +901,7 @@ namespace KEN.Controllers
                     quotes.Tshirt_Price = Convert.ToInt32(cartPrice.tblOptionProperty.CostPrice);
                     quotes.Unit_Price = pricetshirt;
                     quotes.Totalprice = totalPrice;
+                    quotes.IsDeleted = false;
 
                     dbcontext.tblDraftQuoteItems.Add(quotes);
                     dbcontext.SaveChanges();
@@ -936,15 +955,31 @@ namespace KEN.Controllers
             return View(cartList);            
         }
 
+        public ActionResult Quotes()
+        {
+            var UserId = DataBaseCon.ActiveClientId();
+            var status = dbcontext.tblStatus.ToList();
+            var checkQuotes = dbcontext.tblDraftQuotes.Where(x => x.UserId == UserId && x.isdeleted == false).ToList().OrderByDescending(x => x.Id);
+            var cartList = Mapper.Map<List<QuotesViewModel>>(checkQuotes);
+            foreach (var items in cartList)
+            {
+                var quotes = dbcontext.tblDraftQuoteItems.Where(x => x.Quotes_Id == items.Id && x.IsDeleted == false).ToList();
+                items.TotalItems = quotes.Count;
+                var statu = dbcontext.tblStatus.Where(x => x.Id == items.Status).FirstOrDefault();
+                items.StatusName = statu.Name;
+            }
+            return Json(cartList, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult QuoteList(int id)
         {
             var userId = DataBaseCon.ActiveClientId();
-            var quotes = dbcontext.tblDraftQuoteItems.Include(x => x.tblUserItem).Include(x => x.tblUserItem.tblUserLogoProcess).Where(x => x.UserId == userId && x.Quotes_Id == id).ToList();
+            var quotes = dbcontext.tblDraftQuoteItems.Include(x => x.tblUserItem).Include(x=>x.tblDraftQuote.tblStatu).Include(x => x.tblUserItem.tblUserLogoProcess).Where(x => x.UserId == userId && x.Quotes_Id == id && x.IsDeleted == false).ToList();
             var cartList = Mapper.Map<List<UserItemsViewModel>>(quotes);
             foreach (var items in cartList)
             {
                 var proces = dbcontext.tblApplicationProcesses.FirstOrDefault(x => x.Id == items.Process_Id);
-                items.ProcessValue = proces.Name;
+                items.ProcessValue = proces.Name;            
             }
             foreach (var items in cartList)
             {
@@ -960,11 +995,52 @@ namespace KEN.Controllers
             return Json(cartList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult RemoveQuoteItem(int id)
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            var quotes = dbcontext.tblDraftQuoteItems.Where(x => x.UserId == userId && x.Id == id).FirstOrDefault();
+            var checkQuotes = dbcontext.tblDraftQuotes.Where(x => x.UserId == userId && x.Id == quotes.Quotes_Id).FirstOrDefault();
+            var quoteCount = dbcontext.tblDraftQuoteItems.Where(x => x.UserId == userId && x.Quotes_Id == checkQuotes.Id && x.IsDeleted == false).Count();
+            var price = checkQuotes.TotalPrice - quotes.Totalprice;
+            if (quoteCount == 1)
+            {
+                checkQuotes.TotalPrice = price;
+                checkQuotes.isdeleted = true;
+                checkQuotes.Status = 6;
+                dbcontext.Entry(checkQuotes).State = EntityState.Modified;
+                dbcontext.SaveChanges();
+            }
+            else
+            {
+                checkQuotes.TotalPrice = price;
+                dbcontext.Entry(checkQuotes).State = EntityState.Modified;
+                dbcontext.SaveChanges();
+            }
+                quotes.IsDeleted = true;
+                dbcontext.Entry(quotes).State = EntityState.Modified;
+                dbcontext.SaveChanges();
+                response.IsSuccess = true;
+                response.Message = "Quote item remove.";
+                return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RemoveQuote(int id)
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            var checkQuotes = dbcontext.tblDraftQuotes.Where(x => x.UserId == userId && x.Id == id).FirstOrDefault();
+            checkQuotes.isdeleted = true;
+            checkQuotes.Status = 6;
+            dbcontext.Entry(checkQuotes).State = EntityState.Modified;
+            dbcontext.SaveChanges();
+            response.IsSuccess = true;
+            response.Message = "Quote remove.";
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult UpdateQuotes(int id)
         {                      
             var userId = DataBaseCon.ActiveClientId();
             var status = dbcontext.tblStatus.Where(x => x.Name == "Pending").FirstOrDefault();
-            var quotesItem = dbcontext.tblDraftQuoteItems.Where(x => x.Quotes_Id == id).ToList();
+            var quotesItem = dbcontext.tblDraftQuoteItems.Where(x => x.Quotes_Id == id && x.IsDeleted == false).ToList();
             var checkQuotes = dbcontext.tblDraftQuotes.Where(x => x.UserId == userId && x.Id == id).FirstOrDefault();
             var price = quotesItem.Select(x => x.Totalprice).ToList().Sum();
             checkQuotes.Status = status.Id;
@@ -985,6 +1061,71 @@ namespace KEN.Controllers
             return Json(Mapper.Map<List<UserItemsViewModel>>(myItems), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult MyItemsFilters(string status)
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            if (status == "InActive")
+            {               
+                var myItems = dbcontext.tblUserItems.Where(x => x.UserId == userId && x.IsDeleted == true).ToList().OrderByDescending(x => x.Id);
+                return Json(Mapper.Map<List<UserItemsViewModel>>(myItems), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var myItems = dbcontext.tblUserItems.Where(x => x.UserId == userId && x.IsDeleted == false).ToList().OrderByDescending(x => x.Id);
+                return Json(Mapper.Map<List<UserItemsViewModel>>(myItems), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult DeleteUniFormItem(int id)
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            var myItems = dbcontext.tblUserItems.Where(x => x.UserId == userId && x.Id == id).FirstOrDefault();
+            myItems.IsDeleted = true;
+            dbcontext.Entry(myItems).State = EntityState.Modified;
+            dbcontext.SaveChanges();
+            response.IsSuccess = true;
+            response.Message = "Remove range item";
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ActiveUniFormItem(int id)
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            var myItems = dbcontext.tblUserItems.Where(x => x.UserId == userId && x.Id == id).FirstOrDefault();
+            myItems.IsDeleted = false;
+            dbcontext.Entry(myItems).State = EntityState.Modified;
+            dbcontext.SaveChanges();
+            response.IsSuccess = true;
+            response.Message = "Active range item";
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CopyUniformItem(int id)
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            var userItem = dbcontext.tblUserItems.Where(x => x.UserId == userId && x.Id == id).FirstOrDefault();
+            tblUserItem user = new tblUserItem();
+            user.ImageId = userItem.ImageId;
+            user.UserId = userId;
+            user.FrontLogoId = userItem.FrontLogoId;
+            user.FrontLogoheight = userItem.FrontLogoheight;
+            user.FrontLogoWidth = userItem.FrontLogoWidth;
+            user.FrontImageSource = userItem.FrontImageSource;
+            user.FrontLogoPositionTop = userItem.FrontLogoPositionTop;
+            user.FrontLogoPositionLeft = userItem.FrontLogoPositionLeft;
+            user.BackLogoId = userItem.BackLogoId;
+            user.BackLogoheight = userItem.BackLogoheight;
+            user.BackLogoWidth = userItem.BackLogoWidth;
+            user.BackImageSource = userItem.BackImageSource;
+            user.BackLogoPositionTop = userItem.BackLogoPositionTop;
+            user.BackLogoPositionLeft = userItem.BackLogoPositionLeft;
+            user.UserLogoProcess_id = userItem.UserLogoProcess_id;
+            user.IsDeleted = false;
+            dbcontext.tblUserItems.Add(user);
+            dbcontext.SaveChanges();
+            response.IsSuccess = true;
+            response.Message = "Successfully copy unifrom range item";
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetSelectedItem(int id)
         {
             var item = dbcontext.tblUserItems.Include(x => x.tblOptionProperty).Where(x => x.Id == id).FirstOrDefault();
@@ -999,7 +1140,7 @@ namespace KEN.Controllers
         public ActionResult AddToCart(int id)
         {
 
-            var orderList = dbcontext.tblDraftQuoteItems.Include(x=>x.tblUserItem).Include(x=>x.tblUserItem.tblUserLogoProcess).Where(x => x.Quotes_Id == id).ToList();
+            var orderList = dbcontext.tblDraftQuoteItems.Include(x=>x.tblUserItem).Include(x=>x.tblUserItem.tblUserLogoProcess).Where(x => x.Quotes_Id == id && x.IsDeleted == false).ToList();
             
             var quote = dbcontext.tblDraftQuotes.Where(x => x.Id == id).FirstOrDefault();
             var userId = DataBaseCon.ActiveClientId();
@@ -1147,7 +1288,7 @@ namespace KEN.Controllers
         }
 
         public ActionResult MyCart()
-        {
+        {           
             var userId = DataBaseCon.ActiveClientId();
             var checkOrder = dbcontext.tblDraftOrders.Where(x => x.UserId == userId && x.IsDeleted == false).FirstOrDefault();
             if (checkOrder != null)
@@ -1159,8 +1300,9 @@ namespace KEN.Controllers
                     var materProcessList = dbcontext.tblApplicationProcesses.ToList();
                     foreach (var items in cartList)
                     {
-                        var userItem = dbcontext.tblDraftQuoteItems.Include(x => x.tblUserItem).Where(x => x.Id == items.QuotesItem_Id).FirstOrDefault();
+                        var userItem = dbcontext.tblDraftQuoteItems.Include(x => x.tblUserItem).Where(x => x.Id == items.QuotesItem_Id).FirstOrDefault();                        
                         items.FrontImage = userItem.tblUserItem?.FrontImageSource?? string.Empty;
+                        items.UserItemId = userItem.tblUserItem.Id;
                     }
 
                     foreach (var item in cartList)
@@ -1312,8 +1454,9 @@ namespace KEN.Controllers
         
              public ActionResult PriceList(int process, int color, int size, int quantity)
         {
-                       
-           var price = dbcontext.tblPriceLists.Include(x=>x.tblApplicationProcess).Include(x=>x.tblPrintColor).Include(x=>x.tblSizeMaster).Where(_=>_.Process_Id == process && _.Size_Id==size && _.Colour_Id==color && _.MinQty<=quantity && _.MaxQty>=quantity).FirstOrDefault();
+            var priceGrid = dbcontext.tblPriceLists.Where(_ => _.Process_Id == process && _.Size_Id == size && _.Colour_Id == color && _.MinQty >= quantity && ((_.MaxQty.HasValue && _.MaxQty >= quantity) || !_.MaxQty.HasValue)).Take(4);
+
+            var price = dbcontext.tblPriceLists.Include(x=>x.tblApplicationProcess).Include(x=>x.tblPrintColor).Include(x=>x.tblSizeMaster).Where(_=>_.Process_Id == process && _.Size_Id==size && _.Colour_Id==color && _.MinQty<=quantity && _.MaxQty>=quantity).FirstOrDefault();
             if (price != null)
             {
                 price.tblApplicationProcess = null;
@@ -1335,7 +1478,8 @@ namespace KEN.Controllers
             if(cartPriceId > 0)
             {
                 var cartPrice = dbcontext.tblUserLogoProcesses.Where(x => x.Id == cartPriceId).FirstOrDefault();
-                var price = dbcontext.tblPriceLists.Where(_ => _.Process_Id == cartPrice.Process_Id && _.Size_Id == cartPrice.Stitches_Id && _.Colour_Id == cartPrice.Colour_Id && _.MinQty <= quantity && _.MaxQty >= quantity).FirstOrDefault();
+               var  price = dbcontext.tblPriceLists.Where(_ => _.Process_Id == cartPrice.Process_Id && _.Size_Id == cartPrice.Stitches_Id && _.Colour_Id == cartPrice.Colour_Id && _.MinQty <= quantity && ((_.MaxQty.HasValue && _.MaxQty >= quantity) || !_.MaxQty.HasValue)).FirstOrDefault();
+     
                 if (price != null)
                 {
                     response.IsSuccess = true;
@@ -1352,7 +1496,7 @@ namespace KEN.Controllers
             else
             {
                 var cartPrice = dbcontext.tblUserItems.Include(x=>x.tblUserLogoProcess).Where(x => x.Id == itemProcess).FirstOrDefault();
-                var price = dbcontext.tblPriceLists.Where(_ => _.Process_Id == cartPrice.tblUserLogoProcess.Process_Id && _.Size_Id == cartPrice.tblUserLogoProcess.Stitches_Id && _.Colour_Id == cartPrice.tblUserLogoProcess.Colour_Id && _.MinQty <= quantity && _.MaxQty >= quantity).FirstOrDefault();
+                var price = dbcontext.tblPriceLists.Where(_ => _.Process_Id == cartPrice.tblUserLogoProcess.Process_Id && _.Size_Id == cartPrice.tblUserLogoProcess.Stitches_Id && _.Colour_Id == cartPrice.tblUserLogoProcess.Colour_Id && _.MinQty <= quantity && ((_.MaxQty.HasValue && _.MaxQty >= quantity) || !_.MaxQty.HasValue)).FirstOrDefault();
                 if (price != null)
                 {
                     response.IsSuccess = true;
@@ -1405,6 +1549,71 @@ namespace KEN.Controllers
             return Json(Mapper.Map<List<SizeViewModel>>(size), JsonRequestBehavior.AllowGet);
         }
 
-    }
+        public ActionResult Notification()
+        {
+            var userId = DataBaseCon.ActiveClientId();
+            var notification = dbcontext.tblNotifications.Where(x => x.User_Id == userId).ToList().OrderByDescending(x=>x.Id);
+            return Json(notification,JsonRequestBehavior.AllowGet);
+        }
 
+        public ActionResult NotificationStatus(int id)
+        {
+            var UserId = DataBaseCon.ActiveClientId();
+            var notification = dbcontext.tblNotifications.Where(x => x.User_Id == UserId && x.Id == id).FirstOrDefault();
+            notification.Status = true;
+            dbcontext.Entry(notification).State = EntityState.Modified;
+            dbcontext.SaveChanges();
+            response.IsSuccess = true;            
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReadAllNotification()
+        {
+            var UserId = DataBaseCon.ActiveClientId();
+            var notification = dbcontext.tblNotifications.Where(x => x.User_Id == UserId && x.Status == false).ToList();
+            foreach(var item in notification)
+            {
+                item.Status = true;
+                dbcontext.Entry(item).State = EntityState.Modified;
+            }
+            dbcontext.SaveChanges();
+            response.IsSuccess = true;
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ViewAllNotification()
+        {
+            return View();
+        }
+
+        public ActionResult ViewNotification()
+        {
+            var UserId = DataBaseCon.ActiveClientId();
+            var notification = dbcontext.tblNotifications.Where(x => x.User_Id == UserId).ToList().OrderByDescending(x=>x.Id);         
+            return Json(notification, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult NotificationFilter(string status)
+        {
+            if (status == "Read")
+            {
+                var UserId = DataBaseCon.ActiveClientId();
+                var notification = dbcontext.tblNotifications.Where(x => x.User_Id == UserId && x.Status == true).ToList().OrderByDescending(x => x.Id);
+                return Json(notification, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var UserId = DataBaseCon.ActiveClientId();
+                var notification = dbcontext.tblNotifications.Where(x => x.User_Id == UserId && x.Status == false).ToList().OrderByDescending(x => x.Id);
+                return Json(notification, JsonRequestBehavior.AllowGet);
+            }
+            return View();
+        }
+
+        public ActionResult PreviewImage(int id)
+        {
+            var quotesItem = dbcontext.tblDraftQuoteItems.Include(x => x.tblUserItem).Where(x => x.Id == id).FirstOrDefault();
+            return Json(Mapper.Map<UserItemsViewModel>(quotesItem), JsonRequestBehavior.AllowGet);
+        }
+    }
 }

@@ -1,0 +1,62 @@
+﻿#logoimg {
+    margin-left: -77px;
+    height: 451px;
+    width: 400px;
+    border: 1px solid;
+}
+
+.btn2 {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 10% !important;
+    width: 103px;
+    height: 34px;
+    font-size: 13px;
+    margin-left: -77px;
+    border-radius: 5px !important;
+}
+
+#closemodelbtn {
+    margin-left: -16px;
+}
+
+.page {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    padding: 0.1875rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+    color: var(--falcon-btn-falcon-default-color);
+    background-color: var(--falcon-btn-falcon-background);
+    border-color: var(--falcon-btn-falcon-background);
+    -webkit-box-shadow: var(--falcon-btn-falcon-box-shadow);
+    box-shadow: var(--falcon-btn-falcon-box-shadow);
+}
+
+    .page.active {
+        background-color: transparent;
+        color: #2c7be5 !important;
+    }
+
+button.tablinks {
+    border-width: 0px;
+    font-size: 14px !important;
+    color: #666666 !important;
+    background-color: white;
+    padding: 12px;
+}
+
+.tab button.tablinks.active {
+    font-family: 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px !important;
+    color: #FF0000 !important;
+}
+
+.tabheading {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    border-width: 0px;
+    background-color: white;
+}

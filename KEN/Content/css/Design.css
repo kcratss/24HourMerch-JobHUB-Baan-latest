@@ -12,6 +12,13 @@
     height: 300px;
 }
 
+.total {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 24px;
+    margin-left: 155px;
+}
+
 #container h3 {
         text-align: center;
         margin: 0;
@@ -252,6 +259,7 @@ label{
     background-color: white;
     height: inherit;
 }
+
 
 .dropdowns {
     padding-bottom: 5px;
@@ -604,7 +612,7 @@ body{
     margin-left: 4px;
 }
 
-.nav-pills .nav-link {
+/*.nav-pills .nav-link {
     background-color: #e6e6e6;
     border: 1px solid #b6b2b2;
     width: 133px;
@@ -616,15 +624,15 @@ body{
 }
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
         color: grey;
-        background-color: #fff;
+        background-color: #fff;*/
         /*box-shadow: 0 1rem 2rem hsl(0deg 1% 2% / 20%);*/
-        border-radius: 5px;
+        /*border-radius: 5px;*/
         /*box-shadow: 0 -5px 3px -3px #43d3f7, 0 5px 3px -3px #43d3f7;*/
         /*box-shadow: 0 0 5px 5px #43d3f7;*/
         /*box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);*/
         /* box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);*/
-        box-shadow: 10px 5px 5px grey;
-    }
+        /*box-shadow: 10px 5px 5px grey;
+    }*/
 
 .logocontent {
     width: 1217px;
@@ -726,3 +734,37 @@ body{
 h4{
     color:gray;
 }
+
+button.tablinks {
+    border-width: 0px;
+    font-size: 14px !important;
+    color: #666666 !important;
+    background-color: white;
+    padding: 12px;
+}
+
+.tab button.tablinks.active {
+    font-family: 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px !important;
+    color: #FF0000 !important;
+}
+
+.tabheading {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    border-width: 0px;
+    background-color: white;
+}
+
+.modal-title {
+    padding-top: 0px;
+    font-size: 19px;
+}
+
+p {
+    padding: 0px;
+}
+
+

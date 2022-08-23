@@ -38,11 +38,12 @@ namespace KEN_DataAccess
         public Nullable<int> Tshirt_Price { get; set; }
         public Nullable<decimal> Unit_Price { get; set; }
         public Nullable<int> UserItemId { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
-        public virtual tblDraftQuote tblDraftQuote { get; set; }
-        public virtual tbluser tbluser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDraftOrderItem> tblDraftOrderItems { get; set; }
+        public virtual tblDraftQuote tblDraftQuote { get; set; }
+        public virtual tbluser tbluser { get; set; }
         public virtual tblUserItem tblUserItem { get; set; }
     }
 }
